@@ -1,8 +1,8 @@
-import router from '../router/router.js'
+import { router } from '../router/routes.js';
 
 const BASE_URL = process.env.NODE_ENV === 'production' ?
     '/api/' :
-    '//localhost:3030/api/'
+    '//localhost:3000/';
 
 
 import Axios from 'axios';
@@ -12,16 +12,16 @@ var axios = Axios.create({
 
 export default {
     get(endpoint, data) {
-        return ajax(endpoint, 'GET', data)
+        return ajax(endpoint, 'GET', data);
     },
     post(endpoint, data) {
-        return ajax(endpoint, 'POST', data)
+        return ajax(endpoint, 'POST', data);
     },
     put(endpoint, data) {
-        return ajax(endpoint, 'PUT', data)
+        return ajax(endpoint, 'PUT', data);
     },
     delete(endpoint, data) {
-        return ajax(endpoint, 'DELETE', data)
+        return ajax(endpoint, 'DELETE', data);
     }
 }
 
