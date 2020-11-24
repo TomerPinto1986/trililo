@@ -1,7 +1,6 @@
 <template>
 	<section class="board-preview" :style="boardStyle" @click="goToBoard">
-		<h2>{{ boardDetails.name }}</h2>
-		<h2>{{ boardDetails }}</h2>
+		<h2>{{ boardDetails.title }}</h2>
 	</section>
 </template>
 
