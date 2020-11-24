@@ -1,6 +1,7 @@
 export default {
-    state: {},
+    state: {
+        boards: null,
+    },
     mutations: {},
     actions: {},
-
 }

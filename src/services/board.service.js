@@ -5,7 +5,7 @@ const BASE_URL = (process.env.NODE_ENV !== 'development') ? '/api/board' : '//lo
 
 const KEY = 'board';
 
-export const toyService = {
+export const boardService = {
     query,
     getById,
     remove,
