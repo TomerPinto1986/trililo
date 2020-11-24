@@ -1,7 +1,6 @@
 <template>
     <section class="board-list">
-        <board-preview v-for="board in boardsForDisplay" :key="board._id" />
-        {{boardsForDisplay}}
+        <board-preview v-for="board in boardsForDisplay" :key="board._id" :boardDetails="board" />
     </section>    
 </template>
 
