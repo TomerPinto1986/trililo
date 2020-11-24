@@ -1,10 +1,9 @@
 <template>
     <section class="board-details">
-        <h1>details</h1>
         <!-- <board-header :board="board"> -->
         <template v-if="board">
-            <div v-for="cardList in board.lists" :key="cardList.id">
-                <card-list :cardList="cardList" />
+            <div v-for="(cardsList) in board.lists" :key="cardsList.id">
+                <card-list :cardsList="cardsList" />
             </div>
         </template>
     </section>
