@@ -9,22 +9,9 @@
 @import 'basics/helpers';
 @import 'basics/base';
 @import 'basics/layout';
-@import 'basics/buttons';
 
 // VIEWS
-@import 'views/toy-app';
-@import 'views/toy-details-edit';
-@import 'views/about';
-@import 'views/reviews';
-@import 'views/login';
-@import 'views/user-profile';
 
 
 // COMPONENTS
-@import 'cmps/app-header';
-@import 'cmps/toy-preview';
-@import 'cmps/chat-app';
-@import 'cmps/color-picker';
-@import 'cmps/popup';
-@import 'cmps/toy-review';
-@import 'cmps/chat-room';
+@import 'cmps/board-preview';
