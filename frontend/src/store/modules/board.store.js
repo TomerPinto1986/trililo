@@ -4,7 +4,7 @@ export default {
     state: {
         boards: null,
         currBoard: null,
-        currCard: null
+        currCard: null,
     },
     getters: {
         boards(state) {

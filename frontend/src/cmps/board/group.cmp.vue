@@ -40,7 +40,7 @@ export default {
 		},
 		addCard() {
 			this.isAdding = true;
-			var emptyCard = this.$store.getters.emptyCard;
+			const emptyCard = this.$store.getters.emptyCard;
 			this.newCard = JSON.parse(JSON.stringify(emptyCard))
 		},
 		saveCard() {
