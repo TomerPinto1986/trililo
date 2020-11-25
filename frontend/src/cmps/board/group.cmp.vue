@@ -14,7 +14,7 @@
 			<input type="text" v-model="newCard.title" />
 			<button>Save</button>
 		</form>
-		<button v-if="!isAdding" @click="addCard()">+ Add another card</button>
+		<button v-if="!isAdding" @click="addCard">+ Add another card</button>
 		<card-details v-if="isDetails" @close="emitClose" />
 	</section>
 </template>
@@ -40,15 +40,20 @@ export default {
 		},
 		addCard() {
 			this.isAdding = true;
-			const emptyCard = this.$store.getters.emptyCard;
-			this.newCard = JSON.parse(JSON.stringify(emptyCard))
+			console.log('Adding')
+			// debugger;
+			this.$store.commit('getEmptyCard')
+			this.newCard = this.$store.getters.emptyCard;
+			console.log(this.newCard);
 		},
 		saveCard() {
-			this.$store.dispatch({ type: 'addCard', card: this.newCard, groupId: this.group.id})
+			if (this.newCard.title) {
+				console.log('Im here')
+				this.$store.dispatch({ type: 'addCard', card: this.newCard, groupId: this.group.id })
+				this.$emit('cardChange')
+			}
+			this.newCard = null
 			this.isAdding = false;
-			const emptyCard = this.$store.getters.emptyCard;
-			this.newCard = JSON.parse(JSON.stringify(emptyCard))
-			this.$emit('cardChange')
 		},
 		openDetails(cardId) {
 			const boardId = this.$route.params.boardId

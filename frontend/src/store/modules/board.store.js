@@ -4,7 +4,8 @@ export default {
     state: {
         boards: null,
         currBoard: null,
-        currCard: null
+        currCard: null,
+        emptyCard: null
     },
     getters: {
         boards(state) {
@@ -19,8 +20,8 @@ export default {
         activities(state) {
             return state.currCard.activities;
         },
-        emptyCard() {
-            return boardService.emptyCard();
+        emptyCard(state) {
+            return state.emptyCard;
         },
     },
     mutations: {
@@ -54,6 +55,11 @@ export default {
             const group = state.currBoard.groups.find(group => group.id === groupId)
             console.log(group)
             group.cards.push(card)
+        },
+        getEmptyCard(state) {
+            console.log('getting from store')
+            const card = JSON.parse(JSON.stringify(boardService.emptyCard()));
+            state.emptyCard = card
         }
     },
     actions: {
@@ -76,7 +82,6 @@ export default {
             dispatch({ type: 'updateBoard' })
         },
         addCard({ commit, dispatch }, { card, groupId }) {
-            console.log(commit)
             console.log(card)
             commit({ type: 'addCard', card, groupId })
             dispatch({ type: 'updateBoard' })

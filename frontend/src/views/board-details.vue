@@ -34,9 +34,9 @@ export default {
 			this.isDetails = false;
 		},
 		async updateBoard() {
-		const boardId = this.$route.params.boardId;
-		const board = await this.$store.dispatch({ type: 'getBoardById', boardId });
-		this.board = JSON.parse(JSON.stringify(board));
+			const boardId = this.$route.params.boardId;
+			const board = await this.$store.dispatch({ type: 'getBoardById', boardId });
+			this.board = JSON.parse(JSON.stringify(board));
 		}
 	},
 	watch: {

@@ -33,6 +33,7 @@ function save(board) {
 }
 
 function emptyCard() {
+    console.log('Service')
     return {
         "id": utilService.makeId(),
         "title": "",
