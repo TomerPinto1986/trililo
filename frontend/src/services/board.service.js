@@ -56,8 +56,7 @@ function emptyBoard() {
             "background": "#eee"
         },
         "members": [],
-        "groups": [
-            {
+        "groups": [{
                 "id": utilService.makeId() + '',
                 "title": "TODO",
                 "cards": [],
