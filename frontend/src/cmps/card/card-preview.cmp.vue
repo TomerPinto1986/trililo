@@ -1,7 +1,7 @@
 <template>
 	<section class="card-preview flex f-col f-center">
 		<div class="card-header" :style="headerStyle"></div>
-		<div class="card-info">
+		<div class="card-info flex f-center f-col">
 			<div class="card-title">
 				{{ card.title }}
 			</div>
