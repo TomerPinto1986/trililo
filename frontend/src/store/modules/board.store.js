@@ -5,7 +5,6 @@ export default {
         boards: null,
         currBoard: null,
         currCard: null,
-        emptyCard: null
     },
     getters: {
         boards(state) {
@@ -20,8 +19,8 @@ export default {
         activities(state) {
             return state.currCard.activities;
         },
-        emptyCard(state) {
-            return state.emptyCard;
+        emptyCard() {
+            return boardService.emptyCard();
         },
     },
     mutations: {
@@ -51,10 +50,17 @@ export default {
                 if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card)
             })
         },
+<<<<<<< HEAD
         getEmptyCard(state) {
             console.log('getting from store')
             const card = JSON.parse(JSON.stringify(boardService.emptyCard()));
             state.emptyCard = card
+=======
+        addCard(state, { card, groupId }) {
+            const group = state.currBoard.groups.find(group => group.id === groupId)
+            console.log(group)
+            group.cards.push(card)
+>>>>>>> d5db9fe961991fd0f76258dc957fdd2967100523
         }
     },
     actions: {
@@ -81,12 +87,20 @@ export default {
             boardService.save(state.currBoard)
             return state.currBoard
         },
+<<<<<<< HEAD
         deleteCard({ state }, { cardId }) {
             state.currBoard.groups.forEach(group => {
                 const cardIdx = group.cards.findIndex(card => card.id === cardId);
                 if (cardIdx !== -1) group.cards.splice(cardIdx, 1);
             });
             return boardService.save(state.currBoard)
+=======
+        addCard({ commit, dispatch }, { card, groupId }) {
+            console.log(commit)
+            console.log(card)
+            commit({ type: 'addCard', card, groupId })
+            dispatch({ type: 'updateBoard' })
+>>>>>>> d5db9fe961991fd0f76258dc957fdd2967100523
         }
     },
 }

@@ -17,6 +17,7 @@
           "_id": "u101",
           "username": "Abi Abambi",
           "imgUrl": "http://some-img"
+<<<<<<< HEAD
         },
         {
           "_id": "u102",
@@ -29,6 +30,20 @@
           "imgUrl": "https://www.google.com"
         },
         {
+=======
+        },
+        {
+          "_id": "u102",
+          "username": "Tal Tarablus",
+          "imgUrl": "https://www.google.com"
+        },
+        {
+          "_id": "u120",
+          "username": "Muki Dalumi",
+          "imgUrl": "https://www.google.com"
+        },
+        {
+>>>>>>> d5db9fe961991fd0f76258dc957fdd2967100523
           "_id": "u122",
           "username": "Dupi Lupi",
           "imgUrl": "https://www.google.com"
@@ -385,6 +400,7 @@
                     "username": "Tal Tarablus",
                     "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                   }
+<<<<<<< HEAD
                 }
               ],
               "createdAt": 1590999730348,
@@ -401,6 +417,24 @@
                 {
                   "url": "https://www.thesprucepets.com/thmb/sfuyyLvyUx636_Oq3Fw5_mt-PIc=/3760x2820/smart/filters:no_upscale()/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg"
                 }
+=======
+                }
+              ],
+              "createdAt": 1590999730348,
+              "dueDate": 16156215211,
+              "byMember": {
+                "_id": "u101",
+                "username": "Tal Tarablus",
+                "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+              },
+              "style": {
+                "headerColor": "#26de81"
+              },
+              "attachments": [
+                {
+                  "url": "https://www.thesprucepets.com/thmb/sfuyyLvyUx636_Oq3Fw5_mt-PIc=/3760x2820/smart/filters:no_upscale()/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg"
+                }
+>>>>>>> d5db9fe961991fd0f76258dc957fdd2967100523
               ]
             },
             {
@@ -473,6 +507,99 @@
                   "url": "https://imagesvc.meredithcorp.io/v3/mm/image?q=85&c=sc&poi=face&w=1600&h=1067&url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2019%2F08%2Fcorgi-dog-name-POPDOGS0819.jpg"
                 }
               ]
+<<<<<<< HEAD
+=======
+            },
+            {
+              "id": "NSgAtyg77h",
+              "title": "Check",
+              "description": "",
+              "createdAt": 1606310059681,
+              "byMember": "",
+              "style": {
+                "headerColor": "#ffffff"
+              }
+            },
+            {
+              "id": "u5CezMGwoX",
+              "title": "tomer",
+              "description": "trilili",
+              "createdAt": 1606311488546,
+              "byMember": "",
+              "style": {
+                "headerColor": "#ffffff"
+              }
+            },
+            {
+              "id": "u5CezMGwoX",
+              "title": "ssss",
+              "description": "",
+              "createdAt": 1606311488546,
+              "byMember": "",
+              "style": {
+                "headerColor": "#ffffff"
+              }
+            },
+            {
+              "id": "u5CezMGwoX",
+              "title": "ssss",
+              "description": "",
+              "createdAt": 1606311488546,
+              "byMember": "",
+              "style": {
+                "headerColor": "#ffffff"
+              }
+            },
+            {
+              "id": "u5CezMGwoX",
+              "title": "123",
+              "description": "",
+              "createdAt": 1606311488546,
+              "byMember": "",
+              "style": {
+                "headerColor": "#ffffff"
+              }
+            },
+            {
+              "id": "4iZSOuRlop",
+              "title": "",
+              "description": "",
+              "createdAt": 1606313691683,
+              "byMember": "",
+              "style": {
+                "headerColor": "#ffffff"
+              }
+            },
+            {
+              "id": "4iZSOuRlop",
+              "title": "ssss",
+              "description": "",
+              "createdAt": 1606313691683,
+              "byMember": "",
+              "style": {
+                "headerColor": "#ffffff"
+              }
+            },
+            {
+              "id": "mxDRUv3dsS",
+              "title": "",
+              "description": "",
+              "createdAt": 1606314624652,
+              "byMember": "",
+              "style": {
+                "headerColor": "#ffffff"
+              }
+            },
+            {
+              "id": "mxDRUv3dsS",
+              "title": "dfgdfg",
+              "description": "",
+              "createdAt": 1606314624652,
+              "byMember": "",
+              "style": {
+                "headerColor": "#ffffff"
+              }
+>>>>>>> d5db9fe961991fd0f76258dc957fdd2967100523
             }
           ],
           "style": {
