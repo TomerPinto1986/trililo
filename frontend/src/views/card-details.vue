@@ -8,6 +8,7 @@
 			v-model="card.description"
 			placeholder="Add a more detailed description..."
 		/>
+		<card-activity />
 		<div class="btns flex">
 			<button class="save-btn" @click="saveCard">Save</button>
 			<button class="cancel-btn" @click="emitClose">Cancel</button>
@@ -16,6 +17,8 @@
 </template>
 
 <script>
+import cardActivity from '../cmps/card/card-activity.cmp';
+
 export default {
 	data() {
 		return {
@@ -34,10 +37,13 @@ export default {
 		}
 	},
 	created() {
-		const cardId = this.$route.params.cardId;
-		this.$store.commit({ type: 'setCurrCard', cardId });
-		this.card = JSON.parse(JSON.stringify(this.$store.getters.currCard));
+		const cardId = this.$route.params.cardId
+		this.$store.commit({ type: 'setCurrCard', cardId })
+		this.card = this.$store.getters.currCard;
+		console.log(this.card)
+	},
+	components: {
+		cardActivity
 	}
-
 }
 </script>

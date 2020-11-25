@@ -11,7 +11,10 @@ export default {
             return state.boards;
         },
         currCard(state) {
-            return state.currCard
+            return state.currCard;
+        },
+        activities(state) {
+            return state.currCard.activities;
         }
     },
     mutations: {
@@ -20,13 +23,12 @@ export default {
         },
         setCurrBoard(state, { board }) {
             state.currBoard = JSON.parse(JSON.stringify(board))
-            console.log(state.currBoard)
         },
         setCurrCard(state, { cardId }) {
             state.currBoard.groups.forEach(group => {
                 const card = group.cards.find(card => card.id === cardId);
                 if (card) {
-                    state.currCard = card;
+                    state.currCard = card
                 }
             })
         },
