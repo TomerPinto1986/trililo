@@ -15,7 +15,7 @@
             "username": "Tal Tarablus",
             "imgUrl": "https://www.google.com"
         }],
-        "lists": [{
+        "group": [{
             "id": "l102",
             "title": "TODOS",
             "cards": [{
