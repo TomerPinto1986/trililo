@@ -2,8 +2,8 @@
     <section class="board-details flex">
         <!-- <board-header :board="board"> -->
         <template v-if="board">
-            <div v-for="(cardsList) in board.lists" :key="cardsList.id">
-                <card-list :cardsList="cardsList" />
+            <div v-for="group in board.groups" :key="group.id">
+                <group :group="group" />
             </div>
         </template>
     </section>
@@ -11,7 +11,7 @@
 
 <script>
 import { boardService } from '../services/board.service.js';
-import cardList from '../cmps/card/card-list.cmp';
+import group from '../cmps/card/group.cmp';
 
 export default {
     data() {
@@ -20,7 +20,7 @@ export default {
         }
     },
     components: {
-        cardList
+        group
     },
     async created() {
         const boardId = this.$route.params.boardId;

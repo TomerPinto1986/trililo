@@ -4,7 +4,7 @@
             {{card.title}}
         </div>
         <div class="attachment" v-if="card.attachments">
-            <img :src="`${card.attachments[0].url}`" alt="">
+            <img :src="`${card.attachments[0].url}`" />
         </div>
 
     </section>
