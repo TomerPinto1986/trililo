@@ -1,11 +1,11 @@
 <template>
-	<section class="board-details flex">
+	<section class="board-details flex f-col">
 		<board-header :board="board"/>
-		<template v-if="board">
+		<div class="flex" v-if="board" >
 			<div v-for="group in board.groups" :key="group.id">
 				<group :group="group" :isDetails="isDetails" @close="closeDetails" />
 			</div>
-		</template>
+		</div>
 	</section>
 </template>
 
