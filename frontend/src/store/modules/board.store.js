@@ -10,12 +10,18 @@ export default {
         boards(state) {
             return state.boards;
         },
+        currBoard(state) {
+            return state.currBoard;
+        },
         currCard(state) {
             return state.currCard;
         },
         activities(state) {
             return state.currCard.activities;
-        }
+        },
+        emptyCard() {
+            return boardService.emptyCard();
+        },
     },
     mutations: {
         setBoards(state, boards) {
@@ -28,7 +34,7 @@ export default {
             state.currBoard.groups.forEach(group => {
                 const card = group.cards.find(card => card.id === cardId);
                 if (card) {
-                    state.currCard = card
+                    state.currCard = card;
                 }
             })
         },
@@ -43,7 +49,11 @@ export default {
                 console.log(group.cards)
                 if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card)
             })
-
+        },
+        addCard(state, { card, groupId }) {
+            const group = state.currBoard.groups.find(group => group.id === groupId)
+            console.log(group)
+            group.cards.push(card)
         }
     },
     actions: {
@@ -54,9 +64,21 @@ export default {
         async updateBoard({ state }) {
             await boardService.save(state.currBoard)
         },
+        async getBoardById({ commit, state }, { boardId }) {
+            const board = await boardService.getById(boardId)
+            commit({ type: 'setCurrBoard', board })
+            console.log(state.currBoard)
+            return state.currBoard;
+        },
         saveCard({ commit, dispatch }, { card }) {
             commit({ type: 'updateCurrCard', card });
             commit({ type: 'updateCurrBoard', card });
+            dispatch({ type: 'updateBoard' })
+        },
+        addCard({ commit, dispatch }, { card, groupId }) {
+            console.log(commit)
+            console.log(card)
+            commit({ type: 'addCard', card, groupId })
             dispatch({ type: 'updateBoard' })
         }
     },

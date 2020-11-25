@@ -10,7 +10,11 @@
 			:card="card"
 			@click.native="openDetails(card.id)"
 		/>
-		<button @click="addCard()">+ Add another card</button>
+		<form v-if="isAdding" @submit.prevent="saveCard">
+			<input type="text" v-model="newCard.title" />
+			<button>Save</button>
+		</form>
+		<button v-if="!isAdding" @click="addCard()">+ Add another card</button>
 		<card-details v-if="isDetails" @close="emitClose" />
 	</section>
 </template>
@@ -26,6 +30,8 @@ export default {
 	},
 	data() {
 		return {
+			isAdding: false,
+			newCard: null
 		}
 	},
 	methods: {
@@ -33,7 +39,16 @@ export default {
 			console.log('open small list edit', groupId);
 		},
 		addCard() {
-			console.log('Add new card:', this.group);
+			this.isAdding = true;
+			const emptyCard = this.$store.getters.emptyCard;
+			this.newCard = JSON.parse(JSON.stringify(emptyCard))
+		},
+		saveCard() {
+			this.$store.dispatch({ type: 'addCard', card: this.newCard, groupId: this.group.id})
+			this.isAdding = false;
+			const emptyCard = this.$store.getters.emptyCard;
+			this.newCard = JSON.parse(JSON.stringify(emptyCard))
+			this.$emit('cardChange')
 		},
 		openDetails(cardId) {
 			const boardId = this.$route.params.boardId
@@ -44,7 +59,8 @@ export default {
 			this.$router.push(`/board/${boardId}`)
 			this.$emit('close')
 		}
-
+	},
+	computed: {
 	},
 	components: {
 		cardPreview,
@@ -52,3 +68,4 @@ export default {
 	}
 };
 </script>
+

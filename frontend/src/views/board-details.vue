@@ -1,16 +1,20 @@
 <template>
-	<section class="board-details flex f-col">
-		<board-header :board="board"/>
-		<div class="flex" v-if="board" >
+	<section v-if="board" class="board-details flex f-col">
+		<board-header :board="board" />
+		<div class="flex" v-if="board">
 			<div v-for="group in board.groups" :key="group.id">
-				<group :group="group" :isDetails="isDetails" @close="closeDetails" />
+				<group
+					:group="group"
+					:isDetails="isDetails"
+					@close="closeDetails"
+					@cardChange="updateBoard"
+				/>
 			</div>
 		</div>
 	</section>
 </template>
 
 <script>
-import { boardService } from '../services/board.service.js';
 import group from '../cmps/board/group.cmp';
 import boardHeader from '../cmps/board/board-header.cmp';
 
@@ -22,12 +26,17 @@ export default {
 		}
 	},
 	components: {
-        group,
-        boardHeader
+		group,
+		boardHeader
 	},
 	methods: {
 		closeDetails() {
 			this.isDetails = false;
+		},
+		async updateBoard() {
+		const boardId = this.$route.params.boardId;
+		const board = await this.$store.dispatch({ type: 'getBoardById', boardId });
+		this.board = JSON.parse(JSON.stringify(board));
 		}
 	},
 	watch: {
@@ -36,15 +45,10 @@ export default {
 		}
 	},
 	async created() {
+		console.log('check')
 		if (this.$route.params.cardId) this.isDetails = true
-		const boardId = this.$route.params.boardId;
-		this.board = await boardService.getById(boardId);
-		this.$store.commit({ type: 'setCurrBoard', board: this.board })
+		this.updateBoard();
 	}
-
-
 }
 </script>
 
-<style>
-</style>
