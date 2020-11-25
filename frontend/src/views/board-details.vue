@@ -7,13 +7,31 @@
 					:group="group"
 					@close="closeDetails"
 					@newCard="saveNewCard"
+					@change="updateGroup"
+					@delete="deleteGroup"
 				/>
+			</div>
+			<div class="add-group group flex f-center" @click="addGroup">
+				<span v-if="!isAddingGroup">+ Add another list</span>
+				<form v-else @submit.prevent="saveGroup">
+					<input
+						type="text"
+						v-model="newGroupTitle"
+						placeholder="Enter list title"
+					/>
+					<div class="new-group-btns">
+						<button>Save</button>
+						<button type="button" @click.stop="closeAddGroup">
+							Cancel
+						</button>
+					</div>
+				</form>
 			</div>
 		</div>
 		<card-details
 			v-if="isDetails"
 			@close="closeDetails"
-			@saveCard="saveCard"
+			@saveCard="updateCard"
 			@deleteCard="deleteCard"
 		/>
 	</section>
@@ -29,49 +47,68 @@ export default {
 	data() {
 		return {
 			board: null,
-			isDetails: false
+			isDetails: false,
+			isAddingGroup: false,
+			newGroupTitle: ''
 		}
 	},
 	methods: {
 		closeDetails() {
 			this.isDetails = false;
+			this.$router.push(`/board/${this.board._id}`)
 		},
-<<<<<<< HEAD
 		setBoard(board) {
 			this.board = JSON.parse(JSON.stringify(board));
 		},
 		async saveNewCard(title, groupId) {
-			console.log('title, groupId:', title, groupId)
-			const newCard = this.getEmptyCard;
+			const newCard = this.setEmptyCard();
+			console.log(newCard)
 			newCard.title = title;
-			console.log('newCard:', newCard)
 			const board = await this.$store.dispatch({ type: 'addNewCard', newCard, groupId })
 			this.setBoard(board);
+		},
+		async updateCard(card) {
+			const board = await this.$store.dispatch({ type: 'updateCard', card })
+			this.setBoard(board);
+
 		},
 		async deleteCard(cardId) {
 			const board = await this.$store.dispatch({ type: 'deleteCard', cardId })
 			this.setBoard(board);
-
 		},
-		async saveCard(card) {
-			const board = await this.$store.dispatch({ type: 'saveCard', card })
+		async updateGroup(group) {
+			const board = await this.$store.dispatch({ type: 'updateGroup', group })
 			this.setBoard(board);
-
+		},
+		async deleteGroup(groupId) {
+			console.log(groupId)
+			const board = await this.$store.dispatch({ type: 'deleteGroup', groupId })
+			this.setBoard(board);
+		},
+		async saveGroup() {
+			const newGroup = this.setEmptyGroup();
+			newGroup.title = this.newGroupTitle;
+			const board = await this.$store.dispatch({ type: 'addNewGroup', newGroup })
+			this.setBoard(board);
+			this.closeAddGroup();
+		},
+		setEmptyCard() {
+			this.$store.commit('setEmptyCard');
+			return this.$store.getters.emptyCard;
+		},
+		setEmptyGroup() {
+			this.$store.commit('setEmptyGroup');
+			return this.$store.getters.emptyGroup;
+		},
+		addGroup() {
+			this.isAddingGroup = true;
+		},
+		closeAddGroup() {
+			this.isAddingGroup = false;
+			this.newGroupTitle = '';
 		}
 	},
 	computed: {
-		getEmptyCard() {
-			this.$store.commit('getEmptyCard')
-			const newCard = this.$store.getters.emptyCard
-			console.log('card:', newCard)
-			return newCard;
-=======
-		async updateBoard() {
-		const boardId = this.$route.params.boardId;
-		const board = await this.$store.dispatch({ type: 'getBoardById', boardId });
-		this.board = JSON.parse(JSON.stringify(board));
->>>>>>> d5db9fe961991fd0f76258dc957fdd2967100523
-		}
 	},
 	watch: {
 		'$route.params'() {

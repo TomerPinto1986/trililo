@@ -5,6 +5,8 @@ export default {
         boards: null,
         currBoard: null,
         currCard: null,
+        emptyCard: null,
+        emptyGroup: null
     },
     getters: {
         boards(state) {
@@ -19,8 +21,11 @@ export default {
         activities(state) {
             return state.currCard.activities;
         },
-        emptyCard() {
-            return boardService.emptyCard();
+        emptyCard(state) {
+            return state.emptyCard;
+        },
+        emptyGroup(state) {
+            return state.emptyGroup;
         },
     },
     mutations: {
@@ -50,17 +55,15 @@ export default {
                 if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card)
             })
         },
-<<<<<<< HEAD
-        getEmptyCard(state) {
-            console.log('getting from store')
+        setEmptyCard(state) {
             const card = JSON.parse(JSON.stringify(boardService.emptyCard()));
+            console.log('card:', card)
             state.emptyCard = card
-=======
-        addCard(state, { card, groupId }) {
-            const group = state.currBoard.groups.find(group => group.id === groupId)
-            console.log(group)
-            group.cards.push(card)
->>>>>>> d5db9fe961991fd0f76258dc957fdd2967100523
+        },
+        setEmptyGroup(state) {
+            const group = JSON.parse(JSON.stringify(boardService.emptyGroup()));
+            console.log('group:', group)
+            state.emptyGroup = group
         }
     },
     actions: {
@@ -84,23 +87,37 @@ export default {
             state.currBoard.groups.forEach(group => {
                 if (group.id === groupId) group.cards.push(newCard);
             });
-            boardService.save(state.currBoard)
-            return state.currBoard
+            return boardService.save(state.currBoard)
         },
-<<<<<<< HEAD
         deleteCard({ state }, { cardId }) {
             state.currBoard.groups.forEach(group => {
                 const cardIdx = group.cards.findIndex(card => card.id === cardId);
                 if (cardIdx !== -1) group.cards.splice(cardIdx, 1);
             });
             return boardService.save(state.currBoard)
-=======
-        addCard({ commit, dispatch }, { card, groupId }) {
-            console.log(commit)
-            console.log(card)
-            commit({ type: 'addCard', card, groupId })
-            dispatch({ type: 'updateBoard' })
->>>>>>> d5db9fe961991fd0f76258dc957fdd2967100523
+        },
+        updateCard({ state }, { card }) {
+            state.currBoard.groups.forEach(group => {
+                const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
+                if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
+            });
+            return boardService.save(state.currBoard)
+        },
+        addNewGroup({ state }, { newGroup }) {
+            state.currBoard.groups.push(newGroup)
+            return boardService.save(state.currBoard)
+        },
+        deleteGroup({ state }, { groupId }) {
+            const groupIdx = state.currBoard.groups.findIndex(group => group.id === groupId)
+            state.currBoard.groups.splice(groupIdx, 1)
+            return boardService.save(state.currBoard)
+        },
+        updateGroup({ state }, { group }) {
+            console.log(group)
+            const groupIdx = state.currBoard.groups.findIndex(currGroup => currGroup.id === group.id)
+            state.currBoard.groups.splice(groupIdx, 1, group)
+            boardService.save(state.currBoard)
+            return boardService.save(state.currBoard)
         }
-    },
+    }
 }
