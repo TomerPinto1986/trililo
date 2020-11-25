@@ -29,12 +29,14 @@ export default {
 	methods: {
 		emitClose() {
 			this.$emit('close');
-			this.card = null;
 		},
 		saveCard() {
 			this.$store.dispatch({ type: 'saveCard', card: this.card })
 			this.emitClose();
 		}
+	},
+	components: {
+		cardActivity
 	},
 	created() {
 		const cardId = this.$route.params.cardId
@@ -42,8 +44,9 @@ export default {
 		this.card = this.$store.getters.currCard;
 		console.log(this.card)
 	},
-	components: {
-		cardActivity
+	destroyed() {
+		this.$store.commit({ type: 'updateCurrCard', card: null })
+		this.card = null;
 	}
 }
 </script>

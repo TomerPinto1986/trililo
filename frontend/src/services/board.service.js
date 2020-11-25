@@ -1,4 +1,5 @@
 import httpService from './http.service';
+import { utilService } from './util.service'
 
 
 
@@ -8,6 +9,7 @@ export const boardService = {
     getById,
     remove,
     save,
+    emptyCard
 };
 
 function query() {
@@ -27,5 +29,18 @@ function save(board) {
         return httpService.put(`boards/${board._id}`, board);
     } else {
         return httpService.post(`boards`, board);
+    }
+}
+
+function emptyCard() {
+    return {
+        "id": utilService.makeId(),
+        "title": "",
+        "description": "",
+        "createdAt": Date.now(),
+        "byMember": "",
+        "style": {
+            "headerColor": "#ffffff"
+        }
     }
 }
