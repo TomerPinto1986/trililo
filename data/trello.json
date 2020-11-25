@@ -76,6 +76,16 @@
                                         "username": "Tal Tarablus",
                                         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                                     }
+                                },
+                                {
+                                    "id": "BM4HFFF",
+                                    "txt": "move card",
+                                    "createdAt": 1590999817436.0,
+                                    "byMember": {
+                                        "_id": "u101",
+                                        "username": "Tal Tarablus",
+                                        "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                    }
                                 }
                             ],
                             "createdAt": 1590999730348,
@@ -367,6 +377,16 @@
                                     "byMember": {
                                         "_id": "u101",
                                         "username": "Tal Tarablus",
+                                        "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                    }
+                                },
+                                {
+                                    "id": "BM4HF111",
+                                    "txt": "edited card description",
+                                    "createdAt": 1590999817436.0,
+                                    "byMember": {
+                                        "_id": "u101",
+                                        "username": "Bal Darablus",
                                         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                                     }
                                 }
