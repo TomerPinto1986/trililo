@@ -38,8 +38,9 @@ export default {
 	},
 	created() {
 		const cardId = this.$route.params.cardId
-		this.$store.commit({ type: 'updateCurrCard', cardId })
+		this.$store.commit({ type: 'setCurrCard', cardId })
 		this.card = this.$store.getters.currCard;
+		console.log(this.card)
 	},
 	components: {
 		cardActivity
