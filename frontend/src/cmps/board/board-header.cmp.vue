@@ -5,6 +5,7 @@
         <div class="board-members" v-for="member in boardMembers" :key="member.id">
             <avatar :username="member.username">ss</avatar>
         </div>
+        <button class="addMember" @click="addMember">Invite</button>
     </section>
 </template>
 
