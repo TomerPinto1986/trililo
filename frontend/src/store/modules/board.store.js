@@ -10,8 +10,7 @@ export default {
         boards(state) {
             return state.boards;
         },
-        currBoard(state){
-            console.log(state.currBoard)
+        currBoard(state) {
             return state.currBoard;
         },
         currCard(state) {
@@ -65,10 +64,11 @@ export default {
         async updateBoard({ state }) {
             await boardService.save(state.currBoard)
         },
-        async getBoardById({ commit }, { boardId }) {
+        async getBoardById({ commit, state }, { boardId }) {
             const board = await boardService.getById(boardId)
             commit({ type: 'setCurrBoard', board })
-            return board;
+            console.log(state.currBoard)
+            return state.currBoard;
         },
         saveCard({ commit, dispatch }, { card }) {
             commit({ type: 'updateCurrCard', card });

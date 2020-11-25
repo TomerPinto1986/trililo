@@ -33,10 +33,10 @@ export default {
 		closeDetails() {
 			this.isDetails = false;
 		},
-		updateBoard() {
-			const boardId = this.$route.params.boardId;
-			this.$store.dispatch({ type: 'getBoardById', boardId });
-			this.board = JSON.parse(JSON.stringify(this.$store.getters.currBoard));
+		async updateBoard() {
+		const boardId = this.$route.params.boardId;
+		const board = await this.$store.dispatch({ type: 'getBoardById', boardId });
+		this.board = JSON.parse(JSON.stringify(board));
 		}
 	},
 	watch: {
@@ -44,17 +44,11 @@ export default {
 			if (this.$route.params.cardId) this.isDetails = true
 		}
 	},
-	created() {
+	async created() {
+		console.log('check')
 		if (this.$route.params.cardId) this.isDetails = true
-		// this.updateBoard();
-		const boardId = this.$route.params.boardId;
-		this.$store.dispatch({ type: 'getBoardById', boardId });
-		this.board = this.$store.getters.currBoard;
+		this.updateBoard();
 	}
-
-
 }
 </script>
 
-<style>
-</style>
