@@ -24,7 +24,18 @@
 				<button>Save</button>
 			</form>
 		</div>
+		<card-preview
+			v-for="card in group.cards"
+			:key="card.id"
+			:card="card"
+			@click.native="openDetails(card.id)"
+		/>
+		<form v-if="isAdding" @submit.prevent="saveCard">
+			<input type="text" v-model="newCardTxt" />
+			<button>Save</button>
+		</form>
 		<button v-if="!isAdding" @click="addCard">+ Add another card</button>
+	
 	</section>
 </template>
 
