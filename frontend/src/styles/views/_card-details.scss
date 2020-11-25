@@ -1,9 +1,35 @@
-.card-details{
+.card-details {
     position: absolute;
-    width: 500px;
-    height:500px;
-    top: calc(50% - 250px);
-    right: calc(50% - 250px);
-    background-color: aqua;
-    
+    width: 800px;
+    height: 800px;
+    top: calc(50% - 400px);
+    right: calc(50% - 400px);
+    background-color: lightgray;
+    padding: 10px;
+
+    .btns {
+        position: absolute;
+        width: 100%;
+        bottom: 10px;
+        justify-content: space-evenly;
+
+        >* {
+            font-size: 1.3em;
+        }
+    }
+
+    input {
+        font-size: 1.5em;
+        padding: 5px 10px;
+        border: none;
+
+        &.title {
+            background-color: transparent;
+        }
+
+        &.desc {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+    }
 }
