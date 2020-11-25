@@ -37,7 +37,7 @@ export default {
 		if (this.$route.params.cardId) this.isDetails = true
 		const boardId = this.$route.params.boardId;
 		this.board = await boardService.getById(boardId);
-		this.$store.commit({ type: 'updateCurrBoard', board: this.board })
+		this.$store.commit({ type: 'setCurrBoard', board: this.board })
 	}
 
 
