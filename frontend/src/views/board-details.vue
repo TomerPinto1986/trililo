@@ -1,6 +1,6 @@
 <template>
 	<section v-if="board" class="board-details flex f-col">
-		<board-header :board="board" @setBoard="setBoard" />
+		<board-header :board="board" />
 		<div class="flex" v-if="board">
 			<div v-for="group in board.groups" :key="group.id">
 				<group
