@@ -1,4 +1,4 @@
-import { router } from '../router/routes.js';
+import router from '../router/routes.js';
 
 const BASE_URL = process.env.NODE_ENV === 'production' ?
     '/api/' :

@@ -25,20 +25,21 @@ function remove(boardId) {
 }
 
 function save(board) {
+    console.log(board)
     if (board._id) {
         return httpService.put(`boards/${board._id}`, board);
     } else {
+        board.createdAt = Date.now();
         return httpService.post(`boards`, board);
     }
 }
 
 function emptyCard() {
-    console.log('Service')
     return {
         "id": utilService.makeId(),
         "title": "",
         "description": "",
-        "createdAt": Date.now(),
+        "createdAt": "",
         "byMember": "",
         "style": {
             "headerColor": "#ffffff"

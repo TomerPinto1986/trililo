@@ -9,8 +9,11 @@
 			placeholder="Add a more detailed description..."
 		/>
 		<card-activity />
+		<div class="actions">
+			<button class="dlt-btn" @click="emitDelete">Delete Card</button>
+		</div>
 		<div class="btns flex">
-			<button class="save-btn" @click="saveCard">Save</button>
+			<button class="save-btn" @click="emitSave">Save</button>
 			<button class="cancel-btn" @click="emitClose">Cancel</button>
 		</div>
 	</section>
@@ -30,9 +33,13 @@ export default {
 		emitClose() {
 			this.$emit('close');
 		},
-		saveCard() {
-			this.$store.dispatch({ type: 'saveCard', card: this.card })
+		emitSave() {
 			this.emitClose();
+			this.$emit('saveCard', this.card)
+		},
+		emitDelete() {
+			this.emitClose();
+			this.$emit('deleteCard', this.card.id)
 		}
 	},
 	components: {
