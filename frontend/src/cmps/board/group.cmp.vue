@@ -11,21 +11,21 @@
 			@click.native="openDetails(card.id)"
 		/>
 		<button @click="addCard()">+ Add another card</button>
-		<card-details v-if="isDetailsShowing" @close="closeDetails" />
+		<card-details v-if="isDetails" @close="emitClose" />
 	</section>
 </template>
 
 <script>
-import cardPreview from './card-preview.cmp';
+import cardPreview from '../card/card-preview.cmp';
 import cardDetails from '@/views/card-details';
 
 export default {
 	props: {
-		group: Object
+		group: Object,
+		isDetails: Boolean
 	},
 	data() {
 		return {
-			isDetailsShowing: false
 		}
 	},
 	methods: {
@@ -38,12 +38,11 @@ export default {
 		openDetails(cardId) {
 			const boardId = this.$route.params.boardId
 			this.$router.push(`/board/${boardId}/card/${cardId}`)
-			this.isDetailsShowing = true;
 		},
-		closeDetails() {
+		emitClose() {
 			const boardId = this.$route.params.boardId
 			this.$router.push(`/board/${boardId}`)
-			this.isDetailsShowing = false;
+			this.$emit('close')
 		}
 
 	},

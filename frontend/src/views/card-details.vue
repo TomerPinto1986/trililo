@@ -19,12 +19,11 @@ export default {
 			this.card = null;
 		}
 	},
+	
 	created() {
-		const route = this.$route.path.split('/')
-		const cardId = route[route.length - 1]
+		const cardId = this.$route.params.cardId
 		this.$store.commit({type:'updateCurrCard', cardId})
-		this.card = this.$store.getters.currCard;
-		
+		this.card = this.$store.getters.currCard;	
 	}
 
 }
