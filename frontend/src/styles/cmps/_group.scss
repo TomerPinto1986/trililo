@@ -7,21 +7,22 @@
     position: relative;
     overflow-y: auto;
     max-height: 750px;
-    
-    .group-edit{
+
+    .group-edit {
         box-shadow: 0 0 2px 0 black;
         padding: 10px;
         position: absolute;
-        right:15px;
+        right: 15px;
         top: 50px;
         z-index: 1;
         background-color: rgb(241, 241, 241);
         width: 150px;
-        height:200px;
+        height: 200px;
         align-items: center;
     }
 
-    .group-info{
+    .group-info {
+        width: 100%;
         overflow-y: auto;
         margin-block-end: 10px;
     }
