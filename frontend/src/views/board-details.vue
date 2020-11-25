@@ -1,6 +1,6 @@
 <template>
 	<section v-if="board" class="board-details flex f-col">
-		<board-header :board="board" />
+		<board-header :board="board" @setBoard="setBoard" />
 		<div class="flex" v-if="board">
 			<div v-for="group in board.groups" :key="group.id">
 				<group
@@ -36,7 +36,6 @@ export default {
 		closeDetails() {
 			this.isDetails = false;
 		},
-<<<<<<< HEAD
 		setBoard(board) {
 			this.board = JSON.parse(JSON.stringify(board));
 		},
@@ -65,12 +64,6 @@ export default {
 			const newCard = this.$store.getters.emptyCard
 			console.log('card:', newCard)
 			return newCard;
-=======
-		async updateBoard() {
-		const boardId = this.$route.params.boardId;
-		const board = await this.$store.dispatch({ type: 'getBoardById', boardId });
-		this.board = JSON.parse(JSON.stringify(board));
->>>>>>> d5db9fe961991fd0f76258dc957fdd2967100523
 		}
 	},
 	watch: {

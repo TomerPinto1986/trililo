@@ -27,6 +27,13 @@ export default {
         setBoards(state, boards) {
             state.boards = boards;
         },
+        deleteBoard(state, boardId) {
+            const idx = state.boards.findIndex(board => board._id === boardId);
+            state.boards.splice(idx, 1);
+        },
+        addNewBoard(state, newBoard) {
+            state.boards.push(newBoard);
+        },
         setCurrBoard(state, { board }) {
             state.currBoard = JSON.parse(JSON.stringify(board))
         },
@@ -50,17 +57,10 @@ export default {
                 if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card)
             })
         },
-<<<<<<< HEAD
         getEmptyCard(state) {
             console.log('getting from store')
             const card = JSON.parse(JSON.stringify(boardService.emptyCard()));
             state.emptyCard = card
-=======
-        addCard(state, { card, groupId }) {
-            const group = state.currBoard.groups.find(group => group.id === groupId)
-            console.log(group)
-            group.cards.push(card)
->>>>>>> d5db9fe961991fd0f76258dc957fdd2967100523
         }
     },
     actions: {
@@ -68,18 +68,26 @@ export default {
             const boards = await boardService.query()
             commit('setBoards', boards)
         },
-        async updateBoard({ state }) {
-            await boardService.save(state.currBoard)
+        async updateBoard({ state }, { newBoardTitle = '' }) {
+            if (newBoardTitle) state.currBoard.title = newBoardTitle;
+            return boardService.save(state.currBoard);
         },
         async getBoardById({ commit, state }, { boardId }) {
             const board = await boardService.getById(boardId)
             commit({ type: 'setCurrBoard', board })
-            console.log(state.currBoard)
             return state.currBoard;
         },
-        // async deleteBoard({ commit }) {
-
-        // },
+        async deleteBoard({ commit }, boardId) {
+            await boardService.remove(boardId);
+            commit({ type: 'deleteBoard', boardId });
+        },
+        async createNewBoard({ commit }, newBoardTxt) {
+            const emptyBoard = boardService.emptyBoard();
+            emptyBoard.title = newBoardTxt;
+            const savedBoard = await boardService.save(emptyBoard);
+            commit('addNewBoard', savedBoard);
+            return savedBoard;
+        },
         addNewCard({ state }, { newCard, groupId }) {
             state.currBoard.groups.forEach(group => {
                 if (group.id === groupId) group.cards.push(newCard);
@@ -87,20 +95,12 @@ export default {
             boardService.save(state.currBoard)
             return state.currBoard
         },
-<<<<<<< HEAD
         deleteCard({ state }, { cardId }) {
             state.currBoard.groups.forEach(group => {
                 const cardIdx = group.cards.findIndex(card => card.id === cardId);
                 if (cardIdx !== -1) group.cards.splice(cardIdx, 1);
             });
             return boardService.save(state.currBoard)
-=======
-        addCard({ commit, dispatch }, { card, groupId }) {
-            console.log(commit)
-            console.log(card)
-            commit({ type: 'addCard', card, groupId })
-            dispatch({ type: 'updateBoard' })
->>>>>>> d5db9fe961991fd0f76258dc957fdd2967100523
         }
     },
 }

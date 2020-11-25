@@ -9,7 +9,8 @@ export const boardService = {
     getById,
     remove,
     save,
-    emptyCard
+    emptyCard,
+    emptyBoard
 };
 
 function query() {
@@ -25,7 +26,6 @@ function remove(boardId) {
 }
 
 function save(board) {
-    console.log(board)
     if (board._id) {
         return httpService.put(`boards/${board._id}`, board);
     } else {
@@ -44,5 +44,45 @@ function emptyCard() {
         "style": {
             "headerColor": "#ffffff"
         }
+    }
+}
+
+function emptyBoard() {
+    return {
+        "_id": '',
+        "title": "",
+        "byMember": {},
+        "isPrivate": true,
+        "style": {
+            "background": "#eee"
+        },
+        "members": [],
+        "groups": [
+            {
+                "id": utilService.makeId() + '',
+                "title": "TODO",
+                "cards": [],
+                "style": {
+                    "headerColor": ""
+                }
+            },
+            {
+                "id": utilService.makeId() + '',
+                "title": "IN PROGRESS",
+                "cards": [],
+                "style": {
+                    "headerColor": ""
+                }
+            },
+            {
+                "id": utilService.makeId() + '',
+                "title": "DONE",
+                "cards": [],
+                "style": {
+                    "headerColor": ""
+                }
+            }
+        ],
+        "activities": []
     }
 }
