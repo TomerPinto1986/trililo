@@ -1,6 +1,12 @@
 <template>
     <section class="card-preview">
-        {{card.title}}
+        <div class="card-title">
+            {{card.title}}
+        </div>
+        <div class="attachment" v-if="card.attachments">
+            <img :src="`${card.attachments[0].url}`" alt="">
+        </div>
+
     </section>
 </template>
 

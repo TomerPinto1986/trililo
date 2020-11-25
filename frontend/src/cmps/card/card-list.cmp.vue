@@ -1,6 +1,11 @@
 <template>
     <section class="card-list">
-        <card-preview v-for="card in cards" :key="card.id" :card="card" />
+        <div class="card-list-header">
+            {{cardsList.title}}
+            <button @click="toggleSmallEditCard(cardsList.id)">...</button>
+        </div>
+        <card-preview v-for="card in cardsList.cards" :key="card.id" :card="card" />
+        <button @click="addCard()">+ Add another card</button>
     </section>
 </template>
 
@@ -9,7 +14,15 @@ import cardPreview from './card-preview.cmp';
 
 export default {
     props: {
-        cardList: Array
+        cardsList: Object
+    },
+    methods: {
+        toggleSmallEditCard(cardsListId) {
+            console.log('open small list edit',cardsListId);
+        },
+        addCard(){
+            console.log(this.cardsList);
+        }
     },
     components: {
         cardPreview

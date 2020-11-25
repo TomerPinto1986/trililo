@@ -17,7 +17,7 @@ export default {
 	methods: {
 		goToBoard() {
 			this.$router.push(`/board/${this.boardDetails._id}`);
-		}
+		},
 	}
 
 }
