@@ -12,7 +12,7 @@
 				<button @click="emitDelete(group.id)">Delete Group</button>
 			</div>
 		</div>
-		<div class="group-info">
+		<div class="group-info flex f-center wrap">
 			<card-preview
 				v-for="card in group.cards"
 				:key="card.id"
