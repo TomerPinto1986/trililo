@@ -1,5 +1,5 @@
 <template>
-    <section class="board-details">
+    <section class="board-details flex">
         <!-- <board-header :board="board"> -->
         <template v-if="board">
             <div v-for="(cardsList) in board.lists" :key="cardsList.id">
@@ -25,6 +25,7 @@ export default {
     async created() {
         const boardId = this.$route.params.boardId;
         this.board = await boardService.getById(boardId);
+        this.$store.commit({type:'updateCurrBoard', board:this.board})
     }
 
 

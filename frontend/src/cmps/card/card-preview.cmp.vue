@@ -1,5 +1,5 @@
 <template>
-    <section class="card-preview">
+    <section class="card-preview flex f-col f-center">
         <div class="card-title">
             {{card.title}}
         </div>

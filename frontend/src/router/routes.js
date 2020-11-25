@@ -23,11 +23,12 @@ const routes = [{
     path: '/board/:boardId',
     name: 'board-details',
     component: boardDetails,
+    alias: ['/board/:boardId/card/:cardId'],
     children: [{
         path: '/card/:cardId',
         name: 'card-details',
         component: cardDetails
-    }, ]
+    },]
 },
 {
     path: '/card',
