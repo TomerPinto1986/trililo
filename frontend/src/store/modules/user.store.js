@@ -1,20 +1,23 @@
 import { userService } from '@/services/user.service'
 
-var localLoggedinUser = null;
+var localLoggedinUser = userService.getGuest();
 if (sessionStorage.user) localLoggedinUser = JSON.parse(sessionStorage.user);
 
 export default {
     state: {
         loggedinUser: localLoggedinUser,
         users: [],
-        isLogin: false
     },
     getters: {
         users(state) {
             return state.users;
         },
         loggedinUser(state) {
-            return state.loggedinUser
+            return {
+                _id: state.loggedinUser._id,
+                username: state.loggedinUser.username,
+                imgUrl: state.loggedinUser.imgUrl
+            }
         },
         isLogin(state) {
             return state.isLogin
@@ -29,10 +32,6 @@ export default {
         },
         removeUser(state, { userId }) {
             state.users = state.users.filter(user => user._id !== userId)
-        },
-        setLoginSignUp(state, { action }) {
-            if (action === 'login') state.isLogin = true;
-            else state.isLogin = false;
         }
     },
     actions: {

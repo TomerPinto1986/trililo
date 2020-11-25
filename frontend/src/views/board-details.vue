@@ -64,6 +64,9 @@ export default {
 			const newCard = this.setEmptyCard();
 			console.log(newCard)
 			newCard.title = title;
+			newCard.byMember = this.$store.getters.loggedinUser;
+			newCard.createdAt = Date.now();
+			console.log(newCard)
 			const board = await this.$store.dispatch({ type: 'addNewCard', newCard, groupId })
 			this.setBoard(board);
 		},

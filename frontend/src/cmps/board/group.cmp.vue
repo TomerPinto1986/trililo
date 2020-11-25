@@ -12,16 +12,18 @@
 				<button @click="emitDelete(group.id)">Delete Group</button>
 			</div>
 		</div>
-		<card-preview
-			v-for="card in group.cards"
-			:key="card.id"
-			:card="card"
-			@click.native="openDetails(card.id)"
-		/>
-		<form v-if="isAdding" @submit.prevent="saveCard">
-			<input type="text" v-model="newCardTxt" />
-			<button>Save</button>
-		</form>
+		<div class="group-info">
+			<card-preview
+				v-for="card in group.cards"
+				:key="card.id"
+				:card="card"
+				@click.native="openDetails(card.id)"
+			/>
+			<form v-if="isAdding" @submit.prevent="saveCard">
+				<input type="text" v-model="newCardTxt" />
+				<button>Save</button>
+			</form>
+		</div>
 		<button v-if="!isAdding" @click="addCard">+ Add another card</button>
 	</section>
 </template>
@@ -60,7 +62,7 @@ export default {
 		emitChange() {
 			this.$emit('change', this.currGroup)
 		},
-		emitDelete(groupId){
+		emitDelete(groupId) {
 			this.$emit('delete', groupId)
 		}
 	},

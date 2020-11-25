@@ -1,10 +1,12 @@
 .group {
     width: 100%;
-    max-width: 200px;
-    padding: 10px;
+    max-width: 250px;
+    padding: 10px 5px;
     margin: 10px;
     box-shadow: 0 0 2px 0 black;
     position: relative;
+    overflow-y: auto;
+    max-height: 750px;
     
     .group-edit{
         box-shadow: 0 0 2px 0 black;
@@ -17,5 +19,10 @@
         width: 150px;
         height:200px;
         align-items: center;
+    }
+
+    .group-info{
+        overflow-y: auto;
+        margin-block-end: 10px;
     }
 }
