@@ -1,6 +1,21 @@
 .group {
+    width: 100%;
     max-width: 200px;
     padding: 10px;
     margin: 10px;
     box-shadow: 0 0 2px 0 black;
+    position: relative;
+    
+    .group-edit{
+        box-shadow: 0 0 2px 0 black;
+        padding: 10px;
+        position: absolute;
+        right:15px;
+        top: 50px;
+        z-index: 1;
+        background-color: rgb(241, 241, 241);
+        width: 150px;
+        height:200px;
+        align-items: center;
+    }
 }

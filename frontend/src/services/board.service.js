@@ -1,7 +1,5 @@
-import httpService from './http.service';
-import { utilService } from './util.service'
-
-
+import {httpService} from './http.service';
+import { utilService } from './util.service';
 
 
 export const boardService = {
@@ -9,7 +7,8 @@ export const boardService = {
     getById,
     remove,
     save,
-    emptyCard
+    emptyCard,
+    emptyGroup
 };
 
 function query() {
@@ -41,6 +40,17 @@ function emptyCard() {
         "description": "",
         "createdAt": "",
         "byMember": "",
+        "style": {
+            "headerColor": "#ffffff"
+        }
+    }
+}
+
+function emptyGroup() {
+    return {
+        "id": utilService.makeId(),
+        "title": "",
+        "cards": [],
         "style": {
             "headerColor": "#ffffff"
         }
