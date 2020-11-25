@@ -11,21 +11,21 @@ export const boardService = {
 };
 
 function query() {
-    return httpService.get('board');
+    return httpService.get('boards');
 }
 
 function getById(boardId) {
-    return httpService.get(`board/${boardId}`);
+    return httpService.get(`boards/${boardId}`);
 }
 
 function remove(boardId) {
-    return httpService.delete(`board/${boardId}`);
+    return httpService.delete(`boards/${boardId}`);
 }
 
 function save(board) {
     if (board._id) {
-        return httpService.put(`board/${board._id}`, board);
+        return httpService.put(`boards/${board._id}`, board);
     } else {
-        return httpService.post(`board`, board);
+        return httpService.post(`boards`, board);
     }
 }
