@@ -1,5 +1,5 @@
 {
-    "board": [{
+    "boards": [{
         "_id": "b101",
         "title": "Robot dev proj",
         "byMember": {
@@ -15,7 +15,7 @@
             "username": "Tal Tarablus",
             "imgUrl": "https://www.google.com"
         }],
-        "group": [{
+        "groups": [{
             "id": "l102",
             "title": "TODOS",
             "cards": [{
@@ -95,7 +95,7 @@
             }
         }]
     }],
-    "user": [{
+    "users": [{
         "_id": "u101",
         "username": "Abi Abambi",
         "email": "abi@ababmi.com",

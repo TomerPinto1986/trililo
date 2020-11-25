@@ -4,7 +4,6 @@ import homePage from '../views/home-page';
 import boardList from '../views/board-list';
 import boardDetails from '../views/board-details';
 import cardDetails from '../views/card-details';
-import cardList from '../cmps/card/card-list.cmp';
 import login from '../views/login';
 
 Vue.use(VueRouter)
@@ -28,11 +27,6 @@ const routes = [{
         name: 'card-details',
         component: cardDetails
     }, ]
-},
-{
-    path: '/card',
-    name: 'card-list',
-    component: cardList
 },
 {
     path: '/login',
