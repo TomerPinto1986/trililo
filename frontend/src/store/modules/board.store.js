@@ -28,11 +28,7 @@ export default {
             state.currBoard.groups.forEach(group => {
                 const card = group.cards.find(card => card.id === cardId);
                 if (card) {
-<<<<<<< HEAD
                     state.currCard = card
-=======
-                    state.currCard = card;
->>>>>>> 4fefb9259cedb422bcd3aa460549e656c3b86341
                 }
             })
         },
