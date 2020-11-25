@@ -1,8 +1,28 @@
 <template>
-	<section class="group flex f-col f-center">
+	<section v-if="currGroup" class="group flex f-col f-center">
 		<div class="group-header">
-			{{ group.title }}
-			<button @click="toggleSmallEditCard(group.id)">...</button>
+			<input
+				type="text"
+				class="title"
+				v-model="currGroup.title"
+				@change="emitChange"
+			/>
+			<button @click="toggleEdit()">...</button>
+			<div v-if="isEdit" class="group-edit flex f-col">
+				<button @click="emitDelete(group.id)">Delete Group</button>
+			</div>
+		</div>
+		<div class="group-info">
+			<card-preview
+				v-for="card in group.cards"
+				:key="card.id"
+				:card="card"
+				@click.native="openDetails(card.id)"
+			/>
+			<form v-if="isAdding" @submit.prevent="saveCard">
+				<input type="text" v-model="newCardTxt" />
+				<button>Save</button>
+			</form>
 		</div>
 		<card-preview
 			v-for="card in group.cards"
@@ -24,40 +44,46 @@ import cardPreview from '../card/card-preview.cmp';
 
 export default {
 	props: {
-		group: Object,
+		group: Object
 	},
 	data() {
 		return {
 			isAdding: false,
-			newCardTxt: ''
+			newCardTxt: '',
+			currGroup: null,
+			isEdit: false
 		}
 	},
 	methods: {
-		toggleSmallEditCard(groupId) {
-			console.log('open small list edit', groupId);
+		toggleEdit() {
+			this.isEdit = !this.isEdit;
 		},
 		addCard() {
 			this.isAdding = true;
 		},
 		saveCard() {
-			if (this.newCardTxt) {
-				this.$emit('newCard', this.newCardTxt, this.group.id)
-			}
+			if (this.newCardTxt) this.$emit('newCard', this.newCardTxt, this.group.id)
 			this.newCardTxt = ''
 			this.isAdding = false;
-			const emptyCard = this.$store.getters.emptyCard;
-			this.newCard = JSON.parse(JSON.stringify(emptyCard))
-			this.$emit('cardChange')
 		},
 		openDetails(cardId) {
 			const boardId = this.$route.params.boardId
 			this.$router.push(`/board/${boardId}/card/${cardId}`)
+		},
+		emitChange() {
+			this.$emit('change', this.currGroup)
+		},
+		emitDelete(groupId) {
+			this.$emit('delete', groupId)
 		}
 	},
 	computed: {
 	},
 	components: {
 		cardPreview,
+	},
+	created() {
+		this.currGroup = JSON.parse(JSON.stringify(this.group))
 	}
 };
 </script>

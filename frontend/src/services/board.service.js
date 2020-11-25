@@ -1,7 +1,5 @@
-import httpService from './http.service';
-import { utilService } from './util.service'
-
-
+import {httpService} from './http.service';
+import { utilService } from './util.service';
 
 
 export const boardService = {
@@ -10,7 +8,11 @@ export const boardService = {
     remove,
     save,
     emptyCard,
+<<<<<<< HEAD
     emptyBoard
+=======
+    emptyGroup
+>>>>>>> 55b7e61705589e05e008eb22189ede642c0323c7
 };
 
 function query() {
@@ -47,6 +49,7 @@ function emptyCard() {
     }
 }
 
+<<<<<<< HEAD
 function emptyBoard() {
     return {
         "_id": '',
@@ -84,5 +87,15 @@ function emptyBoard() {
             }
         ],
         "activities": []
+=======
+function emptyGroup() {
+    return {
+        "id": utilService.makeId(),
+        "title": "",
+        "cards": [],
+        "style": {
+            "headerColor": "#ffffff"
+        }
+>>>>>>> 55b7e61705589e05e008eb22189ede642c0323c7
     }
 }

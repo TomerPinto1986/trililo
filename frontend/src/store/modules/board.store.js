@@ -5,6 +5,8 @@ export default {
         boards: null,
         currBoard: null,
         currCard: null,
+        emptyCard: null,
+        emptyGroup: null
     },
     getters: {
         boards(state) {
@@ -19,8 +21,11 @@ export default {
         activities(state) {
             return state.currCard.activities;
         },
-        emptyCard() {
-            return boardService.emptyCard();
+        emptyCard(state) {
+            return state.emptyCard;
+        },
+        emptyGroup(state) {
+            return state.emptyGroup;
         },
     },
     mutations: {
@@ -57,10 +62,15 @@ export default {
                 if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card)
             })
         },
-        getEmptyCard(state) {
-            console.log('getting from store')
+        setEmptyCard(state) {
             const card = JSON.parse(JSON.stringify(boardService.emptyCard()));
+            console.log('card:', card)
             state.emptyCard = card
+        },
+        setEmptyGroup(state) {
+            const group = JSON.parse(JSON.stringify(boardService.emptyGroup()));
+            console.log('group:', group)
+            state.emptyGroup = group
         }
     },
     actions: {
@@ -92,8 +102,7 @@ export default {
             state.currBoard.groups.forEach(group => {
                 if (group.id === groupId) group.cards.push(newCard);
             });
-            boardService.save(state.currBoard)
-            return state.currBoard
+            return boardService.save(state.currBoard)
         },
         deleteCard({ state }, { cardId }) {
             state.currBoard.groups.forEach(group => {
@@ -101,6 +110,29 @@ export default {
                 if (cardIdx !== -1) group.cards.splice(cardIdx, 1);
             });
             return boardService.save(state.currBoard)
+        },
+        updateCard({ state }, { card }) {
+            state.currBoard.groups.forEach(group => {
+                const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
+                if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
+            });
+            return boardService.save(state.currBoard)
+        },
+        addNewGroup({ state }, { newGroup }) {
+            state.currBoard.groups.push(newGroup)
+            return boardService.save(state.currBoard)
+        },
+        deleteGroup({ state }, { groupId }) {
+            const groupIdx = state.currBoard.groups.findIndex(group => group.id === groupId)
+            state.currBoard.groups.splice(groupIdx, 1)
+            return boardService.save(state.currBoard)
+        },
+        updateGroup({ state }, { group }) {
+            console.log(group)
+            const groupIdx = state.currBoard.groups.findIndex(currGroup => currGroup.id === group.id)
+            state.currBoard.groups.splice(groupIdx, 1, group)
+            boardService.save(state.currBoard)
+            return boardService.save(state.currBoard)
         }
-    },
+    }
 }
