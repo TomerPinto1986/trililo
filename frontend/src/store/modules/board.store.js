@@ -44,7 +44,10 @@ export default {
             state.boards.push(newBoard);
         },
         setCurrBoard(state, { board }) {
-            state.currBoard = JSON.parse(JSON.stringify(board))
+            // state.currBoard = JSON.parse(JSON.stringify(board));
+            const newBoard = JSON.parse(JSON.stringify(board));
+            state.currBoard = newBoard;
+            console.log(state.currBoard, board)
         },
         setCurrCard(state, { cardId }) {
             state.currBoard.groups.forEach(group => {
@@ -93,6 +96,10 @@ export default {
                 }
                 state.currBoard.groups[endGroupIdx].cards.splice(status.endPos, 0, state.currCard);
             }
+        },
+        saveCard(state, { newCard, groupId }) {
+            const group = state.currBoard.groups.find(group => group.id === groupId)
+            group.cards.push(newCard)
         }
     },
     actions: {
@@ -105,10 +112,10 @@ export default {
             state.currBoard = newBoard
             return boardService.save(state.currBoard);
         },
-        async getBoardById({ commit, state }, { boardId }) {
+        async loadBoard({ commit }, { boardId }) {
             const board = await boardService.getById(boardId)
             commit({ type: 'setCurrBoard', board })
-            return state.currBoard;
+            // return state.currBoard;
         },
         async deleteBoard({ commit }, boardId) {
             await boardService.remove(boardId);
@@ -123,12 +130,12 @@ export default {
             context.commit('addNewBoard', savedBoard);
             return savedBoard;
         },
-        addNewCard({ commit }, { newCard, groupId }) {
-            // state.currBoard.groups.forEach(group => {
-            //     if (group.id === groupId) group.cards.push(newCard);
-            // });
-            // return boardService.save(state.currBoard)
-            commit({type:'newCard', newCard, groupId})
+        async saveCard({ commit, state }, { newCard, groupId }) {
+            commit({ type: 'saveCard', newCard, groupId });
+            console.log('board:', board);
+            const board = await boardService.save(state.currBoard);
+            commit({type:'setCurrBoard', board});
+
         },
         deleteCard({ state }, { cardId }) {
             state.currBoard.groups.forEach(group => {
