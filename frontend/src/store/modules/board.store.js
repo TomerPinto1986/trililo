@@ -10,7 +10,7 @@ export default {
     },
     getters: {
         boards(state) {
-            return state.boards;
+            return JSON.parse(JSON.stringify(state.boards));
         },
         currBoard(state) {
             return state.currBoard;
@@ -50,7 +50,6 @@ export default {
     actions: {
         async loadBoards({ commit }) {
             const boards = await boardService.query()
-            console.log('load boards', boards);
             commit('setBoards', boards)
         },
         async loadBoard({ commit }, { boardId }) {

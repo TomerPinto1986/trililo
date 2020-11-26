@@ -1,5 +1,5 @@
 <template>
-    <section class="board-list">
+    <section class="board-list" v-if="boardsForDisplay">
         <div class="create-board board-preview flex f-center">
             <form v-if="isAdding" @submit.prevent="saveBoard">
                 <input
@@ -33,13 +33,13 @@ export default {
         }
     },
     computed: {
-        boardsForDisplay() {            
-            const boardsForDisplay = this.$store.getters.boards;
-            // boardsForDisplay = boardsForDisplay.filter(board => {
-            //     const membersIds = board.members.map(member => member._id);
-            //     !board.isPrivate || membersIds.includes(this.loggedinUser._id);
-            // });
-            return boardsForDisplay;
+        boardsForDisplay() {
+            const boards = this.$store.getters.boards;
+            if (!boards) return boards;
+            return boards.filter(board => {
+                const membersIds = board.members.map(member => member._id);
+                return !board.isPrivate || membersIds.includes(this.loggedinUser._id);
+            });
         }
     },
     methods: {
@@ -57,6 +57,9 @@ export default {
             this.newBoardTxt = '';
             this.isAdding = false;
         }
+    },
+    created() {
+        this.$store.dispatch('loadBoards');
     },
     components: {
         boardPreview
