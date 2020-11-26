@@ -71,7 +71,11 @@ export default {
             const group = JSON.parse(JSON.stringify(boardService.emptyGroup()));
             console.log('group:', group)
             state.emptyGroup = group
-        }
+        },
+        // newCard(state, {newCard, groupId}){
+        //     const group = state.currBoard.groups.find(group => group.id === groupId)
+        //     group
+        // }
     },
     actions: {
         async loadBoards({ commit }) {
@@ -79,7 +83,6 @@ export default {
             commit('setBoards', boards)
         },
         async updateBoard({ state }, { newBoard }) {
-            // if (newBoardTitle) state.currBoard.title = newBoardTitle;
             state.currBoard = newBoard
             return boardService.save(state.currBoard);
         },
@@ -99,11 +102,12 @@ export default {
             commit('addNewBoard', savedBoard);
             return savedBoard;
         },
-        addNewCard({ state }, { newCard, groupId }) {
-            state.currBoard.groups.forEach(group => {
-                if (group.id === groupId) group.cards.push(newCard);
-            });
-            return boardService.save(state.currBoard)
+        addNewCard({ commit }, { newCard, groupId }) {
+            // state.currBoard.groups.forEach(group => {
+            //     if (group.id === groupId) group.cards.push(newCard);
+            // });
+            // return boardService.save(state.currBoard)
+            commit({type:'newCard', newCard, groupId})
         },
         deleteCard({ state }, { cardId }) {
             state.currBoard.groups.forEach(group => {

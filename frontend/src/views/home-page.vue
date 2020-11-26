@@ -61,13 +61,8 @@ export default {
 	},
 	data() {
 		return {
-<<<<<<< HEAD
-			tasksNotCompletedNew: ['1', '2', '3', '4', '5', '6', '7', '8'],
-			tasksCompletedNew: ['11', '22', '33', '44', '55', '66', '77', '88']
-=======
 			tasksNotCompletedNew: [{ id: '1', txt: '1' }, { id: '2', txt: '2' }, { id: '3', txt: '3' }, { id: '4', txt: '4' }, { id: '5', txt: '5' }],
 			tasksCompletedNew: [{ id: '11', txt: '11' }, { id: '22', txt: '22' }, { id: '33', txt: '33' }, { id: '44', txt: '44' }, { id: '55', txt: '55' }]
->>>>>>> a181dec7c63466d88007e66d2a60de72faacac1c
 		}
 	},
 	methods: {

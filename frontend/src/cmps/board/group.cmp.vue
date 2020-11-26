@@ -1,5 +1,5 @@
 <template>
-	<section v-if="currGroup" class="group flex f-col f-center">
+	<section v-if="currGroup" class="group flex f-col">
 		<div class="group-header">
 			<input
 				type="text"
@@ -12,36 +12,30 @@
 				<button @click="emitDelete(group.id)">Delete Group</button>
 			</div>
 		</div>
-<<<<<<< HEAD
-		<div class="group-info flex f-center wrap">
-=======
 		<draggable
 			class="drag-area"
+			ghostClass="ghost"
+			chosenClass="chosen"
+			dragClass="drag"
 			:list="currGroup.cards"
-			:animation="200"
-			:group="'status'"
-			@add="onAdd($event, true)"
+			:group="'group'"
+			:forceFallback="true"
 			@change="update($event)"
+			@start="isDrag = true"
+			@end="isDrag = false"
 		>
-			<div
-				v-for="(card, idx) in currGroup.cards"
-				:key="card.id"
-				:data-id="idx"
+			<transition-group
+				type="transition"
+				:name="!isDrag ? 'flip-list' : null"
 			>
->>>>>>> a181dec7c63466d88007e66d2a60de72faacac1c
 				<card-preview
+					v-for="(card, idx) in currGroup.cards"
+					:key="card.id"
+					:data-id="idx"
 					:card="card"
 					@click.native="openDetails(card.id)"
 				/>
-<<<<<<< HEAD
-				<form v-if="isAdding" @submit.prevent="saveCard">
-					<input type="text" v-model="newCardTxt" />
-					<button>Save</button>
-				</form>
-		</div>
-		<button v-if="!isAdding" @click="addCard">+ Add another card</button>
-=======
-			</div>
+			</transition-group>
 		</draggable>
 		<div class="add-card">
 			<form v-if="isAdding" @submit.prevent="saveCard">
@@ -52,12 +46,11 @@
 				+ Add another card
 			</button>
 		</div>
->>>>>>> a181dec7c63466d88007e66d2a60de72faacac1c
 	</section>
 </template>
 
 <script>
-// import draggable from 'vuedraggable'
+import draggable from 'vuedraggable'
 import cardPreview from '../card/card-preview.cmp';
 
 export default {
@@ -70,6 +63,7 @@ export default {
 			newCardTxt: '',
 			currGroup: null,
 			isEdit: false,
+			isDrag: false
 		}
 	},
 	methods: {
@@ -94,14 +88,6 @@ export default {
 		emitDelete(groupId) {
 			this.$emit('delete', groupId)
 		},
-		checkMove(ev) {
-			window.console.log("Future index: " + ev.draggedContext.futureIndex);
-		},
-		onAdd(event, status) {
-			console.log('adding', event, status)
-			let id = event.item.getAttribute('data-id');
-			console.log(id)
-		},
 		update() {
 			this.emitChange();
 		}
@@ -110,7 +96,7 @@ export default {
 	},
 	components: {
 		cardPreview,
-		// draggable
+		draggable
 	},
 	created() {
 		this.currGroup = JSON.parse(JSON.stringify(this.group))

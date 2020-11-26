@@ -2,16 +2,28 @@
 	<section v-if="board" class="board-details flex f-col">
 		<board-header :board="board" @updateBoard="updateBoard" />
 		<div class="flex" v-if="board">
-			<div v-for="group in board.groups" :key="group.id">
+			<draggable
+				class="drag-area flex"
+				ghostClass="ghost"
+				chosenClass="chosen"
+				dragClass="drag"
+				:list="board.groups"
+				:animation="200"
+				:group="'board'"
+				:forceFallback="true"
+				@change="updateBoard"
+			>
 				<group
+					v-for="group in board.groups"
+					:key="group.id"
 					:group="group"
 					@close="closeDetails"
 					@newCard="saveNewCard"
 					@change="updateGroup"
 					@delete="deleteGroup"
 				/>
-				
-			</div>
+			</draggable>
+
 			<div class="add-group group flex f-center" @click="addGroup">
 				<span v-if="!isAddingGroup">+ Add another list</span>
 				<form v-else @submit.prevent="saveGroup">
@@ -42,12 +54,13 @@
 import group from '../cmps/board/group.cmp';
 import boardHeader from '../cmps/board/board-header.cmp';
 import cardDetails from '@/views/card-details';
+import draggable from 'vuedraggable'
 
 
 export default {
 	data() {
 		return {
-			board: null,
+			board: this.boardToShow,
 			isDetails: false,
 			isAddingGroup: false,
 			newGroupTitle: ''
@@ -59,10 +72,7 @@ export default {
 			this.$router.push(`/board/${this.board._id}`)
 		},
 		setBoard(board) {
-			console.log(board, 'setting')
-			console.log(this.board)
 			this.board = JSON.parse(JSON.stringify(board));
-			console.log(this.board)
 		},
 		async saveNewCard(title, groupId) {
 			const newCard = this.setEmptyCard();
@@ -85,7 +95,6 @@ export default {
 			this.setBoard(board);
 		},
 		async deleteGroup(groupId) {
-			console.log(groupId)
 			const board = await this.$store.dispatch({ type: 'deleteGroup', groupId })
 			this.setBoard(board);
 		},
@@ -117,6 +126,9 @@ export default {
 		}
 	},
 	computed: {
+		boardToShow() {
+			return this.$store.getters.currBoard;
+		}
 	},
 	watch: {
 		'$route.params'() {
@@ -127,12 +139,13 @@ export default {
 		if (this.$route.params.cardId) this.isDetails = true
 		const boardId = this.$route.params.boardId;
 		const board = await this.$store.dispatch({ type: 'getBoardById', boardId });
-		this.setBoard(board);
+		this.board = JSON.parse(JSON.stringify(board));
 	},
 	components: {
 		group,
 		boardHeader,
-		cardDetails
+		cardDetails,
+		draggable
 	}
 }
 </script>
