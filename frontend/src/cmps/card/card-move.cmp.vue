@@ -1,18 +1,4 @@
 <template>
-<<<<<<< HEAD
-	<section class="card-move">
-		<h3>Move Card</h3>
-		<h3>Select Destenation</h3>
-		<form @submit.prevent="emitMove">
-			<select-list
-				@changeCardGroup="changeCardGroup"
-				:groups="groups"
-			></select-list>
-			<!-- <select-position @changeCardPosition="changeCardGroup" :groups="groups"></select-position> -->
-			<button>Move</button>
-		</form>
-	</section>
-=======
     <section class="card-move">
         <h3>Move Card</h3>
         <h3>Select Destenation</h3>
@@ -22,7 +8,6 @@
             <button>Move</button>
         </form>
     </section>
->>>>>>> 65d62ee2647be18c62b2feb07315ffd3e5e18dab
 </template>
 
 <script>
@@ -30,30 +15,6 @@ import selectList from '../custom-elements/select-list.cmp';
 import selectPosition from '../custom-elements/select-position.cmp';
 
 export default {
-<<<<<<< HEAD
-	props: {
-		groups: Array
-	},
-	data() {
-		return {
-			newCardGroupId: null,
-			newCardPosition: null
-		}
-	},
-	methods: {
-		changeCardGroup(groupId) {
-			this.newCardGroup = groupId;
-		},
-		emitMove() {
-			this.$emit('moveCard', this.newCardGroup, this.newCardPosition)
-		}
-	},
-
-
-	components: {
-		selectList
-	}
-=======
     props: {
         groups: Array,
         group: Object,
@@ -98,7 +59,6 @@ export default {
                 endGroup: this.newCardGroupId
             }
             console.log(status);
-            // if (!status.endPos) status.endPos = 
             this.$emit('moveCard', status)
         }
     },
@@ -108,7 +68,6 @@ export default {
         selectList,
         selectPosition
     }
->>>>>>> 65d62ee2647be18c62b2feb07315ffd3e5e18dab
 }
 </script>
 
