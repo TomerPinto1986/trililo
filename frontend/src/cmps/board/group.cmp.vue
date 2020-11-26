@@ -17,7 +17,6 @@
 			:list="currGroup.cards"
 			:animation="200"
 			:group="'status'"
-			:tag="'div'"
 			@add="onAdd($event, true)"
 			@change="update($event)"
 		>
@@ -32,11 +31,15 @@
 				/>
 			</div>
 		</draggable>
-		<form v-if="isAdding" @submit.prevent="saveCard">
-			<input type="text" v-model="newCardTxt" />
-			<button>Save</button>
-		</form>
-		<button v-if="!isAdding" @click="addCard">+ Add another card</button>
+		<div class="add-card">
+			<form v-if="isAdding" @submit.prevent="saveCard">
+				<input type="text" v-model="newCardTxt" />
+				<button>Save</button>
+			</form>
+			<button v-if="!isAdding" @click="addCard">
+				+ Add another card
+			</button>
+		</div>
 	</section>
 </template>
 
@@ -86,13 +89,8 @@ export default {
 			let id = event.item.getAttribute('data-id');
 			console.log(id)
 		},
-		update(ev) {
-			console.log('updated', ev)
-			// const fromIdx = ev.moved.oldIndex
-			// console.log('fromIdx:', fromIdx)
-			const card = this.currGroup.cards
-			console.log(card)
-			// currGroup.cards.splice()
+		update() {
+			this.emitChange();
 		}
 	},
 	computed: {
