@@ -59,7 +59,6 @@ export default {
                 endGroup: this.newCardGroupId
             }
             console.log(status);
-            // if (!status.endPos) status.endPos = 
             this.$emit('moveCard', status)
         }
     },

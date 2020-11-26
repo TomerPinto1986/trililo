@@ -1,24 +1,24 @@
 <template>
-	<section v-if="board" class="board-details flex f-col">
-		<board-header :board="board" @updateBoard="updateBoard" />
-		<div class="flex" v-if="board">
+	<section v-if="boardToShow" class="board-details flex f-col">
+		<board-header :board="boardToShow" @updateBoard="updateBoard" />
+		<div class="flex">
 			<draggable
 				class="drag-area flex"
 				ghostClass="ghost"
 				chosenClass="chosen"
 				dragClass="drag"
-				:list="board.groups"
+				:list="boardToShow.groups"
 				:animation="200"
 				:group="'board'"
 				:forceFallback="true"
 				@change="updateBoard"
 			>
 				<group
-					v-for="group in board.groups"
+					v-for="group in boardToShow.groups"
 					:key="group.id"
 					:group="group"
 					@close="closeDetails"
-					@newCard="saveNewCard"
+					@newCard="saveCard"
 					@change="updateGroup"
 					@delete="deleteGroup"
 				/>
@@ -60,7 +60,7 @@ import draggable from 'vuedraggable'
 export default {
 	data() {
 		return {
-			board: this.boardToShow,
+			// board: this.boardToShow,
 			isDetails: false,
 			isAddingGroup: false,
 			newGroupTitle: ''
@@ -71,37 +71,37 @@ export default {
 			this.isDetails = false;
 			this.$router.push(`/board/${this.board._id}`)
 		},
-		setBoard(board) {
-			this.board = JSON.parse(JSON.stringify(board));
-		},
-		async saveNewCard(title, groupId) {
+		// setBoard(board) {
+		// 	this.boardToShow= JSON.parse(JSON.stringify(board));
+		// },
+		async saveCard(title, groupId) {
 			const newCard = this.setEmptyCard();
 			newCard.title = title;
 			newCard.byMember = this.$store.getters.loggedinUser;
 			newCard.createdAt = Date.now();
-			const board = await this.$store.dispatch({ type: 'addNewCard', newCard, groupId })
-			this.setBoard(board);
+			this.$store.dispatch({ type: 'saveCard', newCard, groupId })
+			// this.setBoard(board);
 		},
 		async updateCard(card) {
-			const board = await this.$store.dispatch({ type: 'updateCard', card })
+			const board= await this.$store.dispatch({ type: 'updateCard', card })
 			this.setBoard(board);
 		},
 		async deleteCard(cardId) {
-			const board = await this.$store.dispatch({ type: 'deleteCard', cardId })
+			const board= await this.$store.dispatch({ type: 'deleteCard', cardId })
 			this.setBoard(board);
 		},
 		async updateGroup(group) {
-			const board = await this.$store.dispatch({ type: 'updateGroup', group })
+			const board= await this.$store.dispatch({ type: 'updateGroup', group })
 			this.setBoard(board);
 		},
 		async deleteGroup(groupId) {
-			const board = await this.$store.dispatch({ type: 'deleteGroup', groupId })
+			const board= await this.$store.dispatch({ type: 'deleteGroup', groupId })
 			this.setBoard(board);
 		},
 		async saveGroup() {
 			const newGroup = this.setEmptyGroup();
 			newGroup.title = this.newGroupTitle;
-			const board = await this.$store.dispatch({ type: 'addNewGroup', newGroup })
+			const board= await this.$store.dispatch({ type: 'addNewGroup', newGroup })
 			this.setBoard(board);
 			this.closeAddGroup();
 		},
@@ -121,13 +121,14 @@ export default {
 			this.newGroupTitle = '';
 		},
 		async updateBoard() {
-			const board = await this.$store.dispatch({ type: 'updateBoard', newBoard: this.board });
+			const board= await this.$store.dispatch({ type: 'updateBoard', newBoard: this.boardToShow});
 			this.setBoard(board)
 		}
 	},
 	computed: {
 		boardToShow() {
-			return this.$store.getters.currBoard;
+			console.log('computing')
+			return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
 		}
 	},
 	watch: {
@@ -138,8 +139,9 @@ export default {
 	async created() {
 		if (this.$route.params.cardId) this.isDetails = true
 		const boardId = this.$route.params.boardId;
-		const board = await this.$store.dispatch({ type: 'getBoardById', boardId });
-		this.board = JSON.parse(JSON.stringify(board));
+		this.$store.dispatch({ type: 'loadBoard', boardId });
+		// const boardToShow= await this.$store.dispatch({ type: 'loadBoard', boardId });
+		// this.boardToShow= JSON.parse(JSON.stringify(board));
 	},
 	components: {
 		group,

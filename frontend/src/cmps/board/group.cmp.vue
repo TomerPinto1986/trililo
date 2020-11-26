@@ -20,6 +20,7 @@
 			:list="currGroup.cards"
 			:group="'group'"
 			:forceFallback="true"
+			:emptyInsertThreshold="100"
 			@change="update($event)"
 			@start="isDrag = true"
 			@end="isDrag = false"
