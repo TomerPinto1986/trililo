@@ -12,6 +12,9 @@ export default {
         emptyCard(state) {
             return state.emptyCard;
         },
+        activities(state) {
+            return state.currCard.activities;
+        },
     },
     mutations: {
         setCurrCard(state, { cardId }) {

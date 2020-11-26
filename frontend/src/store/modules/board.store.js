@@ -19,9 +19,6 @@ export default {
             const currGroup = state.currBoard.groups.find(group => group.cards.some(card => card.id === state.currCard.id));
             return currGroup;
         },
-        activities(state) {
-            return state.currCard.activities;
-        },
         emptyGroup(state) {
             return state.emptyGroup;
         }
