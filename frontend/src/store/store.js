@@ -1,5 +1,6 @@
 import userStore from './modules/user.store';
 import boardStore from './modules/board.store';
+import cardStore from './modules/card.store';
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
     actions: {},
     modules: {
         boardStore,
-        userStore
+        userStore,
+        cardStore
     }
 })
