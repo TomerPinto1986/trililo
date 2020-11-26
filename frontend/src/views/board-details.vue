@@ -1,6 +1,6 @@
 <template>
 	<section v-if="board" class="board-details flex f-col">
-		<board-header :board="board" />
+		<board-header :board="board" @updateBoard="updateBoard" />
 		<div class="flex" v-if="board">
 			<div v-for="group in board.groups" :key="group.id">
 				<group
@@ -10,6 +10,7 @@
 					@change="updateGroup"
 					@delete="deleteGroup"
 				/>
+				
 			</div>
 			<div class="add-group group flex f-center" @click="addGroup">
 				<span v-if="!isAddingGroup">+ Add another list</span>
@@ -58,22 +59,22 @@ export default {
 			this.$router.push(`/board/${this.board._id}`)
 		},
 		setBoard(board) {
+			console.log(board, 'setting')
+			console.log(this.board)
 			this.board = JSON.parse(JSON.stringify(board));
+			console.log(this.board)
 		},
 		async saveNewCard(title, groupId) {
 			const newCard = this.setEmptyCard();
-			console.log(newCard)
 			newCard.title = title;
 			newCard.byMember = this.$store.getters.loggedinUser;
 			newCard.createdAt = Date.now();
-			console.log(newCard)
 			const board = await this.$store.dispatch({ type: 'addNewCard', newCard, groupId })
 			this.setBoard(board);
 		},
 		async updateCard(card) {
 			const board = await this.$store.dispatch({ type: 'updateCard', card })
 			this.setBoard(board);
-
 		},
 		async deleteCard(cardId) {
 			const board = await this.$store.dispatch({ type: 'deleteCard', cardId })
@@ -109,6 +110,10 @@ export default {
 		closeAddGroup() {
 			this.isAddingGroup = false;
 			this.newGroupTitle = '';
+		},
+		async updateBoard() {
+			const board = await this.$store.dispatch({ type: 'updateBoard', newBoard: this.board });
+			this.setBoard(board)
 		}
 	},
 	computed: {

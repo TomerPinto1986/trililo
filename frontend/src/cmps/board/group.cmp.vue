@@ -12,19 +12,47 @@
 				<button @click="emitDelete(group.id)">Delete Group</button>
 			</div>
 		</div>
+<<<<<<< HEAD
 		<div class="group-info flex f-center wrap">
+=======
+		<draggable
+			class="drag-area"
+			:list="currGroup.cards"
+			:animation="200"
+			:group="'status'"
+			@add="onAdd($event, true)"
+			@change="update($event)"
+		>
+			<div
+				v-for="(card, idx) in currGroup.cards"
+				:key="card.id"
+				:data-id="idx"
+			>
+>>>>>>> a181dec7c63466d88007e66d2a60de72faacac1c
 				<card-preview
-					v-for="card in group.cards"
-					:key="card.id"
 					:card="card"
 					@click.native="openDetails(card.id)"
 				/>
+<<<<<<< HEAD
 				<form v-if="isAdding" @submit.prevent="saveCard">
 					<input type="text" v-model="newCardTxt" />
 					<button>Save</button>
 				</form>
 		</div>
 		<button v-if="!isAdding" @click="addCard">+ Add another card</button>
+=======
+			</div>
+		</draggable>
+		<div class="add-card">
+			<form v-if="isAdding" @submit.prevent="saveCard">
+				<input type="text" v-model="newCardTxt" />
+				<button>Save</button>
+			</form>
+			<button v-if="!isAdding" @click="addCard">
+				+ Add another card
+			</button>
+		</div>
+>>>>>>> a181dec7c63466d88007e66d2a60de72faacac1c
 	</section>
 </template>
 
@@ -41,7 +69,7 @@ export default {
 			isAdding: false,
 			newCardTxt: '',
 			currGroup: null,
-			isEdit: false
+			isEdit: false,
 		}
 	},
 	methods: {
@@ -65,6 +93,17 @@ export default {
 		},
 		emitDelete(groupId) {
 			this.$emit('delete', groupId)
+		},
+		checkMove(ev) {
+			window.console.log("Future index: " + ev.draggedContext.futureIndex);
+		},
+		onAdd(event, status) {
+			console.log('adding', event, status)
+			let id = event.item.getAttribute('data-id');
+			console.log(id)
+		},
+		update() {
+			this.emitChange();
 		}
 	},
 	computed: {

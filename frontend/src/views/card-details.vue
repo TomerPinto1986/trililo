@@ -10,6 +10,13 @@
 		/>
 		<card-activity />
 		<div class="actions">
+			<button>Members</button>
+			<button>Labels</button>
+			<button>Checklist</button>
+			<button>Due Date</button>
+			<button>Attachment</button>
+			<button>Cover</button>
+			<button>Copy</button>
 			<button class="dlt-btn" @click="emitDelete">Delete Card</button>
 			<button class="move-btn" @click="emitMove">Move</button>
 		</div>

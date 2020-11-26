@@ -78,8 +78,9 @@ export default {
             const boards = await boardService.query()
             commit('setBoards', boards)
         },
-        async updateBoard({ state }, { newBoardTitle = '' }) {
-            if (newBoardTitle) state.currBoard.title = newBoardTitle;
+        async updateBoard({ state }, { newBoard }) {
+            // if (newBoardTitle) state.currBoard.title = newBoardTitle;
+            state.currBoard = newBoard
             return boardService.save(state.currBoard);
         },
         async getBoardById({ commit, state }, { boardId }) {

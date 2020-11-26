@@ -1,42 +1,54 @@
 <template>
-    <div class="row">
-        <div class="col-md-4 col-md-offset-2">
-            <section class="list">
-                <header>UPCOMING</header>
-                <draggable class="drag-area" :list="tasksNotCompletedNew" :options="{animation:200, group:'status'}" :element="'article'" @add="onAdd($event, false)"  @change="update">
-                    <article class="card" v-for="(task,idx) in tasksNotCompletedNew" :key="idx" :data-id="idx">
-                        <header>
-                            {{ task }}
-                        </header>
-                    </article>
-                </draggable>   
-            </section>
-        </div>
-        <div class="col-md-4">   
-            <section class="list">
-                <header>COMPLETED</header>
-                <draggable class="drag-area"  :list="tasksCompletedNew" :options="{animation:200, group:'status'}" :element="'article'" @add="onAdd($event, true)"  @change="update">
-                    <article class="card" v-for="(task,idx) in tasksCompletedNew" :key="idx" :data-id="idx">
-                        <header>
-                            {{ task }}
-                        </header>
-                    </article>
-                </draggable>  
-            </section>
-        </div>
-        <div class="col-md-4">   
-            <section class="list">
-                <header>COMPLETED</header>
-                <draggable class="drag-area"  :list="tasksCompletedNew" :options="{animation:200, group:'status'}" :element="'article'" @add="onAdd($event, true)"  @change="update">
-                    <article class="card" v-for="(task,idx) in tasksCompletedNew" :key="idx" :data-id="idx">
-                        <header>
-                            {{ task }}
-                        </header>
-                    </article>
-                </draggable>  
-            </section>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-md-4 col-md-offset-2">
+			<section class="list">
+				<header>UPCOMING</header>
+				<draggable
+					class="drag-area"
+					:list="tasksNotCompletedNew"
+					:options="{ animation: 200, group: 'status' }"
+					:element="'article'"
+					@add="onAdd($event, false)"
+					@change="update($event, 'tasksNotCompletedNew')"
+				>
+					<article
+						class="card"
+						v-for="(task, idx) in tasksNotCompletedNew"
+						:key="idx"
+						:data-id="idx"
+					>
+						<header>
+							{{ task }}
+						</header>
+					</article>
+				</draggable>
+			</section>
+		</div>
+		<div class="col-md-4">
+			<section class="list">
+				<header>COMPLETED</header>
+				<draggable
+					class="drag-area"
+					:list="tasksCompletedNew"
+					:options="{ animation: 200, group: 'status' }"
+					:element="'article'"
+					@add="onAdd($event, true)"
+					@change="update($event,'tasksCompletedNew')"
+				>
+					<article
+						class="card"
+						v-for="task in tasksCompletedNew"
+						:key="task.id"
+						:data-id="task.id"
+					>
+						<header>
+							{{ task }}
+						</header>
+					</article>
+				</draggable>
+			</section>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -49,13 +61,20 @@ export default {
 	},
 	data() {
 		return {
+<<<<<<< HEAD
 			tasksNotCompletedNew: ['1', '2', '3', '4', '5', '6', '7', '8'],
 			tasksCompletedNew: ['11', '22', '33', '44', '55', '66', '77', '88']
+=======
+			tasksNotCompletedNew: [{ id: '1', txt: '1' }, { id: '2', txt: '2' }, { id: '3', txt: '3' }, { id: '4', txt: '4' }, { id: '5', txt: '5' }],
+			tasksCompletedNew: [{ id: '11', txt: '11' }, { id: '22', txt: '22' }, { id: '33', txt: '33' }, { id: '44', txt: '44' }, { id: '55', txt: '55' }]
+>>>>>>> a181dec7c63466d88007e66d2a60de72faacac1c
 		}
 	},
 	methods: {
 		onAdd(event, status) {
+			console.log('adding', event, status)
 			let id = event.item.getAttribute('data-id');
+			console.log(id)
 			axios.patch('/demos/tasks/' + id, {
 				status: status
 			}).then((response) => {
@@ -64,24 +83,27 @@ export default {
 				console.log(error);
 			})
 		},
-		update() {
-			this.tasksNotCompletedNew.map((task, index) => {
-				task.order = index + 1;
-			});
+		update(ev, arr) {
+			console.log('updated', ev)
+			console.log('arr:', arr)
+			console.log(this[arr]);
+			// this.tasksNotCompletedNew.map((task, index) => {
+			// 	task.order = index + 1;
+			// });
 
-			this.tasksCompletedNew.map((task, index) => {
-				task.order = index + 1;
-			});
+			// this.tasksCompletedNew.map((task, index) => {
+			// 	task.order = index + 1;
+			// });
 
-			let tasks = this.tasksNotCompletedNew.concat(this.tasksCompletedNew);
+			// let tasks = this.tasksNotCompletedNew.concat(this.tasksCompletedNew);
 
-			axios.put('/demos/tasks/updateAll', {
-				tasks: tasks
-			}).then((response) => {
-				console.log(response.data);
-			}).catch((error) => {
-				console.log(error);
-			})
+			// axios.put('/demos/tasks/updateAll', {
+			// 	tasks: tasks
+			// }).then((response) => {
+			// 	console.log(response.data);
+			// }).catch((error) => {
+			// 	console.log(error);
+			// })
 		}
 
 	}

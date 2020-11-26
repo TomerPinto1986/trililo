@@ -17,7 +17,12 @@ import draggable from 'vuedraggable';
 
 export default {
 	props: {
-		card: Object
+		card: Object,
+
+	},
+	data() {
+		return {
+		}
 	},
 	computed: {
 		headerStyle() {
@@ -25,12 +30,18 @@ export default {
 		}
 	},
 	methods: {
+<<<<<<< HEAD
 		dragStart(){
 			console.log('start drag');
 		}
 	},
 	components: {
 		draggable
+=======
+
+	},
+	created() {
+>>>>>>> a181dec7c63466d88007e66d2a60de72faacac1c
 	}
 };
 </script>
