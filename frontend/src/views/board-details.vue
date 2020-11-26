@@ -1,7 +1,7 @@
 <template>
 	<section v-if="board" class="board-details flex f-col">
 		<board-header :board="board" @updateBoard="updateBoard" />
-		<div class="flex" v-if="board">
+		<div class="flex">
 			<draggable
 				class="drag-area flex"
 				ghostClass="ghost"
@@ -11,14 +11,13 @@
 				:animation="200"
 				:group="'board'"
 				:forceFallback="true"
-				@change="updateBoard"
 			>
 				<group
 					v-for="group in board.groups"
 					:key="group.id"
 					:group="group"
 					@close="closeDetails"
-					@newCard="saveNewCard"
+					@newCard="addCard"
 					@change="updateGroup"
 					@delete="deleteGroup"
 				/>
@@ -44,7 +43,7 @@
 		<card-details
 			v-if="isDetails"
 			@close="closeDetails"
-			@saveCard="updateCard"
+			@addCard="updateCard"
 			@deleteCard="deleteCard"
 		/>
 	</section>
@@ -55,12 +54,11 @@ import group from '../cmps/board/group.cmp';
 import boardHeader from '../cmps/board/board-header.cmp';
 import cardDetails from '@/views/card-details';
 import draggable from 'vuedraggable'
-
+import { utilService } from '@/services/util.service';
 
 export default {
 	data() {
 		return {
-			board: this.boardToShow,
 			isDetails: false,
 			isAddingGroup: false,
 			newGroupTitle: ''
@@ -71,45 +69,57 @@ export default {
 			this.isDetails = false;
 			this.$router.push(`/board/${this.board._id}`)
 		},
-		setBoard(board) {
-			this.board = JSON.parse(JSON.stringify(board));
-		},
-		async saveNewCard(title, groupId) {
-			const newCard = this.setEmptyCard();
+		addCard(title, groupId) {
+			const newCard = this.getEmptyCard();
 			newCard.title = title;
 			newCard.byMember = this.$store.getters.loggedinUser;
 			newCard.createdAt = Date.now();
-			const board = await this.$store.dispatch({ type: 'addNewCard', newCard, groupId })
-			this.setBoard(board);
+			const board = this.board;
+			const groupIdx = this.board.groups.findIndex(group => group.id === groupId)
+			board.groups[groupIdx].cards.push(newCard)
+			this.$store.dispatch({ type: 'updateBoard', board });
 		},
-		async updateCard(card) {
-			const board = await this.$store.dispatch({ type: 'updateCard', card })
-			this.setBoard(board);
+		updateCard(card) {
+			const board = this.board;
+			board.groups.forEach(group => {
+				const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
+				if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
+			})
+			this.$store.dispatch({ type: 'updateBoard', board });
 		},
-		async deleteCard(cardId) {
-			const board = await this.$store.dispatch({ type: 'deleteCard', cardId })
-			this.setBoard(board);
+		deleteCard(cardId) {
+			const board = this.board;
+			board.groups.forEach(group => {
+				const cardIdx = group.cards.findIndex(currCard => currCard.id === cardId);
+				if (cardIdx !== -1) group.cards.splice(cardIdx, 1);
+			})
+			this.$store.dispatch({ type: 'updateBoard', board });
 		},
-		async updateGroup(group) {
-			const board = await this.$store.dispatch({ type: 'updateGroup', group })
-			this.setBoard(board);
+		updateGroup(group) {
+			const board = this.board;
+			const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id);
+			board.groups.splice(groupIdx, 1, group);
+			this.$store.dispatch({ type: 'updateBoard', board });
 		},
-		async deleteGroup(groupId) {
-			const board = await this.$store.dispatch({ type: 'deleteGroup', groupId })
-			this.setBoard(board);
+		deleteGroup(groupId) {
+			const board = this.board;
+			const groupIdx = board.groups.findIdx(currGroup => currGroup.id === groupId);
+			board.groups.splice(groupIdx, 1);
+			this.$store.dispatch({ type: 'updateBoard', board });
 		},
-		async saveGroup() {
-			const newGroup = this.setEmptyGroup();
+		saveGroup() {
+			const newGroup = this.getEmptyGroup();
 			newGroup.title = this.newGroupTitle;
-			const board = await this.$store.dispatch({ type: 'addNewGroup', newGroup })
-			this.setBoard(board);
+			const board = this.board;
+			board.groups.push(newGroup);
+			this.$store.dispatch({ type: 'updateBoard', board });
 			this.closeAddGroup();
 		},
-		setEmptyCard() {
+		getEmptyCard() { //maybe get from service direct
 			this.$store.commit('setEmptyCard');
 			return this.$store.getters.emptyCard;
 		},
-		setEmptyGroup() {
+		getEmptyGroup() {
 			this.$store.commit('setEmptyGroup');
 			return this.$store.getters.emptyGroup;
 		},
@@ -120,14 +130,14 @@ export default {
 			this.isAddingGroup = false;
 			this.newGroupTitle = '';
 		},
-		async updateBoard() {
-			const board = await this.$store.dispatch({ type: 'updateBoard', newBoard: this.board });
-			this.setBoard(board)
+		updateBoard(board) {
+			this.$store.dispatch({ type: 'updateBoard', board });
 		}
 	},
 	computed: {
-		boardToShow() {
-			return this.$store.getters.currBoard;
+		board() {
+			console.log('computing')
+			return utilService.deepCopy(this.$store.getters.currBoard)
 		}
 	},
 	watch: {
@@ -138,8 +148,7 @@ export default {
 	async created() {
 		if (this.$route.params.cardId) this.isDetails = true
 		const boardId = this.$route.params.boardId;
-		const board = await this.$store.dispatch({ type: 'getBoardById', boardId });
-		this.board = JSON.parse(JSON.stringify(board));
+		this.$store.dispatch({ type: 'loadBoard', boardId });
 	},
 	components: {
 		group,

@@ -18,7 +18,6 @@ async function getById(boardId) {
     const collection = await dbService.getCollection('board');
     try {
         const board = await collection.findOne({ '_id': ObjectId(boardId) });
-        console.log(board);
         return board
     } catch (err) {
         console.log(`ERROR: while finding board ${boardId}`);
@@ -37,7 +36,6 @@ async function remove(boardId) {
 }
 
 async function add(board) {
-    console.log('board:', board)
     const collection = await dbService.getCollection('board');
     try {
         await collection.insertOne(board);

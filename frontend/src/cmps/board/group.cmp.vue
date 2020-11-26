@@ -1,10 +1,10 @@
 <template>
-	<section v-if="currGroup" class="group flex f-col">
+	<section v-if="group" class="group flex f-col">
 		<div class="group-header">
 			<input
 				type="text"
 				class="title"
-				v-model="currGroup.title"
+				v-model="group.title"
 				@change="emitChange"
 			/>
 			<button @click="toggleEdit()">...</button>
@@ -17,9 +17,10 @@
 			ghostClass="ghost"
 			chosenClass="chosen"
 			dragClass="drag"
-			:list="currGroup.cards"
+			:list="group.cards"
 			:group="'group'"
 			:forceFallback="true"
+			:emptyInsertThreshold="100"
 			@change="update($event)"
 			@start="isDrag = true"
 			@end="isDrag = false"
@@ -29,7 +30,7 @@
 				:name="!isDrag ? 'flip-list' : null"
 			>
 				<card-preview
-					v-for="(card, idx) in currGroup.cards"
+					v-for="(card, idx) in group.cards"
 					:key="card.id"
 					:data-id="idx"
 					:card="card"
@@ -61,7 +62,6 @@ export default {
 		return {
 			isAdding: false,
 			newCardTxt: '',
-			currGroup: null,
 			isEdit: false,
 			isDrag: false
 		}
@@ -83,7 +83,7 @@ export default {
 			this.$router.push(`/board/${boardId}/card/${cardId}`)
 		},
 		emitChange() {
-			this.$emit('change', this.currGroup)
+			this.$emit('change', this.group)
 		},
 		emitDelete(groupId) {
 			this.$emit('delete', groupId)
@@ -97,9 +97,6 @@ export default {
 	components: {
 		cardPreview,
 		draggable
-	},
-	created() {
-		this.currGroup = JSON.parse(JSON.stringify(this.group))
 	}
 };
 </script>
