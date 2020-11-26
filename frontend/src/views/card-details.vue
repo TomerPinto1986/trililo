@@ -13,8 +13,8 @@
 			<button>Members</button>
 			<button>Labels</button>
 			<button>Checklist</button>
-			<button>Due Date</button>
 			<button>Attachment</button>
+			<button @click="setDate">Set Date</button>
 			<button>Cover</button>
 			<button>Copy</button>
 			<button class="dlt-btn" @click="emitDelete">Delete Card</button>
@@ -25,7 +25,8 @@
 			<button class="cancel-btn" @click="emitClose">Cancel</button>
 		</div>
 		<div v-if="isPopUp">
-			<card-move :groups="getCurrBoard.groups" :group="getCurrGroup" :currPosition="getCurrPosition" @moveCard="moveCard" />
+			<card-move v-if="move" :groups="getCurrBoard.groups" :group="getCurrGroup" :currPosition="getCurrPosition" @moveCard="moveCard" />
+			<date-picker v-if="dueDate" @setDate="setNewDate"/>
 		</div>
 	</section>
 </template>
@@ -33,6 +34,7 @@
 <script>
 import cardActivity from '../cmps/card/card-activity.cmp';
 import cardMove from '../cmps/card/card-move.cmp';
+import datePicker from '../cmps/custom-elements/date-picker.cmp'
 
 export default {
 	data() {
@@ -51,6 +53,12 @@ export default {
 		},
 		getCurrPosition(){
 			return this.getCurrGroup.cards.findIndex(card => card.id === this.card.id) + 1;
+		},
+		move(){
+			return this.currPopUp === 'move';
+		},
+		dueDate(){
+			return this.currPopUp === 'duedate';
 		}
 	},
 	methods: {
@@ -71,6 +79,13 @@ export default {
 			this.currPopUp = 'move';
 			this.isPopUp = true;
 		},
+		setDate() {
+			this.currPopUp = 'duedate';
+			this.isPopUp = true;
+		},
+		setNewDate(dueDate) {
+			console.log('setDate',dueDate);
+		},
 		moveCard(status){
 			this.$store.commit({type: 'updateCardStatus', status});
 			const newBoard = this.$store.getters.currBoard
@@ -80,7 +95,8 @@ export default {
 	},
 	components: {
 		cardActivity,
-		cardMove
+		cardMove,
+		datePicker
 	},
 	created() {
 		const cardId = this.$route.params.cardId
