@@ -10,7 +10,7 @@ export default {
     },
     getters: {
         boards(state) {
-            return state.boards;
+            return JSON.parse(JSON.stringify(state.boards));
         },
         currBoard(state) {
             return state.currBoard;
@@ -98,7 +98,6 @@ export default {
     actions: {
         async loadBoards({ commit }) {
             const boards = await boardService.query()
-            console.log('load boards', boards);
             commit('setBoards', boards)
         },
         async updateBoard({ state }, { newBoard }) {
@@ -128,7 +127,7 @@ export default {
             //     if (group.id === groupId) group.cards.push(newCard);
             // });
             // return boardService.save(state.currBoard)
-            commit({type:'newCard', newCard, groupId})
+            commit({ type: 'newCard', newCard, groupId })
         },
         deleteCard({ state }, { cardId }) {
             state.currBoard.groups.forEach(group => {
