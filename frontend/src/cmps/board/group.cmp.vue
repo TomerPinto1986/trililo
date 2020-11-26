@@ -68,22 +68,9 @@ export default {
 		},
 		emitDelete(groupId) {
 			this.$emit('delete', groupId)
-		},
-		haa(ev) {
-			console.log(ev)
 		}
 	},
 	computed: {
-		myList: {
-			get() {
-				console.log('value')
-				return this.$store.state.myList
-			},
-			set(value) {
-				console.log(value)
-				// this.$store.commit('updateList', value)
-			}
-		}
 	},
 	components: {
 		cardPreview,
