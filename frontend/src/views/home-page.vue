@@ -24,6 +24,18 @@
                 </draggable>  
             </section>
         </div>
+        <div class="col-md-4">   
+            <section class="list">
+                <header>COMPLETED</header>
+                <draggable class="drag-area"  :list="tasksCompletedNew" :options="{animation:200, group:'status'}" :element="'article'" @add="onAdd($event, true)"  @change="update">
+                    <article class="card" v-for="(task,idx) in tasksCompletedNew" :key="idx" :data-id="idx">
+                        <header>
+                            {{ task }}
+                        </header>
+                    </article>
+                </draggable>  
+            </section>
+        </div>
     </div>
 </template>
 
