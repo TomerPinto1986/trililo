@@ -35,6 +35,7 @@ async function remove(boardId) {
 }
 
 async function add(board) {
+    console.log('board:', board)
     const collection = await dbService.getCollection('board');
     try {
         await collection.insertOne(board);

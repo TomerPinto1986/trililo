@@ -10,7 +10,8 @@ export const userService = {
     remove,
     update,
     getGuest
-}
+};
+
 function getGuest() {
     return {
         _id: utilService.makeId(),
@@ -18,33 +19,33 @@ function getGuest() {
         email: 'abi@ababmi.com',
         password: 'aBambi123',
         imgUrl: '@/assets/imgs/guest.png'
-    }
+    };
 }
 
 function getUsers() {
-    return httpService.get('user')
+    return httpService.get('user');
 }
 
 function getById(userId) {
-    return httpService.get(`user/${userId}`)
+    return httpService.get(`user/${userId}`);
 }
 
 function remove(userId) {
-    return httpService.delete(`user/${userId}`)
+    return httpService.delete(`user/${userId}`);
 }
 
 function update(user) {
-    return httpService.put(`user/${user._id}`, user)
+    return httpService.put(`user/${user._id}`, user);
 }
 
 async function login(userCred) {
-    const user = await httpService.post('auth/login', userCred)
-    return _handleLogin(user)
+    const user = await httpService.post('auth/login', userCred);
+    return _handleLogin(user);
 }
 
 async function signup(userCred) {
-    const user = await httpService.post('auth/signup', userCred)
-    return _handleLogin(user)
+    const user = await httpService.post('auth/signup', userCred);
+    return _handleLogin(user);
 }
 
 async function logout() {
@@ -52,9 +53,9 @@ async function logout() {
     sessionStorage.clear();
 }
 
-
+// private functions
 
 function _handleLogin(user) {
-    sessionStorage.setItem('user', JSON.stringify(user))
+    sessionStorage.setItem('user', JSON.stringify(user));
     return user;
 }

@@ -27,13 +27,19 @@ import boardPreview from '../cmps/board/board-preview.cmp';
 export default {
     data() {
         return {
+            loggedinUser: this.$store.getters.loggedinUser,
             isAdding: false,
-            newBoardTxt: ''
+            newBoardTxt: '',
         }
     },
     computed: {
-        boardsForDisplay() {
-            return this.$store.getters.boards;
+        boardsForDisplay() {            
+            const boardsForDisplay = this.$store.getters.boards;
+            // boardsForDisplay = boardsForDisplay.filter(board => {
+            //     const membersIds = board.members.map(member => member._id);
+            //     !board.isPrivate || membersIds.includes(this.loggedinUser._id);
+            // });
+            return boardsForDisplay;
         }
     },
     methods: {

@@ -69,8 +69,8 @@ export default {
         },
         setEmptyGroup(state) {
             const group = JSON.parse(JSON.stringify(boardService.emptyGroup()));
-            console.log('group:', group)
-            state.emptyGroup = group
+            console.log('group:', group);
+            state.emptyGroup = group;
         }
     },
     actions: {
@@ -91,11 +91,13 @@ export default {
             await boardService.remove(boardId);
             commit({ type: 'deleteBoard', boardId });
         },
-        async createNewBoard({ commit }, newBoardTxt) {
-            const emptyBoard = boardService.emptyBoard();
-            emptyBoard.title = newBoardTxt;
-            const savedBoard = await boardService.save(emptyBoard);
-            commit('addNewBoard', savedBoard);
+        async createNewBoard(context, newBoardTxt) {
+            const newBoard = boardService.emptyBoard();
+            newBoard.title = newBoardTxt;
+            newBoard.byMember = context.getters.loggedinUser;
+            newBoard.members.push(context.getters.loggedinUser);
+            const savedBoard = await boardService.save(newBoard);
+            context.commit('addNewBoard', savedBoard);
             return savedBoard;
         },
         addNewCard({ state }, { newCard, groupId }) {

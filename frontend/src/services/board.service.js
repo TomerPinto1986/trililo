@@ -28,7 +28,6 @@ function save(board) {
     if (board._id) {
         return httpService.put(`board/${board._id}`, board);
     } else {
-        board.createdAt = Date.now();
         return httpService.post(`board`, board);
     }
 }
@@ -48,7 +47,6 @@ function emptyCard() {
 
 function emptyBoard() {
     return {
-        "_id": '',
         "title": "",
         "byMember": {},
         "isPrivate": true,
