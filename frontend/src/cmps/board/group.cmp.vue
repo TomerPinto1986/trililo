@@ -12,27 +12,24 @@
 				<button @click="emitDelete(group.id)">Delete Group</button>
 			</div>
 		</div>
-		<draggable v-model="myList" class="group-info flex f-center wrap">
-			<transition-group>
+		<div class="group-info flex f-center wrap">
 				<card-preview
 					v-for="card in group.cards"
 					:key="card.id"
 					:card="card"
 					@click.native="openDetails(card.id)"
-					@dragend="haa($event)"
 				/>
 				<form v-if="isAdding" @submit.prevent="saveCard">
 					<input type="text" v-model="newCardTxt" />
 					<button>Save</button>
 				</form>
-			</transition-group>
-		</draggable>
+		</div>
 		<button v-if="!isAdding" @click="addCard">+ Add another card</button>
 	</section>
 </template>
 
 <script>
-import draggable from 'vuedraggable'
+// import draggable from 'vuedraggable'
 import cardPreview from '../card/card-preview.cmp';
 
 export default {
@@ -74,7 +71,7 @@ export default {
 	},
 	components: {
 		cardPreview,
-		draggable
+		// draggable
 	},
 	created() {
 		this.currGroup = JSON.parse(JSON.stringify(this.group))

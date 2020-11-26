@@ -49,8 +49,8 @@ export default {
 	},
 	data() {
 		return {
-			tasksNotCompletedNew: ['lolo1', 'lolo2', 'lol3', 'lolo4', 'lolo5', 'lolo6', 'lolo7', 'lolo8'],
-			tasksCompletedNew: ['lolo1', 'lolo2', 'lolo', 'lolo', 'lolo', 'lolo', 'lolo', 'lolo']
+			tasksNotCompletedNew: ['1', '2', '3', '4', '5', '6', '7', '8'],
+			tasksCompletedNew: ['11', '22', '33', '44', '55', '66', '77', '88']
 		}
 	},
 	methods: {

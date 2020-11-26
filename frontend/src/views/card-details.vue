@@ -11,24 +11,36 @@
 		<card-activity />
 		<div class="actions">
 			<button class="dlt-btn" @click="emitDelete">Delete Card</button>
+			<button class="move-btn" @click="emitMove">Move</button>
 		</div>
 		<div class="btns flex">
 			<button class="save-btn" @click="emitSave">Save</button>
 			<button class="cancel-btn" @click="emitClose">Cancel</button>
+		</div>
+		<div v-if="isPopUp">
+			<card-move :groups="getCurrBoard.groups" />
 		</div>
 	</section>
 </template>
 
 <script>
 import cardActivity from '../cmps/card/card-activity.cmp';
+import cardMove from '../cmps/card/card-move.cmp';
 
 export default {
 	data() {
 		return {
-			card: null
+			card: null,
+			isPopUp: false,
+			currPopUp: null,
 		}
 	},
-	computed: {},
+	computed: {
+		getCurrBoard(){
+		console.log(this.$store.getters.currBoard);		
+			return this.$store.getters.currBoard
+		}
+	},
 	methods: {
 		emitClose() {
 			this.$emit('close');
@@ -40,10 +52,15 @@ export default {
 		emitDelete() {
 			this.emitClose();
 			this.$emit('deleteCard', this.card.id)
+		},
+		emitMove(){
+			this.currPopUp = 'move';
+			this.isPopUp = true;
 		}
 	},
 	components: {
-		cardActivity
+		cardActivity,
+		cardMove
 	},
 	created() {
 		const cardId = this.$route.params.cardId
