@@ -12,21 +12,30 @@
 				<button @click="emitDelete(group.id)">Delete Group</button>
 			</div>
 		</div>
-		<draggable v-model="myList" class="group-info flex f-center wrap">
-			<transition-group>
+		<draggable
+			class="drag-area"
+			:list="currGroup.cards"
+			:animation="200"
+			:group="'status'"
+			:tag="'div'"
+			@add="onAdd($event, true)"
+			@change="update($event)"
+		>
+			<div
+				v-for="(card, idx) in currGroup.cards"
+				:key="card.id"
+				:data-id="idx"
+			>
 				<card-preview
-					v-for="card in group.cards"
-					:key="card.id"
 					:card="card"
 					@click.native="openDetails(card.id)"
-					@dragend="haa($event)"
 				/>
-				<form v-if="isAdding" @submit.prevent="saveCard">
-					<input type="text" v-model="newCardTxt" />
-					<button>Save</button>
-				</form>
-			</transition-group>
+			</div>
 		</draggable>
+		<form v-if="isAdding" @submit.prevent="saveCard">
+			<input type="text" v-model="newCardTxt" />
+			<button>Save</button>
+		</form>
 		<button v-if="!isAdding" @click="addCard">+ Add another card</button>
 	</section>
 </template>
@@ -44,7 +53,7 @@ export default {
 			isAdding: false,
 			newCardTxt: '',
 			currGroup: null,
-			isEdit: false
+			isEdit: false,
 		}
 	},
 	methods: {
@@ -68,6 +77,22 @@ export default {
 		},
 		emitDelete(groupId) {
 			this.$emit('delete', groupId)
+		},
+		checkMove(ev) {
+			window.console.log("Future index: " + ev.draggedContext.futureIndex);
+		},
+		onAdd(event, status) {
+			console.log('adding', event, status)
+			let id = event.item.getAttribute('data-id');
+			console.log(id)
+		},
+		update(ev) {
+			console.log('updated', ev)
+			// const fromIdx = ev.moved.oldIndex
+			// console.log('fromIdx:', fromIdx)
+			const card = this.currGroup.cards
+			console.log(card)
+			// currGroup.cards.splice()
 		}
 	},
 	computed: {

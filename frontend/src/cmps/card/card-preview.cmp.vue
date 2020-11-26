@@ -15,12 +15,22 @@
 <script>
 export default {
 	props: {
-		card: Object
+		card: Object,
+
+	},
+	data() {
+		return {
+		}
 	},
 	computed: {
 		headerStyle() {
 			return { background: this.card.style.headerColor }
 		}
+	},
+	methods: {
+
+	},
+	created() {
 	}
 };
 </script>
