@@ -1,5 +1,5 @@
 <template>
-    <el-select @change="changeGroup" v-model="value" placeholder="list">
+    <el-select @change="changeGroup" v-model="value" :placeholder="title">
         <el-option
             v-for="item in options"
             :key="item.id"
@@ -14,6 +14,7 @@
 export default {
     props: {
         groups: Array,
+        title: String
     },
     data() {
         return {

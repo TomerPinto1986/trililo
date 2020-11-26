@@ -35,7 +35,11 @@
 					:card="card"
 					@click.native="openDetails(card.id)"
 				/>
+<<<<<<< HEAD
 			</transition-group>
+=======
+			</div>
+>>>>>>> 65d62ee2647be18c62b2feb07315ffd3e5e18dab
 		</draggable>
 		<div class="add-card">
 			<form v-if="isAdding" @submit.prevent="saveCard">
@@ -50,7 +54,11 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import draggable from 'vuedraggable'
+=======
+import draggable from 'vuedraggable';
+>>>>>>> 65d62ee2647be18c62b2feb07315ffd3e5e18dab
 import cardPreview from '../card/card-preview.cmp';
 
 export default {

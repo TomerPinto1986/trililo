@@ -18,6 +18,10 @@ export default {
         currCard(state) {
             return state.currCard;
         },
+        currGroup(state) {
+            const currGroup = state.currBoard.groups.find(group => group.cards.some(card => card.id === state.currCard.id))
+            return currGroup
+        },
         activities(state) {
             return state.currCard.activities;
         },
@@ -72,14 +76,29 @@ export default {
             console.log('group:', group)
             state.emptyGroup = group
         },
-        // newCard(state, {newCard, groupId}){
-        //     const group = state.currBoard.groups.find(group => group.id === groupId)
-        //     group
-        // }
+        updateCardStatus(state, { status }) {
+            if ((status.startGroup === status.endGroup || !status.endGroup) &&
+                (status.startPos === status.endPos || !status.endPos)) {
+                return
+            }
+            const startGroupIdx = state.currBoard.groups.findIndex(group => group.id === status.startGroup)
+            state.currBoard.groups[startGroupIdx].cards.splice(status.startPos, 1);
+            if (!status.endGroup) {
+                state.currBoard.groups[startGroupIdx].cards.splice(status.endPos, 0, state.currCard);
+            } else {
+                const endGroupIdx = state.currBoard.groups.findIndex(group => group.id === status.endGroup);
+                if (!status.endPos) {
+                    state.currBoard.groups[endGroupIdx].cards.push(state.currCard);
+                    return
+                }
+                state.currBoard.groups[endGroupIdx].cards.splice(status.endPos, 0, state.currCard);
+            }
+        }
     },
     actions: {
         async loadBoards({ commit }) {
             const boards = await boardService.query()
+            console.log('load boards', boards);
             commit('setBoards', boards)
         },
         async updateBoard({ state }, { newBoard }) {

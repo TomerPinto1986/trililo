@@ -17,7 +17,9 @@ async function query(filterBy = {}) {
 async function getById(boardId) {
     const collection = await dbService.getCollection('board');
     try {
-        return await collection.findOne({ '_id': ObjectId(boardId) });
+        const board = await collection.findOne({ '_id': ObjectId(boardId) });
+        console.log(board);
+        return board
     } catch (err) {
         console.log(`ERROR: while finding board ${boardId}`);
         throw err;
