@@ -12,7 +12,7 @@
 				<button @click="emitDelete(group.id)">Delete Group</button>
 			</div>
 		</div>
-		<draggable v-model="myList" class="group-info flex f-center wrap">
+		<draggable class="group-info flex f-center wrap">
 			<transition-group>
 				<card-preview
 					v-for="card in group.cards"

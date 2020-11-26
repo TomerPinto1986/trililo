@@ -1,7 +1,6 @@
 {
-    "boards": [
+    "board": [
         {
-            "_id": "b101",
             "title": "Robot dev proj",
             "byMember": {
                 "_id": "u101",
@@ -50,8 +49,8 @@
                                     "createdAt": 1590999817436,
                                     "byMember": {
                                         "_id": "u101",
-                                        "username": "Tal Tarablus",
-                                        "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                        "username": "Abi Abambi",
+                                        "imgUrl": "http://some-img"
                                     }
                                 }
                             ],
@@ -71,8 +70,8 @@
                             "members": [
                                 {
                                     "_id": "u101",
-                                    "username": "Tal Tarablus",
-                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                    "username": "Abi Abambi",
+                                    "imgUrl": "http://some-img"
                                 }
                             ],
                             "labels": [
@@ -86,8 +85,8 @@
                             "dueDate": 16156215211,
                             "byMember": {
                                 "_id": "u101",
-                                "username": "Tal Tarablus",
-                                "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                "username": "Abi Abambi",
+                                "imgUrl": "http://some-img"
                             },
                             "style": {
                                 "headerColor": "#26de81"
@@ -109,8 +108,8 @@
                                     "createdAt": 1590999817436,
                                     "byMember": {
                                         "_id": "u101",
-                                        "username": "Tal Tarablus",
-                                        "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                        "username": "Abi Abambi",
+                                        "imgUrl": "http://some-img"
                                     }
                                 }
                             ],
@@ -130,8 +129,8 @@
                             "members": [
                                 {
                                     "_id": "u101",
-                                    "username": "Tal Tarablus",
-                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                    "username": "Abi Abambi",
+                                    "imgUrl": "http://some-img"
                                 }
                             ],
                             "labels": [
@@ -145,8 +144,8 @@
                             "dueDate": 16156215211,
                             "byMember": {
                                 "_id": "u101",
-                                "username": "Tal Tarablus",
-                                "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                "username": "Abi Abambi",
+                                "imgUrl": "http://some-img"
                             },
                             "style": {
                                 "headerColor": "#26de81"
@@ -168,8 +167,8 @@
                                     "createdAt": 1590999817436,
                                     "byMember": {
                                         "_id": "u101",
-                                        "username": "Tal Tarablus",
-                                        "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                        "username": "Abi Abambi",
+                                        "imgUrl": "http://some-img"
                                     }
                                 }
                             ],
@@ -189,8 +188,8 @@
                             "members": [
                                 {
                                     "_id": "u101",
-                                    "username": "Tal Tarablus",
-                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                    "username": "Abi Abambi",
+                                    "imgUrl": "http://some-img"
                                 }
                             ],
                             "labels": [
@@ -227,8 +226,8 @@
                                     "createdAt": 1590999817436,
                                     "byMember": {
                                         "_id": "u101",
-                                        "username": "Tal Tarablus",
-                                        "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                        "username": "Abi Abambi",
+                                        "imgUrl": "http://some-img"
                                     }
                                 }
                             ],
@@ -248,8 +247,8 @@
                             "members": [
                                 {
                                     "_id": "u101",
-                                    "username": "Tal Tarablus",
-                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                    "username": "Abi Abambi",
+                                    "imgUrl": "http://some-img"
                                 }
                             ],
                             "labels": [
@@ -263,8 +262,8 @@
                             "dueDate": 16156215211,
                             "byMember": {
                                 "_id": "u101",
-                                "username": "Tal Tarablus",
-                                "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                "username": "Abi Abambi",
+                                "imgUrl": "http://some-img"
                             },
                             "style": {
                                 "headerColor": "#26de81"
@@ -295,8 +294,8 @@
                                     "createdAt": 1590999817436,
                                     "byMember": {
                                         "_id": "u101",
-                                        "username": "Tal Tarablus",
-                                        "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                        "username": "Abi Abambi",
+                                        "imgUrl": "http://some-img"
                                     }
                                 }
                             ],
@@ -316,8 +315,8 @@
                             "members": [
                                 {
                                     "_id": "u101",
-                                    "username": "Tal Tarablus",
-                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                    "username": "Abi Abambi",
+                                    "imgUrl": "http://some-img"
                                 }
                             ],
                             "labels": [
@@ -331,8 +330,8 @@
                             "dueDate": 16156215211,
                             "byMember": {
                                 "_id": "u101",
-                                "username": "Tal Tarablus",
-                                "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                "username": "Abi Abambi",
+                                "imgUrl": "http://some-img"
                             },
                             "style": {
                                 "headerColor": "#26de81"
@@ -354,8 +353,8 @@
                                     "createdAt": 1590999817436,
                                     "byMember": {
                                         "_id": "u101",
-                                        "username": "Tal Tarablus",
-                                        "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                        "username": "Abi Abambi",
+                                        "imgUrl": "http://some-img"
                                     }
                                 }
                             ],
@@ -375,8 +374,8 @@
                             "members": [
                                 {
                                     "_id": "u101",
-                                    "username": "Tal Tarablus",
-                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                    "username": "Abi Abambi",
+                                    "imgUrl": "http://some-img"
                                 }
                             ],
                             "labels": [
@@ -390,8 +389,8 @@
                             "dueDate": 16156215211,
                             "byMember": {
                                 "_id": "u101",
-                                "username": "Tal Tarablus",
-                                "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                "username": "Abi Abambi",
+                                "imgUrl": "http://some-img"
                             },
                             "style": {
                                 "headerColor": "#26de81"
@@ -437,7 +436,6 @@
             ]
         },
         {
-            "_id": "b102",
             "title": "Happy",
             "byMember": {
                 "_id": "u102",
@@ -476,8 +474,8 @@
                                     "createdAt": 1590999817436,
                                     "byMember": {
                                         "_id": "u101",
-                                        "username": "Tal Tarablus",
-                                        "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                        "username": "Abi Abambi",
+                                        "imgUrl": "http://some-img"
                                     }
                                 }
                             ],
@@ -497,8 +495,8 @@
                             "members": [
                                 {
                                     "_id": "u101",
-                                    "username": "Tal Tarablus",
-                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                    "username": "Abi Abambi",
+                                    "imgUrl": "http://some-img"
                                 }
                             ],
                             "labels": [
@@ -515,8 +513,8 @@
                                     "createdAt": 1590999817436,
                                     "byMember": {
                                         "_id": "u101",
-                                        "username": "Tal Tarablus",
-                                        "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                        "username": "Abi Abambi",
+                                        "imgUrl": "http://some-img"
                                     }
                                 }
                             ],
@@ -524,8 +522,8 @@
                             "dueDate": 16156215211,
                             "byMember": {
                                 "_id": "u101",
-                                "username": "Tal Tarablus",
-                                "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                "username": "Abi Abambi",
+                                "imgUrl": "http://some-img"
                             },
                             "style": {
                                 "headerColor": "#26de81"
@@ -561,19 +559,19 @@
             ]
         }
     ],
-    "users": [
+    "user": [
         {
             "_id": "u101",
             "username": "Abi Abambi",
             "email": "abi@ababmi.com",
             "password": "aBambi123",
-            "imgUrl": "http://some-img.jpg"
+            "imgUrl": "http://some-img"
         },
         {
             "_id": "u102",
             "username": "Dadi Gamadi",
             "email": "dadi@gamadi.com",
-            "password": "gDadi123",
+            "password": "gAmadi123",
             "imgUrl": "http://some-img.jpg"
         }
     ]

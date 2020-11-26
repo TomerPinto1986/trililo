@@ -13,23 +13,23 @@ export const boardService = {
 };
 
 function query() {
-    return httpService.get('boards');
+    return httpService.get('board');
 }
 
 function getById(boardId) {
-    return httpService.get(`boards/${boardId}`);
+    return httpService.get(`board/${boardId}`);
 }
 
 function remove(boardId) {
-    return httpService.delete(`boards/${boardId}`);
+    return httpService.delete(`board/${boardId}`);
 }
 
 function save(board) {
     if (board._id) {
-        return httpService.put(`boards/${board._id}`, board);
+        return httpService.put(`board/${board._id}`, board);
     } else {
         board.createdAt = Date.now();
-        return httpService.post(`boards`, board);
+        return httpService.post(`board`, board);
     }
 }
 
