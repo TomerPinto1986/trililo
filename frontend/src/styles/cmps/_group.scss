@@ -1,12 +1,18 @@
 .group {
+    position: relative;
     width: 100%;
     max-width: 250px;
-    padding: 10px 5px;
+    padding: 10px 5px 30px;
     margin: 10px;
     box-shadow: 0 0 2px 0 black;
-    position: relative;
-    overflow-y: auto;
+    height: fit-content;
     max-height: 750px;
+    align-items: center;
+    cursor: pointer;
+
+    .drag-area {
+        overflow-y: auto;
+    }
 
     .group-edit {
         box-shadow: 0 0 2px 0 black;
@@ -21,9 +27,22 @@
         align-items: center;
     }
 
-    .group-info {
+    .drag-area {
         width: 100%;
+        min-height: 40px;
+        height:100%;
         overflow-y: auto;
         margin-block-end: 10px;
     }
+
+    .add-card {
+        position: absolute;
+        bottom: 0;
+    }
+
+    .ghost .card-header{
+        border-radius: 10px;
+        box-shadow: none;
+    }
+    
 }

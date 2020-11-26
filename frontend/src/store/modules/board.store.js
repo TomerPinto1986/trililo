@@ -18,6 +18,10 @@ export default {
         currCard(state) {
             return state.currCard;
         },
+        currGroup(state) {
+            const currGroup = state.currBoard.groups.find(group => group.cards.some(card => card.id === state.currCard.id))
+            return currGroup
+        },
         activities(state) {
             return state.currCard.activities;
         },
@@ -69,17 +73,36 @@ export default {
         },
         setEmptyGroup(state) {
             const group = JSON.parse(JSON.stringify(boardService.emptyGroup()));
-            console.log('group:', group);
-            state.emptyGroup = group;
+            console.log('group:', group)
+            state.emptyGroup = group
+        },
+        updateCardStatus(state, { status }) {
+            if ((status.startGroup === status.endGroup || !status.endGroup) &&
+                (status.startPos === status.endPos || !status.endPos)) {
+                return
+            }
+            const startGroupIdx = state.currBoard.groups.findIndex(group => group.id === status.startGroup)
+            state.currBoard.groups[startGroupIdx].cards.splice(status.startPos, 1);
+            if (!status.endGroup) {
+                state.currBoard.groups[startGroupIdx].cards.splice(status.endPos, 0, state.currCard);
+            } else {
+                const endGroupIdx = state.currBoard.groups.findIndex(group => group.id === status.endGroup);
+                if (!status.endPos) {
+                    state.currBoard.groups[endGroupIdx].cards.push(state.currCard);
+                    return
+                }
+                state.currBoard.groups[endGroupIdx].cards.splice(status.endPos, 0, state.currCard);
+            }
         }
     },
     actions: {
         async loadBoards({ commit }) {
             const boards = await boardService.query()
+            console.log('load boards', boards);
             commit('setBoards', boards)
         },
-        async updateBoard({ state }, { newBoardTitle = '' }) {
-            if (newBoardTitle) state.currBoard.title = newBoardTitle;
+        async updateBoard({ state }, { newBoard }) {
+            state.currBoard = newBoard
             return boardService.save(state.currBoard);
         },
         async getBoardById({ commit, state }, { boardId }) {
@@ -100,11 +123,12 @@ export default {
             context.commit('addNewBoard', savedBoard);
             return savedBoard;
         },
-        addNewCard({ state }, { newCard, groupId }) {
-            state.currBoard.groups.forEach(group => {
-                if (group.id === groupId) group.cards.push(newCard);
-            });
-            return boardService.save(state.currBoard)
+        addNewCard({ commit }, { newCard, groupId }) {
+            // state.currBoard.groups.forEach(group => {
+            //     if (group.id === groupId) group.cards.push(newCard);
+            // });
+            // return boardService.save(state.currBoard)
+            commit({type:'newCard', newCard, groupId})
         },
         deleteCard({ state }, { cardId }) {
             state.currBoard.groups.forEach(group => {

@@ -40,7 +40,7 @@ function emptyCard() {
         "createdAt": "",
         "byMember": "",
         "style": {
-            "headerColor": "#ffffff"
+            "headerColor": "#d1d1d1"
         }
     }
 }
@@ -55,29 +55,13 @@ function emptyBoard() {
         },
         "members": [],
         "groups": [{
-                "id": utilService.makeId() + '',
-                "title": "TODO",
-                "cards": [],
-                "style": {
-                    "headerColor": ""
-                }
-            },
-            {
-                "id": utilService.makeId() + '',
-                "title": "IN PROGRESS",
-                "cards": [],
-                "style": {
-                    "headerColor": ""
-                }
-            },
-            {
-                "id": utilService.makeId() + '',
-                "title": "DONE",
-                "cards": [],
-                "style": {
-                    "headerColor": ""
-                }
+            "id": utilService.makeId() + '',
+            "title": "",
+            "cards": [],
+            "style": {
+                "headerColor": ""
             }
+        }
         ],
         "activities": []
     }

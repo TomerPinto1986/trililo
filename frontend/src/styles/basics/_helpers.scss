@@ -40,3 +40,45 @@
 .f-s-between {
     justify-content: space-between;
 }
+
+// Drag
+
+
+.ghost {
+    position: relative;
+    border-radius: 5px;
+
+    &::before {
+        content: "";
+        border-radius: 5px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: rgb(238, 238, 238);
+    }
+
+    .card-header {
+        border-radius: 6px;
+    }
+
+    cursor: grabbing !important;
+}
+
+.drag {
+    transform: rotate(8deg);
+
+    &::before {
+        content: "";
+        border-radius: 5px;
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        opacity: 1;
+        background-color: white;
+    }
+}
