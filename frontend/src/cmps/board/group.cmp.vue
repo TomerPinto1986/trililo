@@ -12,9 +12,6 @@
 				<button @click="emitDelete(group.id)">Delete Group</button>
 			</div>
 		</div>
-<<<<<<< HEAD
-		<div class="group-info flex f-center wrap">
-=======
 		<draggable
 			class="drag-area"
 			:list="currGroup.cards"
@@ -28,19 +25,10 @@
 				:key="card.id"
 				:data-id="idx"
 			>
->>>>>>> a181dec7c63466d88007e66d2a60de72faacac1c
 				<card-preview
 					:card="card"
 					@click.native="openDetails(card.id)"
 				/>
-<<<<<<< HEAD
-				<form v-if="isAdding" @submit.prevent="saveCard">
-					<input type="text" v-model="newCardTxt" />
-					<button>Save</button>
-				</form>
-		</div>
-		<button v-if="!isAdding" @click="addCard">+ Add another card</button>
-=======
 			</div>
 		</draggable>
 		<div class="add-card">
@@ -52,12 +40,11 @@
 				+ Add another card
 			</button>
 		</div>
->>>>>>> a181dec7c63466d88007e66d2a60de72faacac1c
 	</section>
 </template>
 
 <script>
-// import draggable from 'vuedraggable'
+import draggable from 'vuedraggable';
 import cardPreview from '../card/card-preview.cmp';
 
 export default {
@@ -110,7 +97,7 @@ export default {
 	},
 	components: {
 		cardPreview,
-		// draggable
+		draggable
 	},
 	created() {
 		this.currGroup = JSON.parse(JSON.stringify(this.group))

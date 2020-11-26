@@ -25,7 +25,7 @@
 			<button class="cancel-btn" @click="emitClose">Cancel</button>
 		</div>
 		<div v-if="isPopUp">
-			<card-move :groups="getCurrBoard.groups" />
+			<card-move :groups="getCurrBoard.groups" :group="getCurrGroup" :currPosition="getCurrPosition" @moveCard="moveCard" />
 		</div>
 	</section>
 </template>
@@ -44,8 +44,13 @@ export default {
 	},
 	computed: {
 		getCurrBoard(){
-		console.log(this.$store.getters.currBoard);		
 			return this.$store.getters.currBoard
+		},
+		getCurrGroup() {
+			return this.$store.getters.currGroup;
+		},
+		getCurrPosition(){
+			return this.getCurrGroup.cards.findIndex(card => card.id === this.card.id) + 1;
 		}
 	},
 	methods: {
@@ -60,9 +65,17 @@ export default {
 			this.emitClose();
 			this.$emit('deleteCard', this.card.id)
 		},
+
+		// for later on when we will make a pop up cmp
 		emitMove(){
 			this.currPopUp = 'move';
 			this.isPopUp = true;
+		},
+		moveCard(status){
+			this.$store.commit({type: 'updateCardStatus', status});
+			const newBoard = this.$store.getters.currBoard
+			this.$store.dispatch({ type: 'updateBoard', newBoard})
+			this.isPopUp = false;
 		}
 	},
 	components: {
@@ -73,7 +86,6 @@ export default {
 		const cardId = this.$route.params.cardId
 		this.$store.commit({ type: 'setCurrCard', cardId })
 		this.card = this.$store.getters.currCard;
-		console.log(this.card)
 	},
 	destroyed() {
 		this.$store.commit({ type: 'updateCurrCard', card: null })

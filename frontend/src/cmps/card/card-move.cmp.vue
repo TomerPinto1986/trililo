@@ -3,8 +3,8 @@
         <h3>Move Card</h3>
         <h3>Select Destenation</h3>
         <form @submit.prevent="emitMove">
-            <select-list @changeCardGroup="changeCardGroup" :groups="groups"></select-list>
-            <!-- <select-position @changeCardPosition="changeCardGroup" :groups="groups"></select-position> -->
+            <select-list @changeCardGroup="changeCardGroup" :groups="groups" :title="group.title"></select-list>
+            <select-position @changeCardPosition="changeCardPosition" :cards="getCards" :diff="getDiff" :currPosition="getCurrPosition" ></select-position>
             <button>Move</button>
         </form>
     </section>
@@ -12,29 +12,62 @@
 
 <script>
 import selectList from '../custom-elements/select-list.cmp';
+import selectPosition from '../custom-elements/select-position.cmp';
 
 export default {
     props: {
-        groups: Array
+        groups: Array,
+        group: Object,
+        currPosition: Number
     },
     data() {
         return {
-            newCardGroupId: null,
+            newCardGroupId: this.group.id,
             newCardPosition: null
         }
     },
+    computed:{
+        getCards(){
+            const group = this.groups.find( group => group.id === this.newCardGroupId);
+            return group.cards;
+        },
+        getDiff(){
+            console.log(this.newCardGroupId === this.group.id);
+            return (this.newCardGroupId === this.group.id) ? 0 : 1;
+        },
+        getCurrPosition(){
+            if (this.newCardGroupId) {
+                const group = this.groups.find( group => group.id === this.newCardGroupId);
+                return group.cards.length + '';
+            }
+            return this.currPosition + '';
+        },
+    },
     methods:{
-        changeCardGroup(groupId){
-            this.newCardGroup = groupId;
+        changeCardGroup(groupId) {
+            this.newCardGroupId = groupId;
+        },
+        changeCardPosition(position) {
+            this.newCardPosition = position;
         },
         emitMove(){
-            this.$emit('moveCard',groupId,position)
+            console.log(this.newCardGroupId,this.newCardPosition);
+            const status = {
+                startPos: this.currPosition - 1,
+                endPos: this.newCardPosition ? this.newCardPosition-1 : null,
+                startGroup: this.group.id,
+                endGroup: this.newCardGroupId
+            }
+            console.log(status);
+            // if (!status.endPos) status.endPos = 
+            this.$emit('moveCard', status)
         }
     },
 
 
     components: {
-        selectList
+        selectList,
+        selectPosition
     }
 }
 </script>
