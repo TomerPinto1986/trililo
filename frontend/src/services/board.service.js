@@ -63,7 +63,39 @@ function emptyBoard() {
             }
         }
         ],
-        "activities": []
+        "activities": [],
+        "labels" : [ 
+            {
+                "id" : "l101",
+                "color" : "#61bd4f",
+                "title" : "a"
+            }, 
+            {
+                "id" : "l102",
+                "color" : "#f2d600",
+                "title" : "b"
+            }, 
+            {
+                "id" : "l103",
+                "color" : "#ff9f1a",
+                "title" : "c"
+            }, 
+            {
+                "id" : "l104",
+                "color" : "#eb5a46",
+                "title" : "d"
+            }, 
+            {
+                "id" : "l105",
+                "color" : "#c377e0",
+                "title" : "e"
+            }, 
+            {
+                "id" : "l106",
+                "color" : "#0079bf",
+                "title" : "f"
+            }
+        ]
     }
 }
 
