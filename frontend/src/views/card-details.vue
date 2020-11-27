@@ -76,6 +76,7 @@ export default {
 
 		// for later on when we will make a pop up cmp
 		emitMove(){
+			console.log('sdsd');
 			this.currPopUp = 'move';
 			this.isPopUp = true;
 		},
@@ -84,7 +85,9 @@ export default {
 			this.isPopUp = true;
 		},
 		setNewDate(dueDate) {
-			console.log('setDate',dueDate);
+			this.card.dueDate = dueDate;
+			this.isPopUp = false;
+			
 		},
 		moveCard(status){
 			this.$store.commit({type: 'updateCardStatus', status});

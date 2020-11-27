@@ -16,7 +16,9 @@ export default {
             return state.currBoard;
         },
         currGroup(state) { //Maybe move to card-details cmp?
+            console.log(state);
             const currGroup = state.currBoard.groups.find(group => group.cards.some(card => card.id === state.currCard.id));
+            console.log(currGroup, 'got here');
             return currGroup;
         },
         emptyGroup(state) {
