@@ -17,6 +17,7 @@
 					v-for="group in board.groups"
 					:key="group.id"
 					:group="group"
+					:labels="board.labels"
 					@close="closeDetails"
 					@newCard="addCard"
 					@change="updateGroup"
@@ -132,7 +133,6 @@ export default {
 			this.newGroupTitle = '';
 		},
 		updateBoard(board) {
-			console.log(board)
 			this.$store.dispatch({ type: 'updateBoard', board });
 		}
 	},

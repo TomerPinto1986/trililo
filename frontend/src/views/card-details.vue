@@ -75,6 +75,7 @@ import cardAttachments from '@/cmps/card/card-attachments.cmp';
 import cardMove from '@/cmps/card/card-move.cmp';
 import cardCover from '@/cmps/card/card-cover.cmp';
 import datePicker from '@/cmps/custom-elements/date-picker.cmp';
+import cardLabels from '@/cmps/card/card-labels.cmp';
 import { utilService } from '@/services/util.service';
 import { uploadImg } from '@/services/img-upload.service';
 
