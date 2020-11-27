@@ -1,63 +1,49 @@
 <template>
     <section class="card-label">
-        <div class="label-header">
+        <div class="label-header flex f-s-between">
             <h3>Labels</h3>
             <button>X</button>
         </div>
         <div class="label-main">
-            <!-- <ul class="label-list">
-                <li>
-                    <div class="label" v-for="label in labels" :key="label.id"></div>
+            <ul class="label-list">
+                <li class="flex" v-for="label in board.labels" :key="label.id">
+                    <div
+                        class="label flex f-a-center"
+                        :style="{ backgroundColor: label.color }"
+                        @click="toggleLabelToCard(label.id)"
+                    >
+                        {{ label.title }}
+                        {{ isSelect(label.id) }}
+                    </div>
                     <button><i class="fal fa-pen"></i></button>
                 </li>
-            </ul> -->
+            </ul>
         </div>
     </section>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            labels: [
-                {
-                    id: 'l101',
-                    color: '#61bd4f',
-                    title: '',
-                    isSelected: false
-                },
-                {
-                    id: 'l102',
-                    color: '#f2d600',
-                    title: '',
-                    isSelected: false
-                },
-                {
-                    id: 'l103',
-                    color: '#ff9f1a',
-                    title: '',
-                    isSelected: false
-                },
-                {
-                    id: 'l104',
-                    color: '#eb5a46',
-                    title: '',
-                    isSelected: false
-                },
-                {
-                    id: 'l105',
-                    color: '#c377e0',
-                    title: '',
-                    isSelected: false
-                },
-                {
-                    id: 'l106',
-                    color: '#0079bf',
-                    title: '',
-                    isSelected: false
-                }
-            ]
-        };
+    props: {
+        card: Object,
+        board: Object
+    },
+    methods: {
+        toggleLabelToCard(labelId) {
+            if (!this.card.labels) return;
+            let idx = this.card.labels.findIndex(label => label.id === labelId);
+            if (idx === -1) this.card.labels.push({ id: labelId });
+            else this.card.labels.splice(idx, 1);
+
+            const groupIdx = this.board.groups.findIndex(group => group.cards.some(card => card.id === this.card.id));
+            const cardIdx = this.board.groups[groupIdx].cards.findIndex(card => card.id === this.card.id);
+            this.board.groups[groupIdx].cards.splice(cardIdx, 1, this.card);
+            this.$emit('onUpdateBoard', this.board);
+        },
+        isSelect(labelId) {
+            const labelsIds = this.card.labels.map(label => label.id);
+            return labelsIds.includes(labelId) ? 'V' : '';
+        }
     }
 };
 </script>

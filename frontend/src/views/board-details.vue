@@ -11,12 +11,13 @@
 				:animation="200"
 				:group="'board'"
 				:forceFallback="true"
-				@change="updateGroup"
+				@change="updateBoard(board)"
 			>
 				<group
 					v-for="group in board.groups"
 					:key="group.id"
 					:group="group"
+					:labels="board.labels"
 					@close="closeDetails"
 					@newCard="addCard"
 					@change="updateGroup"

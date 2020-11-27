@@ -3,3 +3,8 @@
     <router-link to="/board">Go to boards :D</router-link>
 </section>
 </template>
+
+<script>
+
+</script>
+
