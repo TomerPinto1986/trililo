@@ -1,7 +1,7 @@
 <template>
-<section class="home-page">
-    <router-link to="/board">Go to boards :D</router-link>
-</section>
+    <section class="home-page">
+
+    </section>
 </template>
 
 <script>
