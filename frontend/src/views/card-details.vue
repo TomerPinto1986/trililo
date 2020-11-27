@@ -103,7 +103,8 @@ export default {
     },
     computed: {
 		localTime(){
-			return new Date(this.card.dueDate).toLocaleTime();
+			console.log(this.card.dueDate);
+			return (new Date(this.card.dueDate)).toLocaleDateString();
 		},
         boardMembers() {
             if (!this.board.isPrivate) return this.$store.getters.users;
