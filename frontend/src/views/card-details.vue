@@ -40,6 +40,7 @@ export default {
 	data() {
 		return {
 			card: null,
+			board: '',
 			isPopUp: false,
 			currPopUp: null,
 		}
@@ -105,6 +106,7 @@ export default {
 		const cardId = this.$route.params.cardId
 		this.$store.commit({ type: 'setCurrCard', cardId })
 		this.card = this.$store.getters.currCard;
+		this.board = this.$store.getters.currBoard;
 	},
 	destroyed() {
 		this.$store.commit({ type: 'updateCurrCard', card: null })

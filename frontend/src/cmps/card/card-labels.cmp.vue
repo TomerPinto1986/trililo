@@ -1,13 +1,17 @@
 <template>
     <section class="card-label">
-        <label-header>
+        <div class="label-header">
             <h3>Labels</h3>
             <button>X</button>
-        </label-header>
-        <label-main>
-            <div class="label" v-for="label in labels" :key="label.id"></div>
-        </label-main>
-        <label-footer> </label-footer>
+        </div>
+        <div class="label-main">
+            <!-- <ul class="label-list">
+                <li>
+                    <div class="label" v-for="label in labels" :key="label.id"></div>
+                    <button><i class="fal fa-pen"></i></button>
+                </li>
+            </ul> -->
+        </div>
     </section>
 </template>
 
