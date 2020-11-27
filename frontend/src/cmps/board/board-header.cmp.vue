@@ -4,6 +4,7 @@
 			type="text"
 			:placeholder="board.title"
 			@keyup.enter="saveBoardTitle"
+			@blur="saveBoardTitle"
 			v-model="newBoard.title"
 			ref="myInput"
 		/>

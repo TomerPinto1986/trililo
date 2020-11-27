@@ -1,19 +1,30 @@
-.card-preview{
+.card-preview {
     cursor: pointer;
     margin: 10px auto;
-    box-shadow: 0 0 3px 0 black, inset 0 0 1px 0 black;
-    width:95%;
+    box-shadow: 0 0 3px 0 black;
+    width: 95%;
     border-radius: 3px;
-    
-    .card-header{
+
+    .card-header {
         border-radius: 3px 3px 0 0;
-        width:100%;
-        height:20px;
-        
+        width: 100%;
+        height: 20px;
+        // box-shadow:inset 0 0 1px 0 black;
+
     }
 
-    .card-info{
+    .card-info {
         padding: 5px;
     }
-    
+
+    .icons {
+        width: 100%;
+        padding: 0 5px;
+
+        >* {
+            font-size: 0.8em;
+            align-self: flex-start;
+            color: rgb(71, 71, 71);
+        }
+    }
 }
