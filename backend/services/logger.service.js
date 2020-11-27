@@ -14,7 +14,7 @@ function doLog(line, level = 'Debug') {
     if (typeof line !== 'string') line = JSON.stringify(line);
     line = `${getTime()} - ${level} - ${line}\n`;
     // console.log(line);
-    fs.appendFileSync('./logs/backend.log', line);
+    // fs.appendFileSync('./logs/backend.log', line);
 }
 
 module.exports = {
