@@ -77,6 +77,7 @@
 					:attachments="attachments"
 					@updateAttachments="updateAttachments"
 				/>
+		</div>
     </section>
 </template>
 
