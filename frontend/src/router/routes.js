@@ -5,7 +5,6 @@ import boardList from '../views/board-list';
 import boardDetails from '../views/board-details';
 import cardDetails from '../views/card-details';
 import login from '../views/login';
-import cardLabels from '../cmps/card/card-labels.cmp';
 
 Vue.use(VueRouter)
 
@@ -38,11 +37,6 @@ const routes = [{
     path: '/signup',
     name: 'signup',
     component: login
-},
-{
-    path: '/labels',
-    name: 'cardLabels',
-    component: cardLabels
 }
 ]
 
