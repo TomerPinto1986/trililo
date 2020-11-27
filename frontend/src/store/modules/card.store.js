@@ -2,7 +2,7 @@ import { boardService } from '../../services/board.service.js';
 
 export default {
     state: {
-        currCard: null,
+        // currCard: null,
         emptyCard: null,
     },
     getters: {
@@ -53,6 +53,5 @@ export default {
             }
         },
     },
-    actions: {
-    }
+    actions: {}
 }
