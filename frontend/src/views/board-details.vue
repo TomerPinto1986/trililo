@@ -11,6 +11,7 @@
 				:animation="200"
 				:group="'board'"
 				:forceFallback="true"
+				@change="updateGroup"
 			>
 				<group
 					v-for="group in board.groups"
@@ -103,7 +104,7 @@ export default {
 		},
 		deleteGroup(groupId) {
 			const board = this.board;
-			const groupIdx = board.groups.findIdx(currGroup => currGroup.id === groupId);
+			const groupIdx = board.groups.findIndex(currGroup => currGroup.id === groupId);
 			board.groups.splice(groupIdx, 1);
 			this.$store.dispatch({ type: 'updateBoard', board });
 		},

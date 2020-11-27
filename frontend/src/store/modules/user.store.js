@@ -10,6 +10,7 @@ export default {
     },
     getters: {
         users(state) {
+            console.log(state.users);
             return state.users;
         },
         loggedinUser(state) {
@@ -28,6 +29,7 @@ export default {
             state.loggedinUser = user;
         },
         setUsers(state, { users }) {
+            console.log('getting users', users);
             state.users = users;
         },
         removeUser(state, { userId }) {
