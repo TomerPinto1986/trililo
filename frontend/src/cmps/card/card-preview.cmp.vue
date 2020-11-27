@@ -11,7 +11,7 @@
 				</li>
 			</ul>
 			{{ card.title }}
-			<div class="attachment" v-if="card.attachments">
+			<div class="attachment" v-if="card.attachments && card.attachments.length">
 				<img :src="`${card.attachments[0].src}`" />
 			</div>
 		</div>

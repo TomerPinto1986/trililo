@@ -8,6 +8,11 @@
 				v-model="card.title"
 				@blur="updateBoard"
 			/>
+			<card-labels
+				:card="card"
+				:board="board"
+				@onUpdateBoard="updateBoard"
+			/>
 			<h3>Description</h3>
 			<!-- Turn to prop -->
 			<textarea
@@ -19,11 +24,7 @@
 				placeholder="Add a more detailed description..."
 			/>
 			<card-activity />
-			<card-attachments
-				:card="card"
-				:attachments="attachments"
-				@updateAttachments="updateAttachments"
-			/>
+
 			<div class="actions flex f-col f-center">
 				<button>Members</button>
 				<button>Labels</button>
@@ -65,6 +66,10 @@
 					@colorChange="updateCover"
 				/>
 			</div>
+				<card-attachments
+					:attachments="attachments"
+					@updateAttachments="updateAttachments"
+				/>
 		</div>
 	</section>
 </template>
@@ -174,15 +179,17 @@ export default {
 				src: res.url
 			}
 			if (!this.card.attachments) this.card.attachments = []
-			this.card.attachments.push(attachment)
+			const updatedCard = utilService.deepCopy(this.card)
+			updatedCard.attachments.push(attachment)
 			console.log(this.card, 'after adding')
 			this.isLoading = false;
 			const board = this.board;
 			board.groups.forEach(group => {
-				const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
-				if (cardIdx !== -1) group.cards.splice(cardIdx, 1, this.card);
+				const cardIdx = group.cards.findIndex(currCard => currCard.id === updatedCard.id);
+				if (cardIdx !== -1) group.cards.splice(cardIdx, 1, updatedCard);
 			})
-			this.$store.dispatch({ type: 'updateBoard', board })
+			this.$store.dispatch({ type: 'updateBoard', board });
+			this.card = updatedCard;
 		},
 		setCover() {
 			this.currPopUp = 'cover';
@@ -209,7 +216,8 @@ export default {
 		cardMove,
 		datePicker,
 		cardAttachments,
-		cardCover
+		cardCover,
+		cardLabels
 	}
 }
 </script>
