@@ -25,7 +25,7 @@
 
 			<div class="add-group group flex f-center" @click="addGroup">
 				<span v-if="!isAddingGroup">+ Add another list</span>
-				<form v-else @submit.prevent="saveGroup">
+				<form v-else @submit.prevent="newGroup">
 					<input
 						type="text"
 						v-model="newGroupTitle"
@@ -75,8 +75,8 @@ export default {
 			newCard.byMember = this.$store.getters.loggedinUser;
 			newCard.createdAt = Date.now();
 			const board = this.board;
-			const groupIdx = this.board.groups.findIndex(group => group.id === groupId)
-			board.groups[groupIdx].cards.push(newCard)
+			const group = this.board.groups.find(group => group.id === groupId);
+			group.cards.push(newCard);
 			this.$store.dispatch({ type: 'updateBoard', board });
 		},
 		updateCard(card) {
@@ -107,7 +107,7 @@ export default {
 			board.groups.splice(groupIdx, 1);
 			this.$store.dispatch({ type: 'updateBoard', board });
 		},
-		saveGroup() {
+		newGroup() {
 			const newGroup = this.getEmptyGroup();
 			newGroup.title = this.newGroupTitle;
 			const board = this.board;
@@ -136,7 +136,6 @@ export default {
 	},
 	computed: {
 		board() {
-			console.log('computing')
 			return utilService.deepCopy(this.$store.getters.currBoard)
 		}
 	},

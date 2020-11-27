@@ -37,7 +37,7 @@ const routes = [{
     path: '/signup',
     name: 'signup',
     component: login
-},
+}
 ]
 
 const router = new VueRouter({

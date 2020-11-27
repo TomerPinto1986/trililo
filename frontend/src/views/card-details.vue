@@ -1,7 +1,7 @@
 <template>
 	<section v-if="card" class="card-details flex f-col">
 		<input class="title" type="text" v-model="card.title" />
-		<h3>Description</h3>
+		<h3>Description</h3> <!-- Turn to prop -->
 		<input
 			class="desc"
 			type="text"
@@ -21,20 +21,27 @@
 			<button class="move-btn" @click="emitMove">Move</button>
 		</div>
 		<div class="btns flex">
-			<button class="save-btn" @click="emitSave">Save</button>
-			<button class="cancel-btn" @click="emitClose">Cancel</button>
+			<!-- <button class="save-btn" @click="emitSave">Save</button> -->
+			<button class="cancel-btn" @click="emitClose">Close</button>
 		</div>
 		<div v-if="isPopUp">
-			<card-move v-if="move" :groups="getCurrBoard.groups" :group="getCurrGroup" :currPosition="getCurrPosition" @moveCard="moveCard" />
-			<date-picker v-if="dueDate" @setDate="setNewDate"/>
+			<card-move
+				v-if="move"
+				:groups="board.groups"
+				:group="getCurrGroup"
+				:currPosition="getCurrPosition"
+				@moveCard="moveCard"
+			/>
+			<date-picker v-if="dueDate" @setDate="setNewDate" />
 		</div>
 	</section>
 </template>
 
 <script>
-import cardActivity from '../cmps/card/card-activity.cmp';
-import cardMove from '../cmps/card/card-move.cmp';
-import datePicker from '../cmps/custom-elements/date-picker.cmp'
+import cardActivity from '@/cmps/card/card-activity.cmp';
+import cardMove from '@/cmps/card/card-move.cmp';
+import datePicker from '@/cmps/custom-elements/date-picker.cmp';
+import { utilService } from '@/services/util.service';
 
 export default {
 	data() {
@@ -45,19 +52,20 @@ export default {
 		}
 	},
 	computed: {
-		getCurrBoard(){
-			return this.$store.getters.currBoard
+		board() {
+			return utilService.deepCopy(this.$store.getters.currBoard)
 		},
 		getCurrGroup() {
-			return this.$store.getters.currGroup;
+			const group = this.board.groups.find(group => group.cards.some(card => card.id === this.card.id))
+			return group;
 		},
-		getCurrPosition(){
+		getCurrPosition() {
 			return this.getCurrGroup.cards.findIndex(card => card.id === this.card.id) + 1;
 		},
-		move(){
+		move() {
 			return this.currPopUp === 'move';
 		},
-		dueDate(){
+		dueDate() {
 			return this.currPopUp === 'duedate';
 		}
 	},
@@ -73,10 +81,8 @@ export default {
 			this.emitClose();
 			this.$emit('deleteCard', this.card.id)
 		},
-
 		// for later on when we will make a pop up cmp
-		emitMove(){
-			console.log('sdsd');
+		emitMove() {
 			this.currPopUp = 'move';
 			this.isPopUp = true;
 		},
@@ -87,28 +93,30 @@ export default {
 		setNewDate(dueDate) {
 			this.card.dueDate = dueDate;
 			this.isPopUp = false;
-			
+
 		},
-		moveCard(status){
-			this.$store.commit({type: 'updateCardStatus', status});
-			const newBoard = this.$store.getters.currBoard
-			this.$store.dispatch({ type: 'updateBoard', newBoard})
+		moveCard(status) {
+			this.$store.commit({ type: 'updateCardStatus', status });
+			const board = this.$store.getters.currBoard
+			this.$store.dispatch({ type: 'updateBoard', board })
 			this.isPopUp = false;
 		}
+	},
+	created() {
+		const cardId = this.$route.params.cardId
+		this.$store.commit({ type: 'setCurrCard', cardId })
+		// this.card = utilService.deepCopy(this.$store.getters.currCard);
+		this.card = this.$store.getters.currCard;
+		console.log(this.card)
+	},
+	destroyed() {
+		this.$store.commit({ type: 'updateCurrCard', card: null })
+		this.card = null;
 	},
 	components: {
 		cardActivity,
 		cardMove,
 		datePicker
-	},
-	created() {
-		const cardId = this.$route.params.cardId
-		this.$store.commit({ type: 'setCurrCard', cardId })
-		this.card = this.$store.getters.currCard;
-	},
-	destroyed() {
-		this.$store.commit({ type: 'updateCurrCard', card: null })
-		this.card = null;
 	}
 }
 </script>

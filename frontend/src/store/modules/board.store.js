@@ -4,7 +4,6 @@ export default {
     state: {
         boards: null,
         currBoard: null,
-        currCard: null,
         emptyCard: null,
         emptyGroup: null
     },
@@ -15,12 +14,11 @@ export default {
         currBoard(state) {
             return state.currBoard;
         },
-        currGroup(state) { //Maybe move to card-details cmp?
-            console.log(state);
-            const currGroup = state.currBoard.groups.find(group => group.cards.some(card => card.id === state.currCard.id));
-            console.log(currGroup, 'got here');
-            return currGroup;
-        },
+        // currGroup(state) { //Maybe move to card-details cmp?
+        //     const currGroup = state.currBoard.groups.find(group => group.cards.some(card => card.id === this.getters.currCard.id));
+        //     console.log(currGroup, 'got here');
+        //     return currGroup;
+        // },
         emptyGroup(state) {
             return state.emptyGroup;
         }
@@ -37,13 +35,11 @@ export default {
             state.boards.push(newBoard);
         },
         updateBoard(state, { board }) {
-            console.log(board)
             state.currBoard = board;
         },
         setEmptyGroup(state) {
             const group = JSON.parse(JSON.stringify(boardService.emptyGroup()));
-            console.log('group:', group)
-            state.emptyGroup = group
+            state.emptyGroup = group;
         },
     },
     actions: {

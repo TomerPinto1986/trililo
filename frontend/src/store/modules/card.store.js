@@ -2,7 +2,7 @@ import { boardService } from '../../services/board.service.js';
 
 export default {
     state: {
-        // currCard: null,
+        currCard: null,
         emptyCard: null,
     },
     getters: {
@@ -18,7 +18,7 @@ export default {
     },
     mutations: {
         setCurrCard(state, { cardId }) {
-            console.log(this)
+            console.log(this.getters)
             this.getters.currBoard.groups.forEach(group => {
                 const card = group.cards.find(card => card.id === cardId);
                 if (card) {
@@ -27,6 +27,7 @@ export default {
             })
         },
         updateCurrCard(state, { card }) {
+            console.log(card)
             state.currCard = card;
         },
         setEmptyCard(state) {
@@ -39,17 +40,18 @@ export default {
                 (status.startPos === status.endPos || !status.endPos)) {
                 return
             }
-            const startGroupIdx = state.currBoard.groups.findIndex(group => group.id === status.startGroup)
-            state.currBoard.groups[startGroupIdx].cards.splice(status.startPos, 1);
+            const board = this.getters.currBoard;
+            const startGroupIdx = board.groups.findIndex(group => group.id === status.startGroup)
+            board.groups[startGroupIdx].cards.splice(status.startPos, 1);
             if (!status.endGroup) {
-                state.currBoard.groups[startGroupIdx].cards.splice(status.endPos, 0, state.currCard);
+                board.groups[startGroupIdx].cards.splice(status.endPos, 0, state.currCard);
             } else {
-                const endGroupIdx = state.currBoard.groups.findIndex(group => group.id === status.endGroup);
+                const endGroupIdx = board.groups.findIndex(group => group.id === status.endGroup);
                 if (!status.endPos) {
-                    state.currBoard.groups[endGroupIdx].cards.push(state.currCard);
+                    board.groups[endGroupIdx].cards.push(state.currCard);
                     return
                 }
-                state.currBoard.groups[endGroupIdx].cards.splice(status.endPos, 0, state.currCard);
+                board.groups[endGroupIdx].cards.splice(status.endPos, 0, state.currCard);
             }
         },
     },
