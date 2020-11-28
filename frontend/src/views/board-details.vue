@@ -1,8 +1,14 @@
 <template>
-	<section v-if="board" class="board-details flex f-col">
-		<board-header :board="board" :users="users" @updateBoard="updateBoard" @updateboardUsers="updateboardUsers"/>
-		<div class="flex">
+	<section v-if="board" class="board-details flex f-col" v-dragscroll:firstchilddrag>
+		<board-header
+			:board="board"
+			:users="users"
+			@updateTitle="updateBoardTitle"
+			@updateboardUsers="updateboardUsers"
+		/>
+		<div class="flex group-container">
 			<draggable
+				v-dragscroll:nochilddrag
 				class="drag-area flex"
 				ghostClass="ghost"
 				chosenClass="chosen"
@@ -14,6 +20,7 @@
 				@change="updateBoard(board)"
 			>
 				<group
+					data-no-dragscroll
 					v-for="group in board.groups"
 					:key="group.id"
 					:group="group"
@@ -63,7 +70,8 @@ export default {
 		return {
 			isDetails: false,
 			isAddingGroup: false,
-			newGroupTitle: ''
+			newGroupTitle: '',
+			isScroll: false
 		}
 	},
 	methods: {
@@ -152,6 +160,11 @@ export default {
 				board.members.splice(memberIdx, 1);
 			}
 			this.$store.dispatch({ type: 'updateBoard', board });
+		},
+		updateBoardTitle(boardTitle) {
+			const board = this.board;
+			board.title = boardTitle;
+			this.updateBoard(board);
 		}
 	},
 	computed: {
@@ -173,6 +186,7 @@ export default {
 		const boardId = this.$route.params.boardId;
 		this.$store.dispatch({ type: 'loadBoard', boardId });
 	},
+
 	components: {
 		group,
 		boardHeader,

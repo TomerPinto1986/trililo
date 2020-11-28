@@ -14,9 +14,9 @@ export default {
 			return this.$store.getters.loggedinUser.username;
 		},
 		appStyle() {
-			const page = this.$router.name;
+			const page = this.$route.name;
 			const isHome = (page === 'home' || page === 'login' || page === 'signup');
-			return { 'padding-block-start': (isHome) ? '150px' : '100px' };
+			return { 'padding-block-start': (isHome) ? '150px' : '0' };
 		}
 	},
 	methods: {

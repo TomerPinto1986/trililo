@@ -4,12 +4,14 @@
     min-width: 250px;
     padding: 10px 5px 30px;
     margin: 10px;
-    box-shadow: 0 0 2px 0 black;
+    // box-shadow: 0 0 2px 0 black;
     height: fit-content;
     max-height: 750px;
     align-items: center;
     cursor: pointer;
-    background-color: rgb(243, 242, 242);
+    background-color: #EBECF0;
+    border-radius: 3px;
+    white-space: normal;
     .group-header {
         input {
             font-size: 1em;
@@ -45,8 +47,15 @@
         position: absolute;
         bottom: 0;
     }
-    .ghost .card-header {
-        border-radius: 10px;
-        box-shadow: none;
+    .ghost {
+        .card-header {
+            border-radius: 10px;
+            box-shadow: none;
+        }
+        .add-card {
+            background-color: turquoise;
+            height: 200px;
+            display: none;
+        }
     }
 }

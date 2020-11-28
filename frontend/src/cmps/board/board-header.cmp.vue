@@ -2,10 +2,9 @@
     <section v-if="board" class="board-header flex f-s-between">
         <input
             type="text"
-            :placeholder="board.title"
             @keyup.enter="saveBoardTitle"
             @blur="saveBoardTitle"
-            v-model="newBoard.title"
+            v-model="boardTitle"
             ref="myInput"
         />
         <div>{{ isPrivate }}</div>
@@ -36,7 +35,7 @@ export default {
     },
     data() {
         return {
-            newBoard: '',
+            boardTitle: null,
             isAddUsers: false
         }
     },
@@ -55,7 +54,7 @@ export default {
 			this.$emit('updateboardUsers',userId)
 		},
         saveBoardTitle() {
-            this.$emit('updateBoard', this.newBoard);
+            this.$emit('updateTitle', this.boardTitle);
             setTimeout(() => {
                 this.$refs.myInput.blur();
             }, 0);
@@ -70,8 +69,7 @@ export default {
         }
     },
     created() {
-		this.newBoard = this.board;
-		console.log('users',this.users);
+        this.boardTitle = this.board.title;
     },
     components: {
 		avatar,
