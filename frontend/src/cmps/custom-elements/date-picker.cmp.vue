@@ -2,6 +2,7 @@
     <div class="block">
         <span class="demonstration">Default</span>
         <el-date-picker
+            :default-value="defaultValue"
             ref="date"
             @change="setDate"
             v-model="value1"
@@ -13,17 +14,21 @@
         >
             >
         </el-date-picker>
+        {{dueDate}} DATE
     </div>
 </template>
 
 <script>
 export default {
+    props: {
+        dueDate: Number,
+    },
     data() {
         return {
             pickerOptions: {
-                disabledDate(time) {
-                    return time.getTime() < Date.now();
-                },
+                // disabledDate(time) {
+                //     return time.getTime() < Date.now();
+                // },
                 shortcuts: [
                     {
                         text: 'Tomorrow',
@@ -44,18 +49,27 @@ export default {
             value1: '',
         };
     },
+    computed: {
+        defaultValue(){
+            if (this.dueDate) return this.dueDate;
+            return new Date();
+        }
+    },
     methods: {
         setDate() {
-            console.log(this.value1);
+            if (this.dueDate) {
+                console.log('card have DueDate');
+                this.$emit('removeDate');
+            }
             this.$emit('setDate', this.value1)
         },
-        forcusInput() {
-            console.log(this.$refs.date.$refs);
-        }
+        // forcusInput() {
+        //     console.log(this.$refs.date.$refs);
+        // }
 
     },
-    mounted() {
-        this.forcusInput();
-    }
+    // mounted() {
+    //     this.forcusInput();
+    // }
 };
 </script>

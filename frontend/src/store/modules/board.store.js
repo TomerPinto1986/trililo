@@ -48,7 +48,7 @@ export default {
         },
         async updateBoard({ commit }, { board }) {
             commit({ type: 'updateBoard', board })
-            return boardService.save(board);
+            return await boardService.save(board);
         },
         async deleteBoard({ commit }, boardId) {
             await boardService.remove(boardId);

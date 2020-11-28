@@ -46,7 +46,6 @@ export default {
     },
     computed: {
 		localTime(){
-			console.log(this.card.dueDate);
 			return (new Date(this.card.dueDate)).toLocaleDateString();
 		},
 		// month(){
