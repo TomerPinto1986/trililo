@@ -1,4 +1,5 @@
 .card-details {
+    z-index: 1;
     position: absolute;
     width: 800px;
     height: 800px;
@@ -38,7 +39,6 @@
         right: 10px;
         top: 230px;
         width: 150px;
-
         button {
             text-align: start;
             background-color: rgba(214, 214, 214, 0.5);
@@ -47,7 +47,6 @@
             margin: 5px;
             border-radius: 2px;
             box-shadow: unset;
-
             &:hover {
                 background-color: rgba(214, 214, 214, 0.8);
             }
@@ -82,7 +81,6 @@
             }
         }
     }
-
     .color-picker {
         position: absolute;
         opacity: 0;

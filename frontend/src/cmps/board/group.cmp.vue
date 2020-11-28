@@ -1,5 +1,5 @@
 <template>
-	<section v-if="group" class="group flex f-col">
+	<section v-if="group" class="group flex f-col" >
 		<div class="group-header">
 			<input
 				type="text"

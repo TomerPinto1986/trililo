@@ -2,21 +2,21 @@
     <section v-if="board" class="board-header flex f-s-between">
         <input
             type="text"
-            :placeholder="board.title"
             @keyup.enter="saveBoardTitle"
             @blur="saveBoardTitle"
-            v-model="newBoard.title"
+            v-model="boardTitle"
             ref="myInput"
         />
         <div>{{ isPrivate }}</div>
         <div class="board-members flex">
             <div v-for="member in boardMembers" :key="member.id">
-                <avatar :size="40" :username="member.username">ss</avatar>
+                <avatar :size="35" :username="member.username"></avatar>
             </div>
-            <button class="addUsers" @click="addUsers">Invite</button>
+            <button v-if="!isAddUsers" @click="addUsers">Invite</button>
             <add-users
                 v-if="isAddUsers"
-                :users="users"
+                :allUsers="users"
+				:boardUsers="this.board.members"
                 @closeUsers="closeUsers"
                 @updateUsers="updateUsers"
             />
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import addUsers from './add-users.cmp';
 import avatar from 'vue-avatar';
 export default {
     props: {
@@ -34,7 +35,7 @@ export default {
     },
     data() {
         return {
-            newBoard: '',
+            boardTitle: null,
             isAddUsers: false
         }
     },
@@ -50,10 +51,10 @@ export default {
 			this.isAddUsers = false
 		},
 		updateUsers(userId) {
-			console.log('updateing....',userId);
+			this.$emit('updateboardUsers',userId)
 		},
         saveBoardTitle() {
-            this.$emit('updateBoard', this.newBoard);
+            this.$emit('updateTitle', this.boardTitle);
             setTimeout(() => {
                 this.$refs.myInput.blur();
             }, 0);
@@ -68,10 +69,11 @@ export default {
         }
     },
     created() {
-        this.newBoard = this.board;
+        this.boardTitle = this.board.title;
     },
     components: {
-        avatar
+		avatar,
+		addUsers
     }
 }
 </script>
