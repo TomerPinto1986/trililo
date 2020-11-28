@@ -1,5 +1,5 @@
 <template>
-    <section class="board-list" v-if="boardsForDisplay">
+    <section class="board-list flex f-center wrap" v-if="boardsForDisplay">
         <div class="create-board board-preview flex f-center">
             <form v-if="isAdding" @submit.prevent="saveBoard">
                 <input
@@ -27,7 +27,6 @@ import boardPreview from '../cmps/board/board-preview.cmp';
 export default {
     data() {
         return {
-            loggedinUser: this.$store.getters.loggedinUser,
             isAdding: false,
             newBoardTxt: '',
         }
@@ -37,10 +36,12 @@ export default {
             const boards = this.$store.getters.boards;
             if (!boards) return boards;
             return boards.filter(board => {
-                console.log(board)
                 const membersIds = board.members.map(member => member._id);
                 return !board.isPrivate || membersIds.includes(this.loggedinUser._id);
             });
+        },
+        loggedinUser(){
+            return this.$store.getters.loggedinUser;
         }
     },
     methods: {

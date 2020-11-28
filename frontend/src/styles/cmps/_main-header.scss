@@ -1,0 +1,48 @@
+.main-header {
+    display: grid;
+    padding: 0 20px;
+
+    &.home {
+        height: 100px;
+        background-color: rgba(224, 224, 224, 0.5);
+        grid-template-columns: repeat(2, 1fr);
+
+        .logo {
+            font-size: 3rem;
+        }
+    }
+
+    &.app {
+        grid-template-columns: repeat(3, 1fr);
+        height: 50px;
+        background-color: rgba(163, 163, 163, 0.05);
+
+        .logo {
+            font-size: 1.5rem;
+            justify-content: center;
+        }
+    }
+
+    &>* {
+        align-items: center;
+    }
+
+    .main-nav {
+        &>* {
+            margin: 0 20px;
+        }
+
+    }
+    .logo{
+        span{
+            cursor: pointer;
+        }
+    }
+    .user-area {
+        justify-content: flex-end;
+
+        &>* {
+            margin: 0 20px;
+        }
+    }
+}

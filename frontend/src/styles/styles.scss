@@ -13,7 +13,9 @@
 @import 'views/card-details';
 @import 'views/board-list';
 @import 'views/board-details';
+@import 'views/_home-page';
 // COMPONENTS
+@import './cmps/main-header';
 @import './cmps/board-header';
 @import './cmps/group';
 @import 'cmps/card-preview';

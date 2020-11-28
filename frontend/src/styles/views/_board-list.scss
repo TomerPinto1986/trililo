@@ -1,16 +1,23 @@
 .board-list {
+    padding: 30px;
     button {
-        box-shadow: 0 0 2px 0 black;
-        padding: 20px;
+        padding: 10px 15px;
     }
 
     .create-board {
+        cursor: unset;
         background-color: #2a2a2a;
 
         button {
+            font-size: 1em;
+            padding: 15px;
             background-color: transparent;
-            box-shadow: 0 0 2px 0 white;
+            box-shadow: 0 0 2px 0 white, inset 0 0 1px 0 white;
             color: white;
+            
+            &:hover{
+                box-shadow: 0 0 3px 0 white, inset 0 0 2px 0 white;
+            }
         }
 
         input {
