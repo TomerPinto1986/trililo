@@ -14,11 +14,11 @@ export default {
             return state.users;
         },
         loggedinUser(state) {
-            if (!state.loggedinUser) return userService.getGuest();
+            const user = (!state.loggedinUser) ? state.loggedinUser : userService.getGuest();
             return {
-                _id: state.loggedinUser._id,
-                username: state.loggedinUser.username,
-                imgUrl: state.loggedinUser.imgUrl
+                _id: user._id,
+                username: user.username,
+                imgUrl: user.imgUrl
             };
         },
         isLogin(state) {

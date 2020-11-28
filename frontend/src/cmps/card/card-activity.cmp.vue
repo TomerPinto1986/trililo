@@ -1,5 +1,5 @@
 <template>
-    <section class="card-activity">
+    <section v-if="activities" class="card-activity">
         <h2>activities:</h2>
         <activity-preview v-for="activity in activities" :key="activity.id" :activity="activity" />
     </section>
@@ -9,10 +9,10 @@
 import activityPreview from './activity-preview.cmp.vue';
 
 export default {
+    props:{
+        activities: Array
+    },
     computed: {
-        activities() {
-            return this.$store.getters.activities;
-        }
     },
     components: {
         activityPreview
