@@ -1,6 +1,6 @@
 <template>
 	<section v-if="board" class="board-details flex f-col">
-		<board-header :board="board" @updateBoard="updateBoard" />
+		<board-header :board="board" :users="users" @updateBoard="updateBoard" />
 		<div class="flex">
 			<draggable
 				class="drag-area flex"
@@ -138,16 +138,20 @@ export default {
 	},
 	computed: {
 		board() {
-			return utilService.deepCopy(this.$store.getters.currBoard)
+			return utilService.deepCopy(this.$store.getters.currBoard);
+		},
+		users() {
+			return this.$store.getters.users;
 		}
 	},
 	watch: {
 		'$route.params'() {
-			if (this.$route.params.cardId) this.isDetails = true
+			if (this.$route.params.cardId) this.isDetails = true;
 		}
 	},
-	async created() {
-		if (this.$route.params.cardId) this.isDetails = true
+	created() {
+		this.$store.dispatch('loadUsers');
+		if (this.$route.params.cardId) this.isDetails = true;
 		const boardId = this.$route.params.boardId;
 		this.$store.dispatch({ type: 'loadBoard', boardId });
 	},

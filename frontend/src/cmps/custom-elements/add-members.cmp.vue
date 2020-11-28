@@ -4,9 +4,8 @@
         <input type="text" placeholder="Serach members" @keyup="filter" v-model="memberSearch">
         <ul>
             <li v-for="user in membersToShow" :key="user._id">
-                    <span @click="toggleMember(user._id)">{{user.username}}</span>
-                    <span v-if="isMember(user._id)">yes</span>
-                    <!-- <span v-else>no</span> -->
+                    <span class="card-member" @click="toggleMember(user._id)">{{user.username}} </span>
+                    <i class="fas fa-check" v-if="isMember(user._id)"></i>
             </li>
         </ul>
     </section>
