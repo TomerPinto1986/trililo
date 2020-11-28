@@ -1,10 +1,9 @@
 <template>
-    <section 
-    v-if="card" 
-    class="card-details flex f-col"
-    @click.stop="closePopup"
+    <section
+        v-if="card"
+        class="card-details flex f-col"
+        @click.stop="closePopup"
     >
-
         <div class="card-header" :style="headerStyle"></div>
         <div class="card-info">
             <input
@@ -13,37 +12,47 @@
                 v-model="card.title"
                 @blur="updateBoard"
             />
-            <div class="f-col card-members" v-if="card.members && card.members.length">
+            <div
+                class="f-col card-members"
+                v-if="card.members && card.members.length"
+            >
                 <span>Members </span>
-				<div class="flex">
-                <span v-for="member in card.members" :key="member._id">
-                    <avatar :size="35" :username="member.username"> </avatar>
-                </span>
-                <span @click.stop="onAddMembers">
-                    <avatar class="add-member" :size="35" :username="'+'"></avatar>
-                </span>
-				</div>
+                <div class="flex">
+                    <span v-for="member in card.members" :key="member._id">
+                        <avatar :size="35" :username="member.username">
+                        </avatar>
+                    </span>
+                    <span @click.stop="onAddMembers">
+                        <avatar
+                            class="add-member"
+                            :size="35"
+                            :username="'+'"
+                        ></avatar>
+                    </span>
+                </div>
             </div>
-            <card-labels
-                style="display: none"
-                :card="card"
-                :board="board"
-                @onUpdateBoard="updateBoard"
-            />
             <div class="due-date" v-if="card.dueDate || dueDate">
-				<span @click.stop="setDate">Due Date:</span>
-				<span v-if="card.dueDate">{{ localTime }}</span>
-				<date-picker
-					ref="date-picker"
-					class="date-picker"
-					slot="date-picker"
-					:dueDate="card.dueDate"
-					v-if="dueDate"
-					@setDate="setNewDate"
-				/>
-			</div>
+                <span @click.stop="setDate">Due Date:</span>
+                <span v-if="card.dueDate">{{ localTime }}</span>
+                <date-picker
+                    ref="date-picker"
+                    class="date-picker"
+                    slot="date-picker"
+                    :dueDate="card.dueDate"
+                    v-if="dueDate"
+                    @setDate="setNewDate"
+                />
+            </div>
+            <ul v-if="labelsSelected.length" class="label-marks flex">
+                <li class="flex" v-for="label in labelsSelected" :key="label">
+                    <div
+                        class="label"
+                        :style="{ backgroundColor: label }"
+                    ></div>
+                </li>
+            </ul>
             <h3>Description</h3>
-            
+
             <!-- Turn to prop -->
             <textarea
                 cols="50"
@@ -53,10 +62,10 @@
                 v-model="card.description"
                 placeholder="Add a more detailed description..."
             />
-            <card-activity :activities="card.activities"/>
-            <div class="actions flex f-col ">
+            <card-activity :activities="card.activities" />
+            <div class="actions flex f-col">
                 <button @click.stop="onAddMembers">Members</button>
-                <button>Labels</button>
+                <button @click.stop="openLabels">Labels</button>
                 <button>Checklist</button>
                 <button>
                     <label class="upload-btn" for="uploader">
@@ -72,51 +81,62 @@
                 />
                 <div>
                     <button @click.stop="setDate">Set Date</button>
-				<button @click.stop="removeDate" v-if="card.dueDate">
+                    <button @click.stop="removeDate" v-if="card.dueDate">
                         Remove Date
                     </button>
                 </div>
                 <button class="cover-btn" @click.stop="openCoverPicker">
                     Cover
                     <el-color-picker
-						popper-class="color-dropdown"
-						ref="color-picker"
-						class="color-picker"
-						size="mini"
-						v-model="card.style.headerColor"
-						@change="updateCover"
-					></el-color-picker>
+                        popper-class="color-dropdown"
+                        ref="color-picker"
+                        class="color-picker"
+                        size="mini"
+                        v-model="card.style.headerColor"
+                        @change="updateCover"
+                    ></el-color-picker>
                 </button>
                 <button>Copy</button>
-                <button class="dlt-btn" @click.stop="deleteCard">Delete Card</button>
+                <button class="dlt-btn" @click.stop="deleteCard">
+                    Delete Card
+                </button>
                 <button class="move-btn" @click.stop="emitMove">Move</button>
             </div>
             <div class="btns flex">
-                <button class="cancel-btn" @click.stop="emitClose">Close</button>
+                <button class="cancel-btn" @click.stop="emitClose">
+                    Close
+                </button>
             </div>
             <pop-up v-if="isPopUp" @closePopup="closePopup">
-				<card-move
-					slot="card-move"
-					v-if="move"
-					:groups="board.groups"
-					:group="getCurrGroup"
-					:currPosition="getCurrPosition"
-					@moveCard="moveCard"
-				/>
-				<add-members
-					slot="add-members"
-					v-if="isAddMembers"
-					:cardMembers="cardMembers()"
-					:boardMembers="boardMembers"
-					@updateMembers="updateMembers"
-				/>
-				<card-cover
-					slot="card-cover"
-					v-if="cover"
-					:color="card.style.headerColor"
-					@colorChange="updateCover"
-				/>
-			</pop-up>
+                <card-move
+                    slot="card-move"
+                    v-if="move"
+                    :groups="board.groups"
+                    :group="getCurrGroup"
+                    :currPosition="getCurrPosition"
+                    @moveCard="moveCard"
+                />
+                <add-members
+                    slot="add-members"
+                    v-if="isAddMembers"
+                    :cardMembers="cardMembers()"
+                    :boardMembers="boardMembers"
+                    @updateMembers="updateMembers"
+                />
+                <card-labels
+                    slot="card-labels"
+                    v-if="labels"
+                    :card="card"
+                    :board="board"
+                    @updateCard="updateCard"
+                />
+                <card-cover
+                    slot="card-cover"
+                    v-if="cover"
+                    :color="card.style.headerColor"
+                    @colorChange="updateCover"
+                />
+            </pop-up>
             <card-attachments
                 :attachments="attachments"
                 @updateAttachments="updateAttachments"
@@ -171,6 +191,9 @@ export default {
         dueDate() {
             return this.currPopUp === 'duedate';
         },
+        labels() {
+            return this.currPopUp === 'labels';
+        },
         cover() {
             return this.currPopUp === 'cover';
         },
@@ -218,6 +241,10 @@ export default {
         },
         setDate() {
             this.currPopUp = 'duedate';
+        },
+        openLabels() {
+            this.currPopUp = 'labels';
+            this.isPopUp = true;
         },
         removeDate() {
             delete this.card.dueDate;
@@ -317,12 +344,34 @@ export default {
             }
             return this.card.members
         },
+        closePopup() {
+            this.isPopUp = false;
+            this.currPopUp = '';
+        },
+        labelsSelected() {
+            if (!this.card.labels) return [];
+            console.log('-----------------');
+            const selectIds = this.card.labels.map(label => label.id);
+            console.log('selectIds:', selectIds)
+            const selectLabels = this.board.labels.filter(label => selectIds.includes(label.id));
+            const x = selectLabels.map(label => label.color);
+            console.log('--------------x:', x)
+        },
+        updateCard(card) {
+            const board = this.board;
+            board.groups.forEach(group => {
+                const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
+                if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
+            })
+            this.$store.dispatch({ type: 'updateBoard', board });
+        },
     },
     created() {
         const cardId = this.$route.params.cardId
         this.$store.commit({ type: 'setCurrCard', cardId })
         this.card = this.$store.getters.currCard;
         this.$store.dispatch('loadUsers')
+        console.log(this.boardLabels);
     },
     destroyed() {
         this.$store.commit({ type: 'updateCurrCard', card: null })

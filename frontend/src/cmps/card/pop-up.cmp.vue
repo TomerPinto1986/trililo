@@ -6,6 +6,7 @@
         <slot name="date-picker"></slot>
         <slot name="add-members"></slot>
         <slot name="card-cover"></slot>
+        <slot name="card-labels"></slot>
     </section>
 </template>
 
