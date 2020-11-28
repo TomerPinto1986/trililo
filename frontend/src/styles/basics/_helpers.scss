@@ -44,6 +44,12 @@
 .f-s-between {
     justify-content: space-between;
 }
+.f-s-around {
+    justify-content: space-around;
+}
+.f-s-evenly {
+    justify-content: space-evenly;
+}
 
 // Drag
 
@@ -85,4 +91,10 @@
         opacity: 1;
         background-color: white;
     }
+}
+
+// Router-Links
+
+.router-link-active{
+    font-weight: 600;
 }
