@@ -58,7 +58,17 @@
                         Remove Date
                     </button>
                 </div>
-                <button class="cover-btn" @click="setCover">Cover</button>
+                <button class="cover-btn" @click="openCoverPicker">
+					Cover
+					<el-color-picker
+						popper-class="dropdown"
+						ref="color-picker"
+						class="color-picker"
+						size="mini"
+						v-model="card.style.headerColor"
+						@change="updateCover"
+					></el-color-picker>
+					</button>
                 <button>Copy</button>
                 <button class="dlt-btn" @click="deleteCard">Delete Card</button>
                 <button class="move-btn" @click="emitMove">Move</button>
@@ -67,8 +77,9 @@
                 <!-- <button class="save-btn" @click="emitSave">Save</button> -->
                 <button class="cancel-btn" @click="emitClose">Close</button>
             </div>
-            <div v-if="isPopUp">
+            <pop-up v-if="isPopUp">
                 <card-move
+					slot="card-move"
                     v-if="move"
                     :groups="board.groups"
                     :group="getCurrGroup"
@@ -76,11 +87,13 @@
                     @moveCard="moveCard"
                 />
                 <date-picker
+					slot="date-picker"
                     :dueDate="card.dueDate"
                     v-if="dueDate"
                     @setDate="setNewDate"
                 />
                 <add-members
+					slot="add-members"
                     v-if="isAddMembers"
                     :cardMembers="cardMembers()"
                     :boardMembers="boardMembers"
@@ -88,11 +101,12 @@
                     @updateMembers="updateMembers"
                 />
                 <card-cover
+					slot="card-cover"
                     v-if="cover"
                     :color="card.style.headerColor"
                     @colorChange="updateCover"
                 />
-            </div>
+            </pop-up>
             <card-attachments
                 :attachments="attachments"
                 @updateAttachments="updateAttachments"
@@ -102,6 +116,7 @@
 </template>
 
 <script>
+import popUp from '../cmps/card/pop-up.cmp'
 import avatar from 'vue-avatar';
 import cardActivity from '@/cmps/card/card-activity.cmp';
 import cardAttachments from '@/cmps/card/card-attachments.cmp';
@@ -252,7 +267,10 @@ export default {
             })
             this.$store.dispatch({ type: 'updateBoard', board });
             this.card = updatedCard;
-        },
+		},
+		openCoverPicker() {
+			this.$refs['color-picker']._data.showPicker = true;
+		},
         setCover() {
             this.currPopUp = 'cover';
             this.isPopUp = true;
@@ -317,7 +335,8 @@ export default {
         cardAttachments,
         cardCover,
         cardLabels,
-        avatar
+		avatar,
+		popUp
     }
 }
 </script>

@@ -14,7 +14,7 @@ export default {
             return state.users;
         },
         loggedinUser(state) {
-            if (!state.loggedinUser) return userService.getGuest(); //Should be returning userService.getGuest()?
+            if (!state.loggedinUser) return userService.getGuest();
             return {
                 _id: state.loggedinUser._id,
                 username: state.loggedinUser.username,
