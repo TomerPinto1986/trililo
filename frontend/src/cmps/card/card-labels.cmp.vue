@@ -42,6 +42,7 @@ export default {
             // this.$emit('onUpdateBoard', this.board);
         },
         isSelect(labelId) {
+            if(!this.card.labels) return;
             const labelsIds = this.card.labels.map(label => label.id);
             return labelsIds.includes(labelId) ? '                V' : '';
         }

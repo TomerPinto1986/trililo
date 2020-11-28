@@ -14,11 +14,6 @@ export default {
         currBoard(state) {
             return state.currBoard;
         },
-        // currGroup(state) { //Maybe move to card-details cmp?
-        //     const currGroup = state.currBoard.groups.find(group => group.cards.some(card => card.id === this.getters.currCard.id));
-        //     console.log(currGroup, 'got here');
-        //     return currGroup;
-        // },
         emptyGroup(state) {
             return state.emptyGroup;
         }
@@ -61,9 +56,19 @@ export default {
         },
         async createNewBoard(context, newBoardTxt) {
             const newBoard = boardService.emptyBoard();
+            const user = context.getters.loggedinUser;
             newBoard.title = newBoardTxt;
-            newBoard.byMember = context.getters.loggedinUser;
-            newBoard.members.push(context.getters.loggedinUser);
+            if (user._id === 'guest') newBoard.isPrivate = false;
+            else {
+                newBoard.byMember = user;
+                newBoard.members.push(user);
+            }
+            const activity = boardService.emptyActivity();
+            activity.byMember = user;
+            activity.createdAt = Date.now();
+            activity.txt = 'created the board';
+            delete activity.card;
+            newBoard.activities.push(activity);
             const savedBoard = await boardService.save(newBoard);
             context.commit('addNewBoard', savedBoard);
             return savedBoard;

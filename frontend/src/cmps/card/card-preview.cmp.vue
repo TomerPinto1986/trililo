@@ -2,7 +2,7 @@
 	<section class="card-preview flex f-col f-center">
 		<div class="card-header" :style="headerStyle"></div>
 		<div class="card-info flex f-center f-col">
-			<ul class="label-marks">
+			<ul v-if="labelsSelected.length" class="label-marks">
 				<li class="flex" v-for="label in labelsSelected" :key="label">
 					<div
 						class="label"

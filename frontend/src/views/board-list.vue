@@ -45,6 +45,7 @@ export default {
     },
     methods: {
         deleteBoard(boardId) {
+            if(!confirm('Are you sure you want to delete this board?')) return;
             this.$store.dispatch('deleteBoard', boardId);
         },
         addBoard() {

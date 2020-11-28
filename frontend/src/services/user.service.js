@@ -14,10 +14,10 @@ export const userService = {
 
 function getGuest() {
     return {
-        _id: utilService.makeId(),
+        _id: 'guest',
         username: 'Guest' + utilService.getRandomInt(1, 1000),
-        email: 'abi@ababmi.com',
-        password: 'aBambi123',
+        email: 'guest@guesti.com',
+        password: 'guest',
         imgUrl: '@/assets/imgs/guest.png'
     };
 }
