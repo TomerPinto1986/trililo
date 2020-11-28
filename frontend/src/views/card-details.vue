@@ -241,6 +241,7 @@ export default {
 			// 	}
 			// })
 			// this.$store.dispatch({ type: 'updateBoard', board: board });
+			this.card = card;
 			this.updateCard(card);
 
 		},
