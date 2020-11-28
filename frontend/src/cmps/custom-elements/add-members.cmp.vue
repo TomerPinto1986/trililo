@@ -1,6 +1,6 @@
 <template>
-    <section class="add-members">
-        <h3>Members</h3> <button @click="onClose">x</button>
+    <section class="add-members" >
+        <h3>Members</h3>
         <input type="text" placeholder="Serach members" @keyup="filter" v-model="memberSearch">
         <ul>
             <li v-for="user in membersToShow" :key="user._id">
@@ -36,9 +36,6 @@ export default {
         toggleMember(userId){
             console.log(userId);
             this.$emit('updateMembers',userId);
-        },
-        onClose() {
-            this.$emit('closeMembers');
         },
         isMember(userId){
             return this.cardMembers.some( member => member._id === userId);

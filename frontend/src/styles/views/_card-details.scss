@@ -4,7 +4,7 @@
     height: 800px;
     top: calc(50% - 400px);
     right: calc(50% - 400px);
-    background-color: rgb(228, 228, 228);
+    background-color: rgb(243, 243, 243);
     border-radius: 10px;
 
     .card-info {
@@ -33,12 +33,20 @@
         position: absolute;
         right: 10px;
         top: 230px;
+        width: 150px;
 
         button {
-            padding: 5px;
+            text-align: start;
+            background-color: rgba(214, 214, 214, 0.5);
+            width: 100%;
+            padding: 8px 12px;
             margin: 5px;
-            box-shadow: 0 0 2px 0 black;
-            border-radius: 3px;
+            border-radius: 2px;
+            box-shadow: unset;
+
+            &:hover {
+                background-color: rgba(214, 214, 214, 0.8);
+            }
         }
     }
 
@@ -78,9 +86,8 @@
         }
     }
 
-    .color-picker, .date-picker {
+    .color-picker {
         position: absolute;
-        opacity:0;
+        opacity: 0;
     }
 }
-

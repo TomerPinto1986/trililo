@@ -4,13 +4,17 @@
     box-shadow: 0 0 3px 0 black;
     width: 95%;
     border-radius: 3px;
+    background-color: #fefefe;
+
     .card-header {
         border-radius: 3px 3px 0 0;
         width: 100%;
         height: 20px;
     }
+
     .card-info {
         padding: 5px;
+
         .label-marks div {
             height: 10px;
             width: 50px;
@@ -19,16 +23,19 @@
             display: inline-block;
         }
     }
+
     .icons {
         display: flex;
         align-items: center;
         width: 100%;
-        padding: 0 5px;
+        padding: 0 5px 5px;
+
         >* {
-            padding-inline-start: 5px;
+            // padding-inline-start: 5px;
             font-size: 0.8em;
             align-self: center;
             color: rgb(71, 71, 71);
+            margin: 0 2px;
         }
     }
 }

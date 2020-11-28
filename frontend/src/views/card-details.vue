@@ -1,5 +1,9 @@
 <template>
-	<section v-if="card" class="card-details flex f-col">
+	<section
+		v-if="card"
+		class="card-details flex f-col"
+		@click.stop="closePopup"
+	>
 		<div class="card-header" :style="headerStyle"></div>
 		<div class="card-info">
 			<input
@@ -13,20 +17,31 @@
 				<span v-for="member in card.members" :key="member._id"
 					><avatar :size="35" :username="member.username"></avatar
 				></span>
-				<span @click="onAddMembers"
+				<span @click.stop="onAddMembers"
 					><avatar :size="35" :username="'+'"></avatar
 				></span>
 			</div>
 			<card-labels
+				style="display: none"
 				:card="card"
 				:board="board"
 				@onUpdateBoard="updateBoard"
 			/>
+
+			<div class="due-date" v-if="card.dueDate || dueDate">
+				<span @click.stop="setDate">Due Date:</span>
+				<span v-if="card.dueDate">{{ localTime }}</span>
+				<date-picker
+					ref="date-picker"
+					class="date-picker"
+					slot="date-picker"
+					:dueDate="card.dueDate"
+					v-if="dueDate"
+					@setDate="setNewDate"
+				/>
+			</div>
 			<h3>Description</h3>
-			<span @click="setDate" v-if="card.dueDate"
-				>Due Date: {{ localTime }}</span
-			>
-			<!-- Turn to prop -->
+			<!-- Turn to prop? -->
 			<textarea
 				cols="50"
 				rows="5"
@@ -35,9 +50,9 @@
 				v-model="card.description"
 				placeholder="Add a more detailed description..."
 			/>
-			<card-activity />
-			<div class="actions flex f-col f-center">
-				<button @click="onAddMembers">Members</button>
+			<card-activity :activities="card.activities" />
+			<div class="actions flex f-col ">
+				<button @click.stop="onAddMembers">Members</button>
 				<button>Labels</button>
 				<button>Checklist</button>
 				<button>
@@ -52,16 +67,14 @@
 					id="uploader"
 					@change="onUpload"
 				/>
-				<div>
-					<button @click="setDate">Set Date</button>
-					<button @click="removeDate" v-if="card.dueDate">
-						Remove Date
-					</button>
-				</div>
-				<button class="cover-btn" @click="openCoverPicker">
+				<button @click.stop="setDate">Set Date</button>
+				<button @click.stop="removeDate" v-if="card.dueDate">
+					Remove Date
+				</button>
+				<button class="cover-btn" @click.stop="openCoverPicker">
 					Cover
 					<el-color-picker
-						popper-class="dropdown"
+						popper-class="color-dropdown"
 						ref="color-picker"
 						class="color-picker"
 						size="mini"
@@ -70,14 +83,17 @@
 					></el-color-picker>
 				</button>
 				<button>Copy</button>
-				<button class="dlt-btn" @click="deleteCard">Delete Card</button>
-				<button class="move-btn" @click="emitMove">Move</button>
+				<button class="dlt-btn" @click.stop="deleteCard">
+					Delete Card
+				</button>
+				<button class="move-btn" @click.stop="emitMove">Move</button>
 			</div>
 			<div class="btns flex">
-				<!-- <button class="save-btn" @click="emitSave">Save</button> -->
-				<button class="cancel-btn" @click="emitClose">Close</button>
+				<button class="cancel-btn" @click.stop="emitClose">
+					Close
+				</button>
 			</div>
-			<pop-up v-if="isPopUp">
+			<pop-up v-if="isPopUp" @closePopup="closePopup">
 				<card-move
 					slot="card-move"
 					v-if="move"
@@ -86,19 +102,11 @@
 					:currPosition="getCurrPosition"
 					@moveCard="moveCard"
 				/>
-				<date-picker
-					class="date-picker"
-					slot="date-picker"
-					:dueDate="card.dueDate"
-					v-if="dueDate"
-					@setDate="setNewDate"
-				/>
 				<add-members
 					slot="add-members"
 					v-if="isAddMembers"
 					:cardMembers="cardMembers()"
 					:boardMembers="boardMembers"
-					@closeMembers="closeMembers"
 					@updateMembers="updateMembers"
 				/>
 				<card-cover
@@ -114,7 +122,7 @@
 			/>
 		</div>
 	</section>
-</template>
+</template> 
 
 <script>
 import popUp from '../cmps/card/pop-up.cmp'
@@ -209,7 +217,6 @@ export default {
 		},
 		setDate() {
 			this.currPopUp = 'duedate';
-			this.isPopUp = true;
 		},
 		removeDate() {
 			delete this.card.dueDate;
@@ -237,14 +244,14 @@ export default {
 			})
 			this.$store.dispatch({ type: 'updateBoard', board: board });
 			this.card = updatedCard;
-			this.isPopUp = false;
+			this.closePopup()
 
 		},
 		moveCard(status) {
 			this.$store.commit({ type: 'updateCardStatus', status });
 			const board = this.board;
 			this.$store.dispatch({ type: 'updateBoard', board });
-			this.isPopUp = false;
+			this.closePopup()
 		},
 		async onUpload(ev) {
 			this.isLoading = true;
@@ -272,10 +279,6 @@ export default {
 		openCoverPicker() {
 			this.$refs['color-picker']._data.showPicker = true;
 		},
-		setCover() {
-			this.currPopUp = 'cover';
-			this.isPopUp = true;
-		},
 		updateCover(color) {
 			this.card.style.headerColor = color;
 			const board = this.board;
@@ -284,9 +287,6 @@ export default {
 		onAddMembers() {
 			this.currPopUp = 'member';
 			this.isPopUp = true;
-		},
-		closeMembers() {
-			this.isPopUp = false;
 		},
 		updateMembers(userId) {
 			const board = this.board;
@@ -317,6 +317,10 @@ export default {
 			console.log('card members', this.card.members);
 			return this.card.members
 		},
+		closePopup() {
+			this.isPopUp = false;
+			this.currPopUp = '';
+		}
 	},
 	created() {
 		const cardId = this.$route.params.cardId
