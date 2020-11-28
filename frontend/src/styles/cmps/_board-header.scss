@@ -6,16 +6,30 @@
     box-shadow: 0 0 2px 0 black;
     padding: 5px 10px;
     align-items: center;
-
+    z-index: 1;
     .board-members {
         align-items: center;
+        .add-users {
+            position: absolute;
+            background-color: whitesmoke;
+            top: 50px;
+            right: 150px;
+            padding: 15px;
+        }
+        li {
+            justify-content: space-between;
+        }
     }
-
-    input{
+    .board-user {
+        span {
+            cursor: pointer;
+        }
+    }
+    input {
         font-size: 1.6rem;
         border: none;
         outline: none;
-        &:focus{
+        &:focus {
             box-shadow: 0 1px 0 0 black;
         }
     }

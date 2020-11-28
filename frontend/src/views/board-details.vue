@@ -1,6 +1,6 @@
 <template>
 	<section v-if="board" class="board-details flex f-col">
-		<board-header :board="board" :users="users" @updateBoard="updateBoard" />
+		<board-header :board="board" :users="users" @updateBoard="updateBoard" @updateboardUsers="updateboardUsers"/>
 		<div class="flex">
 			<draggable
 				class="drag-area flex"
@@ -133,6 +133,24 @@ export default {
 			this.newGroupTitle = '';
 		},
 		updateBoard(board) {
+			this.$store.dispatch({ type: 'updateBoard', board });
+		},
+		updateboardUsers(userId){
+			console.log('update',userId);
+			const board = this.board;
+			const memberIdx = board.members.findIndex(member => member._id === userId);
+			if (memberIdx === -1){
+				console.log();
+				const user = this.$store.getters.users.find(user => user._id === userId);
+				const boardUser = {
+                    _id: user._id,
+                    username: user.username,
+                    imgUrl: user.imgUrl
+                };
+				board.members.push(boardUser);
+			} else {
+				board.members.splice(memberIdx, 1);
+			}
 			this.$store.dispatch({ type: 'updateBoard', board });
 		}
 	},

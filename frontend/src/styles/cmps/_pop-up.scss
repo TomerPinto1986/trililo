@@ -14,8 +14,12 @@
         }
     }
     .add-members {
-        .card-member {
-            cursor: pointer;
+        li {
+            justify-content: space-between;
+            .card-member {
+                cursor: pointer;
+                align-items: center;
+            }
         }
     }
 }
