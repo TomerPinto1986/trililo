@@ -8,6 +8,11 @@
 				v-model="card.title"
 				@blur="updateBoard"
 			/>
+			<div class="flex" v-if="(card.members && card.members.length)">
+				<span>Members: </span>
+				<span v-for="member in card.members" :key="member._id" ><avatar :size="35" :username="member.username"></avatar></span>
+				<span  @click="onAddMembers"><avatar :size="35" :username="'+'"></avatar></span>
+			</div>
 			<card-labels
 				:card="card"
 				:board="board"
@@ -82,6 +87,7 @@
 </template>
 
 <script>
+import avatar from 'vue-avatar';
 import cardActivity from '@/cmps/card/card-activity.cmp';
 import cardAttachments from '@/cmps/card/card-attachments.cmp';
 import cardMove from '@/cmps/card/card-move.cmp';
@@ -107,7 +113,7 @@ export default {
 			return (new Date(this.card.dueDate)).toLocaleDateString();
 		},
         boardMembers() {
-            if (!this.board.isPrivate) return this.$store.getters.users;
+            if (!this.board.isPrivate) return utilService.deepCopy(this.$store.getters.users);
             return this.board.members;
         },
         board() {
@@ -234,8 +240,9 @@ export default {
             this.isPopUp = false;
         },
         updateMembers(userId) {
-            const board = this.board;
-            const memberIdx = this.card.members.findIndex(member => member._id === userId)
+			const board = this.board;
+			const card = this.card;
+            const memberIdx = card.members.findIndex(member => member._id === userId);
             if (memberIdx === -1) {
                 const newUser = this.$store.getters.users.find(user => user._id === userId);
                 console.log(newUser);
@@ -244,11 +251,15 @@ export default {
                     username: newUser.username,
                     imgUrl: newUser.imgUrl
                 };
-                this.card.members.push(newMember);
+                card.members.push(newMember);
             } else {
-                this.card.members.splice(memberIdx, 1);
-            }
-            this.$store.dispatch({ type: 'updateBoard', board })
+                card.members.splice(memberIdx, 1);
+			}
+			board.groups.forEach(group => {
+				const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
+				if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
+			});
+            this.$store.dispatch({ type: 'updateBoard', board });
         },
         cardMembers() {
             if (!this.card.members) {
@@ -261,7 +272,8 @@ export default {
     created() {
         const cardId = this.$route.params.cardId
         this.$store.commit({ type: 'setCurrCard', cardId })
-        this.card = this.$store.getters.currCard;
+		this.card = this.$store.getters.currCard;
+		this.$store.dispatch('loadUsers')
     },
     destroyed() {
         this.$store.commit({ type: 'updateCurrCard', card: null })
@@ -274,7 +286,8 @@ export default {
 		addMembers,
 		cardAttachments,
 		cardCover,
-		cardLabels
+		cardLabels,
+		avatar
     }
 }
 </script>

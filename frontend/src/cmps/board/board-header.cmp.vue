@@ -11,7 +11,7 @@
 		<div>{{ isPrivate }}</div>
 		<div class="board-members flex">
 			<div v-for="member in boardMembers" :key="member.id">
-				<avatar :username="member.username">ss</avatar>
+				<avatar :size="40" :username="member.username">ss</avatar>
 			</div>
 			<button class="addMember" @click="addMember">Invite</button>
 		</div>

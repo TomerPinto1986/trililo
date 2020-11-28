@@ -34,6 +34,7 @@ export default {
             this.filterTxt = this.memberSearch;
         },
         toggleMember(userId){
+            console.log(userId);
             this.$emit('updateMembers',userId);
         },
         onClose() {

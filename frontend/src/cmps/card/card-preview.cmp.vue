@@ -23,11 +23,17 @@
 				v-if="card.attachments && card.attachments.length"
 				class="fas fa-paperclip"
 			></i>
+			<template v-if="card.members && card.members.length" >
+				<div v-for="member in card.members" :key="member._id">
+					<avatar :size="25" :username="member.username"></avatar>
+				</div>
+			</template>
 		</div>
 	</section>
 </template>
 
 <script>
+import avatar from 'vue-avatar';
 
 export default {
     props: {
@@ -63,6 +69,9 @@ export default {
 
 	},
 	created() {
+	},
+	components: {
+		avatar
 	}
 };
 </script>
