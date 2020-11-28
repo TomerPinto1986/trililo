@@ -14,7 +14,7 @@
 				@onUpdateBoard="updateBoard"
 			/>
         <h3>Description</h3>
-		<span v-if="card.dueDate">Due Date: {{localTime}}</span>
+		<span @click="setDate" v-if="card.dueDate">Due Date: {{localTime}}</span>
         <!-- Turn to prop -->
         <textarea
 				cols="50"

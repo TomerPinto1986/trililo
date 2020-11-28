@@ -16,6 +16,7 @@
 			</div>
 		</div>
 		<div class="icons">
+			<i v-if="card.dueDate" class="far fa-clock">{{localTime}}</i>
 			<i v-if="card.description" class="fas fa-align-left"></i>
 			<i v-if="card.checklist" class="fas fa-list"></i>
 			<i
@@ -38,6 +39,16 @@ export default {
         }
     },
     computed: {
+		localTime(){
+			console.log(this.card.dueDate);
+			return (new Date(this.card.dueDate)).toLocaleDateString();
+		},
+		// month(){
+		// 	return (new Date(this.card.dueDate)).getMonth();
+		// },
+		// day(){
+		// 	return (new Date(this.card.dueDate)).getDay();
+		// },
         headerStyle() {
             return { background: this.card.style.headerColor }
         },
