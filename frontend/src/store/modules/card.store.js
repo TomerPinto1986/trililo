@@ -35,23 +35,15 @@ export default {
             state.emptyCard = card
         },
         updateCardStatus(state, { status }) {
-            if ((status.startGroup === status.endGroup || !status.endGroup) &&
-                (status.startPos === status.endPos || !status.endPos)) {
-                return
-            }
+            console.log(status)
+            if (status.startGroup === status.endGroup || status.endPos === status.startPos) return;
             const board = this.getters.currBoard;
-            const startGroupIdx = board.groups.findIndex(group => group.id === status.startGroup)
+            const startGroupIdx = board.groups.findIndex(group => group.id === status.startGroup);
             board.groups[startGroupIdx].cards.splice(status.startPos, 1);
-            if (!status.endGroup) {
-                board.groups[startGroupIdx].cards.splice(status.endPos, 0, state.currCard);
-            } else {
-                const endGroupIdx = board.groups.findIndex(group => group.id === status.endGroup);
-                if (!status.endPos) {
-                    board.groups[endGroupIdx].cards.push(state.currCard);
-                    return
-                }
-                board.groups[endGroupIdx].cards.splice(status.endPos, 0, state.currCard);
-            }
+            const endGroupIdx = board.groups.findIndex(group => group.id === status.endGroup);
+            if (!status.endPos && status.endPos !== 0) {
+                board.groups[endGroupIdx].cards.push(state.currCard);
+            } else board.groups[endGroupIdx].cards.splice(status.endPos, 0, state.currCard);
         },
     },
     actions: {}

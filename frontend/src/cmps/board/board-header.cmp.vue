@@ -1,5 +1,5 @@
 <template>
-	<section v-if="board" class="board-header flex f-s-between">
+	<section v-if="board" class="board-header flex f-s-between" >
 		<input
 			type="text"
 			:placeholder="board.title"
@@ -50,7 +50,7 @@ export default {
 		},
 		isPrivate() {
 			return this.board.isPrivate ? 'Private' : 'Public'
-		},
+		}
 	},
 	created() {
 		this.newBoard = this.board;

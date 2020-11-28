@@ -67,7 +67,6 @@
     }
 
     .attachments {
-        // overflow: hidden;
         word-wrap: break-word;
         display: block;
         width: 100%;
@@ -79,9 +78,9 @@
         }
     }
 
-    .color-picker {
+    .color-picker, .date-picker {
         position: absolute;
-        z-index: -1;
+        opacity:0;
     }
 }
 

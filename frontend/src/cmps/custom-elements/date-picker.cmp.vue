@@ -26,9 +26,9 @@ export default {
     data() {
         return {
             pickerOptions: {
-                // disabledDate(time) {
-                //     return time.getTime() < Date.now();
-                // },
+                disabledDate(time) {
+                    return time.getTime() < Date.now();
+                },
                 shortcuts: [
                     {
                         text: 'Tomorrow',
@@ -63,13 +63,13 @@ export default {
             }
             this.$emit('setDate', this.value1)
         },
-        // forcusInput() {
-        //     console.log(this.$refs.date.$refs);
-        // }
-
+        forcusInput() {
+            console.log(this.$refs.date);
+            this.$refs.date._data.pickerVisible = true;
+        }
     },
-    // mounted() {
-    //     this.forcusInput();
-    // }
+    mounted() {
+        this.forcusInput();
+    }
 };
 </script>
