@@ -5,6 +5,7 @@
     display: grid;
     padding: 0 20px;
 
+
     &.home {
         height: 100px;
         background-color: rgba(224, 224, 224, 0.5);
@@ -18,12 +19,17 @@
     &.app {
         grid-template-columns: repeat(3, 1fr);
         height: 50px;
-        background-color: rgba(163, 163, 163, 0.05);
+        background-color: rgba(0, 0, 0, 0.1);
 
         .logo {
             font-size: 1.5rem;
             justify-content: center;
         }
+
+        >* {
+            color: #fefefe;
+        }
+
     }
 
     &>* {
@@ -36,11 +42,13 @@
         }
 
     }
-    .logo{
-        span{
+
+    .logo {
+        span {
             cursor: pointer;
         }
     }
+
     .user-area {
         justify-content: flex-end;
 

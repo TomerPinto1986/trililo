@@ -1,5 +1,5 @@
 <template>
-    <section class="add-members" >
+    <section class="add-members" @click.stop>
         <h3>Members</h3>
         <input type="text" placeholder="Serach members" @keyup="filter" v-model="memberSearch">
         <ul>
