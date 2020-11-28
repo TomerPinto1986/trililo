@@ -1,10 +1,16 @@
 <template>
-	<section v-if="board" class="board-details flex f-col" v-dragscroll:firstchilddrag>
+	<section
+		v-if="board"
+		class="board-details flex f-col"
+		v-dragscroll:firstchilddrag
+		:class="boardClass"
+	>
 		<board-header
 			:board="board"
 			:users="users"
 			@updateTitle="updateBoardTitle"
 			@updateboardUsers="updateboardUsers"
+			@changeBgc="changeBgc"
 		/>
 		<div class="flex group-container">
 			<draggable
@@ -143,18 +149,18 @@ export default {
 		updateBoard(board) {
 			this.$store.dispatch({ type: 'updateBoard', board });
 		},
-		updateboardUsers(userId){
-			console.log('update',userId);
+		updateboardUsers(userId) {
+			console.log('update', userId);
 			const board = this.board;
 			const memberIdx = board.members.findIndex(member => member._id === userId);
-			if (memberIdx === -1){
+			if (memberIdx === -1) {
 				console.log();
 				const user = this.$store.getters.users.find(user => user._id === userId);
 				const boardUser = {
-                    _id: user._id,
-                    username: user.username,
-                    imgUrl: user.imgUrl
-                };
+					_id: user._id,
+					username: user.username,
+					imgUrl: user.imgUrl
+				};
 				board.members.push(boardUser);
 			} else {
 				board.members.splice(memberIdx, 1);
@@ -165,6 +171,12 @@ export default {
 			const board = this.board;
 			board.title = boardTitle;
 			this.updateBoard(board);
+		},
+		changeBgc(bgc) {
+			const board = utilService.deepCopy(this.board);
+			board.style.background = bgc;
+			console.log(bgc)
+			this.updateBoard(board);
 		}
 	},
 	computed: {
@@ -173,7 +185,14 @@ export default {
 		},
 		users() {
 			return this.$store.getters.users;
-		}
+		},
+		boardClass() {
+			return  `${this.board.style.background}`
+		},
+		// boardStyle() {
+		// 	console.log(this.board.style.background)
+		// 	return {'background-image': `${this.board.style.background}`}
+		// }
 	},
 	watch: {
 		'$route.params'() {

@@ -231,7 +231,8 @@ export default {
 		},
 		removeDate() {
 			const card = utilService.deepCopy(this.card)
-			delete card.dueDate;
+			// delete card.dueDate;
+			card.dueDate = null;
 			// const board = this.board;
 			// board.groups.forEach(group => {
 			// 	const cardIdx = group.cards.findIndex(card => card.id === this.card.id)

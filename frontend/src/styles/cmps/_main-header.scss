@@ -30,6 +30,15 @@
             color: #fefefe;
         }
 
+        a{
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 3px 10px;
+            border-radius: 5px;
+            
+            &:hover{
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+        }
     }
 
     &>* {
