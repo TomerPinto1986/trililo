@@ -5,6 +5,7 @@
 		v-dragscroll:firstchilddrag
 		:class="boardClass"
 	>
+	<div class="screen" @click="goBack"></div>
 		<board-header
 			:board="board"
 			:users="users"
@@ -81,9 +82,14 @@ export default {
 		}
 	},
 	methods: {
+		goBack() {
+			document.body.querySelector('.screen').style.display = 'none';
+			this.$router.go(-1)
+		},
 		closeDetails() {
 			this.isDetails = false;
 			this.$router.push(`/board/${this.board._id}`)
+			document.body.querySelector('.screen').style.display = 'none';
 		},
 		addCard(title, groupId) {
 			const newCard = this.getEmptyCard();
@@ -196,14 +202,23 @@ export default {
 	},
 	watch: {
 		'$route.params'() {
-			if (this.$route.params.cardId) this.isDetails = true;
+			if (this.$route.params.cardId) {
+				this.isDetails = true;
+			}
+			else this.isDetails = false
 		}
+	},
+	mounted() {
+		setTimeout(()=>{
+			if (this.$route.params.cardId) document.body.querySelector('.screen').style.display = 'block';
+		},500)
 	},
 	created() {
 		this.$store.dispatch('loadUsers');
 		if (this.$route.params.cardId) this.isDetails = true;
 		const boardId = this.$route.params.boardId;
 		this.$store.dispatch({ type: 'loadBoard', boardId });
+		
 	},
 
 	components: {
