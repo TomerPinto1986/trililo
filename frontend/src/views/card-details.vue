@@ -152,122 +152,121 @@ import { uploadImg } from '@/services/img-upload.service';
 import addMembers from '@/cmps/custom-elements/add-members.cmp';
 
 export default {
-    data() {
-        return {
-            card: null,
-            isPopUp: false,
-            currPopUp: null,
-            isLoading: false
-        }
-    },
-    computed: {
-		// cardIsDone(){
-		// 	return (card.isDone) ? true : false;
-		// },
-        localTime() {
-            return (new Date(this.card.dueDate)).toLocaleDateString();
-        },
-        boardMembers() {
-            if (!this.board.isPrivate) return utilService.deepCopy(this.$store.getters.users);
-            return this.board.members;
-        },
-        board() {
-            return utilService.deepCopy(this.$store.getters.currBoard);
-        },
-        getCurrGroup() {
-            const group = this.board.groups.find(group => group.cards.some(card => card.id === this.card.id));
-            return group;
-        },
-        getCurrPosition() {
-            return this.getCurrGroup.cards.findIndex(card => card.id === this.card.id) + 1;
-        },
-        move() {
-            return this.currPopUp === 'move';
-        },
-        dueDate() {
-            return this.currPopUp === 'duedate';
-        },
-        cover() {
-            return this.currPopUp === 'cover';
-        },
-        headerStyle() {
-            return { background: this.card.style.headerColor };
-        },
-        attachments() {
-            return this.card.attachments;
-        },
-        isAddMembers() {
-            return this.currPopUp === 'member';
-        }
-    },
-    methods: {
-        updateBoard() {
-            const board = this.board;
-            this.$store.dispatch({ type: 'updateBoard', board });
-        },
-        updateAttachments(attachments) {
-            const card = utilService.deepCopy(this.card)
-            card.attachments = attachments;
-            // const board = this.board;
-            // board.groups.forEach(group => {
-            // 	const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
-            // 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1, this.card);
-            // })
-            // this.$store.dispatch({ type: 'updateBoard', board });
-            this.updateCard(card);
-        },
-        emitClose() {
-            this.$emit('close');
-        },
-        deleteCard() {
-            // const board = this.board;
-            // board.groups.forEach(group => {
-            // 	const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
-            // 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1);
-            // })
-            // this.$store.dispatch({ type: 'updateBoard', board });
-            this.updateCard(null);
-            this.emitClose();
-        },
-        // for later on when we will make a pop up cmp
-        emitMove() {
-            this.currPopUp = 'move';
-            this.isPopUp = true;
-        },
-        setDate() {
-            this.currPopUp = 'duedate';
-        },
-        removeDate() {
-            const card = utilService.deepCopy(this.card)
-            delete card.dueDate;
-            const board = this.board;
-            board.groups.forEach(group => {
-            const cardIdx = group.cards.findIndex(card => card.id === this.card.id)
-            if (cardIdx !== -1) {
-            group.cards.splice(cardIdx, 1, this.card)
-            }
-            })
-            this.$store.dispatch({ type: 'updateBoard', board: board });
+	data() {
+		return {
+			card: null,
+			isPopUp: false,
+			currPopUp: null,
+			isLoading: false
+		}
+	},
+	computed: {
+		localTime() {
+			return (new Date(this.card.dueDate)).toLocaleDateString();
+		},
+		boardMembers() {
+			if (!this.board.isPrivate) return utilService.deepCopy(this.$store.getters.users);
+			return this.board.members;
+		},
+		board() {
+			return utilService.deepCopy(this.$store.getters.currBoard);
+		},
+		getCurrGroup() {
+			const group = this.board.groups.find(group => group.cards.some(card => card.id === this.card.id));
+			return group;
+		},
+		getCurrPosition() {
+			return this.getCurrGroup.cards.findIndex(card => card.id === this.card.id) + 1;
+		},
+		move() {
+			return this.currPopUp === 'move';
+		},
+		dueDate() {
+			return this.currPopUp === 'duedate';
+		},
+		cover() {
+			return this.currPopUp === 'cover';
+		},
+		headerStyle() {
+			return { background: this.card.style.headerColor };
+		},
+		attachments() {
+			return this.card.attachments;
+		},
+		isAddMembers() {
+			return this.currPopUp === 'member';
+		}
+	},
+	methods: {
+		updateBoard() {
+			const board = this.board;
+			this.$store.dispatch({ type: 'updateBoard', board });
+		},
+		updateAttachments(attachments) {
+			const card = utilService.deepCopy(this.card)
+			card.attachments = attachments;
+			// const board = this.board;
+			// board.groups.forEach(group => {
+			// 	const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
+			// 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1, this.card);
+			// })
+			// this.$store.dispatch({ type: 'updateBoard', board });
+			this.updateCard(card);
+		},
+		emitClose() {
+			this.$emit('close');
+		},
+		deleteCard() {
+			// const board = this.board;
+			// board.groups.forEach(group => {
+			// 	const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
+			// 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1);
+			// })
+			// this.$store.dispatch({ type: 'updateBoard', board });
+			this.updateCard(null);
+			this.emitClose();
+		},
+		// for later on when we will make a pop up cmp
+		emitMove() {
+			this.currPopUp = 'move';
+			this.isPopUp = true;
+		},
+		setDate() {
+			this.currPopUp = 'duedate';
+		},
+		removeDate() {
+			const card = utilService.deepCopy(this.card)
+			// delete card.dueDate;
+			card.dueDate = null;
+			// const board = this.board;
+			// board.groups.forEach(group => {
+			// 	const cardIdx = group.cards.findIndex(card => card.id === this.card.id)
+			// 	if (cardIdx !== -1) {
+			// 		group.cards.splice(cardIdx, 1, this.card)
+			// 	}
+			// })
+			// this.$store.dispatch({ type: 'updateBoard', board: board });
             this.updateCard(card);
             this.card = card;
-        },
-        setNewDate(dueDate) {
-            const updatedCard = utilService.deepCopy(this.card)
-            if (this.card.dueDate) {
-                delete this.card.dueDate;
-            }
-            updatedCard.dueDate = dueDate
-            const board = this.board;
-            board.groups.forEach(group => {
-            const cardIdx = group.cards.findIndex(card => card.id === updatedCard.id)
-            if (cardIdx !== -1) {
-            group.cards.splice(cardIdx, 1, updatedCard);
-            }
-            })
-            this.$store.dispatch({ type: 'updateBoard', board: board });
-            this.updateCard(updatedCard);
-            this.card = updatedCard;
-            this.closePopup();
+
+		},
+		setNewDate(dueDate) {
+			const updatedCard = utilService.deepCopy(this.card)
+			if (this.card.dueDate) {
+				delete this.card.dueDate;
+			}
+			updatedCard.dueDate = dueDate
+			// const board = this.board;
+			// board.groups.forEach(group => {
+			// 	const cardIdx = group.cards.findIndex(card => card.id === updatedCard.id)
+			// 	if (cardIdx !== -1) {
+			// 		group.cards.splice(cardIdx, 1, updatedCard);
+			// 	}
+			// })
+			// this.$store.dispatch({ type: 'updateBoard', board: board });
+			this.updateCard(updatedCard);
+			this.card = updatedCard;
+			this.closePopup();
 
         },
         moveCard(status) {

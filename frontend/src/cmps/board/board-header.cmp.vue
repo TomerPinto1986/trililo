@@ -21,13 +21,17 @@
                 @updateUsers="updateUsers"
             />
         </div>
-        <button @click="openMenu">Menu</button>
+        <button @click="toggleMenu">Menu</button>
+        <board-menu v-if="isMenu" :board="board" @changeBgc="emitBgChange" @close="closeMenu"/>
     </section>
 </template>
 
 <script>
 import addUsers from './add-users.cmp';
+import boardMenu from './board-menu.cmp';
 import avatar from 'vue-avatar';
+
+
 export default {
     props: {
         board: Object,
@@ -36,12 +40,13 @@ export default {
     data() {
         return {
             boardTitle: null,
-            isAddUsers: false
+            isAddUsers: false,
+            isMenu: false
         }
     },
     methods: {
-        openMenu() {
-            console.log('open menu');
+        toggleMenu() {
+            this.isMenu = !this.isMenu;
         },
         addUsers() {
             console.log('Add member', this.users);
@@ -58,6 +63,12 @@ export default {
             setTimeout(() => {
                 this.$refs.myInput.blur();
             }, 0);
+        },
+        emitBgChange(bgc){
+            this.$emit('changeBgc', bgc)
+        },
+        closeMenu(){
+            this.isMenu = false;
         }
     },
     computed: {
@@ -73,7 +84,8 @@ export default {
     },
     components: {
 		avatar,
-		addUsers
+        addUsers,
+        boardMenu
     }
 }
 </script>
