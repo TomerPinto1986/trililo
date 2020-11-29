@@ -307,10 +307,8 @@ export default {
         },
         updateLabelTitle(labelId, title) {
             const board = this.board;
-            console.log('board.labels:', board.labels)
             const idx = board.labels.findIndex(label => label.id === labelId);
             if (idx !== -1) board.labels[idx].title = title;
-            console.log('board.labels:', board.labels)
             this.$store.dispatch({ type: 'updateBoard', board });
         },
         labelsSelected() {
