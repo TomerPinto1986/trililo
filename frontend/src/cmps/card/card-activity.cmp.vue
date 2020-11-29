@@ -1,6 +1,6 @@
 <template>
     <section class="card-activity">
-        <h2>activities:</h2>
+        <h2>activity:</h2>
         <button>Show Details</button>
         <avatar username="user.username"></avatar>
         <input type="text" placeholder="Write a comment..." @keydown="typing" v-model="msg.txt">

@@ -13,6 +13,7 @@ export default {
 }
 
 function setup() {
+    console.log('connecting', BASE_URL);
     socket = io(BASE_URL);
 }
 

@@ -2,7 +2,6 @@ var chat = {};
 console.log(chat, 'chat');
 
 function connectSockets(io) {
-    console.log('connecting');
     io.on('connection', socket => {
         console.log('socket connected:', socket);
         socket.on('chat-newMsg', msg => {
