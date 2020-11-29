@@ -1,4 +1,6 @@
 import { boardService } from '../../services/board.service.js';
+import { utilService } from '../../services/util.service.js'
+
 
 export default {
     state: {
@@ -29,7 +31,7 @@ export default {
             state.currCard = card;
         },
         setEmptyCard(state) {
-            const card = JSON.parse(JSON.stringify(boardService.emptyCard()));
+            const card = utilService.deepCopy(boardService.emptyCard());
             console.log('card:', card)
             state.emptyCard = card
         },

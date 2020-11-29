@@ -68,4 +68,19 @@
             }
         }
     }
+
+    .activity {
+        margin: 10px 0 0 5px;
+        overflow-y: auto;
+        .activity-preview {
+            .info {
+                text-align: start;
+                padding: 0 5px;
+                align-items: flex-start;
+                font-size: 0.55em;
+                margin:5px 0;
+            }
+
+        }
+    }
 }

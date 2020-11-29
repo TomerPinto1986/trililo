@@ -1,21 +1,25 @@
 import { boardService } from '../../services/board.service.js';
+import { utilService } from '../../services/util.service.js'
 
 export default {
     state: {
         boards: null,
         currBoard: null,
-        emptyCard: null,
-        emptyGroup: null
+        emptyGroup: null,
+        emptyActivity: null
     },
     getters: {
         boards(state) {
-            return JSON.parse(JSON.stringify(state.boards));
+            return utilService.deepCopy(state.boards);
         },
         currBoard(state) {
             return state.currBoard;
         },
         emptyGroup(state) {
             return state.emptyGroup;
+        },
+        emptyActivity(state) {
+            return state.emptyActivity
         }
     },
     mutations: {
@@ -33,9 +37,13 @@ export default {
             state.currBoard = board;
         },
         setEmptyGroup(state) {
-            const group = JSON.parse(JSON.stringify(boardService.emptyGroup()));
+            const group = utilService.deepCopy(boardService.emptyGroup());
             state.emptyGroup = group;
         },
+        setEmptyActivity(state) {
+            const activity = utilService.deepCopy(boardService.emptyActivity());
+            state.emptyActivity = activity;
+        }
     },
     actions: {
         async loadBoards({ commit }) {
@@ -44,7 +52,7 @@ export default {
         },
         async loadBoard({ commit }, { boardId }) {
             let board;
-            if(!boardId) board = null;
+            if (!boardId) board = null;
             else board = await boardService.getById(boardId)
             commit({ type: 'updateBoard', board })
         },
@@ -53,6 +61,7 @@ export default {
             return await boardService.save(board);
         },
         async deleteBoard({ commit }, boardId) {
+            console.log('adad')
             await boardService.remove(boardId);
             commit({ type: 'deleteBoard', boardId });
         },
@@ -75,5 +84,6 @@ export default {
             context.commit('addNewBoard', savedBoard);
             return savedBoard;
         },
+
     }
 }

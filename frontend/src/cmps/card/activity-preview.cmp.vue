@@ -1,7 +1,12 @@
 <template>
-	<section class="activity-preview">
-		<avatar :username="username"></avatar>
-		<h2>{{ username }} {{ activity.txt }}</h2>
+	<section class="activity-preview flex">
+		<avatar class="avater" :size="35" :username="username"></avatar>
+		<div class="info flex f-col">
+			<h2 @click="openCard" class="flex f-center">
+				{{ username }} {{ activity.txt }}
+			</h2>
+			<h3>{{ moment(activity.createdAt).fromNow() }}</h3>
+		</div>
 	</section>
 </template>
 
@@ -9,13 +14,26 @@
 import avatar from 'vue-avatar';
 
 export default {
+
+	props: {
+		activity: Object
+	},
 	computed: {
 		username() {
 			return this.activity.byMember.username;
+		},
+		time() {
+			return this.activity.createdAt
 		}
 	},
-	props: {
-		activity: Object
+	methods: {
+		openCard() {
+			console.log(this.activity.card.url)
+			if (this.activity.card) this.$router.push(this.activity.card.url)
+		}
+	},
+	created() {
+		console.log(this.activity)
 	},
 	components: {
 		avatar
