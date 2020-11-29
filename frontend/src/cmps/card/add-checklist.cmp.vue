@@ -26,10 +26,13 @@ export default {
         addChecklist() {
             const card = utilService.deepCopy(this.card);
             if (!card.checklistGroup) card.checklistGroup = [];
-            card.checklistGroup.push({ title: this.titleToEdit, items: [] });
+            card.checklistGroup.push({ id: utilService.makeId(), title: this.titleToEdit, items: [] });
             this.$emit('updateCard', card);
             this.$emit('close');
         }
+    },
+    created() {
+        console.log(this.card);
     }
 };
 </script>

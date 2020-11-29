@@ -91,6 +91,14 @@
                     v-model="card.description"
                     placeholder="Add a more detailed description..."
                 />
+                <div v-if="card.checklistGroup" class="checklist-group">
+                    <card-checklist
+                        v-for="checklist in card.checklistGroup"
+                        :key="checklist.id"
+                        :checklist="checklist"
+                    />
+                </div>
+                <card-activity :activities="card.activities" />
                 <div class="btns flex"></div>
                 <pop-up v-if="isPopUp" @closePopup="closePopup">
                     <card-move
@@ -121,6 +129,7 @@
                         @colorChange="updateCover"
                     />
                     <add-checklist
+                        v-if="checklist"
                         :card="card"
                         @updateCard="updateCard"
                         @close="closePopup"
@@ -191,7 +200,8 @@ import cardMove from '@/cmps/card/card-move.cmp';
 import cardCover from '@/cmps/card/card-cover.cmp';
 import datePicker from '@/cmps/custom-elements/date-picker.cmp';
 import cardLabels from '@/cmps/card/card-labels.cmp';
-import addChecklist from '@/cmps/card/add-checklist.cmp';
+import addChecklist from '../cmps/card/add-checklist.cmp';
+import cardChecklist from '../cmps/card/card-checklist.cmp';
 import { utilService } from '@/services/util.service';
 import { uploadImg } from '@/services/img-upload.service';
 import addMembers from '@/cmps/custom-elements/add-members.cmp';
@@ -338,6 +348,10 @@ export default {
             const selectIds = this.card.labels.map(label => label.id);
             return this.board.labels.filter(label => selectIds.includes(label.id));
         },
+        addChecklist() {
+            this.currPopUp = 'checklist';
+            this.isPopUp = true;
+        },
         moveCard(status) {
             console.log(status)
             this.$store.commit({ type: 'updateCardStatus', status });
@@ -421,6 +435,8 @@ export default {
                 if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
             })
             this.$store.dispatch({ type: 'updateBoard', board });
+            this.card = card;
+            console.log('this.card:', this.card)
         },
         cloneCard() {
             const cardCopy = utilService.deepCopy(this.card);
@@ -455,7 +471,8 @@ export default {
         avatar,
         popUp,
         checkBox,
-        addChecklist
+        addChecklist,
+        cardChecklist
     }
 }
 </script>

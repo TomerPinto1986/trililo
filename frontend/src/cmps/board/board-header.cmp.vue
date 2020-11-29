@@ -116,11 +116,9 @@ export default {
 	},
 	created() {
 		this.boardTitle = this.board.title;
-		console.log(this.boardTitle, this.board.title)
 		this.privacy = (this.isPrivate);
 	},
 	destroyed(){
-		console.log(this.boardTitle)
 	},
 	components: {
 		avatar,

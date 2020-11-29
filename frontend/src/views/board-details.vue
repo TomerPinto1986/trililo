@@ -201,7 +201,7 @@ export default {
 	},
 	computed: {
 		board() {
-			if (this.$store.getters.currBoard) console.log(this.$store.getters.currBoard);
+			// if (this.$store.getters.currBoard) console.log(this.$store.getters.currBoard);
 			return utilService.deepCopy(this.$store.getters.currBoard);
 		},
 		users() {
@@ -214,7 +214,6 @@ export default {
 		// 	return `${this.board.style.backgroundClass}`
 		// },
 		boardStyle() {
-			console.log(this.board.style.background)
 			return { 'background': `${this.board.style.background}` }
 		}
 	},
