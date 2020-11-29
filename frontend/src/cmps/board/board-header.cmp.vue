@@ -46,6 +46,7 @@
 			:board="board"
 			@changeBgc="emitBgChange"
 			@close="closeMenu"
+			@deleteBoard="emitDeleteBoard"
 		/>
 	</section>
 </template>
@@ -104,6 +105,9 @@ export default {
 		},
 		emitPrivacyChange() {
 			this.$emit('privacyChange', this.privacy)
+		},
+		emitDeleteBoard(boardId){
+			this.$emit('deleteBoard', boardId)
 		}
 	},
 	computed: {

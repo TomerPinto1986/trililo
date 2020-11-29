@@ -14,6 +14,7 @@
 			@updateboardUsers="updateboardUsers"
 			@changeBgc="changeBgc"
 			@privacyChange="changePrivacy"
+			@deleteBoard="deleteBoard"
 		/>
 		<div class="flex group-container">
 			<draggable
@@ -109,6 +110,7 @@ export default {
 			const group = this.board.groups.find(group => group.id === groupId);
 			group.cards.push(newCard);
 			this.$store.dispatch({ type: 'updateBoard', board });
+			this.addActivity('added a card', newCard)
 		},
 		updateCard(card) {
 			const board = this.board;
@@ -125,6 +127,8 @@ export default {
 				if (cardIdx !== -1) group.cards.splice(cardIdx, 1);
 			})
 			this.$store.dispatch({ type: 'updateBoard', board });
+			this.addActivity('deleted a card')
+
 		},
 		updateGroup(group) {
 			const board = this.board;
@@ -137,6 +141,8 @@ export default {
 			const groupIdx = board.groups.findIndex(currGroup => currGroup.id === groupId);
 			board.groups.splice(groupIdx, 1);
 			this.$store.dispatch({ type: 'updateBoard', board });
+			this.addActivity('deleted a group')
+
 		},
 		newGroup() {
 			const newGroup = this.getEmptyGroup();
@@ -145,6 +151,8 @@ export default {
 			board.groups.push(newGroup);
 			this.$store.dispatch({ type: 'updateBoard', board });
 			this.closeAddGroup();
+			this.addActivity('added a group')
+
 		},
 		getEmptyCard() { //maybe get from service direct
 			this.$store.commit('setEmptyCard');
@@ -168,9 +176,8 @@ export default {
 			console.log('update', userId);
 			const board = this.board;
 			const memberIdx = board.members.findIndex(member => member._id === userId);
+			const user = this.$store.getters.users.find(user => user._id === userId);
 			if (memberIdx === -1) {
-				console.log();
-				const user = this.$store.getters.users.find(user => user._id === userId);
 				const boardUser = {
 					_id: user._id,
 					username: user.username,
@@ -181,6 +188,9 @@ export default {
 				board.members.splice(memberIdx, 1);
 			}
 			this.$store.dispatch({ type: 'updateBoard', board });
+			const action = (memberIdx === -1) ? `added ${user.username} to the board` : `removed ${user.username} from the board`;
+			this.addActivity(action);
+
 		},
 		updateBoardTitle(boardTitle) {
 			const board = this.board;
@@ -197,11 +207,33 @@ export default {
 			const board = utilService.deepCopy(this.board);
 			board.isPrivate = (privacy === 'private');
 			this.updateBoard(board)
+			this.addActivity(`changed the board privacy to ${privacy}`)
+
+		},
+		deleteBoard(boardId) {
+			console.log(boardId)
+			this.$store.dispatch('deleteBoard', boardId);
+			setTimeout(() => { this.$router.push('/board'); }, 200)
+		},
+		addActivity(txt, card) {
+			this.$store.commit('setEmptyActivity');
+			const activity = utilService.deepCopy(this.$store.getters.emptyActivity);
+			activity.txt = txt;
+			activity.byMember = utilService.deepCopy(this.$store.getters.loggedinUser);
+			activity.createdAt = Date.now();
+			const url = this.$route.path;
+			if (card) activity.card = {
+				id: card.id,
+				title: card.title,
+				url: url + `/card/${card.id}`
+			}
+			const board = this.board;
+			board.activities.unshift(activity);
+			this.updateBoard(board);
 		}
 	},
 	computed: {
 		board() {
-			// if (this.$store.getters.currBoard) console.log(this.$store.getters.currBoard);
 			return utilService.deepCopy(this.$store.getters.currBoard);
 		},
 		users() {
@@ -210,9 +242,6 @@ export default {
 		user() {
 			return this.$store.getters.loggedinUser;
 		},
-		// boardClass() {
-		// 	return `${this.board.style.backgroundClass}`
-		// },
 		boardStyle() {
 			return { 'background': `${this.board.style.background}` }
 		}
@@ -223,6 +252,9 @@ export default {
 				this.isDetails = true;
 			}
 			else this.isDetails = false
+		},
+		'$store.getters.loggedinUser'() {
+			if (this.$store.getters.loggedinUser._id === 'guest' && this.board.isPrivate) this.$router.push('/board')
 		}
 	},
 	mounted() {
@@ -235,6 +267,9 @@ export default {
 		if (this.$route.params.cardId) this.isDetails = true;
 		const boardId = this.$route.params.boardId;
 		this.$store.dispatch({ type: 'loadBoard', boardId });
+		setTimeout(() => {
+			if (this.$store.getters.loggedinUser._id === 'guest' && this.board.isPrivate) this.$router.push('/board')
+		}, 500)
 	},
 	destroyed() {
 		this.$store.dispatch({ type: 'loadBoard', boardId: null });

@@ -1,6 +1,5 @@
 <template>
 	<div id="app" :style="appStyle">
-		
 		<main-header :loggedinUserId="loggedinUser" @logout="logout" />
 		<router-view />
 	</div>
@@ -8,6 +7,7 @@
 
 <script>
 import mainHeader from './cmps/main-header.cmp';
+// import { socketService } from './services/socket.service';
 
 export default {
 	computed: {
@@ -26,6 +26,8 @@ export default {
 		}
 	},
 	created() {
+		// socketService.setup()
+		// socketService.on('test', ()=>{console.log('testing')})
 		this.$store.dispatch('loadBoards');
 	},
 	components: {

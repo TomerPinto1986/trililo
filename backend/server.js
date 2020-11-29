@@ -28,7 +28,6 @@ if (process.env.NODE_ENV === 'production') {
     };
     app.use(cors(corsOptions));
 }
-
 const boardRoutes = require('./api/board/board.routes');
 const userRoutes = require('./api/user/user.routes');
 const authRoutes = require('./api/auth/auth.routes');

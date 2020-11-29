@@ -1,63 +1,63 @@
 <template>
-    <section
-        v-if="card"
-        class="card-details flex f-col"
-        @click.stop="closePopup"
-    >
-        <div class="card-header flex" :style="headerStyle">
-            <button class="cancel-btn" @click.stop="emitClose">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="card-main-container flex">
-            <div class="card-info">
-                <input
-                    class="title"
-                    type="text"
-                    v-model="card.title"
-                    @blur="updateBoard"
-                />
-                <section class="add-to-card flex wrap">
-                    <div
-                        class="f-col card-members"
-                        v-if="card.members && card.members.length"
-                    >
-                        <h3>Members</h3>
-                        <div class="flex">
-                            <span
-                                v-for="member in card.members"
-                                :key="member._id"
-                            >
-                                <avatar :size="32" :username="member.username">
-                                </avatar>
-                            </span>
-                            <span @click.stop="onAddMembers">
-                                <avatar
-                                    class="add-member"
-                                    :size="35"
-                                    :username="'+'"
-                                    background-color="#E2E4E9"
-                                    color="rgb(94, 108, 132)"
-                                ></avatar>
-                            </span>
-                        </div>
-                    </div>
-                    <div
-                        v-if="labelsSelected().length"
-                        class="label-marks f-col"
-                    >
-                        <h3>Labels</h3>
-                        <div class="label-container flex wrap">
-                            <div
-                                v-for="label in labelsSelected()"
-                                :key="label.id"
-                                class="label flex f-center"
-                                :style="{ backgroundColor: label.color }"
-                            >
-                                <span>{{ label.title }}</span>
-                            </div>
-                        </div>
-                    </div>
+	<section
+		v-if="card"
+		class="card-details flex f-col"
+		@click.stop="closePopup"
+	>
+		<div class="card-header flex" :style="headerStyle">
+			<button class="cancel-btn" @click.stop="emitClose">
+				<i class="fas fa-times"></i>
+			</button>
+		</div>
+		<div class="card-main-container flex">
+			<div class="card-info">
+				<input
+					class="title"
+					type="text"
+					v-model="card.title"
+					@blur="updateBoard"
+				/>
+				<section class="add-to-card flex wrap">
+					<div
+						class="f-col card-members"
+						v-if="card.members && card.members.length"
+					>
+						<h3>Members</h3>
+						<div class="flex">
+							<span
+								v-for="member in card.members"
+								:key="member._id"
+							>
+								<avatar :size="32" :username="member.username">
+								</avatar>
+							</span>
+							<span @click.stop="onAddMembers">
+								<avatar
+									class="add-member"
+									:size="35"
+									:username="'+'"
+									background-color="#E2E4E9"
+									color="rgb(94, 108, 132)"
+								></avatar>
+							</span>
+						</div>
+					</div>
+					<div
+						v-if="labelsSelected().length"
+						class="label-marks f-col"
+					>
+						<h3>Labels</h3>
+						<div class="label-container flex wrap">
+							<div
+								v-for="label in labelsSelected()"
+								:key="label.id"
+								class="label flex f-center"
+								:style="{ backgroundColor: label.color }"
+							>
+								<span>{{ label.title }}</span>
+							</div>
+						</div>
+					</div>
 
                     <div class="due-date" v-if="card.dueDate || dueDate">
                         <h3 @click.stop="setDate">Due Date</h3>
@@ -207,272 +207,297 @@ import { uploadImg } from '@/services/img-upload.service';
 import addMembers from '@/cmps/custom-elements/add-members.cmp';
 
 export default {
-    data() {
-        return {
-            card: null,
-            isPopUp: false,
-            currPopUp: null,
-            isLoading: false
-        }
-    },
-    computed: {
-        loggedInUser() {
-            console.log(this.$store.getters.loggedinUser, 'logged in user');
-            return this.$store.getters.loggedinUser;
-        },
-        localTime() {
-            return (new Date(this.card.dueDate)).toLocaleDateString();
-        },
-        boardMembers() {
-            if (!this.board.isPrivate) return utilService.deepCopy(this.$store.getters.users);
-            return this.board.members;
-        },
-        board() {
-            return utilService.deepCopy(this.$store.getters.currBoard);
-        },
-        getCurrGroup() {
-            const group = this.board.groups.find(group => group.cards.some(card => card.id === this.card.id));
-            return group;
-        },
-        getCurrPosition() {
-            return this.getCurrGroup.cards.findIndex(card => card.id === this.card.id) + 1;
-        },
-        move() {
-            return this.currPopUp === 'move';
-        },
-        dueDate() {
-            return this.currPopUp === 'duedate';
-        },
-        labels() {
-            return this.currPopUp === 'labels';
-        },
-        checklist() {
-            return this.currPopUp === 'checklist';
-        },
-        cover() {
-            return this.currPopUp === 'cover';
-        },
-        headerStyle() {
-            return { background: this.card.style.headerColor };
-        },
-        attachments() {
-            return this.card.attachments;
-        },
-        isAddMembers() {
-            return this.currPopUp === 'member';
-        }
-    },
-    methods: {
-        updateBoard() {
-            const board = this.board;
-            this.$store.dispatch({ type: 'updateBoard', board });
-        },
-        updateAttachments(attachments) {
-            const card = utilService.deepCopy(this.card)
-            card.attachments = attachments;
-            // const board = this.board;
-            // board.groups.forEach(group => {
-            // 	const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
-            // 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1, this.card);
-            // })
-            // this.$store.dispatch({ type: 'updateBoard', board });
-            this.updateCard(card);
-        },
-        emitClose() {
-            this.$emit('close');
-        },
-        deleteCard() {
-            const board = this.board;
-            board.groups.forEach(group => {
-                const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
-                if (cardIdx !== -1) group.cards.splice(cardIdx, 1);
-            })
-            this.$store.dispatch({ type: 'updateBoard', board });
-            this.emitClose();
-        },
-        // for later on when we will make a pop up cmp
-        emitMove() {
-            this.currPopUp = 'move';
-            this.isPopUp = true;
-        },
-        setDate() {
-            this.currPopUp = 'duedate';
-        },
-        removeDate() {
-            const card = utilService.deepCopy(this.card)
-            // delete card.dueDate;
-            card.dueDate = null;
-            // const board = this.board;
-            // board.groups.forEach(group => {
-            // 	const cardIdx = group.cards.findIndex(card => card.id === this.card.id)
-            // 	if (cardIdx !== -1) {
-            // 		group.cards.splice(cardIdx, 1, this.card)
-            // 	}
-            // })
-            // this.$store.dispatch({ type: 'updateBoard', board: board });
-            this.updateCard(card);
-            this.card = card;
+	data() {
+		return {
+			card: null,
+			isPopUp: false,
+			currPopUp: null,
+			isLoading: false
+		}
+	},
+	computed: {
+		loggedInUser() {
+			console.log(this.$store.getters.loggedinUser, 'logged in user');
+			return this.$store.getters.loggedinUser;
+		},
+		localTime() {
+			return (new Date(this.card.dueDate)).toLocaleDateString();
+		},
+		boardMembers() {
+			if (!this.board.isPrivate) return utilService.deepCopy(this.$store.getters.users);
+			return this.board.members;
+		},
+		board() {
+			return utilService.deepCopy(this.$store.getters.currBoard);
+		},
+		getCurrGroup() {
+			const group = this.board.groups.find(group => group.cards.some(card => card.id === this.card.id));
+			return group;
+		},
+		getCurrPosition() {
+			return this.getCurrGroup.cards.findIndex(card => card.id === this.card.id) + 1;
+		},
+		move() {
+			return this.currPopUp === 'move';
+		},
+		dueDate() {
+			return this.currPopUp === 'duedate';
+		},
+		labels() {
+			return this.currPopUp === 'labels';
+		},
+		checklist() {
+			return this.currPopUp === 'checklist';
+		},
+		cover() {
+			return this.currPopUp === 'cover';
+		},
+		headerStyle() {
+			return { background: this.card.style.headerColor };
+		},
+		attachments() {
+			return this.card.attachments;
+		},
+		isAddMembers() {
+			return this.currPopUp === 'member';
+		}
+	},
+	methods: {
+		updateBoard() {
+			const board = this.board;
+			this.$store.dispatch({ type: 'updateBoard', board });
+		},
+		updateAttachments(attachments) {
+			const card = utilService.deepCopy(this.card)
+			card.attachments = attachments;
+			// const board = this.board;
+			// board.groups.forEach(group => {
+			// 	const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
+			// 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1, this.card);
+			// })
+			// this.$store.dispatch({ type: 'updateBoard', board });
+			this.updateCard(card);
+		},
+		emitClose() {
+			this.$emit('close');
+		},
+		deleteCard() {
+			const board = this.board;
+			board.groups.forEach(group => {
+				const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
+				if (cardIdx !== -1) group.cards.splice(cardIdx, 1);
+			})
+			this.$store.dispatch({ type: 'updateBoard', board });
+			this.emitClose();
+			this.addActivity('deleted a card')
 
-        },
-        setNewDate(dueDate) {
-            const updatedCard = utilService.deepCopy(this.card)
-            if (this.card.dueDate) {
-                delete this.card.dueDate;
-            }
-            updatedCard.dueDate = dueDate
-            // const board = this.board;
-            // board.groups.forEach(group => {
-            // 	const cardIdx = group.cards.findIndex(card => card.id === updatedCard.id)
-            // 	if (cardIdx !== -1) {
-            // 		group.cards.splice(cardIdx, 1, updatedCard);
-            // 	}
-            // })
-            // this.$store.dispatch({ type: 'updateBoard', board: board });
-            this.updateCard(updatedCard);
-            this.card = updatedCard;
-            this.closePopup();
+		},
+		// for later on when we will make a pop up cmp
+		emitMove() {
+			this.currPopUp = 'move';
+			this.isPopUp = true;
+		},
+		setDate() {
+			this.currPopUp = 'duedate';
+		},
+		removeDate() {
+			const card = utilService.deepCopy(this.card)
+			// delete card.dueDate;
+			card.dueDate = null;
+			// const board = this.board;
+			// board.groups.forEach(group => {
+			// 	const cardIdx = group.cards.findIndex(card => card.id === this.card.id)
+			// 	if (cardIdx !== -1) {
+			// 		group.cards.splice(cardIdx, 1, this.card)
+			// 	}
+			// })
+			// this.$store.dispatch({ type: 'updateBoard', board: board });
+			this.updateCard(card);
+			this.card = card;
+			this.addActivity('removed the due date from a card', card)
 
-        },
-        openLabels() {
-            this.currPopUp = 'labels';
-            this.isPopUp = true;
-        },
-        updateLabelTitle(labelId, title) {
-            const board = this.board;
-            const idx = board.labels.findIndex(label => label.id === labelId);
-            if (idx !== -1) board.labels[idx].title = title;
-            this.$store.dispatch({ type: 'updateBoard', board });
-        },
-        labelsSelected() {
-            if (!this.card.labels) return [];
-            const selectIds = this.card.labels.map(label => label.id);
-            return this.board.labels.filter(label => selectIds.includes(label.id));
-        },
-        addChecklist() {
-            this.currPopUp = 'checklist';
-            this.isPopUp = true;
-        },
-        moveCard(status) {
-            console.log(status)
-            this.$store.commit({ type: 'updateCardStatus', status });
-            const board = this.board;
-            this.$store.dispatch({ type: 'updateBoard', board });
-            this.isPopUp = false;
-        },
-        async onUpload(ev) {
-            this.isLoading = true;
-            const res = await uploadImg(ev);
-            console.log('uploaded', res)
-            const attachment = {
-                id: utilService.makeId(),
-                name: res.original_filename,
-                format: res.format,
-                src: res.url
-            }
-            if (!this.card.attachments) this.card.attachments = []
-            const updatedCard = utilService.deepCopy(this.card)
-            updatedCard.attachments.push(attachment)
-            console.log(this.card, 'after adding')
-            this.isLoading = false;
-            // const board = this.board;
-            // board.groups.forEach(group => {
-            // 	const cardIdx = group.cards.findIndex(currCard => currCard.id === updatedCard.id);
-            // 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1, updatedCard);
-            // })
-            // this.$store.dispatch({ type: 'updateBoard', board });
-            this.updateCard(updatedCard)
-            this.card = updatedCard;
-        },
-        openCoverPicker() {
-            this.$refs['color-picker']._data.showPicker = true;
-        },
-        updateCover(color) {
-            this.card.style.headerColor = color;
-            const board = this.board;
-            this.$store.dispatch({ type: 'updateBoard', board })
-        },
-        onAddMembers() {
-            this.currPopUp = 'member';
-            this.isPopUp = true;
-        },
-        updateMembers(userId) {
-            // const board = this.board;
-            const card = this.card;
-            const memberIdx = card.members.findIndex(member => member._id === userId);
-            if (memberIdx === -1) {
-                const newUser = this.$store.getters.users.find(user => user._id === userId);
-                console.log(newUser);
-                const newMember = {
-                    _id: newUser._id,
-                    username: newUser.username,
-                    imgUrl: newUser.imgUrl
-                };
-                card.members.push(newMember);
-            } else {
-                card.members.splice(memberIdx, 1);
-            }
-            // board.groups.forEach(group => {
-            // 	const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
-            // 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
-            // });
-            // this.$store.dispatch({ type: 'updateBoard', board });
-            this.updateCard(card);
-        },
-        cardMembers() {
-            if (!this.card.members) {
-                this.card.members = [];
-            }
-            return this.card.members
-        },
-        closePopup() {
-            this.isPopUp = false;
-            this.currPopUp = '';
-        },
-        updateCard(card) {
-            const board = this.board;
-            board.groups.forEach(group => {
-                const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
-                if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
-            })
-            this.$store.dispatch({ type: 'updateBoard', board });
-            this.card = card;
-            console.log('this.card:', this.card)
-        },
-        cloneCard() {
-            const cardCopy = utilService.deepCopy(this.card);
-            cardCopy.id = utilService.makeId();
-            const board = this.board;
-            const groupIdx = board.groups.findIndex(group => group.cards.some(card => card.id === this.card.id));
-            if (groupIdx === -1) return;
-            console.log(board.groups[groupIdx].cards);
-            board.groups[groupIdx].cards.push(cardCopy);
-            console.log(board.groups[groupIdx].cards);
-            this.$store.dispatch({ type: 'updateBoard', board });
-        }
-    },
-    created() {
-        const cardId = this.$route.params.cardId
-        this.$store.commit({ type: 'setCurrCard', cardId })
-        this.card = this.$store.getters.currCard;
-        this.$store.dispatch('loadUsers')
-    },
-    destroyed() {
-        this.$store.commit({ type: 'updateCurrCard', card: null })
-        this.card = null;
-    },
-    components: {
-        cardActivity,
-        cardMove,
-        datePicker,
-        addMembers,
-        cardAttachments,
-        cardCover,
-        cardLabels,
-        avatar,
-        popUp,
-        checkBox,
-        addChecklist,
-        cardChecklist
-    }
+		},
+		setNewDate(dueDate) {
+			const updatedCard = utilService.deepCopy(this.card)
+			if (this.card.dueDate) {
+				delete this.card.dueDate;
+			}
+			updatedCard.dueDate = dueDate
+			// const board = this.board;
+			// board.groups.forEach(group => {
+			// 	const cardIdx = group.cards.findIndex(card => card.id === updatedCard.id)
+			// 	if (cardIdx !== -1) {
+			// 		group.cards.splice(cardIdx, 1, updatedCard);
+			// 	}
+			// })
+			// this.$store.dispatch({ type: 'updateBoard', board: board });
+			this.updateCard(updatedCard);
+			this.card = updatedCard;
+			this.closePopup();
+			this.addActivity('added due date to a card', updatedCard)
+
+
+		},
+		openLabels() {
+			this.currPopUp = 'labels';
+			this.isPopUp = true;
+		},
+		updateLabelTitle(labelId, title) {
+			const board = this.board;
+			const idx = board.labels.findIndex(label => label.id === labelId);
+			if (idx !== -1) board.labels[idx].title = title;
+			this.$store.dispatch({ type: 'updateBoard', board });
+		},
+		labelsSelected() {
+			if (!this.card.labels) return [];
+			const selectIds = this.card.labels.map(label => label.id);
+			return this.board.labels.filter(label => selectIds.includes(label.id));
+		},
+		addChecklist() {
+			this.currPopUp = 'checklist';
+			this.isPopUp = true;
+		},
+		moveCard(status) {
+			console.log(status)
+			this.$store.commit({ type: 'updateCardStatus', status });
+			const board = this.board;
+			this.$store.dispatch({ type: 'updateBoard', board });
+			this.isPopUp = false;
+		},
+		async onUpload(ev) {
+			this.isLoading = true;
+			const res = await uploadImg(ev);
+			console.log('uploaded', res)
+			const attachment = {
+				id: utilService.makeId(),
+				name: res.original_filename,
+				format: res.format,
+				src: res.url
+			}
+			if (!this.card.attachments) this.card.attachments = []
+			const updatedCard = utilService.deepCopy(this.card)
+			updatedCard.attachments.push(attachment)
+			console.log(this.card, 'after adding')
+			this.isLoading = false;
+			// const board = this.board;
+			// board.groups.forEach(group => {
+			// 	const cardIdx = group.cards.findIndex(currCard => currCard.id === updatedCard.id);
+			// 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1, updatedCard);
+			// })
+			// this.$store.dispatch({ type: 'updateBoard', board });
+			this.updateCard(updatedCard)
+			this.card = updatedCard;
+		},
+		openCoverPicker() {
+			this.$refs['color-picker']._data.showPicker = true;
+		},
+		updateCover(color) {
+			this.card.style.headerColor = color;
+			const board = this.board;
+			this.$store.dispatch({ type: 'updateBoard', board })
+		},
+		onAddMembers() {
+			this.currPopUp = 'member';
+			this.isPopUp = true;
+		},
+		updateMembers(userId) {
+			// const board = this.board;
+			const card = this.card;
+			const memberIdx = card.members.findIndex(member => member._id === userId);
+			const newUser = this.$store.getters.users.find(user => user._id === userId);
+			if (memberIdx === -1) {
+				console.log(newUser);
+				const newMember = {
+					_id: newUser._id,
+					username: newUser.username,
+					imgUrl: newUser.imgUrl
+				};
+				card.members.push(newMember);
+			} else {
+				card.members.splice(memberIdx, 1);
+			}
+			// board.groups.forEach(group => {
+			// 	const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
+			// 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
+			// });
+			// this.$store.dispatch({ type: 'updateBoard', board });
+			this.updateCard(card);
+			const action = (memberIdx === -1) ? 'added' : 'removed';
+			this.addActivity(`${action} ${newUser.username} to a card`, card)
+
+		},
+		cardMembers() {
+			if (!this.card.members) {
+				this.card.members = [];
+			}
+			return this.card.members
+		},
+		closePopup() {
+			this.isPopUp = false;
+			this.currPopUp = '';
+		},
+		updateCard(card) {
+			const board = this.board;
+			board.groups.forEach(group => {
+				const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
+				if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
+			})
+			this.$store.dispatch({ type: 'updateBoard', board });
+			this.card = card;
+			console.log('this.card:', this.card)
+		},
+		cloneCard() {
+			const cardCopy = utilService.deepCopy(this.card);
+			cardCopy.id = utilService.makeId();
+			const board = this.board;
+			const groupIdx = board.groups.findIndex(group => group.cards.some(card => card.id === this.card.id));
+			if (groupIdx === -1) return;
+			console.log(board.groups[groupIdx].cards);
+			board.groups[groupIdx].cards.push(cardCopy);
+			console.log(board.groups[groupIdx].cards);
+			this.$store.dispatch({ type: 'updateBoard', board });
+		},
+		addActivity(txt, card) {
+			this.$store.commit('setEmptyActivity');
+			const activity = utilService.deepCopy(this.$store.getters.emptyActivity);
+			activity.txt = txt;
+			activity.byMember = utilService.deepCopy(this.$store.getters.loggedinUser);
+			activity.createdAt = Date.now();
+			const url = (this.$route.params.cardId) ? '': `/card/${card.id}`;
+			if (card) activity.card = {
+				id: card.id,
+				title: card.title,
+				url
+			}
+			const board = this.board;
+			board.activities.unshift(activity);
+			this.updateBoard(board);
+		}
+
+	},
+	created() {
+		const cardId = this.$route.params.cardId
+		this.$store.commit({ type: 'setCurrCard', cardId })
+		this.card = this.$store.getters.currCard;
+		this.$store.dispatch('loadUsers')
+	},
+	destroyed() {
+		this.$store.commit({ type: 'updateCurrCard', card: null })
+		this.card = null;
+	},
+	components: {
+		cardActivity,
+		cardMove,
+		datePicker,
+		addMembers,
+		cardAttachments,
+		cardCover,
+		cardLabels,
+		avatar,
+		popUp,
+		checkBox,
+		addChecklist,
+		cardChecklist
+	}
 }
 </script>
