@@ -2,7 +2,7 @@
 	<section class="card-move">
 		<h3>Move Card</h3>
 		<h3>Select Destenation</h3>
-		<form @submit.prevent="emitMove">
+		<div >
 			<select-list
 				@changeCardGroup="changeCardGroup"
 				:groups="groups"
@@ -14,8 +14,8 @@
 				:diff="getDiff"
 				:currPosition="getCurrPosition"
 			></select-position>
-			<button>Move</button>
-		</form>
+			<button @click.stop="emitMove">Move</button>
+		</div>
 	</section>
 </template>
 
