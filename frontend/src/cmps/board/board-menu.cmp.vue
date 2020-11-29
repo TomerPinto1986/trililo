@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import activityPreview from '../card/activity-preview.cmp'
+import activityPreview from '../activity-preview.cmp'
 
 export default {
 	props: {
