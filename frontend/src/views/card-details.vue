@@ -246,13 +246,8 @@ export default {
 			// 	}
 			// })
 			// this.$store.dispatch({ type: 'updateBoard', board: board });
-<<<<<<< HEAD
-			this.card = card;
-			this.updateCard(card);
-=======
             this.updateCard(card);
             this.card = card;
->>>>>>> 8725fa498030f5c28d13005befd2753b95fe4ba8
 
 		},
 		setNewDate(dueDate) {

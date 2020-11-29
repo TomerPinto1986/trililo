@@ -11,9 +11,9 @@
     font-size: 1.3em;
 
     &>* {
-        color:#091e42
+        color: #091e42
     }
-    
+
     .board-actions {
         align-items: flex-start;
         text-align: start;
@@ -21,31 +21,43 @@
         span {
             padding: 3px 6px;
             margin: 10px 0;
-            width:100%;
+            width: 100%;
             border-radius: 3px;
             cursor: pointer;
-            &:hover{
-                background-color: rgba(9,30,66,.08)
-                        }
+
+            &:hover {
+                background-color: rgba(9, 30, 66, .08)
+            }
         }
     }
 
 
     .close-btn {
+        cursor: pointer;
         position: absolute;
-        top: 5px;
-        right: 5px;
+        top: 10px;
+        right: 10px;
+        padding: 5px;
+        border-radius: 3px;
+
+        &:hover {
+            background-color: rgba(9, 30, 66, .08)
+        }
     }
 
-    .background{
-        height:250px;
+    .background {
+        height: 250px;
         overflow-y: auto;
         cursor: pointer;
-        img{
+
+        img,
+        .bgc {
             height: 100px;
-            width:150px;
+            width: 150px;
             object-fit: cover;
             margin: 5px;
         }
     }
+
+
 }

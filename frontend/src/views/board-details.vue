@@ -12,6 +12,7 @@
 			@updateTitle="updateBoardTitle"
 			@updateboardUsers="updateboardUsers"
 			@changeBgc="changeBgc"
+			@privacyChange="changePrivacy"
 		/>
 		<div class="flex group-container">
 			<draggable
@@ -180,9 +181,14 @@ export default {
 		},
 		changeBgc(bgc) {
 			const board = utilService.deepCopy(this.board);
-			board.style.background = bgc;
+			board.style.backgroundClass = bgc;
 			console.log(bgc)
 			this.updateBoard(board);
+		},
+		changePrivacy(privacy){
+			const board = utilService.deepCopy(this.board);
+			board.isPrivate = (privacy==='private');
+			this.updateBoard(board)
 		}
 	},
 	computed: {
@@ -193,7 +199,8 @@ export default {
 			return this.$store.getters.users;
 		},
 		boardClass() {
-			return  `${this.board.style.background}`
+			console.log(this.board.style.backgroundClass)
+			return  `${this.board.style.backgroundClass}`
 		},
 		// boardStyle() {
 		// 	console.log(this.board.style.background)
