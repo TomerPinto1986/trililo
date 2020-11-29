@@ -42,16 +42,21 @@
                             </span>
                         </div>
                     </div>
-                    <h3>Labels</h3>
                     <ul v-if="labelsSelected().length" class="label-marks flex">
-                        <li v-for="label in labelsSelected()" :key="label.id">
-                            <div
-                                class="flex f-center"
-                                :style="{ backgroundColor: label.color }"
+                        <h3>Labels</h3>
+                        <div>
+                            <li
+                                v-for="label in labelsSelected()"
+                                :key="label.id"
                             >
-                                <span>{{ label.title }}</span>
-                            </div>
-                        </li>
+                                <div
+                                    class="flex f-center"
+                                    :style="{ backgroundColor: label.color }"
+                                >
+                                    <span>{{ label.title }}</span>
+                                </div>
+                            </li>
+                        </div>
                     </ul>
 
                     <div class="due-date" v-if="card.dueDate || dueDate">
@@ -106,7 +111,6 @@
                             @updateLabelTitle="updateLabelTitle"
                         />
                     </template>
-
                     <card-cover
                         v-if="cover"
                         :color="card.style.headerColor"
@@ -209,7 +213,7 @@ export default {
         dueDate() {
             return this.currPopUp === 'duedate';
         },
-         labels() {
+        labels() {
             return this.currPopUp === 'labels';
         },
         cover() {
@@ -297,7 +301,7 @@ export default {
             this.closePopup();
 
         },
-         openLabels() {
+        openLabels() {
             this.currPopUp = 'labels';
             this.isPopUp = true;
         },
