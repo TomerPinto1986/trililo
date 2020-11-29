@@ -100,11 +100,6 @@
                         @deleteChecklist="deleteChecklist"
                     />
                 </div>
-                <card-activity
-                    :activities="card.activities"
-                    :card="card"
-                    :user="loggedInUser"
-                />
                 <div class="btns flex"></div>
                 <pop-up v-if="isPopUp" @closePopup="closePopup">
                     <card-move
@@ -223,7 +218,6 @@ export default {
     },
     computed: {
         loggedInUser() {
-            console.log(this.$store.getters.loggedinUser, 'logged in user');
             return this.$store.getters.loggedinUser;
         },
         localTime() {
@@ -276,12 +270,6 @@ export default {
         updateAttachments(attachments) {
             const card = utilService.deepCopy(this.card)
             card.attachments = attachments;
-            // const board = this.board;
-            // board.groups.forEach(group => {
-            // 	const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
-            // 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1, this.card);
-            // })
-            // this.$store.dispatch({ type: 'updateBoard', board });
             this.updateCard(card);
         },
         emitClose() {
@@ -308,16 +296,7 @@ export default {
         },
         removeDate() {
             const card = utilService.deepCopy(this.card)
-            // delete card.dueDate;
             card.dueDate = null;
-            // const board = this.board;
-            // board.groups.forEach(group => {
-            // 	const cardIdx = group.cards.findIndex(card => card.id === this.card.id)
-            // 	if (cardIdx !== -1) {
-            // 		group.cards.splice(cardIdx, 1, this.card)
-            // 	}
-            // })
-            // this.$store.dispatch({ type: 'updateBoard', board: board });
             this.updateCard(card);
             this.card = card;
             this.addActivity('removed the due date from a card', card)
@@ -329,14 +308,6 @@ export default {
                 delete this.card.dueDate;
             }
             updatedCard.dueDate = dueDate
-            // const board = this.board;
-            // board.groups.forEach(group => {
-            // 	const cardIdx = group.cards.findIndex(card => card.id === updatedCard.id)
-            // 	if (cardIdx !== -1) {
-            // 		group.cards.splice(cardIdx, 1, updatedCard);
-            // 	}
-            // })
-            // this.$store.dispatch({ type: 'updateBoard', board: board });
             this.updateCard(updatedCard);
             this.card = updatedCard;
             this.closePopup();
@@ -364,7 +335,6 @@ export default {
             this.isPopUp = true;
         },
         moveCard(status) {
-            console.log(status)
             this.$store.commit({ type: 'updateCardStatus', status });
             const board = this.board;
             this.$store.dispatch({ type: 'updateBoard', board });
@@ -373,7 +343,6 @@ export default {
         async onUpload(ev) {
             this.isLoading = true;
             const res = await uploadImg(ev);
-            console.log('uploaded', res)
             const attachment = {
                 id: utilService.makeId(),
                 name: res.original_filename,
@@ -383,14 +352,7 @@ export default {
             if (!this.card.attachments) this.card.attachments = []
             const updatedCard = utilService.deepCopy(this.card)
             updatedCard.attachments.push(attachment)
-            console.log(this.card, 'after adding')
             this.isLoading = false;
-            // const board = this.board;
-            // board.groups.forEach(group => {
-            // 	const cardIdx = group.cards.findIndex(currCard => currCard.id === updatedCard.id);
-            // 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1, updatedCard);
-            // })
-            // this.$store.dispatch({ type: 'updateBoard', board });
             this.updateCard(updatedCard)
             this.card = updatedCard;
         },
@@ -407,12 +369,10 @@ export default {
             this.isPopUp = true;
         },
         updateMembers(userId) {
-            // const board = this.board;
             const card = this.card;
             const memberIdx = card.members.findIndex(member => member._id === userId);
             const newUser = this.$store.getters.users.find(user => user._id === userId);
             if (memberIdx === -1) {
-                console.log(newUser);
                 const newMember = {
                     _id: newUser._id,
                     username: newUser.username,
@@ -422,11 +382,6 @@ export default {
             } else {
                 card.members.splice(memberIdx, 1);
             }
-            // board.groups.forEach(group => {
-            // 	const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
-            // 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
-            // });
-            // this.$store.dispatch({ type: 'updateBoard', board });
             this.updateCard(card);
             const action = (memberIdx === -1) ? 'added' : 'removed';
             this.addActivity(`${action} ${newUser.username} to a card`, card)
@@ -448,9 +403,7 @@ export default {
             const board = this.board;
             const groupIdx = board.groups.findIndex(group => group.cards.some(card => card.id === this.card.id));
             if (groupIdx === -1) return;
-            console.log(board.groups[groupIdx].cards);
             board.groups[groupIdx].cards.push(cardCopy);
-            console.log(board.groups[groupIdx].cards);
             this.$store.dispatch({ type: 'updateBoard', board });
         },
         addActivity(txt, card) {

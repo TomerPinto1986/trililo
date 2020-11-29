@@ -41,7 +41,6 @@ export default {
 			return group.cards;
 		},
 		getDiff() {
-			console.log(this.newCardGroupId === this.group.id);
 			return (this.newCardGroupId === this.group.id) ? 0 : 1;
 		},
 		getCurrPosition() {
@@ -60,14 +59,12 @@ export default {
 			this.newCardPosition = position;
 		},
 		emitMove() {
-			console.log(this.newCardGroupId, this.newCardPosition);
 			const status = {
 				startPos: this.currPosition - 1,
 				endPos: this.newCardPosition ? this.newCardPosition - 1 : null,
 				startGroup: this.group.id,
 				endGroup: this.newCardGroupId
 			}
-			console.log(status);
 			this.$emit('moveCard', status)
 		}
 	},

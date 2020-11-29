@@ -26,7 +26,6 @@ export default {
     },
     computed:{
         usersToShow(){
-            console.log(this.allUsers);
             return this.allUsers.filter(user => user.username.toLowerCase().includes(this.filterTxt.toLowerCase()));
         },
     },

@@ -82,7 +82,6 @@ export default {
 			this.isMenu = !this.isMenu;
 		},
 		addUsers() {
-			console.log('Add member', this.users);
 			this.isAddUsers = true;
 		},
 		closeUsers() {

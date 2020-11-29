@@ -26,8 +26,6 @@ export default {
 		}
 	},
 	created() {
-		// socketService.setup()
-		// socketService.on('test', ()=>{console.log('testing')})
 		this.$store.dispatch('loadBoards');
 	},
 	components: {

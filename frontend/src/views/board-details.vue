@@ -173,7 +173,6 @@ export default {
 			this.$store.dispatch({ type: 'updateBoard', board });
 		},
 		updateboardUsers(userId) {
-			console.log('update', userId);
 			const board = this.board;
 			const memberIdx = board.members.findIndex(member => member._id === userId);
 			const user = this.$store.getters.users.find(user => user._id === userId);
@@ -211,7 +210,6 @@ export default {
 
 		},
 		deleteBoard(boardId) {
-			console.log(boardId)
 			this.$store.dispatch('deleteBoard', boardId);
 			setTimeout(() => { this.$router.push('/board'); }, 200)
 		},

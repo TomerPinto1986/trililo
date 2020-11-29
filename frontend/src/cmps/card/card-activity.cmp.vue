@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import activityPreview from './activity-preview.cmp.vue';
+import activityPreview from '../activity-preview.cmp';
 import avatar from 'vue-avatar';
 import { socketService } from '../../services/socket.service';
 
@@ -44,7 +44,6 @@ export default {
 		addMsg(chat) {
 			this.userTyping = null
 			this.chat = chat
-			console.log(this.chat, 'chat');
 		},
 		typing() {
 			socketService.emit('typing', this.msg.from)
@@ -60,7 +59,6 @@ export default {
 	created() {
 		
 		this.from = this.user.username;
-		console.log('running sockets');
 		socketService.setup();
 		socketService.emit('card-topic', this.card.id);
 		socketService.on('chat-history', (chat => this.chat = chat))
@@ -68,7 +66,6 @@ export default {
 		socketService.on('user-typing', this.setUserTyping);
 	},
 	destroyed() {
-		console.log('destroy');
 		socketService.off('chat-addMsg', this.addMsg)
 		socketService.terminate();
 	},

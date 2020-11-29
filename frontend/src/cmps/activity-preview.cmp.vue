@@ -28,7 +28,6 @@ export default {
 	},
 	methods: {
 		openCard() {
-			console.log(this.activity.card.url)
 			if (this.activity.card) this.$router.push(this.activity.card.url)
 		}
 	},

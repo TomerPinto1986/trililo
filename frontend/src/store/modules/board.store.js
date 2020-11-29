@@ -61,7 +61,6 @@ export default {
             return await boardService.save(board);
         },
         async deleteBoard({ commit }, boardId) {
-            console.log('adad')
             await boardService.remove(boardId);
             commit({ type: 'deleteBoard', boardId });
         },

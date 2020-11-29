@@ -13,7 +13,6 @@ export const socketService = {
 function setup() {
     console.log('connecting', BASE_URL);
     socket = io(BASE_URL);
-    console.log(socket)
 }
 
 function terminate() {

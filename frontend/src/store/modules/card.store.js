@@ -32,13 +32,10 @@ export default {
         },
         setEmptyCard(state) {
             const card = utilService.deepCopy(boardService.emptyCard());
-            console.log('card:', card)
             state.emptyCard = card
         },
         updateCardStatus(state, { status }) {
-            console.log(status)
             if ((status.startGroup === status.endGroup && status.endPos === status.startPos) || (status.startGroup === status.endGroup && (!status.endPos && status.endPos !== 0))) return;
-            console.log('moving');
             const board = this.getters.currBoard;
             const startGroupIdx = board.groups.findIndex(group => group.id === status.startGroup);
             board.groups[startGroupIdx].cards.splice(status.startPos, 1);
