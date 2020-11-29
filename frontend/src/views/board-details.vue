@@ -3,7 +3,7 @@
 		v-if="board"
 		class="board-details flex f-col"
 		v-dragscroll:firstchilddrag
-		:class="boardClass"
+		:style="boardStyle"
 	>
 		<div class="screen" @click="goBack"></div>
 		<board-header
@@ -73,11 +73,12 @@ import boardHeader from '../cmps/board/board-header.cmp';
 import cardDetails from '@/views/card-details';
 import draggable from 'vuedraggable'
 import { utilService } from '@/services/util.service';
-// import bg1 from '../assets/bgs/bg1.jpg';
-// import bg2 from '../assets/bgs/bg2.jpg';
-// import bg3 from '../assets/bgs/bg3.jpg';
-// import bg4 from '../assets/bgs/bg4.jpg';
-// import bg5 from '../assets/bgs/bg5.jpg';
+import bg1 from '../assets/bgs/bg1.jpg';
+import bg2 from '../assets/bgs/bg2.jpg';
+import bg3 from '../assets/bgs/bg3.jpg';
+import bg4 from '../assets/bgs/bg4.jpg';
+import bg5 from '../assets/bgs/bg5.jpg';
+import bg6 from '../assets/bgs/bg6.jpg';
 
 export default {
 	data() {
@@ -85,7 +86,8 @@ export default {
 			isDetails: false,
 			isAddingGroup: false,
 			newGroupTitle: '',
-			isScroll: false
+			isScroll: false,
+			bgSrcs: [bg1, bg2, bg3, bg4, bg5, bg6]
 		}
 	},
 	methods: {
@@ -187,10 +189,8 @@ export default {
 		},
 		changeBgc(bgc) {
 			const board = utilService.deepCopy(this.board);
-			if(bgc.includes('bg')) {
-				board.style.backgroundClass = bgc;
-			}
-
+			if (bgc.includes('rgb')) board.style.background = bgc;
+			else board.style.background = `url(${this.bgSrcs[+bgc]})`
 			this.updateBoard(board);
 		},
 		changePrivacy(privacy) {
@@ -201,6 +201,7 @@ export default {
 	},
 	computed: {
 		board() {
+			if (this.$store.getters.currBoard) console.log(this.$store.getters.currBoard);
 			return utilService.deepCopy(this.$store.getters.currBoard);
 		},
 		users() {
@@ -209,14 +210,13 @@ export default {
 		user() {
 			return this.$store.getters.loggedinUser;
 		},
-		boardClass() {
-			console.log(this.board.style.backgroundClass)
-			return `${this.board.style.backgroundClass}`
-		},
-		// boardStyle() {
-		// 	console.log(this.board.style.background)
-		// 	return {'background-image': `${this.board.style.background}`}
-		// }
+		// boardClass() {
+		// 	return `${this.board.style.backgroundClass}`
+		// },
+		boardStyle() {
+			console.log(this.board.style.background)
+			return { 'background': `${this.board.style.background}` }
+		}
 	},
 	watch: {
 		'$route.params'() {
@@ -236,9 +236,10 @@ export default {
 		if (this.$route.params.cardId) this.isDetails = true;
 		const boardId = this.$route.params.boardId;
 		this.$store.dispatch({ type: 'loadBoard', boardId });
-
 	},
-
+	destroyed() {
+		this.$store.dispatch({ type: 'loadBoard', boardId: null });
+	},
 	components: {
 		group,
 		boardHeader,

@@ -4,19 +4,16 @@
 		<h2>Menu</h2>
 		<hr />
 		<div class="board-actions flex f-col">
-			<span @click="toggleBgc">Change Background</span>
-			<div v-if="isBgc" class="background flex f-center wrap">
+			<span @click="toggleBg">Change Background</span>
+			<div v-if="isBg" class="background flex f-center wrap">
 				<div
-					v-for="idx in 8"
-					:key="idx + 10"
-					:class="`bgc bgc-${idx}`"
-					@click="emitChange(`bgc-${idx}`)"
+					v-for="(color, idx) in colors"
+					:key="color"
+					:class="`bgc bgc-${idx + 1}`"
+					@click="emitChange(color)"
 				></div>
-				<div v-for="idx in 5" :key="idx">
-					<img
-						@click="emitChange(`${idx}`)"
-						:src="require(`../../assets/bgs/${idx}.jpg`)"
-					/>
+				<div v-for="(src, idx) in srcs" :key="src">
+					<img @click="emitChange(`${idx}`)" :src="src" />
 				</div>
 			</div>
 
@@ -36,13 +33,30 @@ export default {
 	},
 	data() {
 		return {
-			isBgc: false,
+			isBg: false,
+			colors: [
+				'rgb(46, 121, 186)',
+				'rgb(72, 171, 200)',
+				'rgb(106, 188, 114)',
+				'rgb(98, 149, 70)',
+				'rgb(132, 99, 154)',
+				'rgb(191, 98, 143)',
+				'rgb(164, 76, 56)',
+				'rgb(202, 146, 71)'
+			],
+			srcs: [
+				require('../../assets/bgs/bg1.jpg'),
+				require('../../assets/bgs/bg2.jpg'),
+				require('../../assets/bgs/bg3.jpg'),
+				require('../../assets/bgs/bg4.jpg'),
+				require('../../assets/bgs/bg5.jpg'),
+				require('../../assets/bgs/bg6.jpg'),
+			]
 		}
 	},
 	methods: {
-		toggleBgc() {
-			console.log('s')
-			this.isBgc = !this.isBgc;
+		toggleBg() {
+			this.isBg = !this.isBg;
 		},
 		emitClose() {
 			this.$emit('close');

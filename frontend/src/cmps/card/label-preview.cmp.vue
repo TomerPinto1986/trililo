@@ -59,7 +59,6 @@ export default {
         },
         updateTitle() {
             this.isEdit = false;
-            console.log(this.titleToEdit);
             this.$emit('updateLabelTitle', this.label.id, this.titleToEdit);
         }
     }

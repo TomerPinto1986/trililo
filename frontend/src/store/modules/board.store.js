@@ -43,7 +43,9 @@ export default {
             commit('setBoards', boards)
         },
         async loadBoard({ commit }, { boardId }) {
-            const board = await boardService.getById(boardId)
+            let board;
+            if(!boardId) board = null;
+            else board = await boardService.getById(boardId)
             commit({ type: 'updateBoard', board })
         },
         async updateBoard({ commit }, { board }) {

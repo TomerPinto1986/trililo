@@ -12,7 +12,7 @@
 				<router-link to="/login">Login</router-link> |
 				<router-link to="/signup">Signup</router-link>
 			</template>
-			<button v-else @click="emitLogout">Logout</button>
+			<span class="logout" v-else @click="emitLogout">Logout</span>
 		</div>
 	</section>
 </template>
@@ -29,7 +29,6 @@ export default {
 	},
 	computed: {
 		isGuest() {
-			console.log(this.loggedinUserId)
 			return this.loggedinUserId === 'guest' ? true : false;
 		},
 		headerClass() {

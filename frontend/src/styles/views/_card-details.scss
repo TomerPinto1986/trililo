@@ -28,6 +28,7 @@
         background-color: inherit;
     }
     .card-info {
+        max-width: 632px;
         flex-grow: 1;
         padding-inline-start: 16px;
         padding-inline-end: 8px;
@@ -45,20 +46,18 @@
                 }
             }
         }
-
-        .label-marks div {
-            display: inline-block;
-            // height: 32px;
-            min-width:40px;
-            border-radius: 3px;
-            margin: 1px 5px;
-            padding: 0 5px;
-            font-weight: 500;
-            font-size: 1.25em;
-            color: white;
-
-            span {
-                display: block;
+        .label-marks {
+            .label-container {
+                font-weight: 500;
+                // margin: 2px 8px;
+                color: white;
+                .label {
+                    border-radius: 3px;
+                    margin: 2px;
+                    min-width: 40px;
+                    display: block;
+                    padding: 2px 4px;
+                }
             }
         }
     }
@@ -86,7 +85,7 @@
         }
     }
     .actions {
-        max-width: 168px;
+        width: 168px;
         padding-inline-start: 8px;
         padding-inline-end: 16px;
         padding-block-end: 8px;

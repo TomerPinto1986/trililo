@@ -39,7 +39,7 @@ function emptyBoard() {
         "byMember": {},
         "isPrivate": true,
         "style": {
-            "background": "#eee"
+            "background": `url(${require('../assets/bgs/bg6.jpg')})`
         },
         "members": [],
         "groups": [

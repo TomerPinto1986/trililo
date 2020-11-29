@@ -26,7 +26,6 @@ export default {
             })
         },
         updateCurrCard(state, { card }) {
-            console.log(card)
             state.currCard = card;
         },
         setEmptyCard(state) {

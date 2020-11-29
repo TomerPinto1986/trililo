@@ -59,5 +59,13 @@
         }
     }
 
+    .bgc {
+        @each $bgc in $bgcs {
+            $i: index($bgcs, $bgc);
 
+            &-#{$i} {
+                background: #{$bgc} !important;
+            }
+        }
+    }
 }

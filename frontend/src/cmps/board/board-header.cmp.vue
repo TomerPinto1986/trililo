@@ -2,8 +2,8 @@
 	<section v-if="board" class="board-header flex">
 		<input
 			type="text"
-			@keyup.enter="saveBoardTitle"
-			@blur="saveBoardTitle"
+			@keyup.enter="emitTitleChange"
+			@blur="emitTitleChange"
 			v-model="boardTitle"
 			ref="myInput"
 		/>
@@ -25,7 +25,6 @@
 			<div v-for="member in boardMembers" :key="member.id">
 				<avatar :size="35" :username="member.username"></avatar>
 			</div>
-			<!-- <button v-if="!isAddUsers" @click="addUsers">Invite</button> -->
 			<span
 				class="add-btn flex f-center"
 				v-if="!isAddUsers"
@@ -91,7 +90,7 @@ export default {
 		updateUsers(userId) {
 			this.$emit('updateboardUsers', userId)
 		},
-		saveBoardTitle() {
+		emitTitleChange() {
 			this.$emit('updateTitle', this.boardTitle);
 			setTimeout(() => {
 				this.$refs.myInput.blur();
@@ -117,7 +116,11 @@ export default {
 	},
 	created() {
 		this.boardTitle = this.board.title;
+		console.log(this.boardTitle, this.board.title)
 		this.privacy = (this.isPrivate);
+	},
+	destroyed(){
+		console.log(this.boardTitle)
 	},
 	components: {
 		avatar,
