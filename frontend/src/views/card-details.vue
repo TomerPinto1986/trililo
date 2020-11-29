@@ -116,6 +116,7 @@
 						:color="card.style.headerColor"
 						@colorChange="updateCover"
 					/>
+                                        <add-checklist :card="card" @updateCard="updateCard" @close="closePopup" />
 				</pop-up>
 				<card-attachments
 					:attachments="attachments"
@@ -127,7 +128,7 @@
 				<h3>Add to card</h3>
 				<button @click.stop="onAddMembers">Members</button>
 				<button @click.stop="openLabels">Labels</button>
-				<button>Checklist</button>
+                <button @click.stop="addChecklist">Checklist</button>
 				<button>
 					<label class="upload-btn" for="uploader">
 						Attachment
@@ -177,6 +178,7 @@ import cardMove from '@/cmps/card/card-move.cmp';
 import cardCover from '@/cmps/card/card-cover.cmp';
 import datePicker from '@/cmps/custom-elements/date-picker.cmp';
 import cardLabels from '@/cmps/card/card-labels.cmp';
+import addChecklist from '@/cmps/card/add-checklist.cmp';
 import { utilService } from '@/services/util.service';
 import { uploadImg } from '@/services/img-upload.service';
 import addMembers from '@/cmps/custom-elements/add-members.cmp';
@@ -220,7 +222,10 @@ export default {
 		},
 		labels() {
 			return this.currPopUp === 'labels';
-		},
+        },
+                checklist() {
+            return this.currPopUp === 'checklist';
+        },
 		cover() {
 			return this.currPopUp === 'cover';
 		},
@@ -436,7 +441,8 @@ export default {
 		cardLabels,
 		avatar,
 		popUp,
-		checkBox
+        checkBox,
+        addChecklist
 	}
 }
 </script>
