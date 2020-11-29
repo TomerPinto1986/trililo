@@ -17,7 +17,7 @@
                     v-model="card.title"
                     @blur="updateBoard"
                 />
-                <section class="add-to-card flex">
+                <section class="add-to-card flex wrap">
                     <div
                         class="f-col card-members"
                         v-if="card.members && card.members.length"
@@ -42,22 +42,22 @@
                             </span>
                         </div>
                     </div>
-                    <ul v-if="labelsSelected().length" class="label-marks flex">
+                    <div
+                        v-if="labelsSelected().length"
+                        class="label-marks f-col"
+                    >
                         <h3>Labels</h3>
-                        <div>
-                            <li
+                        <div class="label-container flex wrap">
+                            <div
                                 v-for="label in labelsSelected()"
                                 :key="label.id"
+                                class="label flex f-center"
+                                :style="{ backgroundColor: label.color }"
                             >
-                                <div
-                                    class="flex f-center"
-                                    :style="{ backgroundColor: label.color }"
-                                >
-                                    <span>{{ label.title }}</span>
-                                </div>
-                            </li>
+                                <span>{{ label.title }}</span>
+                            </div>
                         </div>
-                    </ul>
+                    </div>
 
                     <div class="due-date" v-if="card.dueDate || dueDate">
                         <h3 @click.stop="setDate">Due Date</h3>
