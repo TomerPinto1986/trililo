@@ -32,9 +32,6 @@ export default {
 			if (this.activity.card) this.$router.push(this.activity.card.url)
 		}
 	},
-	created() {
-		console.log(this.activity)
-	},
 	components: {
 		avatar
 	},
