@@ -86,8 +86,7 @@
 					type="text"
 					v-model="card.description"
 					placeholder="Add a more detailed description..."
-				/>
-				<card-activity :activities="card.activities" />
+				/>                
 				<div class="btns flex"></div>
 				<pop-up v-if="isPopUp" @closePopup="closePopup">
 					<card-move
@@ -122,6 +121,7 @@
 					:attachments="attachments"
 					@updateAttachments="updateAttachments"
 				/>
+                <card-activity v-if="card" :activities="card.activities" :user="loggedInUser" :card="card" />
 			</div>
 			<div class="actions flex f-col">
 				<h3>Add to card</h3>
@@ -191,6 +191,10 @@ export default {
 		}
 	},
 	computed: {
+        loggedInUser(){
+            console.log(this.$store.getters.loggedinUser,'logged in user');
+            return this.$store.getters.loggedinUser;
+        },
 		localTime() {
 			return (new Date(this.card.dueDate)).toLocaleDateString();
 		},

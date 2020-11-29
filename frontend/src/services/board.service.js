@@ -42,8 +42,7 @@ function emptyBoard() {
             "background": `url(${require('../assets/bgs/bg6.jpg')})`
         },
         "members": [],
-        "groups": [
-            {
+        "groups": [{
                 "id": utilService.makeId() + '',
                 "title": "To Do",
                 "cards": [],
@@ -69,8 +68,7 @@ function emptyBoard() {
             }
         ],
         "activities": [],
-        "labels": [
-            {
+        "labels": [{
                 "id": "l101",
                 "color": "#61bd4f",
                 "title": "a"

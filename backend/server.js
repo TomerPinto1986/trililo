@@ -6,8 +6,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
 const app = express();
-// const http = require('http').createServer(app);
-// const io = require('socket.io')(http);
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 
 // Express App Config
 app.use(cookieParser());
@@ -32,13 +32,13 @@ if (process.env.NODE_ENV === 'production') {
 const boardRoutes = require('./api/board/board.routes');
 const userRoutes = require('./api/user/user.routes');
 const authRoutes = require('./api/auth/auth.routes');
-// const connectSockets = require('./api/socket/socket.routes');
+const connectSockets = require('./api/socket/socket.routes');
 
 // Routes
 app.use('/api/board', boardRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
-// connectSockets(io);
+connectSockets(io);
 
 const logger = require('./services/logger.service');
 const PORT = process.env.PORT || 3030;

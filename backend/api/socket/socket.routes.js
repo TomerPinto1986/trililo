@@ -1,18 +1,30 @@
+var chat = {};
+console.log(chat, 'chat');
+
 function connectSockets(io) {
+    console.log('connecting');
     io.on('connection', socket => {
-        console.log('socket:', socket);
-        socket.on('chat newMsg', msg => {
-            console.log(msg);
-            // io.emit('chat addMsg', msg);
-            // emits only to sockets in the same room;
-            io.to(socket.myTopic).emit('chat addMsg', msg);
+        console.log('socket connected:', socket);
+        socket.on('chat-newMsg', msg => {
+
+            chat[socket.myTopic].push(msg)
+            console.log(chat[socket.myTopic]);
+            // emits only to sockets in the same card
+            io.to(socket.myTopic).emit('chat-addMsg', chat[socket.myTopic])
         });
-        socket.on('chat topic', topic => {
+        socket.on('chat-topic', topic => {
             if (socket.myTopic) {
                 socket.leave(socket.myTopic);
             }
             socket.join(topic);
             socket.myTopic = topic;
+            if (!chat[socket.myTopic]) {
+                chat[socket.myTopic] = [];
+            } else socket.emit('chat-history', chat[socket.myTopic]);
+        });
+        socket.on('typing', username => {
+            console.log(username, 'typing');
+            io.to(socket.myTopic).emit('user-typing', username);
         });
     });
 }
