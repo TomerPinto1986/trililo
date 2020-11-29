@@ -121,7 +121,7 @@
             <div class="actions flex f-col">
                 <h3>Add to card</h3>
                 <button @click.stop="onAddMembers">Members</button>
-                <button>Labels</button>
+                <button @click.stop="openLabels">Labels</button>
                 <button>Checklist</button>
                 <button>
                     <label class="upload-btn" for="uploader">
