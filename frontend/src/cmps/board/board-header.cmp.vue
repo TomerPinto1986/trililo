@@ -11,7 +11,7 @@
 			v-model="privacy"
 			class="privacy"
 			popper-class="dropdown"
-            @change="emitPrivacyChange"
+			@change="emitPrivacyChange"
 		>
 			<el-option
 				v-for="item in options"
@@ -60,17 +60,20 @@ import avatar from 'vue-avatar';
 export default {
 	props: {
 		board: Object,
-		users: Array
+		users: Array,
+		user: Object
 	},
 	data() {
 		return {
 			boardTitle: null,
 			isAddUsers: false,
 			isMenu: false,
-			options: [
+			options: (this.user._id !== 'guest') ? [
 				{ value: 'private', label: 'Private' },
 				{ value: 'public', label: 'Public' }
-			],
+			] : [
+					{ value: 'public', label: 'Public' }
+				],
 			privacy: null
 		}
 	},

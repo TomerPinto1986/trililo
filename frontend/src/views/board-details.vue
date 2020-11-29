@@ -5,10 +5,11 @@
 		v-dragscroll:firstchilddrag
 		:class="boardClass"
 	>
-	<div class="screen" @click="goBack"></div>
+		<div class="screen" @click="goBack"></div>
 		<board-header
 			:board="board"
 			:users="users"
+			:user="user"
 			@updateTitle="updateBoardTitle"
 			@updateboardUsers="updateboardUsers"
 			@changeBgc="changeBgc"
@@ -40,30 +41,30 @@
 				/>
 			</draggable>
 
-            <div class="add-group group flex f-center" @click="addGroup">
-                <span v-if="!isAddingGroup">+ Add another list</span>
-                <form v-else @submit.prevent="newGroup">
-                    <input
-                        type="text"
-                        v-model="newGroupTitle"
-                        placeholder="Enter list title"
-                    />
-                    <div class="new-group-btns">
-                        <button>Save</button>
-                        <button type="button" @click.stop="closeAddGroup">
-                            Cancel
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <card-details
-            v-if="isDetails"
-            @close="closeDetails"
-            @addCard="updateCard"
-            @deleteCard="deleteCard"
-        />
-    </section>
+			<div class="add-group group flex f-center" @click="addGroup">
+				<span v-if="!isAddingGroup">+ Add another list</span>
+				<form v-else @submit.prevent="newGroup">
+					<input
+						type="text"
+						v-model="newGroupTitle"
+						placeholder="Enter list title"
+					/>
+					<div class="new-group-btns">
+						<button>Save</button>
+						<button type="button" @click.stop="closeAddGroup">
+							Cancel
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<card-details
+			v-if="isDetails"
+			@close="closeDetails"
+			@addCard="updateCard"
+			@deleteCard="deleteCard"
+		/>
+	</section>
 </template>
 
 <script>
@@ -72,6 +73,11 @@ import boardHeader from '../cmps/board/board-header.cmp';
 import cardDetails from '@/views/card-details';
 import draggable from 'vuedraggable'
 import { utilService } from '@/services/util.service';
+// import bg1 from '../assets/bgs/bg1.jpg';
+// import bg2 from '../assets/bgs/bg2.jpg';
+// import bg3 from '../assets/bgs/bg3.jpg';
+// import bg4 from '../assets/bgs/bg4.jpg';
+// import bg5 from '../assets/bgs/bg5.jpg';
 
 export default {
 	data() {
@@ -181,13 +187,15 @@ export default {
 		},
 		changeBgc(bgc) {
 			const board = utilService.deepCopy(this.board);
-			board.style.backgroundClass = bgc;
-			console.log(bgc)
+			if(bgc.includes('bg')) {
+				board.style.backgroundClass = bgc;
+			}
+
 			this.updateBoard(board);
 		},
-		changePrivacy(privacy){
+		changePrivacy(privacy) {
 			const board = utilService.deepCopy(this.board);
-			board.isPrivate = (privacy==='private');
+			board.isPrivate = (privacy === 'private');
 			this.updateBoard(board)
 		}
 	},
@@ -198,9 +206,12 @@ export default {
 		users() {
 			return this.$store.getters.users;
 		},
+		user() {
+			return this.$store.getters.loggedinUser;
+		},
 		boardClass() {
 			console.log(this.board.style.backgroundClass)
-			return  `${this.board.style.backgroundClass}`
+			return `${this.board.style.backgroundClass}`
 		},
 		// boardStyle() {
 		// 	console.log(this.board.style.background)
@@ -216,16 +227,16 @@ export default {
 		}
 	},
 	mounted() {
-		setTimeout(()=>{
+		setTimeout(() => {
 			if (this.$route.params.cardId) document.body.querySelector('.screen').style.display = 'block';
-		},500)
+		}, 500)
 	},
 	created() {
 		this.$store.dispatch('loadUsers');
 		if (this.$route.params.cardId) this.isDetails = true;
 		const boardId = this.$route.params.boardId;
 		this.$store.dispatch({ type: 'loadBoard', boardId });
-		
+
 	},
 
 	components: {
