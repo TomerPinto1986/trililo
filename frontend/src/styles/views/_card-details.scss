@@ -1,5 +1,5 @@
 .card-details {
-    z-index: 1;
+    z-index: 3;
     position: absolute;
     width: 800px;
     height: 800px;
@@ -7,6 +7,13 @@
     right: calc(50% - 400px);
     background-color: rgb(243, 243, 243);
     border-radius: 10px;
+    .cancel-btn {
+        align-self: end;
+        border-radius: 50%;
+        padding: 15px;
+        font-size: 20px;
+        background-color: inherit;
+    }
     .card-info {
         padding: 20px;
         padding-inline-end: 100px;
@@ -40,6 +47,14 @@
         border-radius: 10px 10px 0 0;
         width: 100%;
         height: 80px;
+        justify-content: flex-end;
+    }
+    .add-to-card>* {
+        margin-inline-start: 15px;
+        margin-block-end: 10px;
+    }
+    .due-date div:first-child {
+        text-transform: uppercase;
     }
     .btns {
         position: absolute;

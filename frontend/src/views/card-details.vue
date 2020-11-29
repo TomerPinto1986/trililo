@@ -4,7 +4,11 @@
         class="card-details flex f-col"
         @click.stop="closePopup"
     >
-        <div class="card-header" :style="headerStyle"></div>
+        <div class="card-header flex" :style="headerStyle">
+            <button class="cancel-btn" @click.stop="emitClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
         <div class="card-info">
             <input
                 class="title"
@@ -105,11 +109,7 @@
                 </button>
                 <button class="move-btn" @click.stop="emitMove">Move</button>
             </div>
-            <div class="btns flex">
-                <button class="cancel-btn" @click.stop="emitClose">
-                    Close
-                </button>
-            </div>
+            <div class="btns flex"></div>
             <pop-up v-if="isPopUp" @closePopup="closePopup">
                 <card-move
                     v-if="move"
@@ -148,7 +148,8 @@
 </template>
 
 <script>
-import popUp from '../cmps/card/pop-up.cmp'
+// import checkBox from '../cmps/custom-elements/check-box.cmp';
+import popUp from '../cmps/card/pop-up.cmp';
 import avatar from 'vue-avatar';
 import cardActivity from '@/cmps/card/card-activity.cmp';
 import cardAttachments from '@/cmps/card/card-attachments.cmp';
@@ -158,7 +159,7 @@ import datePicker from '@/cmps/custom-elements/date-picker.cmp';
 import cardLabels from '@/cmps/card/card-labels.cmp';
 import { utilService } from '@/services/util.service';
 import { uploadImg } from '@/services/img-upload.service';
-import addMembers from '@/cmps/custom-elements/add-members.cmp'
+import addMembers from '@/cmps/custom-elements/add-members.cmp';
 
 export default {
     data() {
@@ -246,19 +247,20 @@ export default {
         setDate() {
             this.currPopUp = 'duedate';
         },
-        removeDate() {
-            const card = utilService.deepCopy(this.card)
-            delete card.dueDate;
-            // const board = this.board;
-            // board.groups.forEach(group => {
-            // 	const cardIdx = group.cards.findIndex(card => card.id === this.card.id)
-            // 	if (cardIdx !== -1) {
-            // 		group.cards.splice(cardIdx, 1, this.card)
-            // 	}
-            // })
-            // this.$store.dispatch({ type: 'updateBoard', board: board });
+		removeDate() {
+			const card = utilService.deepCopy(this.card)
+			// delete card.dueDate;
+			card.dueDate = null;
+			// const board = this.board;
+			// board.groups.forEach(group => {
+			// 	const cardIdx = group.cards.findIndex(card => card.id === this.card.id)
+			// 	if (cardIdx !== -1) {
+			// 		group.cards.splice(cardIdx, 1, this.card)
+			// 	}
+			// })
+			// this.$store.dispatch({ type: 'updateBoard', board: board });
             this.updateCard(card);
-
+            this.card = card;
         },
         setNewDate(dueDate) {
             const updatedCard = utilService.deepCopy(this.card)
@@ -397,7 +399,8 @@ export default {
         cardCover,
         cardLabels,
         avatar,
-        popUp
+		popUp,
+		// checkBox
     }
 }
 </script>

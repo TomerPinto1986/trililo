@@ -1,5 +1,6 @@
 <template>
 	<div id="app" :style="appStyle">
+		
 		<main-header :loggedinUser="loggedinUser" @logout="logout" />
 		<router-view />
 	</div>
