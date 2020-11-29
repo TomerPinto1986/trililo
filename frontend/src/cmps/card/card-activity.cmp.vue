@@ -1,6 +1,5 @@
 <template>
-<<<<<<< HEAD
-    <section class="card-activity">
+    <section v-if="user" class="card-activity">
         <h2>activity:</h2>
         <button>Show Details</button>
         <avatar username="user.username"></avatar>
@@ -11,28 +10,6 @@
             <activity-preview v-for="activity in activities" :key="activity.id" :activity="activity" />
         </template>
     </section>
-=======
-	<section class="card-activity">
-		<h2>activities:</h2>
-		<button>Show Details</button>
-		<avatar username="user.username"></avatar>
-		<input
-			type="text"
-			placeholder="Write a comment..."
-			@keydown="typing"
-			v-model="msg.txt"
-		/>
-		<button @click="sendMsg">Send</button>
-		<span>{{ chat }}</span>
-		<template v-if="activities && activities.length">
-			<activity-preview
-				v-for="activity in activities"
-				:key="activity.id"
-				:activity="activity"
-			/>
-		</template>
-	</section>
->>>>>>> 1619cdfec7ed91d0bd545912c694ef13d22823da
 </template>
 
 <script>
@@ -49,7 +26,7 @@ export default {
 	data() {
 		return {
 			msg: {
-				from: this.user.username,
+				from: null,
 				txt: ''
 			},
 			chat: [],
@@ -81,6 +58,8 @@ export default {
 		}
 	},
 	created() {
+		
+		this.from = this.user.username;
 		console.log('running sockets');
 		socketService.setup();
 		socketService.emit('card-topic', this.card.id);

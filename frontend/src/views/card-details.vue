@@ -98,7 +98,7 @@
                         :checklist="checklist"
                     />
                 </div>
-                <card-activity :activities="card.activities" />
+                <card-activity :activities="card.activities" :card="card" :user="loggedInUser"/>
                 <div class="btns flex"></div>
                 <pop-up v-if="isPopUp" @closePopup="closePopup">
                     <card-move
