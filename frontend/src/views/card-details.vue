@@ -9,7 +9,8 @@
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        <div class="card-info">
+        <div class="card-main-container flex">
+            <div class="card-info">
             <input
                 class="title"
                 type="text"
@@ -21,10 +22,10 @@
                     class="f-col card-members"
                     v-if="card.members && card.members.length"
                 >
-                    <span>Members </span>
+                    <h3>Members </h3>
                     <div class="flex">
                         <span v-for="member in card.members" :key="member._id">
-                            <avatar :size="35" :username="member.username">
+                            <avatar :size="32" :username="member.username">
                             </avatar>
                         </span>
                         <span @click.stop="onAddMembers">
@@ -32,6 +33,8 @@
                                 class="add-member"
                                 :size="35"
                                 :username="'+'"
+                                background-color="#E2E4E9"
+                                color="rgb(94, 108, 132)"
                             ></avatar>
                         </span>
                     </div>
@@ -43,7 +46,7 @@
                     @onUpdateBoard="updateBoard"
                 />
                 <div class="due-date" v-if="card.dueDate || dueDate">
-                    <div @click.stop="setDate">Due Date</div>
+                    <h3 @click.stop="setDate">Due Date</h3>
                     <span v-if="card.dueDate">
 						<check-box :isDone="card.isDone"></check-box>{{ localTime }}
 					</span>
@@ -57,7 +60,7 @@
                     />
                 </div>
             </section>
-            <h3>Description</h3>
+            <h2>Description</h2>
 
             <!-- Turn to prop -->
             <textarea
@@ -69,7 +72,34 @@
                 placeholder="Add a more detailed description..."
             />
             <card-activity :activities="card.activities" />
-            <div class="actions flex f-col">
+            <div class="btns flex"></div>
+            <pop-up v-if="isPopUp" @closePopup="closePopup">
+                <card-move
+                    v-if="move"
+                    :groups="board.groups"
+                    :group="getCurrGroup"
+                    :currPosition="getCurrPosition"
+                    @moveCard="moveCard"
+                />
+                <add-members
+                    v-if="isAddMembers"
+                    :cardMembers="cardMembers()"
+                    :boardMembers="boardMembers"
+                    @updateMembers="updateMembers"
+                />
+                <card-cover
+                    v-if="cover"
+                    :color="card.style.headerColor"
+                    @colorChange="updateCover"
+                />
+            </pop-up>
+            <card-attachments
+                :attachments="attachments"
+                @updateAttachments="updateAttachments"
+            />
+        </div>
+        <div class="actions flex f-col">
+                <h3>Add to card</h3>
                 <button @click.stop="onAddMembers">Members</button>
                 <button>Labels</button>
                 <button>Checklist</button>
@@ -107,32 +137,7 @@
                     Delete Card
                 </button>
                 <button class="move-btn" @click.stop="emitMove">Move</button>
-            </div>
-            <div class="btns flex"></div>
-            <pop-up v-if="isPopUp" @closePopup="closePopup">
-                <card-move
-                    v-if="move"
-                    :groups="board.groups"
-                    :group="getCurrGroup"
-                    :currPosition="getCurrPosition"
-                    @moveCard="moveCard"
-                />
-                <add-members
-                    v-if="isAddMembers"
-                    :cardMembers="cardMembers()"
-                    :boardMembers="boardMembers"
-                    @updateMembers="updateMembers"
-                />
-                <card-cover
-                    v-if="cover"
-                    :color="card.style.headerColor"
-                    @colorChange="updateCover"
-                />
-            </pop-up>
-            <card-attachments
-                :attachments="attachments"
-                @updateAttachments="updateAttachments"
-            />
+        </div>
         </div>
     </section>
 </template>
