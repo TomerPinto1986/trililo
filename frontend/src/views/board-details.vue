@@ -258,9 +258,9 @@ export default {
 		}
 	},
 	mounted() {
-		setTimeout(() => {
-			if (this.$route.params.cardId) document.body.querySelector('.screen').style.display = 'block';
-		}, 500)
+		// setTimeout(() => {
+		// 	if (this.$route.params.cardId) document.body.querySelector('.screen').style.display = 'block';
+		// }, 600)
 	},
 	created() {
 		this.$store.dispatch('loadUsers');

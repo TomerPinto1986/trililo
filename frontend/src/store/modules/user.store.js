@@ -13,7 +13,6 @@ export default {
             return state.users;
         },
         loggedinUser(state) {
-            console.log('getting user');
             const user = (state.loggedinUser) ? state.loggedinUser : userService.getGuest();
             return {
                 _id: user._id,

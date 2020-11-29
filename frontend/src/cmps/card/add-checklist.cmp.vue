@@ -4,7 +4,7 @@
         <hr />
         <h3>Title</h3>
         <form @submit.prevent="addChecklist">
-            <input type="text" v-model="titleToEdit" />
+            <input type="text" v-model="titleToEdit" ref="myInput" />
             <button>Add</button>
         </form>
     </section>
@@ -27,12 +27,15 @@ export default {
             const card = utilService.deepCopy(this.card);
             if (!card.checklistGroup) card.checklistGroup = [];
             card.checklistGroup.push({ id: utilService.makeId(), title: this.titleToEdit, items: [] });
+            console.log('card:', card)
             this.$emit('updateCard', card);
             this.$emit('close');
         }
     },
     created() {
-        console.log(this.card);
+        setTimeout(() => {
+            this.$refs.myInput.focus();
+        }, 0);
     }
 };
 </script>
