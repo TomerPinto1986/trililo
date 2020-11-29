@@ -2,11 +2,9 @@ var chat = {};
 console.log(chat, 'chat');
 
 function connectSockets(io) {
-    console.log('connecting');
     io.on('connection', socket => {
         console.log('socket connected:', socket);
         socket.on('chat-newMsg', msg => {
-
             chat[socket.myTopic].push(msg)
             console.log(chat[socket.myTopic]);
             // emits only to sockets in the same card
@@ -26,6 +24,8 @@ function connectSockets(io) {
             console.log(username, 'typing');
             io.to(socket.myTopic).emit('user-typing', username);
         });
+
+        socket.on('test', () => { console.log('success!') })
     });
 }
 

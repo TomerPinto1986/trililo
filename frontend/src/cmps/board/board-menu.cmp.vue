@@ -17,15 +17,23 @@
 				</div>
 			</div>
 
-			<span>Delete Board</span>
+			<span @click="emitDeleteBoard">Delete Board</span>
 			<hr />
 		</div>
-		<div class="activity"></div>
+		<h3>Activities</h3>
+		<div class="activity">
+			<activity-preview
+				v-for="activity in board.activities"
+				:key="activity.id"
+				:activity="activity"
+				@click="openCard"
+			/>
+		</div>
 	</section>
 </template>
 
 <script>
-
+import activityPreview from '../card/activity-preview.cmp'
 
 export default {
 	props: {
@@ -63,9 +71,19 @@ export default {
 		},
 		emitChange(bgc) {
 			this.$emit('changeBgc', bgc);
+		},
+		emitDeleteBoard() {
+			if (!confirm('Are you sure?')) return;
+			this.$emit('deleteBoard', this.board._id)
+		},
+		openCard() {
+
 		}
 	},
 	created() {
+	},
+	components: {
+		activityPreview
 	}
 }
 </script>

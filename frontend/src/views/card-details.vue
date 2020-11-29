@@ -75,13 +75,17 @@
                         />
                     </div>
                 </section>
-                <h2>Description</h2>
+                <div class="description flex">
+                    <i class="fas fa-align-left"></i>
+                    <h2>Description</h2>
+                    <button>Edit</button>
+                </div>
 
                 <!-- Turn to prop -->
                 <textarea
                     resize="none"
                     cols="50"
-                    rows="5"
+                    rows="3"
                     class="desc"
                     type="text"
                     v-model="card.description"
@@ -96,7 +100,11 @@
                         @deleteChecklist="deleteChecklist"
                     />
                 </div>
-                <!-- <card-activity :activities="card.activities" /> -->
+                <card-activity
+                    :activities="card.activities"
+                    :card="card"
+                    :user="loggedInUser"
+                />
                 <div class="btns flex"></div>
                 <pop-up v-if="isPopUp" @closePopup="closePopup">
                     <card-move
@@ -215,6 +223,7 @@ export default {
     },
     computed: {
         loggedInUser() {
+            console.log(this.$store.getters.loggedinUser, 'logged in user');
             return this.$store.getters.loggedinUser;
         },
         localTime() {
@@ -286,6 +295,8 @@ export default {
             })
             this.$store.dispatch({ type: 'updateBoard', board });
             this.emitClose();
+            this.addActivity('deleted a card')
+
         },
         // for later on when we will make a pop up cmp
         emitMove() {
@@ -309,6 +320,7 @@ export default {
             // this.$store.dispatch({ type: 'updateBoard', board: board });
             this.updateCard(card);
             this.card = card;
+            this.addActivity('removed the due date from a card', card)
 
         },
         setNewDate(dueDate) {
@@ -328,7 +340,144 @@ export default {
             this.updateCard(updatedCard);
             this.card = updatedCard;
             this.closePopup();
+            this.addActivity('added due date to a card', updatedCard)
 
+
+        },
+        openLabels() {
+            this.currPopUp = 'labels';
+            this.isPopUp = true;
+        },
+        updateLabelTitle(labelId, title) {
+            const board = this.board;
+            const idx = board.labels.findIndex(label => label.id === labelId);
+            if (idx !== -1) board.labels[idx].title = title;
+            this.$store.dispatch({ type: 'updateBoard', board });
+        },
+        labelsSelected() {
+            if (!this.card.labels) return [];
+            const selectIds = this.card.labels.map(label => label.id);
+            return this.board.labels.filter(label => selectIds.includes(label.id));
+        },
+        addChecklist() {
+            this.currPopUp = 'checklist';
+            this.isPopUp = true;
+        },
+        moveCard(status) {
+            console.log(status)
+            this.$store.commit({ type: 'updateCardStatus', status });
+            const board = this.board;
+            this.$store.dispatch({ type: 'updateBoard', board });
+            this.isPopUp = false;
+        },
+        async onUpload(ev) {
+            this.isLoading = true;
+            const res = await uploadImg(ev);
+            console.log('uploaded', res)
+            const attachment = {
+                id: utilService.makeId(),
+                name: res.original_filename,
+                format: res.format,
+                src: res.url
+            }
+            if (!this.card.attachments) this.card.attachments = []
+            const updatedCard = utilService.deepCopy(this.card)
+            updatedCard.attachments.push(attachment)
+            console.log(this.card, 'after adding')
+            this.isLoading = false;
+            // const board = this.board;
+            // board.groups.forEach(group => {
+            // 	const cardIdx = group.cards.findIndex(currCard => currCard.id === updatedCard.id);
+            // 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1, updatedCard);
+            // })
+            // this.$store.dispatch({ type: 'updateBoard', board });
+            this.updateCard(updatedCard)
+            this.card = updatedCard;
+        },
+        openCoverPicker() {
+            this.$refs['color-picker']._data.showPicker = true;
+        },
+        updateCover(color) {
+            this.card.style.headerColor = color;
+            const board = this.board;
+            this.$store.dispatch({ type: 'updateBoard', board })
+        },
+        onAddMembers() {
+            this.currPopUp = 'member';
+            this.isPopUp = true;
+        },
+        updateMembers(userId) {
+            // const board = this.board;
+            const card = this.card;
+            const memberIdx = card.members.findIndex(member => member._id === userId);
+            const newUser = this.$store.getters.users.find(user => user._id === userId);
+            if (memberIdx === -1) {
+                console.log(newUser);
+                const newMember = {
+                    _id: newUser._id,
+                    username: newUser.username,
+                    imgUrl: newUser.imgUrl
+                };
+                card.members.push(newMember);
+            } else {
+                card.members.splice(memberIdx, 1);
+            }
+            // board.groups.forEach(group => {
+            // 	const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
+            // 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
+            // });
+            // this.$store.dispatch({ type: 'updateBoard', board });
+            this.updateCard(card);
+            const action = (memberIdx === -1) ? 'added' : 'removed';
+            this.addActivity(`${action} ${newUser.username} to a card`, card)
+
+        },
+        cardMembers() {
+            if (!this.card.members) {
+                this.card.members = [];
+            }
+            return this.card.members
+        },
+        closePopup() {
+            this.isPopUp = false;
+            this.currPopUp = '';
+        },
+        updateCard(card) {
+            const board = this.board;
+            board.groups.forEach(group => {
+                const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
+                if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
+            })
+            this.$store.dispatch({ type: 'updateBoard', board });
+            this.card = card;
+            console.log('this.card:', this.card)
+        },
+        cloneCard() {
+            const cardCopy = utilService.deepCopy(this.card);
+            cardCopy.id = utilService.makeId();
+            const board = this.board;
+            const groupIdx = board.groups.findIndex(group => group.cards.some(card => card.id === this.card.id));
+            if (groupIdx === -1) return;
+            console.log(board.groups[groupIdx].cards);
+            board.groups[groupIdx].cards.push(cardCopy);
+            console.log(board.groups[groupIdx].cards);
+            this.$store.dispatch({ type: 'updateBoard', board });
+        },
+        addActivity(txt, card) {
+            this.$store.commit('setEmptyActivity');
+            const activity = utilService.deepCopy(this.$store.getters.emptyActivity);
+            activity.txt = txt;
+            activity.byMember = utilService.deepCopy(this.$store.getters.loggedinUser);
+            activity.createdAt = Date.now();
+            const url = (this.$route.params.cardId) ? '' : `/card/${card.id}`;
+            if (card) activity.card = {
+                id: card.id,
+                title: card.title,
+                url
+            }
+            const board = this.board;
+            board.activities.unshift(activity);
+            this.updateBoard(board);
         },
         openLabels() {
             this.currPopUp = 'labels';

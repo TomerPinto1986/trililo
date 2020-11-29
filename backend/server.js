@@ -28,7 +28,6 @@ if (process.env.NODE_ENV === 'production') {
     };
     app.use(cors(corsOptions));
 }
-
 const boardRoutes = require('./api/board/board.routes');
 const userRoutes = require('./api/user/user.routes');
 const authRoutes = require('./api/auth/auth.routes');
@@ -42,7 +41,7 @@ connectSockets(io);
 
 const logger = require('./services/logger.service');
 const PORT = process.env.PORT || 3030;
-app.listen(PORT, () => {
+http.listen(PORT, () => {
     console.log(`server is running on: ${PORT}`);
     logger.info(`server is running on: ${PORT}`);
 });
