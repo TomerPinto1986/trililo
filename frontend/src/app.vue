@@ -1,7 +1,7 @@
 <template>
 	<div id="app" :style="appStyle">
 		
-		<main-header :loggedinUser="loggedinUser" @logout="logout" />
+		<main-header :loggedinUserId="loggedinUser" @logout="logout" />
 		<router-view />
 	</div>
 </template>
@@ -12,7 +12,7 @@ import mainHeader from './cmps/main-header.cmp';
 export default {
 	computed: {
 		loggedinUser() {
-			return this.$store.getters.loggedinUser.username;
+			return this.$store.getters.loggedinUser._id;
 		},
 		appStyle() {
 			const page = this.$route.name;

@@ -1,15 +1,21 @@
 <template>
 	<section class="board-menu flex f-col">
-		<button class="close-btn" @click="emitClose">x</button>
+		<i @click="emitClose" class="fas fa-times close-btn"></i>
 		<h2>Menu</h2>
 		<hr />
 		<div class="board-actions flex f-col">
 			<span @click="toggleBgc">Change Background</span>
 			<div v-if="isBgc" class="background flex f-center wrap">
+				<div
+					v-for="idx in 8"
+					:key="idx + 10"
+					:class="`bgc bgc-${idx}`"
+					@click="emitChange(`bgc-${idx}`)"
+				></div>
 				<div v-for="idx in 5" :key="idx">
 					<img
 						@click="emitChange(`${idx}`)"
-						:src="require(`../../assets/imgs/bgc/${idx}.jpg`)"
+						:src="require(`../../assets/bgs/${idx}.jpg`)"
 					/>
 				</div>
 			</div>
@@ -44,9 +50,9 @@ export default {
 		emitChange(bgc) {
 			this.$emit('changeBgc', bgc);
 		}
-    },
-    created(){
-    }
+	},
+	created() {
+	}
 }
 </script>
 

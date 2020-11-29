@@ -1,12 +1,12 @@
 <template>
 	<section class="main-header" :class="headerClass">
 		<div class="main-nav flex" v-if="!isHome">
-            <router-link to="/" exact>Home</router-link>
-            <router-link to="/board" exact>Boards</router-link>
-        </div>
+			<router-link to="/" exact>Home</router-link>
+			<router-link to="/board" exact>Boards</router-link>
+		</div>
 		<div class="logo flex">
-            <span @click="goToHome">Taskules</span>
-        </div>
+			<span @click="goToHome">Taskules</span>
+		</div>
 		<div class="user-area flex">
 			<template v-if="isGuest">
 				<router-link to="/login">Login</router-link> |
@@ -20,7 +20,7 @@
 <script>
 export default {
 	props: {
-		loggedinUser: String,
+		loggedinUserId: String,
 	},
 	data() {
 		return {
@@ -29,7 +29,7 @@ export default {
 	},
 	computed: {
 		isGuest() {
-			return this.loggedinUser.includes('Guest') ? true : false;
+			return this.loggedinUserId === 'guest' ? true : false;
 		},
 		headerClass() {
 			return { home: this.isHome, app: !this.isHome };
@@ -38,11 +38,11 @@ export default {
 	methods: {
 		emitLogout() {
 			this.$emit('logout');
-        },
-        goToHome(){
-			if(this.$route.name === 'home') return;
-            this.$router.push('/');
-        }
+		},
+		goToHome() {
+			if (this.$route.name === 'home') return;
+			this.$router.push('/');
+		}
 	},
 	watch: {
 		'$route.path'() {
