@@ -1,25 +1,40 @@
 <template>
-    <section class="card-label flex f-s-between">
+    <section class="card-label flex f-col f-center">
         <h3>Labels</h3>
-        <label-preview
-            class="flex"
-            v-for="label in board.labels"
-            :key="label.id"
-            :label="label"
-        />
+        <ul class="label-list flex f-col">
+            <li>
+                <label-preview
+                    class="flex"
+                    v-for="label in boardLabels"
+                    :key="label.id"
+                    :label="label"
+                    :card="card"
+                    @updateCard="emitUpdateCard"
+                    @updateLabelTitle="emitUpdateTitle"
+                />
+            </li>
+        </ul>
     </section>
 </template>
 
 <script>
-import labelPrivew from './label-preview.cmp';
+import labelPreview from './label-preview.cmp';
 
 export default {
     props: {
         card: Object,
-        board: Object
+        boardLabels: Array
     },
     components: {
-        labelPrivew
+        labelPreview
+    },
+    methods: {
+        emitUpdateCard(card) {
+            this.$emit('updateCard', card);
+        },
+        emitUpdateTitle(labelId, title) {
+            this.$emit('updateLabelTitle', labelId, title);
+        }
     }
 };
 </script>
