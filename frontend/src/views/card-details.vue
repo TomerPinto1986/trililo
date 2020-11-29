@@ -92,9 +92,11 @@
                         v-for="checklist in card.checklistGroup"
                         :key="checklist.id"
                         :checklist="checklist"
+                        @updeteChecklist="updeteChecklist"
+                        @deleteChecklist="deleteChecklist"
                     />
                 </div>
-                <card-activity :activities="card.activities" />
+                <!-- <card-activity :activities="card.activities" /> -->
                 <div class="btns flex"></div>
                 <pop-up v-if="isPopUp" @closePopup="closePopup">
                     <card-move
@@ -213,7 +215,6 @@ export default {
     },
     computed: {
         loggedInUser() {
-            console.log(this.$store.getters.loggedinUser, 'logged in user');
             return this.$store.getters.loggedinUser;
         },
         localTime() {
@@ -424,6 +425,18 @@ export default {
             this.isPopUp = false;
             this.currPopUp = '';
         },
+        updeteChecklist(checklist) {
+            const card = this.card;
+            const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklist.id);
+            if (idx !== -1) card.checklistGroup.splice(idx, 1, checklist);
+            this.updateCard(card);
+        },
+        deleteChecklist(checklistId) {
+            const card = this.card;
+            const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklistId);
+            if (idx !== -1) card.checklistGroup.splice(idx, 1);
+            this.updateCard(card);
+        },
         updateCard(card) {
             const board = this.board;
             board.groups.forEach(group => {
@@ -432,7 +445,6 @@ export default {
             })
             this.$store.dispatch({ type: 'updateBoard', board });
             this.card = card;
-            console.log('this.card:', this.card)
         },
         cloneCard() {
             const cardCopy = utilService.deepCopy(this.card);
