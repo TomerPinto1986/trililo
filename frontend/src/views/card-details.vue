@@ -88,7 +88,11 @@
                     placeholder="Add a more detailed description..."
                 />
                 <div v-if="card.checklistGroup" class="checklist-group">
-                    <card-checklist v-for="checklist in card.checklistGroup" :key="checklist.id" :checklist="checklist" />
+                    <card-checklist
+                        v-for="checklist in card.checklistGroup"
+                        :key="checklist.id"
+                        :checklist="checklist"
+                    />
                 </div>
                 <card-activity :activities="card.activities" />
                 <div class="btns flex"></div>
@@ -130,6 +134,12 @@
                 <card-attachments
                     :attachments="attachments"
                     @updateAttachments="updateAttachments"
+                />
+                <card-activity
+                    v-if="card"
+                    :activities="card.activities"
+                    :user="loggedInUser"
+                    :card="card"
                 />
             </div>
             <div class="actions flex f-col">
@@ -202,6 +212,10 @@ export default {
         }
     },
     computed: {
+        loggedInUser() {
+            console.log(this.$store.getters.loggedinUser, 'logged in user');
+            return this.$store.getters.loggedinUser;
+        },
         localTime() {
             return (new Date(this.card.dueDate)).toLocaleDateString();
         },
