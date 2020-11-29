@@ -40,30 +40,30 @@
 				/>
 			</draggable>
 
-			<div class="add-group group flex f-center" @click="addGroup">
-				<span v-if="!isAddingGroup">+ Add another list</span>
-				<form v-else @submit.prevent="newGroup">
-					<input
-						type="text"
-						v-model="newGroupTitle"
-						placeholder="Enter list title"
-					/>
-					<div class="new-group-btns">
-						<button>Save</button>
-						<button type="button" @click.stop="closeAddGroup">
-							Cancel
-						</button>
-					</div>
-				</form>
-			</div>
-		</div>
-		<card-details
-			v-if="isDetails"
-			@close="closeDetails"
-			@addCard="updateCard"
-			@deleteCard="deleteCard"
-		/>
-	</section>
+            <div class="add-group group flex f-center" @click="addGroup">
+                <span v-if="!isAddingGroup">+ Add another list</span>
+                <form v-else @submit.prevent="newGroup">
+                    <input
+                        type="text"
+                        v-model="newGroupTitle"
+                        placeholder="Enter list title"
+                    />
+                    <div class="new-group-btns">
+                        <button>Save</button>
+                        <button type="button" @click.stop="closeAddGroup">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <card-details
+            v-if="isDetails"
+            @close="closeDetails"
+            @addCard="updateCard"
+            @deleteCard="deleteCard"
+        />
+    </section>
 </template>
 
 <script>
