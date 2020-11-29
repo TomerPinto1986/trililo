@@ -199,7 +199,6 @@ export default {
 			return this.$store.getters.users;
 		},
 		boardClass() {
-			console.log(this.board.style.backgroundClass)
 			return  `${this.board.style.backgroundClass}`
 		},
 		// boardStyle() {

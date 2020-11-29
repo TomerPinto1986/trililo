@@ -29,7 +29,6 @@ export default {
 	},
 	computed: {
 		isGuest() {
-			console.log(this.loggedinUserId)
 			return this.loggedinUserId === 'guest' ? true : false;
 		},
 		headerClass() {
