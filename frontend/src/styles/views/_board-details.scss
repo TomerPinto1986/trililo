@@ -1,5 +1,5 @@
 .board-details {
-    background: url('../assets/imgs/bgc/4.jpg');
+    background: url('../assets/bgs/4.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -22,11 +22,5 @@
         box-shadow: none;
     }
 
-    // @for $i from 1 to 5 {
-    //     &.#{$i} {
-
-    //         background-image: url('../assets/imgs/bgc/#{$i}.jpg')
-    //     }
-    // }
-
+    
 }
