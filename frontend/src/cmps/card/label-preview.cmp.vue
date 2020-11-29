@@ -1,0 +1,67 @@
+<template>
+    <section class="label-preview">
+        <div
+            class="label flex f-s-between"
+            :style="{ backgroundColor: label.color }"
+            @click.stop="toggleLabel"
+        >
+            <span v-if="!isEdit">{{ label.title }}</span>
+            <input
+                v-else
+                type="text"
+                ref="myInput"
+                v-model="titleToEdit"
+                @keyup.enter.stop="updateTitle"
+            />
+            <i :class="isSelect()"></i>
+        </div>
+        <button @click.stop="focusInput"><i class="fal fa-pen"></i></button>
+    </section>
+</template>
+
+<script>
+import { utilService } from '../../services/util.service.js';
+
+export default {
+    props: {
+        label: Object,
+        card: Object
+    },
+    data() {
+        return {
+            titleToEdit: this.label.title,
+            isEdit: false
+        };
+    },
+    computed: {
+        cardToEdit() {
+            return utilService.deepCopy(this.card);
+        }
+    },
+    methods: {
+        toggleLabel() {
+            if (!this.card.labels) this.card.labels = [];
+            const idx = this.card.labels.findIndex(label => label.id === this.label.id);
+            if (idx === -1) this.card.labels.push({ id: this.label.id });
+            else this.card.labels.splice(idx, 1);
+            this.$emit('updateCard', this.card);
+        },
+        isSelect() {
+            if (!this.card.labels) return;
+            const labelsIds = this.card.labels.map(label => label.id);
+            return labelsIds.includes(this.label.id) ? 'fas fa-check' : '';
+        },
+        focusInput() {
+            this.isEdit = true;
+            setTimeout(() => {
+                this.$refs.myInput.focus();
+            }, 0);
+        },
+        updateTitle() {
+            this.isEdit = false;
+            console.log(this.titleToEdit);
+            this.$emit('updateLabelTitle', this.label.id, this.titleToEdit);
+        }
+    }
+};
+</script>

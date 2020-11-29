@@ -45,6 +45,22 @@
                 }
             }
         }
+
+        .label-marks div {
+            display: inline-block;
+            // height: 32px;
+            min-width:40px;
+            border-radius: 3px;
+            margin: 1px 5px;
+            padding: 0 5px;
+            font-weight: 500;
+            font-size: 1.25em;
+            color: white;
+
+            span {
+                display: block;
+            }
+        }
     }
     .card-header {
         border-radius: 10px 10px 0 0;
