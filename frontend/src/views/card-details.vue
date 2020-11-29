@@ -86,6 +86,9 @@
                     v-model="card.description"
                     placeholder="Add a more detailed description..."
                 />
+                <div class="checklist-list">
+
+                </div>
                 <card-activity :activities="card.activities" />
                 <div class="btns flex"></div>
                 <pop-up v-if="isPopUp" @closePopup="closePopup">
@@ -116,6 +119,7 @@
                         :color="card.style.headerColor"
                         @colorChange="updateCover"
                     />
+                    <add-checklist :card="card" @updateCard="updateCard" @close="closePopup" />
                 </pop-up>
                 <card-attachments
                     :attachments="attachments"
@@ -126,7 +130,7 @@
                 <h3>Add to card</h3>
                 <button @click.stop="onAddMembers">Members</button>
                 <button @click.stop="openLabels">Labels</button>
-                <button>Checklist</button>
+                <button @click.stop="addChecklist">Checklist</button>
                 <button>
                     <label class="upload-btn" for="uploader">
                         Attachment
@@ -176,6 +180,7 @@ import cardMove from '@/cmps/card/card-move.cmp';
 import cardCover from '@/cmps/card/card-cover.cmp';
 import datePicker from '@/cmps/custom-elements/date-picker.cmp';
 import cardLabels from '@/cmps/card/card-labels.cmp';
+import addChecklist from '@/cmps/card/add-checklist.cmp';
 import { utilService } from '@/services/util.service';
 import { uploadImg } from '@/services/img-upload.service';
 import addMembers from '@/cmps/custom-elements/add-members.cmp';
@@ -215,6 +220,9 @@ export default {
         },
         labels() {
             return this.currPopUp === 'labels';
+        },
+        checklist() {
+            return this.currPopUp === 'checklist';
         },
         cover() {
             return this.currPopUp === 'cover';
@@ -305,6 +313,10 @@ export default {
             this.currPopUp = 'labels';
             this.isPopUp = true;
         },
+        addChecklist() {
+            this.currPopUp = 'checklist';
+            this.isPopUp = true;
+        },
         updateLabelTitle(labelId, title) {
             const board = this.board;
             const idx = board.labels.findIndex(label => label.id === labelId);
@@ -392,11 +404,12 @@ export default {
             this.currPopUp = '';
         },
         updateCard(card) {
+            console.log('card:', card)
             const board = this.board;
             board.groups.forEach(group => {
                 const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
                 if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
-            })
+            });
             this.$store.dispatch({ type: 'updateBoard', board });
         }
     },
@@ -420,7 +433,8 @@ export default {
         cardLabels,
         avatar,
         popUp,
-        checkBox
+        checkBox,
+        addChecklist
     }
 }
 </script>
