@@ -79,6 +79,7 @@
 
 				<!-- Turn to prop -->
 				<textarea
+					resize="none"
 					cols="50"
 					rows="5"
 					class="desc"
@@ -316,6 +317,7 @@ export default {
 			return this.board.labels.filter(label => selectIds.includes(label.id));
 		},
 		moveCard(status) {
+			console.log(status)
 			this.$store.commit({ type: 'updateCardStatus', status });
 			const board = this.board;
 			this.$store.dispatch({ type: 'updateBoard', board });
