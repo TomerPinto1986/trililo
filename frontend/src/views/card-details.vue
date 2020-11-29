@@ -156,7 +156,7 @@
                         @change="updateCover"
                     ></el-color-picker>
                 </button>
-                <button>Copy</button>
+                <button @click="cloneCard">Copy</button>
                 <button class="dlt-btn" @click.stop="deleteCard">
                     Delete Card
                 </button>
@@ -249,13 +249,12 @@ export default {
             this.$emit('close');
         },
         deleteCard() {
-            // const board = this.board;
-            // board.groups.forEach(group => {
-            // 	const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
-            // 	if (cardIdx !== -1) group.cards.splice(cardIdx, 1);
-            // })
-            // this.$store.dispatch({ type: 'updateBoard', board });
-            this.updateCard(null);
+            const board = this.board;
+            board.groups.forEach(group => {
+                const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
+                if (cardIdx !== -1) group.cards.splice(cardIdx, 1);
+            })
+            this.$store.dispatch({ type: 'updateBoard', board });
             this.emitClose();
         },
         // for later on when we will make a pop up cmp
@@ -397,6 +396,17 @@ export default {
                 const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
                 if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
             })
+            this.$store.dispatch({ type: 'updateBoard', board });
+        },
+        cloneCard() {
+            const cardCopy = utilService.deepCopy(this.card);
+            cardCopy.id = utilService.makeId();
+            const board = this.board;
+            const groupIdx = board.groups.findIndex(group => group.cards.some(card => card.id === this.card.id));
+            if (groupIdx === -1) return;
+            console.log(board.groups[groupIdx].cards);
+            board.groups[groupIdx].cards.push(cardCopy);
+            console.log(board.groups[groupIdx].cards);
             this.$store.dispatch({ type: 'updateBoard', board });
         }
     },
