@@ -13,8 +13,9 @@ export const boardService = {
     emptyActivity
 };
 
-function query() {
-    return httpService.get('board');
+function query(filter) {
+    const filterStr = `?id=${filter}`
+    return httpService.get(`board${filterStr}`);
 }
 
 function getById(boardId) {
