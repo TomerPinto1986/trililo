@@ -1,231 +1,224 @@
 <template>
-	<section
-		v-if="card"
-		class="card-details flex f-col"
-		@click.stop="closePopup"
-	>
-		<div class="card-header flex" :style="headerStyle">
-			<button class="cancel-btn" @click.stop="emitClose">
-				<i class="el-icon-close"></i>
-			</button>
-		</div>
-		<div class="card-main-container flex">
-			<div class="card-info">
-				<div class="pure-info">
-					<i class="el-icon-postcard"></i>
-					<input
-						class="title"
-						type="text"
-						v-model="card.title"
-						@blur="updateBoard"
-					/>
-					<h4 class="in-list">
-						in list <span>{{ getCurrGroup.title }}</span>
-					</h4>
-				</div>
-				<section class="add-to-card flex wrap">
-					<div class="members-labels flex">
-						<div
-							class="card-members f-col"
-							v-if="card.members && card.members.length"
-						>
-							<h3>Members</h3>
-							<div class="flex">
-								<span
-									v-for="member in card.members"
-									:key="member._id"
-								>
-									<avatar
-										:size="40"
-										:username="member.username"
-									>
-									</avatar>
-								</span>
-								<span @click.stop="onAddMembers">
-									<avatar
-										class="add-member"
-										:size="40"
-										:username="'+'"
-										background-color="#E2E4E9"
-										color="rgb(94, 108, 132)"
-									></avatar>
-								</span>
-							</div>
-						</div>
-						<div
-							class="label-marks f-col"
-							v-if="labelsSelected.length"
-						>
-							<h3 class="flex">Labels</h3>
-							<div class="label-container flex wrap">
-								<div
-									v-for="label in labelsSelected"
-									:key="label.id"
-									class="label flex f-center"
-									:style="{ backgroundColor: label.color }"
-								>
-									<span class="flex f-center">
-										{{ label.title }}
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="due-date" v-if="card.dueDate || dueDate">
-						<h3 @click.stop="setDate">Due Date</h3>
-						<span class="due-date-info" v-if="card.dueDate">
-							<check-box
-								class="due-date-checkbox"
-								:isDone="card.isDone"
-							></check-box
-							><span class="due-date-local-time">{{
-								localTime
-							}}</span>
-						</span>
-						<date-picker
-							ref="date-picker"
-							class="date-picker"
-							slot="date-picker"
-							:dueDate="card.dueDate"
-							v-if="dueDate"
-							@setDate="setNewDate"
-						/>
-					</div>
-				</section>
-				<div class="description flex">
-					<i class="fas fa-align-left"></i>
-					<h2>Description</h2>
-					<button>Edit</button>
-				</div>
-
-				<!-- Turn to prop -->
-				<textarea
-					resize="none"
-					cols="50"
-					rows="3"
-					class="desc"
-					type="text"
-					v-model="card.description"
-					placeholder="Add a more detailed description..."
-				/>
-				<div v-if="card.checklistGroup" class="checklist-group">
-					<i class="fal fa-tasks"></i>
-					<card-checklist
-						v-for="checklist in card.checklistGroup"
-						:key="checklist.id"
-						:checklist="checklist"
-						@updeteChecklist="updeteChecklist"
-						@deleteChecklist="deleteChecklist"
-					/>
-				</div>
-				<div class="btns flex"></div>
-				<pop-up v-if="isPopUp" @closePopup="closePopup">
-					<card-move
-						v-if="move"
-						:groups="board.groups"
-						:group="getCurrGroup"
-						:currPosition="getCurrPosition"
-						@moveCard="moveCard"
-					/>
-					<add-members
-						v-if="isAddMembers"
-						:cardMembers="cardMembers()"
-						:boardMembers="boardMembers"
-						@updateMembers="updateMembers"
-					/>
-					<template v-if="board">
-						<card-labels
-							v-if="labels"
-							:card="card"
-							:boardLabels="board.labels"
-							@updateCard="updateCard"
-							@updateLabelTitle="updateLabelTitle"
-						/>
-					</template>
-					<card-cover
-						v-if="cover"
-						:color="card.style.headerColor"
-						@colorChange="updateCover"
-					/>
-					<add-checklist
-						v-if="checklist"
-						:card="card"
-						@updateCard="updateCard"
-						@close="closePopup"
-					/>
-				</pop-up>
-				<card-attachments
-					:attachments="attachments"
-					@updateAttachments="updateAttachments"
-				/>
-				<card-activity
-					v-if="card"
-					:user="loggedinUser"
-					:card="card"
-					:activities="cardActivities"
-					:isShowDetails="false"
-					@addActivity="addActivity"
-				/>
-			</div>
-			<div class="actions flex f-col">
-				<h3>Add to card</h3>
-				<button @click.stop="onAddMembers">
-					<i class="el-icon-user"></i>Members
-				</button>
-				<button @click.stop="openLabels">
-					<i class="el-icon-collection-tag"></i>Labels
-				</button>
-				<button @click.stop="addChecklist">
-					<i class="el-icon-document-checked"></i>Checklist
-				</button>
-				<button>
-					<label class="upload-btn" for="uploader">
-						<i class="fal fa-paperclip"></i>
-						Attachment
-					</label>
-				</button>
-				<input
-					class="upload"
-					type="file"
-					name="uploader"
-					id="uploader"
-					@change="onUpload"
-				/>
-				<button class="cover-btn" @click.stop="openCoverPicker">
-					<i class="fal fa-window-maximize"></i>
-					Cover
-					<el-color-picker
-						popper-class="color-dropdown"
-						ref="color-picker"
-						class="color-picker"
-						size="mini"
-						v-model="card.style.headerColor"
-						@change="updateCover"
-					></el-color-picker>
-				</button>
-				<div>
-					<button @click.stop="setDate">
-						<i class="fal fa-clock"></i>Set Date
-					</button>
-					<button @click.stop="removeDate" v-if="card.dueDate">
-						<i class="fal fa-history"></i>
-						Remove Date
-					</button>
-				</div>
-				<button @click="cloneCard">
-					<i class="fal fa-clone"></i>Clone
-				</button>
-				<button class="dlt-btn" @click.stop="deleteCard">
-					<i class="fal fa-trash-alt"></i>
-					Delete Card
-				</button>
-				<button class="move-btn" @click.stop="emitMove">
-					<i class="fal fa-arrow-right"></i>Move
-				</button>
-			</div>
-		</div>
-	</section>
+    <section
+        v-if="card"
+        class="card-details flex f-col"
+        @click.stop="closePopup"
+    >
+        <div class="card-header flex" :style="headerStyle">
+            <button class="cancel-btn" @click.stop="emitClose">
+                <i class="el-icon-close"></i>
+            </button>
+        </div>
+        <div class="card-main-container flex">
+            <div class="card-info">
+                <div class="info">
+                    <i class="el-icon-postcard"></i>
+                    <input
+                        class="title"
+                        type="text"
+                        v-model="card.title"
+                        @blur="updateBoard"
+                    />
+                    <h4 class="in-list">
+                        in list <span>{{ getCurrGroup.title }}</span>
+                    </h4>
+                </div>
+                <section class="add-to-card flex wrap">
+                    <div
+                        class="card-members f-col"
+                        v-if="card.members && card.members.length"
+                    >
+                        <h3>Members</h3>
+                        <div class="flex">
+                            <span
+                                v-for="member in card.members"
+                                :key="member._id"
+                            >
+                                <avatar :size="40" :username="member.username">
+                                </avatar>
+                            </span>
+                            <span @click.stop="onAddMembers">
+                                <avatar
+                                    class="add-member"
+                                    :size="40"
+                                    :username="'+'"
+                                    background-color="#E2E4E9"
+                                    color="rgb(94, 108, 132)"
+                                ></avatar>
+                            </span>
+                        </div>
+                        <div
+                            class="label-marks f-col"
+                            v-if="labelsSelected.length"
+                        >
+                            <h3 class="flex">Labels</h3>
+                            <div class="label-container flex wrap">
+                                <div
+                                    v-for="label in labelsSelected"
+                                    :key="label.id"
+                                    class="label flex f-center"
+                                    :style="{ backgroundColor: label.color }"
+                                >
+                                    <span class="flex f-center">{{
+                                        label.title
+                                    }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="due-date" v-if="card.dueDate || dueDate">
+                        <h3 @click.stop="setDate">Due Date</h3>
+                        <span class="due-date-info" v-if="card.dueDate">
+                            <check-box
+                                class="due-date-checkbox"
+                                :isDone="card.isDone"
+                            ></check-box
+                            ><span class="due-date-local-time">{{
+                                localTime
+                            }}</span>
+                        </span>
+                        <date-picker
+                            ref="date-picker"
+                            class="date-picker"
+                            slot="date-picker"
+                            :dueDate="card.dueDate"
+                            v-if="dueDate"
+                            @setDate="setNewDate"
+                        />
+                    </div>
+                </section>
+                <div class="description flex">
+                    <i class="fas fa-align-left"></i>
+                    <h2>Description</h2>
+                    <button>Edit</button>
+                </div>
+                <!-- Turn to prop -->
+                <textarea
+                    resize="none"
+                    cols="50"
+                    rows="3"
+                    class="desc"
+                    type="text"
+                    v-model="card.description"
+                    placeholder="Add a more detailed description..."
+                />
+                <div v-if="card.checklistGroup" class="checklist-group">
+                    <i class="fal fa-tasks"></i>
+                    <card-checklist
+                        v-for="checklist in card.checklistGroup"
+                        :key="checklist.id"
+                        :checklist="checklist"
+                        @updeteChecklist="updeteChecklist"
+                        @deleteChecklist="deleteChecklist"
+                    />
+                </div>
+                <div class="btns flex"></div>
+                <pop-up v-if="isPopUp" @closePopup="closePopup">
+                    <card-move
+                        v-if="move"
+                        :groups="board.groups"
+                        :group="getCurrGroup"
+                        :currPosition="getCurrPosition"
+                        @moveCard="moveCard"
+                    />
+                    <add-members
+                        v-if="isAddMembers"
+                        :cardMembers="cardMembers()"
+                        :boardMembers="boardMembers"
+                        @updateMembers="updateMembers"
+                    />
+                    <template v-if="board">
+                        <card-labels
+                            v-if="labels"
+                            :card="card"
+                            :boardLabels="board.labels"
+                            @updateCard="updateCard"
+                            @updateLabelTitle="updateLabelTitle"
+                        />
+                    </template>
+                    <card-cover
+                        v-if="cover"
+                        :color="card.style.headerColor"
+                        @colorChange="updateCover"
+                    />
+                    <add-checklist
+                        v-if="checklist"
+                        :card="card"
+                        @updateCard="updateCard"
+                        @close="closePopup"
+                    />
+                </pop-up>
+                <card-attachments
+                    :attachments="attachments"
+                    @updateAttachments="updateAttachments"
+                />
+                <card-activity
+                    v-if="card"
+                    :user="loggedinUser"
+                    :card="card"
+                    :activities="cardActivities"
+                    :isShowDetails="false"
+                    @addActivity="addActivity"
+                />
+            </div>
+            <div class="actions flex f-col">
+                <h3>Add to card</h3>
+                <button @click.stop="onAddMembers">
+                    <i class="el-icon-user"></i>Members
+                </button>
+                <button @click.stop="openLabels">
+                    <i class="el-icon-collection-tag"></i>Labels
+                </button>
+                <button @click.stop="addChecklist">
+                    <i class="el-icon-document-checked"></i>Checklist
+                </button>
+                <button>
+                    <label class="upload-btn" for="uploader">
+                        <i class="fal fa-paperclip"></i>
+                        Attachment
+                    </label>
+                </button>
+                <input
+                    class="upload"
+                    type="file"
+                    name="uploader"
+                    id="uploader"
+                    @change="onUpload"
+                />
+                <button class="cover-btn" @click.stop="openCoverPicker">
+                    <i class="fal fa-window-maximize"></i>
+                    Cover
+                    <el-color-picker
+                        popper-class="color-dropdown"
+                        ref="color-picker"
+                        class="color-picker"
+                        size="mini"
+                        v-model="card.style.headerColor"
+                        @change="updateCover"
+                    ></el-color-picker>
+                </button>
+                <div>
+                    <button @click.stop="setDate">
+                        <i class="fal fa-clock"></i>Set Date
+                    </button>
+                    <button @click.stop="removeDate" v-if="card.dueDate">
+                        <i class="fal fa-history"></i>
+                        Remove Date
+                    </button>
+                </div>
+                <button @click="cloneCard">
+                    <i class="fal fa-clone"></i>Clone
+                </button>
+                <button class="dlt-btn" @click.stop="deleteCard">
+                    <i class="fal fa-trash-alt"></i>
+                    Delete Card
+                </button>
+                <button class="move-btn" @click.stop="emitMove">
+                    <i class="fal fa-arrow-right"></i>Move
+                </button>
+            </div>
+        </div>
+    </section>
 </template>
 
 <script>
