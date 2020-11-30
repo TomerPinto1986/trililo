@@ -36,6 +36,7 @@
 					:key="group.id"
 					:group="group"
 					:labels="board.labels"
+					:filterBy="filterBy"
 					@close="closeDetails"
 					@newCard="addCard"
 					@change="updateGroup"
@@ -69,9 +70,10 @@
 		<board-menu
 			v-if="isMenu"
 			:board="board"
-			@changeBgc="emitBgChange"
+			@changeBgc="changeBgc"
 			@close="toggleMenu"
-			@deleteBoard="emitDeleteBoard"
+			@deleteBoard="deleteBoard"
+			@filter="filter"
 		/>
 	</section>
 </template>
@@ -98,11 +100,12 @@ export default {
 			newGroupTitle: '',
 			isScroll: false,
 			bgSrcs: [bg1, bg2, bg3, bg4, bg5, bg6],
-			isMenu: false
+			isMenu: false,
+			filterBy: null
 		}
 	},
 	methods: {
-		toggleMenu(){
+		toggleMenu() {
 			this.isMenu = !this.isMenu;
 		},
 		goBack() {
@@ -241,6 +244,9 @@ export default {
 			const board = this.board;
 			board.activities.unshift(activity);
 			this.updateBoard(board);
+		},
+		filter(filterBy) {
+			this.filterBy = filterBy
 		}
 	},
 	computed: {

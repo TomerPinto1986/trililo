@@ -1,5 +1,5 @@
 <template>
-	<section v-if="group" class="group flex f-col" >
+	<section v-if="group" class="group flex f-col">
 		<div class="group-header">
 			<input
 				type="text"
@@ -25,28 +25,21 @@
 			@start="isDrag = true"
 			@end="isDrag = false"
 		>
-			<transition-group
-				type="transition"
-				:name="!isDrag ? 'flip-list' : null"
-			>
-				<card-preview
-					v-for="(card, idx) in group.cards"
-					:key="card.id"
-					:data-id="idx"
-					:card="card"
-					:labels="labels"
-					@click.native="openDetails(card.id)"
-				/>
-			</transition-group>
+			<card-preview
+				v-for="(card, idx) in cardsToShow"
+				:key="card.id"
+				:data-id="idx"
+				:card="card"
+				:labels="labels"
+				@click.native="openDetails(card.id)"
+			/>
 		</draggable>
 		<div class="add-card">
 			<form v-if="isAdding" @submit.prevent="saveCard">
 				<input ref="card-title" type="text" v-model="newCardTxt" />
 				<button>Save</button>
 			</form>
-			<button v-if="!isAdding" @click="addCard">
-				+ {{ addBtnTxt }}
-			</button>
+			<button v-if="!isAdding" @click="addCard">+ {{ addBtnTxt }}</button>
 		</div>
 	</section>
 </template>
@@ -58,20 +51,32 @@ import cardPreview from '../card/card-preview.cmp';
 export default {
 	props: {
 		group: Object,
-		labels: Array
+		labels: Array,
+		filterBy: Object
 	},
 	data() {
 		return {
 			isAdding: false,
 			newCardTxt: '',
 			isEdit: false,
-			isDrag: false
+			isDrag: false,
+			cards: [],
 		}
 	},
 	computed: {
 		addBtnTxt() {
 			return (this.group.cards.length) ? 'Add another card' : 'Add a card';
-        },
+		},
+		cardsToShow() {
+			if(!this.filterBy) return this.group.cards
+			console.log(this.filterBy)
+			const cards = this.group.cards.filter(card => {
+				// console.log(card)
+				return card.title.toLowerCase().includes(this.filterBy.txt.toLowerCase()) && (card.labels && card.labels.some(label => console.log(label)))
+			})
+			console.log(cards)
+			return cards
+		}
 	},
 	methods: {
 		toggleEdit() {
@@ -100,7 +105,8 @@ export default {
 		},
 		update() {
 			this.emitChange();
-		}
+		},
+
 	},
 	components: {
 		cardPreview,

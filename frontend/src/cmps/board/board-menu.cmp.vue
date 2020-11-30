@@ -18,9 +18,10 @@
 			</div>
 
 			<span @click="emitDeleteBoard">Delete Board</span>
-			<hr />
+		<span @click="toggleSearch">Search Cards</span>
 		</div>
-		<board-search :board="board" @filter="emitFilter" />
+		<board-search v-if="isSearch" :board="board" @filter="emitFilter" />
+		<hr />
 		<h3>Activities</h3>
 		<div class="activity">
 			<activity-preview
@@ -44,6 +45,7 @@ export default {
 	data() {
 		return {
 			isBg: false,
+			isSearch: false,
 			colors: [
 				'rgb(46, 121, 186)',
 				'rgb(72, 171, 200)',
@@ -68,6 +70,9 @@ export default {
 		toggleBg() {
 			this.isBg = !this.isBg;
 		},
+		toggleSearch() {
+			this.isSearch = !this.isSearch;
+		},
 		emitClose() {
 			this.$emit('close');
 		},
@@ -81,8 +86,8 @@ export default {
 		openCard() {
 
 		},
-		emitFilter() {
-
+		emitFilter(filterBy) {
+			this.$emit('filter', filterBy)
 		}
 	},
 	created() {
