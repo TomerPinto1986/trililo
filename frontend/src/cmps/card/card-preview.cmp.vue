@@ -19,8 +19,8 @@
             </div>
         </div>
         <div class="icons flex wrap">
-            <span>
-                <i v-if="card.dueDate" class="far fa-clock">{{ localTime }}</i>
+            <span class="small-icons">
+                <i v-if="card.dueDate" :style="dueDate" class="far fa-clock">{{ localTime }}</i>
                 <i v-if="card.description" class="fas fa-align-left"></i>
                 <i v-if="card.checklist" class="fas fa-list"></i>
                 <i
@@ -50,8 +50,54 @@ export default {
         }
     },
     computed: {
+        dueDate(){
+            if (this.card.dueDate - Date.now()< 24 * 60 * 60 * 1000) return {color: '#fff',backgroundColor: 'rgba(255, 0, 0, 0.664)'}
+            if (this.card.dueDate - Date.now()< 7*24 * 60 * 60 * 1000) return {color: '#121212', backgroundColor: 'rgba(255, 255, 0, 0.616)'}
+            else return {color: '#fff', backgroundColor: 'rgba(0, 128, 0, 0.664)'}
+        },
         localTime() {
-            return (new Date(this.card.dueDate)).toLocaleDateString();
+            let month = (new Date(this.card.dueDate)).getMonth()+ 1;
+            switch (month) {
+        case 1:
+            month = ('Jan')
+            break;
+        case 2:
+            month = ('Feb')
+            break;
+        case 3:
+            month = ('Mar')
+            break;
+        case 4:
+            month = ('Apr')
+            break;
+        case 5:
+            month = ('May')
+            break;
+        case 6:
+            month = ('Jun')
+            break;
+        case 7:
+            month = ('Jul')
+            break;
+        case 8:
+            month = ('Aug')
+            break;
+        case 9:
+            month = ('Sep')
+            break;
+        case 10:
+            month = ('Oct')
+            break;
+        case 11:
+            month = ('Nov')
+            break;
+        case 12:
+            month = ('Dec')
+            break;
+    }
+    let day = (new Date(this.card.dueDate)).getDay();
+    return month + ' ' +day
+         
         },
         // month(){
         // 	return (new Date(this.card.dueDate)).getMonth();
