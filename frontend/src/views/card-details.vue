@@ -265,8 +265,12 @@ export default {
             return this.currPopUp === 'member';
         },
         cardActivities(){
-            console.log(this.board.activities.filter(activity => activity.card.id === this.card.id));
-            return this.board.activities.filter(activity => activity.card.id === this.card.id)
+            console.log(this.board.activities);
+            return this.board.activities.filter(activity => {
+                if (activity.card) {
+                    if (activity.card.id === this.card.id) return activity
+                }
+                })
         }
     },
     methods: {
