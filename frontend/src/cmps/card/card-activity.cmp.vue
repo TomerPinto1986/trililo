@@ -29,9 +29,10 @@ import { socketService } from '../../services/socket.service';
 
 export default {
     props: {
-        // activities: Array,
+        activities: Array,
         user: Object,
-        card: Object
+        card: Object,
+        isShowDetails: Boolean
     },
     data() {
         return {
@@ -45,9 +46,7 @@ export default {
     },
     computed: {
         activitiesToShow() {
-			console.log(this.card);
-			console.log(this.card.activities);
-            return (this.card.activities);
+            return (this.activities);
         }
     },
     methods: {
@@ -58,19 +57,19 @@ export default {
         addMsg(msg) {
             this.userTyping = null;
             // this.chat = chat
-            const byMember = {
-                _id: this.user._id,
-                username: this.user.username,
-                imgUrl: this.user.imgUrl
-            };
-            const activity = {
-                txt: msg.txt,
-                byMember,
-			};
-			if (!this.card.activities) this.card.activities = [];
-			this.card.activities.push(activity);
-			console.log(this.card,'activ???');
-			this.$emit('addActivity',activity.txt,this.card);
+            // const byMember = {
+            //     _id: this.user._id,
+            //     username: this.user.username,
+            //     imgUrl: this.user.imgUrl
+            // };
+            // const activity = {
+            //     txt: msg.txt,
+            //     byMember,
+			// };
+			// if (!this.card.activities) this.card.activities = [];
+			// this.card.activities.push(activity);
+			// console.log(this.card,'activ???');
+			this.$emit('addActivity',null,this.card,msg.txt);
         },
         typing() {
             socketService.emit('typing', this.msg.from)

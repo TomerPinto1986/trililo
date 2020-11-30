@@ -144,6 +144,8 @@
                     v-if="card"
                     :user="loggedInUser"
                     :card="card"
+                    :activities="cardActivities"
+                    :isShowDetails="false"
                     @addActivity="addActivity"
                 />
             </div>
@@ -261,6 +263,10 @@ export default {
         },
         isAddMembers() {
             return this.currPopUp === 'member';
+        },
+        cardActivities(){
+            console.log(this.board.activities.filter(activity => activity.card.id === this.card.id));
+            return this.board.activities.filter(activity => activity.card.id === this.card.id)
         }
     },
     methods: {
@@ -407,10 +413,11 @@ export default {
             board.groups[groupIdx].cards.push(cardCopy);
             this.$store.dispatch({ type: 'updateBoard', board });
         },
-        addActivity(txt, card) {
+        addActivity(txt, card, comment) {
             this.$store.commit('setEmptyActivity');
             const activity = utilService.deepCopy(this.$store.getters.emptyActivity);
             activity.txt = txt;
+            activity.comment = comment;
             activity.byMember = utilService.deepCopy(this.$store.getters.loggedinUser);
             activity.createdAt = Date.now();
             const url = (this.$route.params.cardId) ? '' : `/card/${card.id}`;

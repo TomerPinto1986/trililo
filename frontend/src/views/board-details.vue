@@ -10,6 +10,7 @@
 			:board="board"
 			:users="users"
 			:user="user"
+			@openMenu="toggleMenu"
 			@updateTitle="updateBoardTitle"
 			@updateboardUsers="updateboardUsers"
 			@changeBgc="changeBgc"
@@ -65,6 +66,13 @@
 			@addCard="updateCard"
 			@deleteCard="deleteCard"
 		/>
+		<board-menu
+			v-if="isMenu"
+			:board="board"
+			@changeBgc="emitBgChange"
+			@close="toggleMenu"
+			@deleteBoard="emitDeleteBoard"
+		/>
 	</section>
 </template>
 
@@ -72,8 +80,9 @@
 import group from '../cmps/board/group.cmp';
 import boardHeader from '../cmps/board/board-header.cmp';
 import cardDetails from '@/views/card-details';
-import draggable from 'vuedraggable'
+import boardMenu from '../cmps/board/board-menu.cmp';
 import { utilService } from '@/services/util.service';
+import draggable from 'vuedraggable'
 import bg1 from '../assets/bgs/bg1.jpg';
 import bg2 from '../assets/bgs/bg2.jpg';
 import bg3 from '../assets/bgs/bg3.jpg';
@@ -88,10 +97,14 @@ export default {
 			isAddingGroup: false,
 			newGroupTitle: '',
 			isScroll: false,
-			bgSrcs: [bg1, bg2, bg3, bg4, bg5, bg6]
+			bgSrcs: [bg1, bg2, bg3, bg4, bg5, bg6],
+			isMenu: false
 		}
 	},
 	methods: {
+		toggleMenu(){
+			this.isMenu = !this.isMenu;
+		},
 		goBack() {
 			document.body.querySelector('.screen').style.display = 'none';
 			this.$router.go(-1)
@@ -276,7 +289,8 @@ export default {
 		group,
 		boardHeader,
 		cardDetails,
-		draggable
+		draggable,
+		boardMenu
 	}
 }
 </script>
