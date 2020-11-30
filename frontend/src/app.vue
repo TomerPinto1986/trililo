@@ -7,7 +7,7 @@
 
 <script>
 import mainHeader from './cmps/main-header.cmp';
-// import { socketService } from './services/socket.service';
+import { socketService } from './services/socket.service';
 
 export default {
 	computed: {
@@ -26,7 +26,11 @@ export default {
 		}
 	},
 	created() {
+		socketService.setup();
 		this.$store.dispatch('loadBoards');
+	},
+	destroyed(){
+		socketService.terminate();
 	},
 	components: {
 		mainHeader

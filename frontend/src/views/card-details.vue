@@ -304,7 +304,12 @@ export default {
                     if (activity.card.id === this.card.id) return activity
                 }
             })
-        }
+        },
+         labelsSelected() {
+            if (!this.card.labels) return [];
+            const selectIds = this.card.labels.map(label => label.id);
+            return this.board.labels.filter(label => selectIds.includes(label.id));
+        },
     },
     methods: {
         updateBoard() {
@@ -372,11 +377,6 @@ export default {
             const idx = board.labels.findIndex(label => label.id === labelId);
             if (idx !== -1) board.labels[idx].title = title;
             this.$store.dispatch({ type: 'updateBoard', board });
-        },
-        labelsSelected() {
-            if (!this.card.labels) return [];
-            const selectIds = this.card.labels.map(label => label.id);
-            return this.board.labels.filter(label => selectIds.includes(label.id));
         },
         addChecklist() {
             this.currPopUp = 'checklist';
@@ -464,61 +464,63 @@ export default {
             activity.comment = comment;
             activity.byMember = utilService.deepCopy(user);
             activity.createdAt = Date.now();
-            const url = (this.$route.params.cardId) ? '' : `/card/${card.id}`;
-            if (card) activity.card = {
-                id: card.id,
-                title: card.title,
-                url
-            }
-            const board = this.board;
-            board.activities.unshift(activity);
-            this.updateBoard(board);
-        },
-        updeteChecklist(checklist) {
-            const card = this.card;
-            const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklist.id);
-            if (idx !== -1) card.checklistGroup.splice(idx, 1, checklist);
-            this.updateCard(card);
-        },
-        deleteChecklist(checklistId) {
-            const card = this.card;
-            const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklistId);
-            if (idx !== -1) card.checklistGroup.splice(idx, 1);
-            this.updateCard(card);
-        },
-        updateCard(card) {
-            const board = this.board;
-            board.groups.forEach(group => {
-                const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
-                if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
-            })
-            this.$store.dispatch({ type: 'updateBoard', board });
-            this.card = card;
-        }
-    },
-    created() {
-        const cardId = this.$route.params.cardId
-        this.$store.commit({ type: 'setCurrCard', cardId })
-        this.card = this.$store.getters.currCard;
-        this.$store.dispatch('loadUsers')
-    },
-    destroyed() {
-        this.$store.commit({ type: 'updateCurrCard', card: null })
-        this.card = null;
-    },
-    components: {
-        cardActivity,
-        cardMove,
-        datePicker,
-        addMembers,
-        cardAttachments,
-        cardCover,
-        cardLabels,
-        avatar,
-        popUp,
-        checkBox,
-        addChecklist,
-        cardChecklist
-    }
+			if (card) {
+			const url = (this.$route.params.cardId) ? '' : `/card/${card.id}`;
+                console.log(card)
+                activity.card = {
+				id: card.id,
+				title: card.title,
+				url
+			}}
+			const board = this.board;
+			board.activities.unshift(activity);
+			this.updateBoard(board);
+		},
+		updeteChecklist(checklist) {
+			const card = this.card;
+			const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklist.id);
+			if (idx !== -1) card.checklistGroup.splice(idx, 1, checklist);
+			this.updateCard(card);
+		},
+		deleteChecklist(checklistId) {
+			const card = this.card;
+			const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklistId);
+			if (idx !== -1) card.checklistGroup.splice(idx, 1);
+			this.updateCard(card);
+		},
+		updateCard(card) {
+			const board = this.board;
+			board.groups.forEach(group => {
+				const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
+				if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
+			})
+			this.$store.dispatch({ type: 'updateBoard', board });
+			this.card = card;
+		}
+	},
+	created() {
+		const cardId = this.$route.params.cardId
+		this.$store.commit({ type: 'setCurrCard', cardId })
+		this.card = this.$store.getters.currCard;
+		this.$store.dispatch('loadUsers')
+	},
+	destroyed() {
+		this.$store.commit({ type: 'updateCurrCard', card: null })
+		this.card = null;
+	},
+	components: {
+		cardActivity,
+		cardMove,
+		datePicker,
+		addMembers,
+		cardAttachments,
+		cardCover,
+		cardLabels,
+		avatar,
+		popUp,
+		checkBox,
+		addChecklist,
+		cardChecklist
+	}
 }
 </script>

@@ -79,12 +79,13 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 import group from '../cmps/board/group.cmp';
 import boardHeader from '../cmps/board/board-header.cmp';
 import cardDetails from '@/views/card-details';
 import boardMenu from '../cmps/board/board-menu.cmp';
 import { utilService } from '@/services/util.service';
-import draggable from 'vuedraggable'
+import { socketService } from '@/services/socket.service';
 import bg1 from '../assets/bgs/bg1.jpg';
 import bg2 from '../assets/bgs/bg2.jpg';
 import bg3 from '../assets/bgs/bg3.jpg';
@@ -125,7 +126,7 @@ export default {
 			const board = this.board;
 			const group = this.board.groups.find(group => group.id === groupId);
 			group.cards.push(newCard);
-			this.$store.dispatch({ type: 'updateBoard', board });
+			this.updateBoard(board);
 			this.addActivity(` added the card '${newCard.title}'`, newCard)
 		},
 		updateCard(card) {
@@ -134,7 +135,7 @@ export default {
 				const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
 				if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
 			})
-			this.$store.dispatch({ type: 'updateBoard', board });
+			this.updateBoard(board);
 		},
 		deleteCard(cardId) {
 			const board = this.board;
@@ -146,7 +147,7 @@ export default {
 					group.cards.splice(cardIdx, 1);
 					}
 			})
-			this.$store.dispatch({ type: 'updateBoard', board });
+			this.updateBoard(board);
 			this.addActivity(`deleted the card '${cardTitle}'`)
 
 		},
@@ -154,13 +155,13 @@ export default {
 			const board = this.board;
 			const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id);
 			board.groups.splice(groupIdx, 1, group);
-			this.$store.dispatch({ type: 'updateBoard', board });
+			this.updateBoard(board);
 		},
 		deleteGroup(groupId) {
 			const board = this.board;
 			const groupIdx = board.groups.findIndex(currGroup => currGroup.id === groupId);
 			board.groups.splice(groupIdx, 1);
-			this.$store.dispatch({ type: 'updateBoard', board });
+			this.updateBoard(board);
 			this.addActivity('deleted a group')
 
 		},
@@ -169,7 +170,7 @@ export default {
 			newGroup.title = this.newGroupTitle;
 			const board = this.board;
 			board.groups.push(newGroup);
-			this.$store.dispatch({ type: 'updateBoard', board });
+			this.updateBoard(board);
 			this.closeAddGroup();
 			this.addActivity('added a group')
 
@@ -190,7 +191,9 @@ export default {
 			this.newGroupTitle = '';
 		},
 		updateBoard(board) {
+			console.log(board)
 			this.$store.dispatch({ type: 'updateBoard', board });
+			socketService.emit('updateBoard', board);
 		},
 		updateboardUsers(userId) {
 			const board = this.board;
@@ -206,7 +209,7 @@ export default {
 			} else {
 				board.members.splice(memberIdx, 1);
 			}
-			this.$store.dispatch({ type: 'updateBoard', board });
+			this.updateBoard(board);
 			const action = (memberIdx === -1) ? `added ${user.username} to the board` : `removed ${user.username} from the board`;
 			this.addActivity(action);
 
@@ -251,10 +254,17 @@ export default {
 		},
 		filter(filterBy) {
 			this.filterBy = filterBy
+		},
+		updateBoardSocket(board) {
+			console.log(board)
+			this.$store.dispatch({ type: 'updateBoard', board });
 		}
 	},
 	computed: {
 		board() {
+			if (this.$store.getters.currBoard) {
+				socketService.emit('board-topic', this.$store.getters.currBoard._id)
+				console.log(this.$store.getters.currBoard._id)}
 			return utilService.deepCopy(this.$store.getters.currBoard);
 		},
 		users() {
@@ -291,8 +301,10 @@ export default {
 		setTimeout(() => {
 			if (this.$store.getters.loggedinUser._id === 'guest' && this.board.isPrivate) this.$router.push('/board')
 		}, 500)
+		socketService.on('boardUpdate', this.updateBoardSocket)
 	},
 	destroyed() {
+		socketService.off('boardUpdate', this.updateBoard)
 		this.$store.dispatch({ type: 'loadBoard', boardId: null });
 	},
 	components: {
