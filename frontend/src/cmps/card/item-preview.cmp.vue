@@ -1,5 +1,5 @@
 <template>
-    <section class="item-preview flex f-s-between" @click.native.stop="focusInput">
+    <section class="item-preview flex f-s-between" @click.stop="focusInput">
         <div class="item-edit">
             <el-checkbox
                 class="checkbox"
