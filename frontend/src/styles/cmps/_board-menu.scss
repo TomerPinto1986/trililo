@@ -29,8 +29,8 @@
 
     .board-menu-container {
         flex: 1 1 auto;
-        overflow-x: hidden;
-        overflow-y: auto;
+        overflow: hidden;
+        // overflow-y: auto;
         padding: 12px 6px 12px 12px;
         width: 100%;
         height: 100%;
@@ -63,9 +63,8 @@
     hr {
         background-color: rgba(9, 30, 66, .13);
         border: 0;
-        height: 1px;
         margin: 16px 0;
-        padding: 0;
+        padding: 0.6px;
         width: 100%;
     }
 
@@ -115,7 +114,6 @@
         }
     }
 
-
     .close-btn {
         cursor: pointer;
         font-size: 20px;
@@ -124,6 +122,46 @@
         right: 6px;
         height: 32px;
         width: 32px;
+    }
+
+    .activity {
+        overflow-y: auto;
+        margin-bottom: 50px;
+    }
+
+    .activity-preview {
+        font-size: em(14, 16);
+        position: relative;
+        margin-left: 40px;
+        padding: 8px 0;
+        line-height: 20px;
+
+        .desc {
+            position: relative;
+
+            .user {
+                font-weight: 600;
+            }
+
+            .card {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
+        }
+
+        .avatar {
+            height: 32px;
+            left: -40px;
+            position: absolute;
+            top: 8px;
+            width: 32px;
+        }
+
+        .time {
+            font-size: em(12, 14);
+            color: #55637d;
+        }
     }
 
     .background {

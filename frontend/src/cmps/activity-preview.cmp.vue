@@ -1,18 +1,28 @@
 <template>
-	<section class="activity-preview flex">
-		<avatar class="avater" :size="35" :username="username"></avatar>
-		<div v-if="activity.txt" class="info flex f-col">
-			<h2  class="flex wrap">
-				{{ username }} <pre> </pre> <span @click="emitOpenCard">{{ activity.txt }} </span>
-			</h2>
-			<h3>{{ moment(activity.createdAt).fromNow() }}</h3>
+	<section class="activity-preview flex f-col">
+		<div class="avatar">
+			<avatar class="avater" :size="30" :username="username"></avatar>
 		</div>
-		<div v-if="activity.comment" class="info flex f-col">
-			<h2  class="flex f-center">
-				{{ username }} on <span @click="emitOpenCard">{{activity.card.title}}: {{ activity.comment }}</span> 
-			</h2>
-			<h3>{{ moment(activity.createdAt).fromNow() }}</h3>
+		<div class="desc">
+			<template v-if="activity.txt">
+				<span class="user" >{{ username }} </span>
+				<span class="activity">{{ activity.txt }} </span>
+				<span v-if="activity.card" class="card" @click="emitOpenCard">{{
+					activity.card.title
+				}}</span>
+			</template>
+			<template v-else>
+				<span class="user">{{ username }}</span>
+				on
+				<span class="activity"
+					><span class="card" @click="emitOpenCard">{{ activity.card.title }}</span
+					>: {{ activity.comment }}</span
+				>
+			</template>
 		</div>
+		<span class="time">
+			{{ moment(activity.createdAt).fromNow() }}
+		</span>
 	</section>
 </template>
 

@@ -83,7 +83,7 @@ import draggable from 'vuedraggable'
 import group from '../cmps/board/group.cmp';
 import boardHeader from '../cmps/board/board-header.cmp';
 import cardDetails from '@/views/card-details';
-import boardMenu from '../cmps/board/board-menu.cmp';
+import boardMenu from '../cmps/board/menu/board-menu.cmp';
 import { utilService } from '@/services/util.service';
 import { socketService } from '@/services/socket.service';
 import bg1 from '../assets/bgs/bg1.jpg';
@@ -127,7 +127,8 @@ export default {
 			const group = this.board.groups.find(group => group.id === groupId);
 			group.cards.push(newCard);
 			this.updateBoard(board);
-			this.addActivity(` added the card '${newCard.title}'`, newCard)
+			this.addActivity(` added `, newCard)
+			// this.addActivity(` added the card '${newCard.title}'`, newCard)
 		},
 		updateCard(card) {
 			const board = this.board;
@@ -242,11 +243,9 @@ export default {
 			activity.txt = txt;
 			activity.byMember = utilService.deepCopy(this.$store.getters.loggedinUser);
 			activity.createdAt = Date.now();
-			const url = this.$route.path;
 			if (card) activity.card = {
 				id: card.id,
 				title: card.title,
-				url: url + `/card/${card.id}`
 			}
 			const board = this.board;
 			board.activities.unshift(activity);
