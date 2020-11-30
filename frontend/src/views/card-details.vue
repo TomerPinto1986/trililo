@@ -11,7 +11,7 @@
         </div>
         <div class="card-main-container flex">
             <div class="card-info">
-                <div class="pure-info">
+                <div class="info">
                     <i class="el-icon-postcard"></i>
                     <input
                         class="title"
@@ -24,33 +24,28 @@
                     </h4>
                 </div>
                 <section class="add-to-card flex wrap">
-                    <div class="members-labels flex">
-                        <div
-                            class="card-members f-col"
-                            v-if="card.members && card.members.length"
-                        >
-                            <h3>Members</h3>
-                            <div class="flex">
-                                <span
-                                    v-for="member in card.members"
-                                    :key="member._id"
-                                >
-                                    <avatar
-                                        :size="40"
-                                        :username="member.username"
-                                    >
-                                    </avatar>
-                                </span>
-                                <span @click.stop="onAddMembers">
-                                    <avatar
-                                        class="add-member"
-                                        :size="40"
-                                        :username="'+'"
-                                        background-color="#E2E4E9"
-                                        color="rgb(94, 108, 132)"
-                                    ></avatar>
-                                </span>
-                            </div>
+                    <div
+                        class="card-members f-col"
+                        v-if="card.members && card.members.length"
+                    >
+                        <h3>Members</h3>
+                        <div class="flex">
+                            <span
+                                v-for="member in card.members"
+                                :key="member._id"
+                            >
+                                <avatar :size="40" :username="member.username">
+                                </avatar>
+                            </span>
+                            <span @click.stop="onAddMembers">
+                                <avatar
+                                    class="add-member"
+                                    :size="40"
+                                    :username="'+'"
+                                    background-color="#E2E4E9"
+                                    color="rgb(94, 108, 132)"
+                                ></avatar>
+                            </span>
                         </div>
                         <div
                             class="label-marks f-col"
@@ -71,7 +66,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="due-date" v-if="card.dueDate || dueDate">
                         <h3 @click.stop="setDate">Due Date</h3>
                         <span class="due-date-info" v-if="card.dueDate">
@@ -98,7 +92,6 @@
                     <h2>Description</h2>
                     <button>Edit</button>
                 </div>
-
                 <!-- Turn to prop -->
                 <textarea
                     resize="none"
