@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import { utilService } from '../../services/util.service';
-import itemPreview from './item-preview.cmp';
+import { utilService } from '../../../services/util.service';
+import itemPreview from '../item-preview.cmp';
 
 export default {
     props: {

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import labelPreview from './label-preview.cmp';
+import labelPreview from '../label-preview.cmp';
 
 export default {
     props: {
