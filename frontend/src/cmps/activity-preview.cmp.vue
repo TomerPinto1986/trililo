@@ -26,7 +26,6 @@ export default {
 	},
 	computed: {
 		username() {
-			console.log(this.activity);
 			return this.activity.byMember.username;
 		},
 		time() {

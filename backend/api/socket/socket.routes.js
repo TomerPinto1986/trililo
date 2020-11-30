@@ -17,10 +17,9 @@ function connectSockets(io) {
         });
         socket.on('typing', username => {
             console.log(username, 'typing');
-            io.to(socket.myTopic).emit('user-typing', username);
+            socket.to(socket.myTopic).broadcast.emit('user-typing', username);
         });
 
-        socket.on('test', () => { console.log('success!') })
     });
 }
 
