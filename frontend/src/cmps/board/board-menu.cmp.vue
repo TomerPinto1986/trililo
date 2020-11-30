@@ -1,35 +1,52 @@
 <template>
-	<section class="board-menu flex f-col">
-		<i @click="emitClose" class="fas fa-times close-btn"></i>
-		<h2>Menu</h2>
-		<hr />
-		<div class="board-actions flex f-col">
-			<span @click="toggleBg">Change Background</span>
-			<div v-if="isBg" class="background flex f-center wrap">
-				<div
-					v-for="(color, idx) in colors"
-					:key="color"
-					:class="`bgc bgc-${idx + 1}`"
-					@click="emitChange(color)"
-				></div>
-				<div v-for="(src, idx) in srcs" :key="src">
-					<img @click="emitChange(`${idx}`)" :src="src" />
-				</div>
-			</div>
-
-			<span @click="emitDeleteBoard">Delete Board</span>
-			<span @click="toggleSearch">Search Cards</span>
+	<section class="board-menu">
+		<i @click="emitClose" class="fas fa-times close-btn flex f-center"></i>
+		<div class="board-menu-header">
+			<h3>Menu</h3>
+			<hr class="menu-header-divider" />
 		</div>
-		<board-search v-if="isSearch" :board="board" @filter="emitFilter" />
-		<hr />
-		<h3>Activities</h3>
-		<div class="activity">
-			<activity-preview
-				v-for="activity in board.activities"
-				:key="activity.id"
-				:activity="activity"
-				@openCard="openCard"
-			/>
+
+		<div class="board-menu-container flex f-col">
+			<div class="board-menu-nav">
+				<span class="board-menu-nav-item" @click="toggleBg">
+					<i class="fas fa-image icon"></i>
+					Change Background
+				</span>
+				<div v-if="isBg" class="background flex f-center wrap">
+					<div
+						v-for="(color, idx) in colors"
+						:key="color"
+						:class="`bgc bgc-${idx + 1}`"
+						@click="emitChange(color)"
+					></div>
+					<div v-for="(src, idx) in srcs" :key="src">
+						<img @click="emitChange(`${idx}`)" :src="src" />
+					</div>
+				</div>
+
+				<span class="board-menu-nav-item" @click="emitDeleteBoard">
+					<i class="fas fa-trash-alt icon"></i>
+					Delete Board
+				</span>
+				<span class="board-menu-nav-item" @click="toggleSearch">
+					<i class="fas fa-search icon"></i>
+					Search Cards
+				</span>
+			</div>
+			<board-search v-if="isSearch" :board="board" @filter="emitFilter" />
+			<hr />
+			<span class="menu-section-header">
+				<i class="fas fa-clipboard-list icon"></i>
+				<h3>Activities</h3>
+			</span>
+			<div class="activity">
+				<activity-preview
+					v-for="activity in board.activities"
+					:key="activity.id"
+					:activity="activity"
+					@openCard="openCard"
+				/>
+			</div>
 		</div>
 	</section>
 </template>
