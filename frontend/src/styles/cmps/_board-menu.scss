@@ -55,7 +55,7 @@
             line-height: 20px;
             width: 20px;
             position: absolute;
-            top: 6px;
+            top: 6.5px;
             left: 12px;
         }
     }
@@ -114,15 +114,23 @@
         }
     }
 
-    .close-btn {
+    .btn {
         cursor: pointer;
         font-size: 20px;
         position: absolute;
-        top: 8px;
-        right: 6px;
+        top: 12px;
         height: 32px;
         width: 32px;
+
+        &.close-btn {
+            right: 6px;
+        }
+
+        &.back-btn {
+            left: 5px;
+        }
     }
+
 
     .activity {
         overflow-y: auto;
@@ -164,18 +172,39 @@
         }
     }
 
-    .background {
-        height: 250px;
-        overflow-y: auto;
-        cursor: pointer;
 
-        img,
-        .bgc {
-            height: 100px;
-            width: 150px;
-            object-fit: cover;
-            margin: 5px;
+    .bg-picker {
+        .select {
+            background-color: #dfe1e6;
+            background-size: cover;
+            border-radius: 8px;
+            height: 96px;
+            margin: 8px;
+            width: 100%;
+            cursor: pointer;
+
+            &.color {
+                background-image: url(https://a.trellocdn.com/prgb/dist/images/colors@2x.864f4df15d825e89e199.jpg);
+            }
+            &.photo {
+                background-image: url(https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.48948499e309aef794d7.jpg);
+            }
         }
+
+        .background {
+            padding-top: 10px;
+            overflow-y: auto;
+
+            img,
+            .bgc {
+                height: 100px;
+                width: 150px;
+                object-fit: cover;
+                margin: 5px;
+                cursor: pointer;
+            }
+        }
+
     }
 
     .bgc {
