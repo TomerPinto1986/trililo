@@ -38,10 +38,13 @@
         }
     }
     .icons {
-        display: flex;
         align-items: center;
+        justify-content: space-between;
         width: 100%;
         padding: 0 5px 3px;
+        .card-membes {
+            margin-inline-end: 5px;
+        }
         >* {
             font-size: 0.8em;
             align-self: center;
