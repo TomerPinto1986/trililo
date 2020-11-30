@@ -4,9 +4,9 @@
     "description": "",
     "main": "server.js",
     "scripts": {
-        "start": "node server.js",
+        "start-dev": "node server.js",
         "dev-before": "nodemon --ignore \"./data\" server.js",
-        "start-dev": "set NODE_ENV=development & nodemon app.js",
+        "start": "set NODE_ENV=development & nodemon app.js",
         "server:prod": "node app.js"
     },
     "dependencies": {

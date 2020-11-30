@@ -36,13 +36,13 @@
                                 v-for="member in card.members"
                                 :key="member._id"
                             >
-                                <avatar :size="40" :username="member.username">
+                                <avatar :size="32" :username="member.username">
                                 </avatar>
                             </span>
                             <span @click.stop="onAddMembers">
                                 <avatar
                                     class="add-member"
-                                    :size="40"
+                                    :size="32"
                                     :username="'+'"
                                     background-color="#E2E4E9"
                                     color="rgb(94, 108, 132)"
