@@ -1,8 +1,8 @@
 <template>
     <section class="add-checklist" @click.stop>
-        <h2>Add Checklist</h2>
+        <h3>Add Checklist</h3>
         <hr />
-        <h3>Title</h3>
+        <h2>Title</h2>
         <form @submit.prevent="addChecklist">
             <input type="text" v-model="titleToEdit" ref="myInput" />
             <button>Add</button>

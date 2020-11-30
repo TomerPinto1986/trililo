@@ -3,7 +3,7 @@
         <h2>activity:</h2>
         <button v-if="!isAllActivities" @click="toggleShowDetails">Show Details</button>
         <button v-else @click="toggleShowDetails">Hide Details</button>
-        <div class="flex">
+        <div class="activities flex">
             <avatar :size="35" :username="user.username"></avatar>
             <input
                 type="text"
