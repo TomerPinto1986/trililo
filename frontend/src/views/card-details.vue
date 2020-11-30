@@ -64,7 +64,9 @@
                                     class="label flex f-center"
                                     :style="{ backgroundColor: label.color }"
                                 >
-                                    <span class="flex f-center">{{ label.title }}</span>
+                                    <span class="flex f-center">{{
+                                        label.title
+                                    }}</span>
                                 </div>
                             </div>
                         </div>
@@ -73,8 +75,13 @@
                     <div class="due-date" v-if="card.dueDate || dueDate">
                         <h3 @click.stop="setDate">Due Date</h3>
                         <span class="due-date-info" v-if="card.dueDate">
-                            <check-box class="due-date-checkbox" :isDone="card.isDone"></check-box
-                            ><span class="due-date-local-time">{{ localTime }}</span>
+                            <check-box
+                                class="due-date-checkbox"
+                                :isDone="card.isDone"
+                            ></check-box
+                            ><span class="due-date-local-time">{{
+                                localTime
+                            }}</span>
                         </span>
                         <date-picker
                             ref="date-picker"
@@ -154,7 +161,7 @@
                 />
                 <card-activity
                     v-if="card"
-                    :user="loggedInUser"
+                    :user="loggedinUser"
                     :card="card"
                     :activities="cardActivities"
                     :isShowDetails="false"
@@ -247,7 +254,7 @@ export default {
         }
     },
     computed: {
-        loggedInUser() {
+        loggedinUser() {
             return this.$store.getters.loggedinUser;
         },
         localTime() {
@@ -291,7 +298,7 @@ export default {
         isAddMembers() {
             return this.currPopUp === 'member';
         },
-        cardActivities(){
+        cardActivities() {
             return this.board.activities.filter(activity => {
                 if (activity.card) {
                     if (activity.card.id === this.card.id) return activity
@@ -314,13 +321,17 @@ export default {
         },
         deleteCard() {
             const board = this.board;
+            let cardTitle;
             board.groups.forEach(group => {
                 const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
-                if (cardIdx !== -1) group.cards.splice(cardIdx, 1);
+                if (cardIdx !== -1) {
+                    cardTitle = group.cards[cardIdx].title;
+                    group.cards.splice(cardIdx, 1);
+                }
             })
             this.$store.dispatch({ type: 'updateBoard', board });
             this.emitClose();
-            this.addActivity('deleted a card')
+            this.addActivity(`deleted the card '${cardTitle}'`);
 
         },
         // for later on when we will make a pop up cmp
@@ -336,7 +347,7 @@ export default {
             card.dueDate = null;
             this.updateCard(card);
             this.card = card;
-            this.addActivity('removed the due date from a card', card)
+            this.addActivity(`removed the due date from the card '${card.title}'`, card);
 
         },
         setNewDate(dueDate) {
@@ -348,7 +359,7 @@ export default {
             this.updateCard(updatedCard);
             this.card = updatedCard;
             this.closePopup();
-            this.addActivity('added due date to a card', updatedCard)
+            this.addActivity(`added due date to the card '${updatedCard.title}'`, updatedCard);
 
 
         },
@@ -376,6 +387,10 @@ export default {
             const board = this.board;
             this.$store.dispatch({ type: 'updateBoard', board });
             this.isPopUp = false;
+            if (status.startGroup !== status.endGroup) {
+                const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
+                this.addActivity(`moved card '${this.card.title}' to '${groupTitle}'`, this.card);
+            }
         },
         async onUpload(ev) {
             this.isLoading = true;
@@ -421,8 +436,7 @@ export default {
             }
             this.updateCard(card);
             const action = (memberIdx === -1) ? 'added' : 'removed';
-            this.addActivity(`${action} ${newUser.username} to a card`, card, null , this.loggedInUser)
-
+            this.addActivity(`${action} ${newUser.username} to a card`, card, null, this.loggedinUser)
         },
         cardMembers() {
             if (!this.card.members) {
@@ -443,7 +457,7 @@ export default {
             board.groups[groupIdx].cards.push(cardCopy);
             this.$store.dispatch({ type: 'updateBoard', board });
         },
-        addActivity(txt, card, comment = null,user = this.loggedinUser) {
+        addActivity(txt, card, comment = null, user = this.loggedinUser) {
             this.$store.commit('setEmptyActivity');
             const activity = utilService.deepCopy(this.$store.getters.emptyActivity);
             activity.txt = txt;

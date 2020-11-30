@@ -126,7 +126,7 @@ export default {
 			const group = this.board.groups.find(group => group.id === groupId);
 			group.cards.push(newCard);
 			this.$store.dispatch({ type: 'updateBoard', board });
-			this.addActivity('added a card', newCard)
+			this.addActivity(` added the card '${newCard.title}'`, newCard)
 		},
 		updateCard(card) {
 			const board = this.board;
@@ -138,12 +138,16 @@ export default {
 		},
 		deleteCard(cardId) {
 			const board = this.board;
+			let cardTitle;
 			board.groups.forEach(group => {
 				const cardIdx = group.cards.findIndex(currCard => currCard.id === cardId);
-				if (cardIdx !== -1) group.cards.splice(cardIdx, 1);
+				if (cardIdx !== -1) {
+					cardTitle = group.cards[cardIdx].title;
+					group.cards.splice(cardIdx, 1);
+					}
 			})
 			this.$store.dispatch({ type: 'updateBoard', board });
-			this.addActivity('deleted a card')
+			this.addActivity(`deleted the card '${cardTitle}'`)
 
 		},
 		updateGroup(group) {
