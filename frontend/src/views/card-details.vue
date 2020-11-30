@@ -36,13 +36,17 @@
                                 v-for="member in card.members"
                                 :key="member._id"
                             >
-                                <avatar :size="32" :username="member.username">
+                                <avatar
+                                    class="avatar"
+                                    :size="34"
+                                    :username="member.username"
+                                >
                                 </avatar>
                             </span>
                             <span @click.stop="onAddMembers">
                                 <avatar
-                                    class="add-member"
-                                    :size="32"
+                                    class="add-member avatar"
+                                    :size="34"
                                     :username="'+'"
                                     background-color="#E2E4E9"
                                     color="rgb(94, 108, 132)"
@@ -59,9 +63,7 @@
                                 class="label flex f-center"
                                 :style="{ backgroundColor: label.color }"
                             >
-                                {{
-                                    label.title
-                                }}
+                                {{ label.title }}
                             </div>
                             <button
                                 class="label plus-btn flex f-center"
@@ -95,17 +97,10 @@
                 <div class="description flex">
                     <i class="fas fa-align-left"></i>
                     <h2>Description</h2>
-                    <button>Edit</button>
                 </div>
-                <!-- Turn to prop -->
-                <textarea
-                    resize="none"
-                    cols="50"
-                    rows="3"
-                    class="desc"
-                    type="text"
-                    v-model="card.description"
-                    placeholder="Add a more detailed description..."
+                <card-description
+                    :description="card.description"
+                    @updateDesc="updateDesc"
                 />
                 <div v-if="card.checklistGroup" class="checklist-group">
                     <i class="fal fa-tasks"></i>
@@ -241,6 +236,7 @@ import cardChecklist from '../cmps/card/card-checklist.cmp';
 import { utilService } from '@/services/util.service';
 import { uploadImg } from '@/services/img-upload.service';
 import addMembers from '@/cmps/custom-elements/add-members.cmp';
+import cardDescription from '../cmps/card/card-description.cmp';
 
 export default {
     data() {
@@ -336,35 +332,39 @@ export default {
             this.emitClose();
             this.addActivity(`deleted the card '${cardTitle}'`);
 
-		},
-		// for later on when we will make a pop up cmp
-		emitMove() {
-			this.currPopUp = 'move';
-			this.isPopUp = true;
-		},
-		setDate() {
-			this.currPopUp = 'duedate';
-		},
-		removeDate() {
-			const card = utilService.deepCopy(this.card)
-			card.dueDate = null;
-			this.updateCard(card);
-			this.card = card;
-			this.addActivity(`removed the due date from `, card);
-			// this.addActivity(`removed the due date from the card '${card.title}'`, card);
+        },
+        updateDesc(newDesc) {
+            let card = this.card;
+            card.description = newDesc;
+            this.updateCard(card);
+        },
+        emitMove() {
+            this.currPopUp = 'move';
+            this.isPopUp = true;
+        },
+        setDate() {
+            this.currPopUp = 'duedate';
+        },
+        removeDate() {
+            const card = utilService.deepCopy(this.card)
+            card.dueDate = null;
+            this.updateCard(card);
+            this.card = card;
+            this.addActivity(`removed the due date from `, card);
+            // this.addActivity(`removed the due date from the card '${card.title}'`, card);
 
-		},
-		setNewDate(dueDate) {
-			const updatedCard = utilService.deepCopy(this.card)
-			if (this.card.dueDate) {
-				delete this.card.dueDate;
-			}
-			updatedCard.dueDate = dueDate
-			this.updateCard(updatedCard);
-			this.card = updatedCard;
-			this.closePopup();
-			this.addActivity(`added due date to `, updatedCard);
-			// this.addActivity(`added due date to the card '${updatedCard.title}'`, updatedCard);
+        },
+        setNewDate(dueDate) {
+            const updatedCard = utilService.deepCopy(this.card)
+            if (this.card.dueDate) {
+                delete this.card.dueDate;
+            }
+            updatedCard.dueDate = dueDate
+            this.updateCard(updatedCard);
+            this.card = updatedCard;
+            this.closePopup();
+            this.addActivity(`added due date to `, updatedCard);
+            // this.addActivity(`added due date to the card '${updatedCard.title}'`, updatedCard);
 
 
         },
@@ -520,7 +520,8 @@ export default {
         popUp,
         checkBox,
         addChecklist,
-        cardChecklist
+        cardChecklist,
+        cardDescription
     }
 }
 </script>

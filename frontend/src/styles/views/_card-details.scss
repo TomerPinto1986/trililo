@@ -76,6 +76,9 @@
 
             .card-members {
                 text-transform: uppercase;
+                .avatar {
+                    border: 2px solid #F4F5F7;
+                }
 
                 .add-member {
                     cursor: pointer;
@@ -113,13 +116,22 @@
                 }
             }
 
-            .due-date-checkbox {
-                margin-inline-end: 4px;
-            }
+            .due-date {
+                position: relative;
+                padding-inline-end: 60px;
 
-            .due-date-local-time {
-                background-color: rgb(226, 228, 233);
-                padding: 6px 12px 5px;
+                .due-date-checkbox {
+                    margin-block-start: 4px;
+                    margin-inline-end: 4px;
+                }
+    
+                .due-date-local-time {
+                    background-color: rgb(226, 228, 233);
+                    color: rgb(23, 43, 77);
+                    border-radius: 3px;
+                    padding: 6px 12px 5px;
+                    position: absolute;
+                }
             }
         }
 
