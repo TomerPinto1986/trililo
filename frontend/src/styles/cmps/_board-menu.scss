@@ -1,54 +1,124 @@
 .board-menu {
     position: absolute;
-    padding: 20px 10px;
-    width: 375px;
+    width: 339px;
     height: calc(100vh - 50px);
     right: 0;
     top: 50px;
     z-index: 2;
-    background-color: #F4F5F7;
+    background-color: #f4f5f7;
     box-shadow: 0 12px 24px -6px rgba(9, 30, 66, .25), 0 0 0 1px rgba(9, 30, 66, .08);
     text-align: center;
-    font-size: 1.3em;
-    overflow-y: auto;
+    font-size: 1rem;
+    color: #172b4dc7;
+    text-align: start;
 
-    &>* {
-        color: #091e42
+    .board-menu-header {
+        text-align: center;
+        font-size: 1em;
+        padding: 0 6px 0 12px;
+
+        h3 {
+            font-weight: 600;
+            margin: 14px 32px;
+        }
+    }
+
+    .menu-header-divider {
+        margin: 0;
+    }
+
+    .board-menu-container {
+        flex: 1 1 auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 12px 6px 12px 12px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .board-menu-nav-item {
+        border-radius: 3px;
+        display: block;
+        font-weight: 600;
+        line-height: 20px;
+        text-decoration: none;
+        padding: 6px 6px 6px 40px;
+        position: relative;
+
+        .icon {
+            height: 20px;
+            line-height: 20px;
+            width: 20px;
+            position: absolute;
+            top: 6px;
+            left: 12px;
+        }
     }
 
     hr {
+        background-color: rgba(9, 30, 66, .13);
+        border: 0;
+        height: 1px;
+        margin: 16px 0;
+        padding: 0;
         width: 100%;
     }
 
-    .board-actions {
-        align-items: flex-start;
-        text-align: start;
+    .menu-section-header {
+        border-radius: 3px;
+        display: block;
+        line-height: 20px;
+        padding: 6px 6px 6px 35px;
+        position: relative;
+        text-decoration: none;
 
-        span {
-            padding: 3px 6px;
-            margin: 10px 0;
-            width: 100%;
+        .icon {
+            line-height: 20px;
+            position: absolute;
+            top: 6px;
+            left: 12px;
+        }
+    }
+
+    .filter {
+        input {
+            border: 0;
+            box-shadow: inset 0 0 0 2px #dfe1e6;
+            box-sizing: border-box;
+            -webkit-appearance: none;
             border-radius: 3px;
-            cursor: pointer;
+            display: block;
+            line-height: 20px;
+            margin-bottom: 0;
+            padding: 8px 12px;
+            background: #fafbfc;
+            width: 100%;
+        }
 
-            &:hover {
-                background-color: rgba(9, 30, 66, .08)
-            }
+        h3 {
+            cursor: pointer;
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        .label {
+            cursor: pointer;
+            width: 300px;
+            height: 40px;
+            margin: 10px 0;
+            border-radius: 30px;
         }
     }
 
 
     .close-btn {
         cursor: pointer;
+        font-size: 20px;
         position: absolute;
-        top: 10px;
-        right: 10px;
-        padding: 5px;
-        border-radius: 3px;
-
-        &:hover {
-            background-color: rgba(9, 30, 66, .08)
-        }
+        top: 8px;
+        right: 6px;
+        height: 32px;
+        width: 32px;
     }
 
     .background {
@@ -75,46 +145,4 @@
         }
     }
 
-    .activity {
-        margin: 10px 0 0 5px;
-        overflow-y: auto;
-
-        .activity-preview {
-            .info {
-                width: 320px;
-                text-align: start;
-                padding: 0 5px;
-                align-items: flex-start;
-                font-size: 0.55em;
-                margin: 5px 0;
-            }
-
-        }
-    }
-
-    .filter {
-        input {
-            background-color: transparent;
-            font-size: 1em;
-            outline: none;
-            border: none;
-            border-bottom: 1px solid black;
-            padding: 5px 10px;
-            margin-block-end: 5px;
-        }
-
-        h3 {
-            cursor: pointer;
-            width: fit-content;
-            margin: 0 auto;
-        }
-
-        .label {
-            cursor: pointer;
-            width: 300px;
-            height: 40px;
-            margin: 10px 0;
-            border-radius: 30px;
-        }
-    }
 }

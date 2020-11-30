@@ -336,33 +336,33 @@ export default {
             this.emitClose();
             this.addActivity(`deleted the card '${cardTitle}'`);
 
-        },
-        // for later on when we will make a pop up cmp
-        emitMove() {
-            this.currPopUp = 'move';
-            this.isPopUp = true;
-        },
-        setDate() {
-            this.currPopUp = 'duedate';
-        },
-        removeDate() {
-            const card = utilService.deepCopy(this.card)
-            card.dueDate = null;
-            this.updateCard(card);
-            this.card = card;
-            this.addActivity(`removed the due date from the card '${card.title}'`, card);
+		},
+		// for later on when we will make a pop up cmp
+		emitMove() {
+			this.currPopUp = 'move';
+			this.isPopUp = true;
+		},
+		setDate() {
+			this.currPopUp = 'duedate';
+		},
+		removeDate() {
+			const card = utilService.deepCopy(this.card)
+			card.dueDate = null;
+			this.updateCard(card);
+			this.card = card;
+			this.addActivity(`removed the due date from the card '${card.title}'`, card);
 
-        },
-        setNewDate(dueDate) {
-            const updatedCard = utilService.deepCopy(this.card)
-            if (this.card.dueDate) {
-                delete this.card.dueDate;
-            }
-            updatedCard.dueDate = dueDate
-            this.updateCard(updatedCard);
-            this.card = updatedCard;
-            this.closePopup();
-            this.addActivity(`added due date to the card '${updatedCard.title}'`, updatedCard);
+		},
+		setNewDate(dueDate) {
+			const updatedCard = utilService.deepCopy(this.card)
+			if (this.card.dueDate) {
+				delete this.card.dueDate;
+			}
+			updatedCard.dueDate = dueDate
+			this.updateCard(updatedCard);
+			this.card = updatedCard;
+			this.closePopup();
+			this.addActivity(`added due date to the card '${updatedCard.title}'`, updatedCard);
 
 
         },
