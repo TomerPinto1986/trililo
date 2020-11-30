@@ -1,24 +1,56 @@
 <template>
 	<section class="filter">
-		<hr>
-		<input type="text" v-model="filterBy.txt" placeholder="Search..." @input="debSearch"/>
-		<hr>
-		<div class="members">
-			<h3 @click="toggleMembers">By Members</h3>
-			<ul v-if="isMembers">
-				<li v-for="member in board.members" :key="member._id" @click="setFilterMember(member._id)">
-					<div class="member">{{member.username}}</div>
+		<input
+			type="text"
+			v-model="filterBy.txt"
+			placeholder="Search cards by title..."
+			@input="debSearch"
+		/>
+		<hr />
+		<div class="labels flex f-col">
+			<ul>
+				<li
+					class="filter-li"
+					v-for="label in board.labels"
+					:key="label.id"
+					@click="setFilter('label', label.id)"
+				>
+					<div
+						class="item flex"
+						:style="`background-color:${label.color}`"
+					></div>
+					<span class="title">{{ label.title }}</span>
+					<i
+						v-if="isChecked('label', label.id)"
+						class="item-check fas fa-check"
+					></i>
 				</li>
 			</ul>
 		</div>
-		<hr>
-		<div class="labels flex f-col f-center">
-			<h3 @click="toggleLabels">By Labels</h3>
-			<ul v-if="isLabels">
-				<li v-for="label in board.labels" :key="label.id" @click="setFilterLabel(label.id)">
-					<div class="label flex f-center" :style="`background-color:${label.color}`">
-					{{label.title}}
+
+		<hr />
+
+		<div class="members">
+			<ul>
+				<li
+					class="filter-li"
+					v-for="member in board.members"
+					:key="member._id"
+					@click="setFilter('member', member._id)"
+				>
+					<avatar
+						class="item"
+						:size="30"
+						:username="member.username"
+					></avatar>
+
+					<div class="member">
+						{{ member.username }}
 					</div>
+					<i
+						v-if="isChecked('member', member._id)"
+						class="item-check fas fa-check"
+					></i>
 				</li>
 			</ul>
 		</div>
@@ -26,7 +58,9 @@
 </template>
 
 <script>
-import {utilService} from '../../../services/util.service'
+import { utilService } from '../../../services/util.service';
+import avatar from 'vue-avatar';
+
 export default {
 	props: {
 		board: Object
@@ -43,37 +77,40 @@ export default {
 			isLabels: false,
 		}
 	},
-	methods:{
-		emitFilter(){
+	computed: {
+
+	},
+	methods: {
+		emitFilter() {
 			console.log(this.filterBy)
 			this.$emit('filter', utilService.deepCopy(this.filterBy))
 		},
-		debSearch(){
+		debSearch() {
 
 			if (this.debTimeout) clearTimeout(this.debTimeout);
-			this.debTimeout = setTimeout(()=>this.emitFilter(), 500)
+			this.debTimeout = setTimeout(() => this.emitFilter(), 500)
 		},
-		toggleMembers(){
+		toggleMembers() {
 			this.isMembers = !this.isMembers;
 		},
-		toggleLabels(){
+		toggleLabels() {
 			this.isLabels = !this.isLabels;
 		},
-		setFilterMember(memberId){
-			if(this.filterBy.membersIds.includes(memberId)) {
-				const idIdx = this.filterBy.membersIds.findIndex(currId => currId === memberId)
-				if(idIdx !== -1) this.filterBy.membersIds.splice(idIdx, 1)
-			} else this.filterBy.membersIds.push(memberId)
+		setFilter(item, itemId) {
+			if (this.filterBy[`${item}sIds`].includes(itemId)) {
+				const idIdx = this.filterBy[`${item}sIds`].findIndex(currId => currId === itemId)
+				if (idIdx !== -1) this.filterBy[`${item}sIds`].splice(idIdx, 1)
+			} else this.filterBy[`${item}sIds`].push(itemId)
 			this.emitFilter()
 		},
-		setFilterLabel(labelId){
-			if(this.filterBy.labelsIds.includes(labelId)) {
-				const idIdx = this.filterBy.labelsIds.findIndex(currId => currId === labelId)
-				if(idIdx !== -1) this.filterBy.labelsIds.splice(idIdx, 1)
-			} else this.filterBy.labelsIds.push(labelId)
-			this.emitFilter()
+		isChecked(item, itemId) {
+			console.log(item, itemId)
+			const itemsIds = this.filterBy[`${item}sIds`]
+			return itemsIds.some(item => item === itemId)
 		}
-		
+	},
+	components: {
+		avatar
 	}
 }
 </script>

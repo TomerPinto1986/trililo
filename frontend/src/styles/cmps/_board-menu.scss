@@ -97,21 +97,55 @@
             padding: 8px 12px;
             background: #fafbfc;
             width: 100%;
+
+            &:focus {
+                background-color: #fff;
+                outline: none;
+                box-shadow: inset 0 0 0 2px #0079bf;
+            }
         }
 
-        h3 {
+        .filter-li {
+            border-radius: 3px;
+            display: block;
+            height: 38px;
+            line-height: 30px;
+            overflow: hidden;
+            position: relative;
+            text-overflow: ellipsis;
+            text-decoration: none;
+            white-space: nowrap;
+            padding: 4px 4px 4px 42px;
+            margin: 2px 0;
             cursor: pointer;
-            width: fit-content;
-            margin: 0 auto;
+
+            &:hover {
+                background-color: rgba(9, 30, 66, 0.04);
+            }
+
+            .item {
+                left: 4px;
+                position: absolute;
+                top: 4px;
+                height: 30px;
+                width: 30px;
+                padding: 0;
+                border-radius: 4px;
+            }
+
+            .title {
+                color: #5e6c84;
+            }
+
+            .item-check {
+                font-size: em(10, 14);
+                position: absolute;
+                top: 14px;
+                right: 15px;
+                color: #66738A;
+            }
         }
 
-        .label {
-            cursor: pointer;
-            width: 300px;
-            height: 40px;
-            margin: 10px 0;
-            border-radius: 30px;
-        }
     }
 
     .btn {
@@ -174,20 +208,25 @@
 
 
     .bg-picker {
-        .select {
-            background-color: #dfe1e6;
-            background-size: cover;
-            border-radius: 8px;
-            height: 96px;
+        .select-container {
             margin: 8px;
             width: 100%;
-            cursor: pointer;
+            text-align: center;
 
-            &.color {
-                background-image: url(https://a.trellocdn.com/prgb/dist/images/colors@2x.864f4df15d825e89e199.jpg);
-            }
-            &.photo {
-                background-image: url(https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.48948499e309aef794d7.jpg);
+            .select {
+                background-color: #dfe1e6;
+                background-size: cover;
+                border-radius: 8px;
+                height: 96px;
+                cursor: pointer;
+
+                &.color {
+                    background-image: url(https://a.trellocdn.com/prgb/dist/images/colors@2x.864f4df15d825e89e199.jpg);
+                }
+
+                &.photo {
+                    background-image: url(https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.48948499e309aef794d7.jpg);
+                }
             }
         }
 
@@ -195,13 +234,29 @@
             padding-top: 10px;
             overflow-y: auto;
 
-            img,
-            .bgc {
+            .backToBg {
+                text-align: center;
+                width: 100%;
+                cursor: pointer;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 8px;
+            }
+
+            .option {
                 height: 100px;
                 width: 150px;
-                object-fit: cover;
-                margin: 5px;
+                padding: 0 4px 8px;
                 cursor: pointer;
+                border-radius: 8px;
+
+                &.bgc{
+                    margin: 4px;
+                }
             }
         }
 
@@ -212,7 +267,7 @@
             $i: index($bgcs, $bgc);
 
             &-#{$i} {
-                background: #{$bgc} !important;
+                background-color: #{$bgc} !important;
             }
         }
     }

@@ -37,7 +37,7 @@
 				</div>
 			</div>
 		</template>
-		<div class="sub-menu" v-else>
+		<div class="sub-menu board-menu-container" v-else>
 			<bg-picker v-if="isBg" @changeBgc="emitChange" />
 			<board-search v-if="isSearch" :board="board" @filter="emitFilter" />
 		</div>

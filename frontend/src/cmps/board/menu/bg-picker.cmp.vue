@@ -1,25 +1,30 @@
 <template>
 	<section class="bg-picker">
 		<div v-if="isBg" class="flex f-center">
-			<div class="select photo" @click="togglePhoto"></div>
-			<div class="select color" @click="toggleColor"></div>
-            Photos
-            Colors
+			<div class="select-container">
+				<div class="select photo" @click="togglePhoto"></div>
+				Photos
+			</div>
+			<div class="select-container">
+				<div class="select color" @click="toggleColor"></div>
+				Colors
+			</div>
 		</div>
-		<div v-else class="background flex f-center wrap">
+		<div v-else class="background flex wrap f-center">
 			<template v-if="isColor">
 				<div
 					v-for="(color, idx) in colors"
 					:key="color"
-					:class="`bgc bgc-${idx + 1}`"
+					:class="`option bgc bgc-${idx + 1}`"
 					@click="emitChange(color)"
 				></div>
 			</template>
 			<template v-if="isPhoto">
-				<div v-for="(src, idx) in srcs" :key="src">
+				<div class="option" v-for="(src, idx) in srcs" :key="src">
 					<img @click="emitChange(`${idx}`)" :src="src" />
 				</div>
 			</template>
+			<div class="backToBg" @click="goBackToSelect">Back to select</div>
 		</div>
 	</section>
 </template>
@@ -53,17 +58,23 @@ export default {
 	},
 	methods: {
 		toggleColor() {
-            console.log('ss')
+			console.log('ss')
 			this.isColor = true;
 			this.isBg = false;
 		},
 		togglePhoto() {
-            console.log('ss')
+			console.log('ss')
 			this.isPhoto = true;
 			this.isBg = false;
-        },
-        emitChange(bgc) {
+		},
+		emitChange(bgc) {
 			this.$emit('changeBgc', bgc);
+		},
+		goBackToSelect() {
+			this.isBg = true;
+			this.isColor = false;
+			this.isPhoto = false;
+
 		}
 	}
 }

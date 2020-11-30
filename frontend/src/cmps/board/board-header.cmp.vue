@@ -23,7 +23,7 @@
 		</el-select>
 		<div class="board-members flex">
 			<div v-for="member in boardMembers" :key="member.id">
-				<avatar :size="35" :username="member.username"></avatar>
+				<avatar :size="35" :lighten="-90" :customStyle="{fontWeight: 'bold'}" :username="member.username"></avatar>
 			</div>
 			<span
 				class="add-btn flex f-center"
