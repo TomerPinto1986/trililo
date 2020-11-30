@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import activityPreview from '../activity-preview.cmp';
+import activityPreview from '../../activity-preview.cmp';
 import avatar from 'vue-avatar';
-import { socketService } from '../../services/socket.service';
+import { socketService } from '../../../services/socket.service';
 
 export default {
     props: {

@@ -122,7 +122,7 @@ function emptyCard() {
         "createdAt": "",
         "byMember": "",
         "style": {
-            "headerColor": "#d1d1d1"
+            "headerColor": ""
         }
     }
 }

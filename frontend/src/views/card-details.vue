@@ -233,21 +233,21 @@
 </template>
 
 <script>
-import checkBox from '../cmps/custom-elements/check-box.cmp';
-import popUp from '../cmps/card/pop-up.cmp';
-import avatar from 'vue-avatar';
-import cardActivity from '@/cmps/card/card-activity.cmp';
-import cardAttachments from '@/cmps/card/card-attachments.cmp';
-import cardMove from '@/cmps/card/card-move.cmp';
-import cardCover from '@/cmps/card/card-cover.cmp';
-import datePicker from '@/cmps/custom-elements/date-picker.cmp';
-import cardLabels from '@/cmps/card/card-labels.cmp';
-import addChecklist from '../cmps/card/add-checklist.cmp';
-import cardChecklist from '../cmps/card/card-checklist.cmp';
 import { utilService } from '@/services/util.service';
 import { uploadImg } from '@/services/img-upload.service';
+import checkBox from '../cmps/custom-elements/check-box.cmp';
+import avatar from 'vue-avatar';
+import datePicker from '@/cmps/custom-elements/date-picker.cmp';
 import addMembers from '@/cmps/custom-elements/add-members.cmp';
-import cardDescription from '../cmps/card/card-description.cmp';
+import popUp from '../cmps/card/card-details/pop-up.cmp';
+import cardActivity from '@/cmps/card/card-details/card-activity.cmp';
+import cardAttachments from '@/cmps/card/card-details/card-attachments.cmp';
+import cardMove from '@/cmps/card/card-details/card-move.cmp';
+import cardCover from '@/cmps/card/card-details/card-cover.cmp';
+import cardLabels from '@/cmps/card/card-details/card-labels.cmp';
+import addChecklist from '../cmps/card/card-details/add-checklist.cmp';
+import cardChecklist from '../cmps/card/card-details/card-checklist.cmp';
+import cardDescription from '../cmps/card/card-details/card-description.cmp';
 
 export default {
     data() {
