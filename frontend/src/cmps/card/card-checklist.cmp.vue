@@ -1,7 +1,7 @@
 <template>
     <section class="card-checklist">
         <div class="checklist-title flex">
-            <h2><img src="@/assets/icons/checkbox-icon.png" />{{ checklist.title }}</h2>
+            <h2>{{ checklist.title }}</h2>
             <button @click="deleteChecklist">Delete</button>
         </div>
         <div class="items-container" v-if="checklist.items.length">
