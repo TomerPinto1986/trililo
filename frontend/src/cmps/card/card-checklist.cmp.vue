@@ -1,8 +1,14 @@
 <template>
     <section class="card-checklist">
-        <div class="checklist-title flex">
+        <div class="checklist-title flex f-s-between">
             <h2>{{ checklist.title }}</h2>
             <button @click="deleteChecklist">Delete</button>
+        </div>
+        <div class="show-percent flex">
+            <div class="precent">{{ percent }}</div>
+            <div class="my-progress">
+                <div class="my-bar" :style="{ width: percent }"></div>
+            </div>
         </div>
         <div class="items-container" v-if="checklist.items.length">
             <item-preview
@@ -22,8 +28,8 @@
                 ref="myInput"
                 @keyup.enter="saveItem"
             />
-            <button @click="saveItem">Save</button>
-            <button @click="cancel">Cancel</button>
+            <button class="m-btns" @click="saveItem">Save</button>
+            <button class="m-btns" @click="cancel">Cancel</button>
         </template>
         <button v-else @click="openInput">Add an item</button>
     </section>
@@ -42,6 +48,12 @@ export default {
             newItem: '',
             isEdit: false
         };
+    },
+    computed: {
+        percent() {
+            const doneCount = this.checklist.items.reduce((acc, item) => acc += item.isDone ? 1 : 0, 0);
+            return Math.trunc(doneCount / this.checklist.items.length * 100) + '%';
+        }
     },
     methods: {
         openInput() {
@@ -87,6 +99,10 @@ export default {
     },
     components: {
         itemPreview
+    },
+    created() {
+        console.log(this.checklist);
+        // console.log(this.percent);
     }
 };
 </script>

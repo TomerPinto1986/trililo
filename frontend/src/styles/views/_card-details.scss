@@ -2,8 +2,8 @@
     z-index: 3;
     position: absolute;
     width: 800px;
-    height: 800px;
-    top: calc(50% - 400px);
+    height: calc(100vh - 100px);
+    top: 50px;
     right: calc(50% - 400px);
     // background-color: rgb(243, 243, 243);
     background-color: #F4F5F7;
@@ -76,6 +76,7 @@
 
             .card-members {
                 text-transform: uppercase;
+
                 .avatar {
                     border: 2px solid #F4F5F7;
                 }
@@ -124,7 +125,7 @@
                     margin-block-start: 4px;
                     margin-inline-end: 4px;
                 }
-    
+
                 .due-date-local-time {
                     background-color: rgb(226, 228, 233);
                     color: rgb(23, 43, 77);
@@ -135,20 +136,30 @@
             }
         }
 
-        .description {
-            i {
-                margin-inline-end: 10px;
+        .description, .attachments-group, .checklist, .activity {
+            margin-block-start: 20px;
 
-                button {
-                    margin-block-end: 5px;
+            i {
+                display: inline-block;
+                width: 40px;
+            }
+        }
+
+        .attachments {
+            word-wrap: break-word;
+            width: 100%;
+    
+            .attachment-card {
+                img {
+                    width: 120px;
+                    border-radius: 2px;
                 }
             }
         }
 
         .checklist-group {
-            height: 250px;
+            height: 150px;
             overflow-y: scroll;
-            border: 1px solid black;
         }
     }
 
@@ -229,19 +240,6 @@
     .upload-btn {
         width: 100%;
         cursor: pointer;
-    }
-
-    .attachments {
-        word-wrap: break-word;
-        display: block;
-        width: 100%;
-
-        .attachment-card {
-            img {
-                width: 150px;
-                border-radius: 2px;
-            }
-        }
     }
 
     .color-picker {

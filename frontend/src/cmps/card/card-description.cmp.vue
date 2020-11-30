@@ -1,10 +1,13 @@
 <template>
     <section class="card-description">
+        <div class="description-title flex">
+            <h2>Description</h2>
+            <button v-if="!isEdit && desc" @click="edit">Edit</button>
+        </div>
         <button v-if="!isEdit && !desc" @click="edit">
             Add a more detailed description...
         </button>
-        <h3 v-if="desc">{{desc}}</h3>
-        <button v-if="!isEdit && desc" @click="edit">Edit</button>
+        <pre v-if="!isEdit && desc" @click="edit">{{ desc }}</pre>
         <textarea
             ref="myTextarea"
             v-if="isEdit"

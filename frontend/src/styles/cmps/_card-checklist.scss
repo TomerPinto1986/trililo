@@ -1,13 +1,72 @@
 .card-checklist {
-    h2 {
-        margin-block-start: 10px;    
+    width: 100%;
+
+    button {
+        background-color: rgba(9, 30, 66, .04);
+        line-height: 20px;
+        padding: 6px 12px;
+        font-size: 14px;
+        color: rgb(23, 43, 77);
     }
 
-    img {
-        width: 15px;
-        margin: 0 6px 0 10px;
+    input {
+        outline-color: #5ba4cf;
+        color: rgb(94, 108, 132);
+        font-size: 16px;
+        height: 28px;
     }
-    // .checklist-title::before {
 
-    // }
+    .checklist-title {
+        width: 98%;
+    }
+
+    .precent {
+        width: 40px;
+        font-size: .8em;
+    }
+
+    .my-progress {
+        margin: 6.5px 0;
+        width: calc(98% - 40px);
+        height: 10px;
+        border-radius: 10px;
+        background: #ccced3;
+    }
+
+    .my-bar {
+        height: 10px;
+        background: #5ba4cf;
+        border-radius: 10px;
+    }
+
+    .m-btns {
+        margin-inline-start: 10px;
+    }
+
+    .item-preview {
+        width: 98%;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #eaecf1;
+        }
+
+        button {
+            text-align: end;
+            background-color: transparent;
+        }
+
+        .checkbox {
+            margin-inline-end: 5px;
+        }
+
+        span {
+            display: inline-block;
+            color: rgb(94, 108, 132);
+
+            &.done {
+                text-decoration: line-through;
+            }
+        }
+    }
 }

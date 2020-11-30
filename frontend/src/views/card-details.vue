@@ -96,23 +96,44 @@
                 </section>
                 <div class="description flex">
                     <i class="fas fa-align-left"></i>
-                    <h2>Description</h2>
-                </div>
-                <card-description
-                    :description="card.description"
-                    @updateDesc="updateDesc"
-                />
-                <div v-if="card.checklistGroup" class="checklist-group">
-                    <i class="fal fa-tasks"></i>
-                    <card-checklist
-                        v-for="checklist in card.checklistGroup"
-                        :key="checklist.id"
-                        :checklist="checklist"
-                        @updeteChecklist="updeteChecklist"
-                        @deleteChecklist="deleteChecklist"
+                    <card-description
+                        :description="card.description"
+                        @updateDesc="updateDesc"
                     />
                 </div>
-                <div class="btns flex"></div>
+                <div class="attachments-group flex">
+                    <i class="fal fa-paperclip"></i>
+                    <card-attachments
+                        :attachments="attachments"
+                        @updateAttachments="updateAttachments"
+                    />
+                </div>
+                <div v-if="card.checklistGroup" class="checklist-group">
+                    <div
+                        class="checklist flex"
+                        v-for="checklist in card.checklistGroup"
+                        :key="checklist.id"
+                    >
+                        <i class="fal fa-tasks"></i>
+                        <card-checklist
+                            :checklist="checklist"
+                            @updeteChecklist="updeteChecklist"
+                            @deleteChecklist="deleteChecklist"
+                        />
+                    </div>
+                </div>
+                <div class="activity flex">
+                    <i class="el-icon-notebook-1"></i>
+                    <card-activity
+                        v-if="card"
+                        :user="loggedinUser"
+                        :card="card"
+                        :activities="cardActivities"
+                        :isShowDetails="false"
+                        @addActivity="addActivity"
+                    />
+                </div>
+                <!-- POPUP -->
                 <pop-up v-if="isPopUp" @closePopup="closePopup">
                     <card-move
                         v-if="move"
@@ -148,19 +169,8 @@
                         @close="closePopup"
                     />
                 </pop-up>
-                <card-attachments
-                    :attachments="attachments"
-                    @updateAttachments="updateAttachments"
-                />
-                <card-activity
-                    v-if="card"
-                    :user="loggedinUser"
-                    :card="card"
-                    :activities="cardActivities"
-                    :isShowDetails="false"
-                    @addActivity="addActivity"
-                />
             </div>
+            <!-- BUTTONS -->
             <div class="actions flex f-col">
                 <h3>Add to card</h3>
                 <button @click.stop="onAddMembers">
@@ -206,6 +216,7 @@
                         Remove Date
                     </button>
                 </div>
+                <h3>Actions</h3>
                 <button @click="cloneCard">
                     <i class="fal fa-clone"></i>Clone
                 </button>
