@@ -6,64 +6,75 @@
     >
         <div class="card-header flex" :style="headerStyle">
             <button class="cancel-btn" @click.stop="emitClose">
-                <i class="fas fa-times"></i>
+                <i class="el-icon-close"></i>
             </button>
         </div>
         <div class="card-main-container flex">
             <div class="card-info">
-                <input
-                    class="title"
-                    type="text"
-                    v-model="card.title"
-                    @blur="updateBoard"
-                />
+                <div class="pure-info">
+                    <i class="el-icon-postcard"></i>
+                    <input
+                        class="title"
+                        type="text"
+                        v-model="card.title"
+                        @blur="updateBoard"
+                    />
+                    <h4 class="in-list">
+                        in list <span>{{ getCurrGroup.title }}</span>
+                    </h4>
+                </div>
                 <section class="add-to-card flex wrap">
-                    <div
-                        class="f-col card-members"
-                        v-if="card.members && card.members.length"
-                    >
-                        <h3>Members</h3>
-                        <div class="flex">
-                            <span
-                                v-for="member in card.members"
-                                :key="member._id"
-                            >
-                                <avatar :size="32" :username="member.username">
-                                </avatar>
-                            </span>
-                            <span @click.stop="onAddMembers">
-                                <avatar
-                                    class="add-member"
-                                    :size="35"
-                                    :username="'+'"
-                                    background-color="#E2E4E9"
-                                    color="rgb(94, 108, 132)"
-                                ></avatar>
-                            </span>
+                    <div class="members-labels flex">
+                        <div
+                            class="card-members f-col"
+                            v-if="card.members && card.members.length"
+                        >
+                            <h3>Members</h3>
+                            <div class="flex">
+                                <span
+                                    v-for="member in card.members"
+                                    :key="member._id"
+                                >
+                                    <avatar
+                                        :size="40"
+                                        :username="member.username"
+                                    >
+                                    </avatar>
+                                </span>
+                                <span @click.stop="onAddMembers">
+                                    <avatar
+                                        class="add-member"
+                                        :size="40"
+                                        :username="'+'"
+                                        background-color="#E2E4E9"
+                                        color="rgb(94, 108, 132)"
+                                    ></avatar>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        v-if="labelsSelected().length"
-                        class="label-marks f-col"
-                    >
-                        <h3>Labels</h3>
-                        <div class="label-container flex wrap">
-                            <div
-                                v-for="label in labelsSelected()"
-                                :key="label.id"
-                                class="label flex f-center"
-                                :style="{ backgroundColor: label.color }"
-                            >
-                                <span>{{ label.title }}</span>
+                        <div
+                            class="label-marks f-col"
+                            v-if="labelsSelected().length"
+                        >
+                            <h3 class="flex">Labels</h3>
+                            <div class="label-container flex wrap">
+                                <div
+                                    v-for="label in labelsSelected()"
+                                    :key="label.id"
+                                    class="label flex f-center"
+                                    :style="{ backgroundColor: label.color }"
+                                >
+                                    <span class="flex f-center">{{ label.title }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="due-date" v-if="card.dueDate || dueDate">
                         <h3 @click.stop="setDate">Due Date</h3>
-                        <span v-if="card.dueDate">
-                            <check-box :isDone="card.isDone"></check-box
-                            >{{ localTime }}
+                        <span class="due-date-info" v-if="card.dueDate">
+                            <check-box class="due-date-checkbox" :isDone="card.isDone"></check-box
+                            ><span class="due-date-local-time">{{ localTime }}</span>
                         </span>
                         <date-picker
                             ref="date-picker"
@@ -92,6 +103,7 @@
                     placeholder="Add a more detailed description..."
                 />
                 <div v-if="card.checklistGroup" class="checklist-group">
+                    <i class="fal fa-tasks"></i>
                     <card-checklist
                         v-for="checklist in card.checklistGroup"
                         :key="checklist.id"
@@ -151,11 +163,18 @@
             </div>
             <div class="actions flex f-col">
                 <h3>Add to card</h3>
-                <button @click.stop="onAddMembers">Members</button>
-                <button @click.stop="openLabels">Labels</button>
-                <button @click.stop="addChecklist">Checklist</button>
+                <button @click.stop="onAddMembers">
+                    <i class="el-icon-user"></i>Members
+                </button>
+                <button @click.stop="openLabels">
+                    <i class="el-icon-collection-tag"></i>Labels
+                </button>
+                <button @click.stop="addChecklist">
+                    <i class="el-icon-document-checked"></i>Checklist
+                </button>
                 <button>
                     <label class="upload-btn" for="uploader">
+                        <i class="fal fa-paperclip"></i>
                         Attachment
                     </label>
                 </button>
@@ -166,13 +185,8 @@
                     id="uploader"
                     @change="onUpload"
                 />
-                <div>
-                    <button @click.stop="setDate">Set Date</button>
-                    <button @click.stop="removeDate" v-if="card.dueDate">
-                        Remove Date
-                    </button>
-                </div>
                 <button class="cover-btn" @click.stop="openCoverPicker">
+                    <i class="fal fa-window-maximize"></i>
                     Cover
                     <el-color-picker
                         popper-class="color-dropdown"
@@ -183,11 +197,25 @@
                         @change="updateCover"
                     ></el-color-picker>
                 </button>
-                <button @click="cloneCard">Copy</button>
+                <div>
+                    <button @click.stop="setDate">
+                        <i class="fal fa-clock"></i>Set Date
+                    </button>
+                    <button @click.stop="removeDate" v-if="card.dueDate">
+                        <i class="fal fa-history"></i>
+                        Remove Date
+                    </button>
+                </div>
+                <button @click="cloneCard">
+                    <i class="fal fa-clone"></i>Clone
+                </button>
                 <button class="dlt-btn" @click.stop="deleteCard">
+                    <i class="fal fa-trash-alt"></i>
                     Delete Card
                 </button>
-                <button class="move-btn" @click.stop="emitMove">Move</button>
+                <button class="move-btn" @click.stop="emitMove">
+                    <i class="fal fa-arrow-right"></i>Move
+                </button>
             </div>
         </div>
     </section>
@@ -264,13 +292,13 @@ export default {
         isAddMembers() {
             return this.currPopUp === 'member';
         },
-        cardActivities(){
+        cardActivities() {
             console.log(this.board.activities);
             return this.board.activities.filter(activity => {
                 if (activity.card) {
                     if (activity.card.id === this.card.id) return activity
                 }
-                })
+            })
         }
     },
     methods: {
