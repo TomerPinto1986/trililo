@@ -3,8 +3,15 @@
 		<input type="text" v-model="filterBy.txt" placeholder="Search..." @change="debSearch"/>
 		<div class="users">
 			<ul>
-				<li v-for="member in board.members" :key="member._id">
+				<li v-for="member in board.members" :key="member._id" @click="setFilterUser(member._id)">
 					{{member.username}}
+				</li>
+			</ul>
+		</div>
+		<div class="labeks">
+			<ul>
+				<li v-for="label in labels" :key="label.id" @click="setFilterLabel(label.id)">
+
 				</li>
 			</ul>
 		</div>
@@ -21,7 +28,7 @@ export default {
 		return {
 			filterBy: {
 				txt: "",
-				username: "",
+				user: "",
 				labels: ""
 			},
 			debTimeout: null
@@ -34,7 +41,8 @@ export default {
 		debSearch(){
 			if (this.debTimeout) clearTimeout(this.debTimeout);
 			this.debTimeout = setTimeout(()=>this.emitFilter(), 500)
-		}
+		},
+		
 	}
 }
 </script>
