@@ -71,8 +71,8 @@ export default {
 			if(!this.filterBy) return this.group.cards
 			console.log(this.filterBy)
 			const cards = this.group.cards.filter(card => {
-				// console.log(card)
-				return card.title.toLowerCase().includes(this.filterBy.txt.toLowerCase()) && (card.labels && card.labels.some(label => console.log(label)))
+				console.log(card)
+				return card.title.toLowerCase().includes(this.filterBy.txt.toLowerCase())
 			})
 			console.log(cards)
 			return cards

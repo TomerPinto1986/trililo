@@ -8,7 +8,7 @@ export const socketService = {
     terminate,
     on,
     off,
-    emit
+    emit,
 }
 
 function setup() {

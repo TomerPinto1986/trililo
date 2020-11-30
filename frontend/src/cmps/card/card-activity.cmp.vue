@@ -80,7 +80,8 @@ export default {
 			this.$emit('addActivity',null,this.card,msg.txt,byMember);
         },
         typing() {
-            socketService.emit('typing', this.msg.from.username)
+            console.log('typing');
+            socketService.emit('typing', this.msg.from.username);
         },
         setUserTyping(username) {
             this.userTyping = username
@@ -91,7 +92,6 @@ export default {
         }
     },
     created() {
-        console.log(this.activities,'card activities');
         this.msg.from = this.miniUser;
         socketService.setup();
         socketService.emit('card-topic', this.card.id);
