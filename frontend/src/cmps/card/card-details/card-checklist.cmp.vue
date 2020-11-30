@@ -99,10 +99,6 @@ export default {
     },
     components: {
         itemPreview
-    },
-    created() {
-        console.log(this.checklist);
-        // console.log(this.percent);
     }
 };
 </script>
