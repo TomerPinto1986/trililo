@@ -71,9 +71,6 @@
 
             &>* {
                 margin-block-end: 15px;
-            }
-
-            &>*:not(:last-child) {
                 margin-inline-end: 15px;
             }
 
@@ -98,7 +95,7 @@
                         border-radius: 3px;
                         margin: 0 2px;
                         min-width: 40px;
-                        height: 40px;
+                        height: 32px;
                         font-size: 14px;
                         font-weight: 600;
                         line-height: 40px;
@@ -116,7 +113,14 @@
                 }
             }
 
-            // .due-date {}
+            .due-date-checkbox {
+                margin-inline-end: 4px;
+            }
+
+            .due-date-local-time {
+                background-color: rgb(226, 228, 233);
+                padding: 6px 12px 5px;
+            }
         }
 
         .description {

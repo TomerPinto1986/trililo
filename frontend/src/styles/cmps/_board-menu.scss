@@ -44,6 +44,11 @@
         text-decoration: none;
         padding: 6px 6px 6px 40px;
         position: relative;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(9, 30, 66, .08);
+        }
 
         .icon {
             height: 20px;
