@@ -1,0 +1,48 @@
+.card-preview {
+    cursor: pointer;
+    margin: 0 auto 8px;
+    box-shadow: 0 0 3px 0 black;
+    width: 95%;
+    border-radius: 3px;
+    background-color: #fff;
+    box-shadow: 0 1px 0 rgba(9, 30, 66, .25);
+    overflow: hidden;
+    
+
+    .card-header {
+        border-radius: 3px 3px 0 0;
+        width: 100%;
+        height: 20px;
+    }
+
+    .card-info {
+        padding: 6px 8px 0;
+
+        .label-marks div {
+            min-height: 10px;
+            width: 50px;
+            border-radius: 30px;
+            margin: 1px 5px 5px;
+            display: inline-block;
+        }
+        .attachment{
+            img{
+                border-radius: 2px;
+            }
+        }
+    }
+
+    .icons {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 0 5px 3px;
+
+        >* {
+            font-size: 0.8em;
+            align-self: center;
+            color: rgb(71, 71, 71);
+            margin: 0 2px;
+        }
+    }
+}

@@ -1,0 +1,25 @@
+.pop-up {
+    position: absolute;
+    left: 450px;
+    bottom: 300px;
+    background: whitesmoke;
+    padding: 15px;
+    .card-move {
+        .el-select {
+            display: inline-block;
+            position: relative;
+            width: 42%;
+            margin-inline-end: 10px;
+            margin-block-end: 10px;
+        }
+    }
+    .add-members {
+        li {
+            justify-content: space-between;
+            .card-member {
+                cursor: pointer;
+                align-items: center;
+            }
+        }
+    }
+}

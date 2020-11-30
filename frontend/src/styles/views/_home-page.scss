@@ -1,0 +1,15 @@
+.home-page{
+    .boards-btn{
+        font-size: 2rem;
+        background-color: rgb(230, 241, 245);
+        padding: 10px 15px;
+        display: block;
+        width: fit-content;
+        margin: 20px auto;
+        box-shadow: 0 0 2px 0 black, inset 0 0 1px 0 black;
+        
+        &:hover{
+            box-shadow: 0 0 4px 0 black, inset 0 0 2px 0 black;
+        }
+    }
+}

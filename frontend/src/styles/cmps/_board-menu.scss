@@ -1,0 +1,120 @@
+.board-menu {
+    position: absolute;
+    padding: 20px 10px;
+    width: 375px;
+    height: calc(100vh - 50px);
+    right: 0;
+    top: 50px;
+    z-index: 2;
+    background-color: #F4F5F7;
+    box-shadow: 0 12px 24px -6px rgba(9, 30, 66, .25), 0 0 0 1px rgba(9, 30, 66, .08);
+    text-align: center;
+    font-size: 1.3em;
+    overflow-y: auto;
+
+    &>* {
+        color: #091e42
+    }
+
+    hr {
+        width: 100%;
+    }
+
+    .board-actions {
+        align-items: flex-start;
+        text-align: start;
+
+        span {
+            padding: 3px 6px;
+            margin: 10px 0;
+            width: 100%;
+            border-radius: 3px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(9, 30, 66, .08)
+            }
+        }
+    }
+
+
+    .close-btn {
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px;
+        border-radius: 3px;
+
+        &:hover {
+            background-color: rgba(9, 30, 66, .08)
+        }
+    }
+
+    .background {
+        height: 250px;
+        overflow-y: auto;
+        cursor: pointer;
+
+        img,
+        .bgc {
+            height: 100px;
+            width: 150px;
+            object-fit: cover;
+            margin: 5px;
+        }
+    }
+
+    .bgc {
+        @each $bgc in $bgcs {
+            $i: index($bgcs, $bgc);
+
+            &-#{$i} {
+                background: #{$bgc} !important;
+            }
+        }
+    }
+
+    .activity {
+        margin: 10px 0 0 5px;
+        overflow-y: auto;
+
+        .activity-preview {
+            .info {
+                width: 320px;
+                text-align: start;
+                padding: 0 5px;
+                align-items: flex-start;
+                font-size: 0.55em;
+                margin: 5px 0;
+            }
+
+        }
+    }
+
+    .filter {
+        input {
+            background-color: transparent;
+            font-size: 1em;
+            outline: none;
+            border: none;
+            border-bottom: 1px solid black;
+            padding: 5px 10px;
+            margin-block-end: 5px;
+        }
+
+        h3 {
+            cursor: pointer;
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        .label {
+            cursor: pointer;
+            width: 300px;
+            height: 40px;
+            margin: 10px 0;
+            border-radius: 30px;
+        }
+    }
+}
