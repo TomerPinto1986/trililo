@@ -4,11 +4,9 @@
 function connectSockets(io) {
     io.on('connection', socket => {
         socket.on('activity-newMsg', msg => {
-            console.log(msg);
             io.to(socket.myTopic).emit('activity-addMsg', msg)
         });
         socket.on('card-topic', topic => {
-            console.log(topic, 'topic');
             if (socket.myTopic) {
                 socket.leave(socket.myTopic);
             }
@@ -20,7 +18,6 @@ function connectSockets(io) {
         });
         socket.on('board-topic', topic => {
             if(socket.boardTopic === topic) return;
-            console.log(topic,'topic')
             if (socket.boardTopic) {
                 socket.leave(socket.boardTopic);
             }
@@ -28,7 +25,6 @@ function connectSockets(io) {
             socket.boardTopic = topic;
         });
         socket.on('updateBoard', board => {
-            console.log('board')
             socket.to(socket.boardTopic).broadcast.emit('boardUpdate', board);
         })
     });
