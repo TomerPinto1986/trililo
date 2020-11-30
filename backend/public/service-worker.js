@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.5d050b428eb1da6d49ab7f08894518d2.js"
+  "/precache-manifest.1a570835efd1e42f132d54b1adb366c6.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "trililo"});

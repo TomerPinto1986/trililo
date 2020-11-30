@@ -10,6 +10,7 @@
     box-shadow: 0 12px 24px -6px rgba(9, 30, 66, .25), 0 0 0 1px rgba(9, 30, 66, .08);
     text-align: center;
     font-size: 1.3em;
+    overflow-y: auto;
 
     &>* {
         color: #091e42
