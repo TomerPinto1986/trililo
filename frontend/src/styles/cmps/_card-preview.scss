@@ -13,17 +13,23 @@
         height: 20px;
     }
     .card-info {
+        color: #172b4dd2;
         padding: 6px 8px 0;
-        .label-marks div {
-            display: flex;
-            justify-content: flex-start;
-            min-height: 10px;
-            width: 50px;
-            border-radius: 30px;
-            margin: 0px 4px 4px;
-            &:first-child {
-                margin: 0px 0px 4px;
+        .label-marks {
+            div {
+                display: flex;
+                justify-content: flex-start;
+                min-height: 8px;
+                width: 40px;
+                border-radius: 4px;
+                margin-inline-end: 8px;
+                margin-block-end: 4px;
             }
+            // li:first-child {
+            //     div:first-child {
+            //         margin: 0px 0px 4px;
+            //     }
+            // }
         }
         .attachment {
             img {
