@@ -1,9 +1,15 @@
 <template>
 	<section class="activity-preview flex">
 		<avatar class="avater" :size="35" :username="username"></avatar>
-		<div class="info flex f-col">
-			<h2 @click="openCard" class="flex f-center">
-				{{ username }} {{ activity.txt }}
+		<div v-if="activity.txt" class="info flex f-col">
+			<h2  class="flex f-center">
+				{{ username }} <span @click="openCard">{{ activity.txt }} </span>
+			</h2>
+			<h3>{{ moment(activity.createdAt).fromNow() }}</h3>
+		</div>
+		<div v-if="activity.comment" class="info flex f-col">
+			<h2  class="flex f-center">
+				{{ username }} on <span @click="openCard">{{activity.card.title}}: {{ activity.comment }}</span> 
 			</h2>
 			<h3>{{ moment(activity.createdAt).fromNow() }}</h3>
 		</div>
@@ -24,7 +30,8 @@ export default {
 		},
 		time() {
 			return this.activity.createdAt
-		}
+		},
+
 	},
 	methods: {
 		openCard() {

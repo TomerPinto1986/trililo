@@ -20,6 +20,7 @@
 			<span @click="emitDeleteBoard">Delete Board</span>
 			<hr />
 		</div>
+		<board-search :board="board" @filter="emitFilter" />
 		<h3>Activities</h3>
 		<div class="activity">
 			<activity-preview
@@ -34,6 +35,7 @@
 
 <script>
 import activityPreview from '../activity-preview.cmp'
+import boardSearch from './board-search.cmp'
 
 export default {
 	props: {
@@ -78,12 +80,16 @@ export default {
 		},
 		openCard() {
 
+		},
+		emitFilter() {
+
 		}
 	},
 	created() {
 	},
 	components: {
-		activityPreview
+		activityPreview,
+		boardSearch
 	}
 }
 </script>
