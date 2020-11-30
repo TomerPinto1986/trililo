@@ -16,7 +16,6 @@ function connectSockets(io) {
             socket.myTopic = topic;
         });
         socket.on('typing', username => {
-            console.log(username, 'typing');
             socket.to(socket.myTopic).broadcast.emit('user-typing', username);
         });
 
