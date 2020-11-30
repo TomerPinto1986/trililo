@@ -4,7 +4,7 @@
             <el-checkbox
                 class="checkbox"
                 v-model="isDoneToEdit"
-                @change="toggleIsDone"
+                @click.stop="toggleIsDone"
             ></el-checkbox>
             <span
                 v-if="!isEdit"
