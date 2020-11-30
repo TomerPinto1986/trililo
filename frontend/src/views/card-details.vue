@@ -142,9 +142,9 @@
                 />
                 <card-activity
                     v-if="card"
-                    :activities="card.activities"
                     :user="loggedInUser"
                     :card="card"
+                    @addActivity="addActivity"
                 />
             </div>
             <div class="actions flex f-col">
@@ -218,6 +218,7 @@ export default {
     },
     computed: {
         loggedInUser() {
+            console.log(this.$store.getters.loggedinUser);
             return this.$store.getters.loggedinUser;
         },
         localTime() {

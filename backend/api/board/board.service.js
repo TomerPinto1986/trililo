@@ -2,6 +2,7 @@ const dbService = require('../../services/db.service');
 const ObjectId = require('mongodb').ObjectId;
 
 async function query(filterBy = {}) {
+
     const criteria = _buildCriteria(filterBy);
     // const sortBy = filterBy.sort ? { [filterBy.sort]: 1 } : {};
     const collection = await dbService.getCollection('board');
@@ -70,8 +71,9 @@ module.exports = {
 
 function _buildCriteria(filterBy) {
     const criteria = {};
-    // if (filterBy.name) {
-    //     criteria.name = { $regex: filterBy.name, $options: "$i" };
+
+    // if (filterBy.username) {
+    //     criteria.user.username = { $regex: filterBy.name, $options: "$i" };
     // }
     // if (filterBy.type && filterBy.type !== 'all') {
     //     criteria.type = filterBy.type;

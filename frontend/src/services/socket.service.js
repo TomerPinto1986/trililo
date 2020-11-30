@@ -10,6 +10,7 @@ export const socketService = {
     off,
     emit
 }
+
 function setup() {
     console.log('connecting', BASE_URL);
     socket = io(BASE_URL);
@@ -28,5 +29,6 @@ function off(eventName, cb) {
 }
 
 function emit(eventName, data) {
+    console.log(eventName, data);
     socket.emit(eventName, data)
 }
