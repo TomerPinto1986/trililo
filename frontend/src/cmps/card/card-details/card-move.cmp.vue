@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import selectList from '../custom-elements/select-list.cmp';
-import selectPosition from '../custom-elements/select-position.cmp';
+import selectList from '../../custom-elements/select-list.cmp';
+import selectPosition from '../../custom-elements/select-position.cmp';
 
 export default {
     props: {
