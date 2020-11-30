@@ -132,8 +132,17 @@
                 padding: 0;
                 border-radius: 4px;
             }
-            .title{
+
+            .title {
                 color: #5e6c84;
+            }
+
+            .item-check {
+                font-size: em(10, 14);
+                position: absolute;
+                top: 14px;
+                right: 15px;
+                color: #66738A;
             }
         }
 
@@ -218,7 +227,6 @@
                 &.photo {
                     background-image: url(https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.48948499e309aef794d7.jpg);
                 }
-
             }
         }
 
@@ -232,14 +240,23 @@
                 cursor: pointer;
             }
 
-            img,
-            .bgc {
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 8px;
+            }
+
+            .option {
                 height: 100px;
                 width: 150px;
-                object-fit: cover;
-                margin: 5px;
+                padding: 0 4px 8px;
                 cursor: pointer;
                 border-radius: 8px;
+
+                &.bgc{
+                    margin: 4px;
+                }
             }
         }
 
@@ -250,7 +267,7 @@
             $i: index($bgcs, $bgc);
 
             &-#{$i} {
-                background: #{$bgc} !important;
+                background-color: #{$bgc} !important;
             }
         }
     }

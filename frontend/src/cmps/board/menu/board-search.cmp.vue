@@ -3,7 +3,7 @@
 		<input
 			type="text"
 			v-model="filterBy.txt"
-			placeholder="Search..."
+			placeholder="Search cards by title..."
 			@input="debSearch"
 		/>
 		<hr />
@@ -106,12 +106,7 @@ export default {
 		isChecked(item, itemId) {
 			console.log(item, itemId)
 			const itemsIds = this.filterBy[`${item}sIds`]
-			console.log(itemsIds.some(item => {
-				console.log(item, 'sss')
-				return item === itemId}))
-			return itemsIds.some(item => {
-				console.log(item, 'sss')
-				return item === itemId})
+			return itemsIds.some(item => item === itemId)
 		}
 	},
 	components: {

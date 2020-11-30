@@ -10,17 +10,17 @@
 				Colors
 			</div>
 		</div>
-		<div v-else class="background flex f-center wrap">
+		<div v-else class="background flex wrap f-center">
 			<template v-if="isColor">
 				<div
 					v-for="(color, idx) in colors"
 					:key="color"
-					:class="`bgc bgc-${idx + 1}`"
+					:class="`option bgc bgc-${idx + 1}`"
 					@click="emitChange(color)"
 				></div>
 			</template>
 			<template v-if="isPhoto">
-				<div v-for="(src, idx) in srcs" :key="src">
+				<div class="option" v-for="(src, idx) in srcs" :key="src">
 					<img @click="emitChange(`${idx}`)" :src="src" />
 				</div>
 			</template>
