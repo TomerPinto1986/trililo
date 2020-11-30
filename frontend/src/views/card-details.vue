@@ -11,7 +11,7 @@
         </div>
         <div class="card-main-container flex">
             <div class="card-info">
-                <div class="pure-info">
+                <div class="info">
                     <i class="el-icon-postcard"></i>
                     <input
                         class="title"
@@ -24,57 +24,58 @@
                     </h4>
                 </div>
                 <section class="add-to-card flex wrap">
-                    <div class="members-labels flex">
-                        <div
-                            class="card-members f-col"
-                            v-if="card.members && card.members.length"
-                        >
-                            <h3>Members</h3>
-                            <div class="flex">
-                                <span
-                                    v-for="member in card.members"
-                                    :key="member._id"
-                                >
-                                    <avatar
-                                        :size="40"
-                                        :username="member.username"
-                                    >
-                                    </avatar>
-                                </span>
-                                <span @click.stop="onAddMembers">
-                                    <avatar
-                                        class="add-member"
-                                        :size="40"
-                                        :username="'+'"
-                                        background-color="#E2E4E9"
-                                        color="rgb(94, 108, 132)"
-                                    ></avatar>
-                                </span>
-                            </div>
+                    <div
+                        class="card-members f-col"
+                        v-if="card.members && card.members.length"
+                    >
+                        <h3>Members</h3>
+                        <div class="flex">
+                            <span
+                                v-for="member in card.members"
+                                :key="member._id"
+                            >
+                                <avatar :size="40" :username="member.username">
+                                </avatar>
+                            </span>
+                            <span @click.stop="onAddMembers">
+                                <avatar
+                                    class="add-member"
+                                    :size="40"
+                                    :username="'+'"
+                                    background-color="#E2E4E9"
+                                    color="rgb(94, 108, 132)"
+                                ></avatar>
+                            </span>
                         </div>
-                        <div
-                            class="label-marks f-col"
-                            v-if="labelsSelected().length"
-                        >
-                            <h3 class="flex">Labels</h3>
-                            <div class="label-container flex wrap">
-                                <div
-                                    v-for="label in labelsSelected()"
-                                    :key="label.id"
-                                    class="label flex f-center"
-                                    :style="{ backgroundColor: label.color }"
-                                >
-                                    <span class="flex f-center">{{ label.title }}</span>
-                                </div>
+                    </div>
+                    <div
+                        class="label-marks f-col"
+                        v-if="labelsSelected().length"
+                    >
+                        <h3 class="flex">Labels</h3>
+                        <div class="label-container flex wrap">
+                            <div
+                                v-for="label in labelsSelected()"
+                                :key="label.id"
+                                class="label flex f-center"
+                                :style="{ backgroundColor: label.color }"
+                            >
+                                <span class="flex f-center">{{
+                                    label.title
+                                }}</span>
                             </div>
                         </div>
                     </div>
-
                     <div class="due-date" v-if="card.dueDate || dueDate">
                         <h3 @click.stop="setDate">Due Date</h3>
                         <span class="due-date-info" v-if="card.dueDate">
-                            <check-box class="due-date-checkbox" :isDone="card.isDone"></check-box
-                            ><span class="due-date-local-time">{{ localTime }}</span>
+                            <check-box
+                                class="due-date-checkbox"
+                                :isDone="card.isDone"
+                            ></check-box
+                            ><span class="due-date-local-time">{{
+                                localTime
+                            }}</span>
                         </span>
                         <date-picker
                             ref="date-picker"
@@ -91,7 +92,6 @@
                     <h2>Description</h2>
                     <button>Edit</button>
                 </div>
-
                 <!-- Turn to prop -->
                 <textarea
                     resize="none"
@@ -291,7 +291,7 @@ export default {
         isAddMembers() {
             return this.currPopUp === 'member';
         },
-        cardActivities(){
+        cardActivities() {
             return this.board.activities.filter(activity => {
                 if (activity.card) {
                     if (activity.card.id === this.card.id) return activity
@@ -421,7 +421,7 @@ export default {
             }
             this.updateCard(card);
             const action = (memberIdx === -1) ? 'added' : 'removed';
-            this.addActivity(`${action} ${newUser.username} to a card`, card, null , this.loggedInUser)
+            this.addActivity(`${action} ${newUser.username} to a card`, card, null, this.loggedInUser)
 
         },
         cardMembers() {
@@ -443,7 +443,7 @@ export default {
             board.groups[groupIdx].cards.push(cardCopy);
             this.$store.dispatch({ type: 'updateBoard', board });
         },
-        addActivity(txt, card, comment = null,user = this.loggedinUser) {
+        addActivity(txt, card, comment = null, user = this.loggedinUser) {
             this.$store.commit('setEmptyActivity');
             const activity = utilService.deepCopy(this.$store.getters.emptyActivity);
             activity.txt = txt;

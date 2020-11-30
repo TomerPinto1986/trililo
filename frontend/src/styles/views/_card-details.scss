@@ -1,22 +1,27 @@
 .card-details {
     z-index: 3;
     position: absolute;
-    width: 1050px;
-    height: 850px;
-    top: calc(50% - 425px);
-    right: calc(50% - 525px);
+    width: 800px;
+    height: 800px;
+    top: calc(50% - 400px);
+    right: calc(50% - 400px);
+    // background-color: rgb(243, 243, 243);
     background-color: #F4F5F7;
     border-radius: 10px;
 
     h2 {
         color: #172b4d;
+        font-weight: 700;
+        font-size: 14px;
         text-transform: capitalize;
     }
 
     h3 {
         margin-inline-start: 2px;
         text-transform: uppercase;
+        font-size: 12px;
         color: #5e6c84;
+        font-weight: 600;
     }
 
     .cancel-btn {
@@ -28,113 +33,69 @@
     }
 
     .card-info {
-        max-width: 850px;
+        max-width: 632px;
         flex-grow: 1;
         padding-inline-start: 16px;
         padding-inline-end: 8px;
-        padding-block-end: 3px;
+        padding-block-end: 8px;
 
-        .pure-info {
-            margin-block-end: 10px;
-
+        .info {
+            margin-block-end: 8px;
             .title {
                 color: #172b4d;
-                font-size: 24px;
-                margin-block-end: 7px;
+                font-size: 20px;
+                font-weight: 600;
+                line-height: 24px;
             }
 
             .in-list {
-                font-size: 1.2em;
-                margin-block-end: 10px;
+                font-size: 14px;
+                line-height: 20px;
+                color: #5e6c84;
+            }
+        }
 
-                span {
-                    color: #5e6c84;
+        .description {
+            i {
+                margin-inline-end: 10px;
+                button {
+                    margin-block-end: 5px;
                 }
             }
         }
 
-        .add-to-card {
-            padding: 5px;
-            height: 165px;
-            padding-inline-start: 30px;
-            font-size: 14px;
-            line-height: 20px;
-            font-weight: 500;
+        .card-members {
+            text-transform: uppercase;
 
-            .members-labels {
-                width: 100%;
-                margin-block-end: 15px;
+            .add-member {
+                cursor: pointer;
 
-                h3 {
-                    margin-block-start: 5px;
-                    margin-block-end: 5px;
-                }
-
-                .card-members {
-                    text-transform: uppercase;
-                    margin-inline-end: 30px;
-
-                    .add-member {
-                        cursor: pointer;
-
-                        span {
-                            font-size: 20px;
-                        }
-                    }
-                }
-
-                .label-marks {
-                    .label-container {
-                        font-weight: 500;
-                        font-size: 20px;
-                        font-weight: 300;
-                        // margin: 2px 8px;
-                        color: white;
-
-                        .label {
-                            border-radius: 3px;
-                            margin: 2px;
-                            height: 40px;
-                            min-width: 50px;
-                            display: block;
-                            padding: 0 10px;
-                        }
-                    }
+                span {
+                    font-size: 20px;
                 }
             }
+        }
 
-            .due-date {
-                h3 {
-                    margin-block-end: 7px;
-                }
-                .due-date-info {
-                    margin: 7px 0;
+        .label-marks {
+            .label-container {
+                font-weight: 500;
+                // margin: 2px 8px;
+                color: white;
 
-                    .due-date-local-time {
-                        font-size: 1.2em;
-                    }
-
-                    .due-date-checkbox {
-                        margin-inline-end: 10px;
-                    }
-                }
-            }
-
-            .description {
-                i {
-                    margin-inline-end: 10px;
-
-                    button {
-                        margin-block-end: 5px;
-                    }
+                .label {
+                    border-radius: 3px;
+                    margin: 2px;
+                    min-width: 40px;
+                    display: block;
+                    padding: 2px 4px;
                 }
             }
+        }
 
-            .checklist-group {
-                height: 250px;
-                overflow-y: scroll;
-                border: 1px solid black;
-            }
+        .checklist-group {
+            height: 250px;
+            overflow-y: scroll;
+            border: 1px solid black;
         }
     }
 
