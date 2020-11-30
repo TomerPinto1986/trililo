@@ -54,12 +54,12 @@
                         </div>
                         <div
                             class="label-marks f-col"
-                            v-if="labelsSelected().length"
+                            v-if="labelsSelected.length"
                         >
                             <h3 class="flex">Labels</h3>
                             <div class="label-container flex wrap">
                                 <div
-                                    v-for="label in labelsSelected()"
+                                    v-for="label in labelsSelected"
                                     :key="label.id"
                                     class="label flex f-center"
                                     :style="{ backgroundColor: label.color }"
