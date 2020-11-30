@@ -10,7 +10,7 @@
             @keyup.enter.stop="updateItem"
         />
         <button @click.stop="removeItem">
-            <i class="far fa-trash-alt"></i>
+            <i class="fal fa-trash-alt"></i>
         </button>
     </section>
 </template>

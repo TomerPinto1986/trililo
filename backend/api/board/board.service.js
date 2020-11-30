@@ -1,13 +1,10 @@
 const dbService = require('../../services/db.service');
 const ObjectId = require('mongodb').ObjectId;
 
-async function query(filterBy = {}) {
-
+async function query(filterBy) {
     const criteria = _buildCriteria(filterBy);
-    // const sortBy = filterBy.sort ? { [filterBy.sort]: 1 } : {};
     const collection = await dbService.getCollection('board');
     try {
-        // return await collection.find(criteria).sort(sortBy).toArray();
         return await collection.find(criteria).toArray();
     } catch (err) {
         console.log('ERROR: cannot find boards');
@@ -71,15 +68,9 @@ module.exports = {
 
 function _buildCriteria(filterBy) {
     const criteria = {};
-
-    // if (filterBy.username) {
-    //     criteria.user.username = { $regex: filterBy.name, $options: "$i" };
-    // }
-    // if (filterBy.type && filterBy.type !== 'all') {
-    //     criteria.type = filterBy.type;
-    // }
-    // if (filterBy.inStock && filterBy.inStock !== 'all') {
-    //     criteria.inStock = filterBy.inStock === 'true' ? true : false;
-    // }
+    if(filterBy.id === 'guest') criteria.isPrivate = false;
+    else{
+        criteria["members._id"] = { $regex: filterBy.id, $options: "$i" };
+    }
     return criteria;
 }
