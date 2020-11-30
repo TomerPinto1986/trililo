@@ -248,7 +248,6 @@ export default {
     },
     computed: {
         loggedInUser() {
-            console.log(this.$store.getters.loggedinUser);
             return this.$store.getters.loggedinUser;
         },
         localTime() {
@@ -292,8 +291,7 @@ export default {
         isAddMembers() {
             return this.currPopUp === 'member';
         },
-        cardActivities() {
-            console.log(this.board.activities);
+        cardActivities(){
             return this.board.activities.filter(activity => {
                 if (activity.card) {
                     if (activity.card.id === this.card.id) return activity
@@ -423,7 +421,7 @@ export default {
             }
             this.updateCard(card);
             const action = (memberIdx === -1) ? 'added' : 'removed';
-            this.addActivity(`${action} ${newUser.username} to a card`, card)
+            this.addActivity(`${action} ${newUser.username} to a card`, card, null , this.loggedInUser)
 
         },
         cardMembers() {
@@ -445,12 +443,12 @@ export default {
             board.groups[groupIdx].cards.push(cardCopy);
             this.$store.dispatch({ type: 'updateBoard', board });
         },
-        addActivity(txt, card, comment) {
+        addActivity(txt, card, comment = null,user = this.loggedinUser) {
             this.$store.commit('setEmptyActivity');
             const activity = utilService.deepCopy(this.$store.getters.emptyActivity);
             activity.txt = txt;
             activity.comment = comment;
-            activity.byMember = utilService.deepCopy(this.$store.getters.loggedinUser);
+            activity.byMember = utilService.deepCopy(user);
             activity.createdAt = Date.now();
             const url = (this.$route.params.cardId) ? '' : `/card/${card.id}`;
             if (card) activity.card = {

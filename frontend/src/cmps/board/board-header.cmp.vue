@@ -40,20 +40,12 @@
 				@updateUsers="updateUsers"
 			/>
 		</div>
-		<button class="menu-btn" @click="toggleMenu">Menu</button>
-		<board-menu
-			v-if="isMenu"
-			:board="board"
-			@changeBgc="emitBgChange"
-			@close="closeMenu"
-			@deleteBoard="emitDeleteBoard"
-		/>
+		<button class="menu-btn" @click="emitOpenMenu">Menu</button>
 	</section>
 </template>
 
 <script>
 import addUsers from './add-users.cmp';
-import boardMenu from './board-menu.cmp';
 import avatar from 'vue-avatar';
 
 
@@ -67,7 +59,6 @@ export default {
 		return {
 			boardTitle: null,
 			isAddUsers: false,
-			isMenu: false,
 			options: (this.user._id !== 'guest') ? [
 				{ value: 'private', label: 'Private' },
 				{ value: 'public', label: 'Public' }
@@ -78,8 +69,8 @@ export default {
 		}
 	},
 	methods: {
-		toggleMenu() {
-			this.isMenu = !this.isMenu;
+		emitOpenMenu() {
+			this.$emit('openMenu')
 		},
 		addUsers() {
 			this.isAddUsers = true;
@@ -126,7 +117,6 @@ export default {
 	components: {
 		avatar,
 		addUsers,
-		boardMenu
 	}
 }
 </script>

@@ -2,7 +2,7 @@
 	<section class="activity-preview flex">
 		<avatar class="avater" :size="35" :username="username"></avatar>
 		<div v-if="activity.txt" class="info flex f-col">
-			<h2  class="flex f-center">
+			<h2  class="flex wrap">
 				{{ username }} <span @click="openCard">{{ activity.txt }} </span>
 			</h2>
 			<h3>{{ moment(activity.createdAt).fromNow() }}</h3>

@@ -33,12 +33,6 @@ export default {
     },
     computed: {
         boardsForDisplay() {
-            // const boards = this.$store.getters.boards;
-            // if (!boards) return boards;
-            // return boards.filter(board => {
-            //     const membersIds = board.members.map(member => member._id);
-            //     return !board.isPrivate || membersIds.includes(this.loggedinUser._id);
-            // });
             return this.$store.getters.boards
         },
         loggedinUser(){

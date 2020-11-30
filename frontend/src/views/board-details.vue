@@ -10,6 +10,7 @@
 			:board="board"
 			:users="users"
 			:user="user"
+			@openMenu="toggleMenu"
 			@updateTitle="updateBoardTitle"
 			@updateboardUsers="updateboardUsers"
 			@changeBgc="changeBgc"
@@ -35,6 +36,7 @@
 					:key="group.id"
 					:group="group"
 					:labels="board.labels"
+					:filterBy="filterBy"
 					@close="closeDetails"
 					@newCard="addCard"
 					@change="updateGroup"
@@ -65,6 +67,14 @@
 			@addCard="updateCard"
 			@deleteCard="deleteCard"
 		/>
+		<board-menu
+			v-if="isMenu"
+			:board="board"
+			@changeBgc="changeBgc"
+			@close="toggleMenu"
+			@deleteBoard="deleteBoard"
+			@filter="filter"
+		/>
 	</section>
 </template>
 
@@ -72,8 +82,9 @@
 import group from '../cmps/board/group.cmp';
 import boardHeader from '../cmps/board/board-header.cmp';
 import cardDetails from '@/views/card-details';
-import draggable from 'vuedraggable'
+import boardMenu from '../cmps/board/board-menu.cmp';
 import { utilService } from '@/services/util.service';
+import draggable from 'vuedraggable'
 import bg1 from '../assets/bgs/bg1.jpg';
 import bg2 from '../assets/bgs/bg2.jpg';
 import bg3 from '../assets/bgs/bg3.jpg';
@@ -88,10 +99,15 @@ export default {
 			isAddingGroup: false,
 			newGroupTitle: '',
 			isScroll: false,
-			bgSrcs: [bg1, bg2, bg3, bg4, bg5, bg6]
+			bgSrcs: [bg1, bg2, bg3, bg4, bg5, bg6],
+			isMenu: false,
+			filterBy: null
 		}
 	},
 	methods: {
+		toggleMenu() {
+			this.isMenu = !this.isMenu;
+		},
 		goBack() {
 			document.body.querySelector('.screen').style.display = 'none';
 			this.$router.go(-1)
@@ -228,6 +244,9 @@ export default {
 			const board = this.board;
 			board.activities.unshift(activity);
 			this.updateBoard(board);
+		},
+		filter(filterBy) {
+			this.filterBy = filterBy
 		}
 	},
 	computed: {
@@ -276,7 +295,8 @@ export default {
 		group,
 		boardHeader,
 		cardDetails,
-		draggable
+		draggable,
+		boardMenu
 	}
 }
 </script>
