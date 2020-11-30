@@ -21,7 +21,9 @@ export default {
     mutations: {
         setCurrCard(state, { cardId }) {
             this.getters.currBoard.groups.forEach(group => {
-                const card = group.cards.find(card => card.id === cardId);
+                const card = group.cards.find(card => {
+                    console.log(card)
+                    return card.id === cardId});
                 if (card) {
                     state.currCard = card;
                 }

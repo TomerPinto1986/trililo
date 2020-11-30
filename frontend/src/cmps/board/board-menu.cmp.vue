@@ -18,7 +18,7 @@
 			</div>
 
 			<span @click="emitDeleteBoard">Delete Board</span>
-		<span @click="toggleSearch">Search Cards</span>
+			<span @click="toggleSearch">Search Cards</span>
 		</div>
 		<board-search v-if="isSearch" :board="board" @filter="emitFilter" />
 		<hr />
@@ -28,7 +28,7 @@
 				v-for="activity in board.activities"
 				:key="activity.id"
 				:activity="activity"
-				@click="openCard"
+				@openCard="openCard"
 			/>
 		</div>
 	</section>
@@ -83,8 +83,14 @@ export default {
 			if (!confirm('Are you sure?')) return;
 			this.$emit('deleteBoard', this.board._id)
 		},
-		openCard() {
-
+		openCard(cardId) {
+			var cardIdx;
+			this.board.groups.forEach(group => {
+				cardIdx = group.cards.findIndex(currCard => currCard.id === cardId);
+				if (cardIdx !== -1) {
+					this.$router.push(`/board/${this.board._id}/card/${cardId}`)
+				}
+			})
 		},
 		emitFilter(filterBy) {
 			this.$emit('filter', filterBy)
