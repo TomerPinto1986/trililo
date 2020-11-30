@@ -70,8 +70,10 @@
         li {
             justify-content: space-between;
             align-items: center;
+            padding: 5px;
             &:hover {
-                background-color: #c1c7d0;
+                border-radius: 3px;
+                background-color: #c1c7d042;
             }
             .card-member {
                 cursor: pointer;
