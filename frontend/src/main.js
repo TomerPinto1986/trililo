@@ -10,6 +10,7 @@ import locale from 'element-ui/lib/locale/lang/en';
 import VueDragscroll from 'vue-dragscroll'
 import moment from 'moment';
 
+
 Vue.use(VueDragscroll)
 Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;
