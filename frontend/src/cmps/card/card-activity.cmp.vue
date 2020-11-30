@@ -93,7 +93,7 @@ export default {
     },
     created() {
         this.msg.from = this.miniUser;
-        socketService.setup();
+        // socketService.setup();
         socketService.emit('card-topic', this.card.id);
         // socketService.on('chat-history', (chat => this.chat = chat))
         socketService.on('activity-addMsg', this.addMsg);
@@ -101,7 +101,7 @@ export default {
     },
     destroyed() {
         socketService.off('activity-addMsg', this.addMsg)
-        socketService.terminate();
+        // socketService.terminate();
     },
     components: {
         activityPreview,
