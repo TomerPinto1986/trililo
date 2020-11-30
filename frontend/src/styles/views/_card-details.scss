@@ -18,7 +18,10 @@
 
     h3 {
         margin-inline-start: 2px;
+        margin-block-end: 4px;
         text-transform: uppercase;
+        letter-spacing: .48px;
+        line-height: 20px;
         font-size: 12px;
         color: #5e6c84;
         font-weight: 600;
@@ -40,8 +43,15 @@
         padding-block-end: 8px;
 
         .info {
-            margin-block-end: 8px;
+            margin-block-end: 16px;
+
+            .card-icon {
+                display: inline-block;
+                width: 40px;
+            }
+
             .title {
+                padding-inline-start: 0;
                 color: #172b4d;
                 font-size: 20px;
                 font-weight: 600;
@@ -52,42 +62,69 @@
                 font-size: 14px;
                 line-height: 20px;
                 color: #5e6c84;
+                margin-inline-start: 40px;
             }
+        }
+
+        .add-to-card {
+            margin-inline-start: 40px;
+
+            &>* {
+                margin-block-end: 15px;
+            }
+
+            &>*:not(:last-child) {
+                margin-inline-end: 15px;
+            }
+
+            .card-members {
+                text-transform: uppercase;
+
+                .add-member {
+                    cursor: pointer;
+
+                    span {
+                        font-size: 20px;
+                    }
+                }
+            }
+
+            .label-marks {
+                .label-container {
+                    font-weight: 500;
+                    color: white;
+
+                    .label {
+                        border-radius: 3px;
+                        margin: 0 2px;
+                        min-width: 40px;
+                        height: 40px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        line-height: 40px;
+                        padding: 0 12px;
+
+                        &.plus-btn {
+                            background-color: rgb(226, 228, 233);
+                            color: #5e6c84;
+                            font-size: 20px;
+                            font-family: Helvetica, Arial, sans-serif;
+                            font-weight: 400;
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+            }
+
+            // .due-date {}
         }
 
         .description {
             i {
                 margin-inline-end: 10px;
+
                 button {
                     margin-block-end: 5px;
-                }
-            }
-        }
-
-        .card-members {
-            text-transform: uppercase;
-
-            .add-member {
-                cursor: pointer;
-
-                span {
-                    font-size: 20px;
-                }
-            }
-        }
-
-        .label-marks {
-            .label-container {
-                font-weight: 500;
-                // margin: 2px 8px;
-                color: white;
-
-                .label {
-                    border-radius: 3px;
-                    margin: 2px;
-                    min-width: 40px;
-                    display: block;
-                    padding: 2px 4px;
                 }
             }
         }
@@ -105,10 +142,6 @@
         height: 80px;
         justify-content: flex-end;
         margin-block-end: 8px;
-    }
-
-    .add-to-card>*:not(:first-child) {
-        margin-block-end: 10px;
     }
 
     .due-date div:first-child {

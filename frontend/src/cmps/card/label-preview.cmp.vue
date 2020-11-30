@@ -12,6 +12,7 @@
                 ref="myInput"
                 v-model="titleToEdit"
                 @keyup.enter.stop="updateTitle"
+                @blur.stop="updateTitle"
             />
             <i :class="isSelect()"></i>
         </div>
