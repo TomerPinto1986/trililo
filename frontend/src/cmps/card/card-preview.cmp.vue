@@ -1,6 +1,6 @@
 <template>
     <section class="card-preview flex f-col">
-        <div v-if="card.cover" class="card-header" :style="headerStyle"></div>
+        <div v-if="card.style.headerColor" class="card-header" :style="headerStyle"></div>
         <div class="card-info flex f-col">
             <ul v-if="labelsSelected.length" class="label-marks flex wrap">
                 <li class="flex" v-for="label in labelsSelected" :key="label">
