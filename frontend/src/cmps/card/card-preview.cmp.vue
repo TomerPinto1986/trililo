@@ -2,7 +2,7 @@
 	<section class="card-preview flex f-col f-center">
 		<div v-if="card.cover" class="card-header" :style="headerStyle"></div>
 		<div class="card-info flex f-col">
-			<ul v-if="labelsSelected.length" class="label-marks flex">
+			<ul v-if="labelsSelected.length" class="label-marks flex wrap">
 				<li class="flex" v-for="label in labelsSelected" :key="label">
 					<div
 						class="label"
@@ -10,7 +10,7 @@
 					></div>
 				</li>
 			</ul>
-			{{ card.title }}
+			<span>{{ card.title }}</span>
 			<div class="attachment" v-if="card.attachments && card.attachments.length">
 				<img :src="`${card.attachments[0].src}`" />
 			</div>
