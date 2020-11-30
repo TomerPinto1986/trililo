@@ -338,7 +338,6 @@ export default {
             card.description = newDesc;
             this.updateCard(card);
         },
-        // for later on when we will make a pop up cmp
         emitMove() {
             this.currPopUp = 'move';
             this.isPopUp = true;
@@ -351,7 +350,8 @@ export default {
             card.dueDate = null;
             this.updateCard(card);
             this.card = card;
-            this.addActivity(`removed the due date from the card '${card.title}'`, card);
+            this.addActivity(`removed the due date from `, card);
+            // this.addActivity(`removed the due date from the card '${card.title}'`, card);
 
         },
         setNewDate(dueDate) {
@@ -363,7 +363,8 @@ export default {
             this.updateCard(updatedCard);
             this.card = updatedCard;
             this.closePopup();
-            this.addActivity(`added due date to the card '${updatedCard.title}'`, updatedCard);
+            this.addActivity(`added due date to `, updatedCard);
+            // this.addActivity(`added due date to the card '${updatedCard.title}'`, updatedCard);
 
 
         },
@@ -387,8 +388,8 @@ export default {
             this.$store.dispatch({ type: 'updateBoard', board });
             this.isPopUp = false;
             if (status.startGroup !== status.endGroup) {
-                const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
-                this.addActivity(`moved card '${this.card.title}' to '${groupTitle}'`, this.card);
+                // const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
+                // this.addActivity(`moved card '${this.card.title}' to '${groupTitle}'`, this.card);
             }
         },
         async onUpload(ev) {
@@ -434,8 +435,9 @@ export default {
                 card.members.splice(memberIdx, 1);
             }
             this.updateCard(card);
-            const action = (memberIdx === -1) ? 'added' : 'removed';
-            this.addActivity(`${action} ${newUser.username} to a card`, card, null, this.loggedinUser)
+            const action = (memberIdx === -1) ? `added ${newUser.username} to ` : `removed ${newUser.username} from`;
+            this.addActivity(action, card, null, this.loggedinUser)
+            // this.addActivity(`${action} ${newUser.username} to a card`, card, null, this.loggedinUser)
         },
         cardMembers() {
             if (!this.card.members) {
@@ -464,12 +466,10 @@ export default {
             activity.byMember = utilService.deepCopy(user);
             activity.createdAt = Date.now();
             if (card) {
-                const url = (this.$route.params.cardId) ? '' : `/card/${card.id}`;
                 console.log(card)
                 activity.card = {
                     id: card.id,
                     title: card.title,
-                    url
                 }
             }
             const board = this.board;

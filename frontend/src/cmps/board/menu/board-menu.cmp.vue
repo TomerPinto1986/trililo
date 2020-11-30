@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import activityPreview from '../activity-preview.cmp'
-import boardSearch from './board-search.cmp'
+import activityPreview from '../../activity-preview.cmp.vue'
+import boardSearch from '../board-search.cmp.vue'
 
 export default {
 	props: {
@@ -74,12 +74,12 @@ export default {
 				'rgb(202, 146, 71)'
 			],
 			srcs: [
-				require('../../assets/bgs/bg1.jpg'),
-				require('../../assets/bgs/bg2.jpg'),
-				require('../../assets/bgs/bg3.jpg'),
-				require('../../assets/bgs/bg4.jpg'),
-				require('../../assets/bgs/bg5.jpg'),
-				require('../../assets/bgs/bg6.jpg'),
+				require('../../../assets/bgs/bg1.jpg'),
+				require('../../../assets/bgs/bg2.jpg'),
+				require('../../../assets/bgs/bg3.jpg'),
+				require('../../../assets/bgs/bg4.jpg'),
+				require('../../../assets/bgs/bg5.jpg'),
+				require('../../../assets/bgs/bg6.jpg'),
 			]
 		}
 	},
