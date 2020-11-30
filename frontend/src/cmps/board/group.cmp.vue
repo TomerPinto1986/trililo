@@ -60,7 +60,6 @@ export default {
 			newCardTxt: '',
 			isEdit: false,
 			isDrag: false,
-			cards: [],
 		}
 	},
 	computed: {
@@ -68,13 +67,20 @@ export default {
 			return (this.group.cards.length) ? 'Add another card' : 'Add a card';
 		},
 		cardsToShow() {
-			if(!this.filterBy) return this.group.cards
-			console.log(this.filterBy)
+			if (!this.filterBy) return this.group.cards
+			console.log('filter', this.filterBy)
 			const cards = this.group.cards.filter(card => {
+<<<<<<< HEAD
 				console.log(card)
 				return card.title.toLowerCase().includes(this.filterBy.txt.toLowerCase())
+=======
+				if(!card.labels) card.labels = [];
+				if(!card.members) card.members = [];
+				return card.title.toLowerCase().includes(this.filterBy.txt.toLowerCase()) &&
+					(!this.filterBy.labelsIds.length || this.filterBy.labelsIds.some(id => card.labels.some(label => label.id === id))) &&
+					(!this.filterBy.membersIds.length || this.filterBy.membersIds.some(id => card.members.some(member => member._id === id))) 
+>>>>>>> 07863bac93b6f4cfd35b0104c710acb313c6a501
 			})
-			console.log(cards)
 			return cards
 		}
 	},
@@ -85,7 +91,6 @@ export default {
 		addCard() {
 			this.isAdding = true;
 			setTimeout(() => this.$refs['card-title'].focus(), 0);
-
 		},
 		saveCard() {
 			if (this.newCardTxt) this.$emit('newCard', this.newCardTxt, this.group.id)
@@ -105,8 +110,7 @@ export default {
 		},
 		update() {
 			this.emitChange();
-		},
-
+		}
 	},
 	components: {
 		cardPreview,
