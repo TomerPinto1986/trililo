@@ -1,6 +1,5 @@
 <template>
 	<section class="filter">
-		<hr>
 		<input type="text" v-model="filterBy.txt" placeholder="Search..." @input="debSearch"/>
 		<hr>
 		<div class="members">
