@@ -1,6 +1,6 @@
 <template>
 	<section class="main-header" :class="headerClass">
-		<div class="main-nav flex" v-if="!isHome">
+		<div class="main-nav flex " v-if="!isHome">
 			<router-link to="/" exact>Home</router-link>
 			<router-link to="/board" exact>Boards</router-link>
 		</div>

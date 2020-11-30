@@ -3,87 +3,124 @@
     width: 100vw;
     top: 50px;
     height: 50px;
-    box-shadow: 0 0 2px 0 black;
-    padding: 5px 10px;
+    padding: 0 20px;
     align-items: center;
     z-index: 1;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    font-size: 1rem;
 
     >* {
         color: #fefefe;
     }
 
-    .board-members {
-        align-items: center;
+    .header-container {
+        flex: 1;
 
-        &>* {
-            margin: 0 1px;
+        .title {
+            text-align: center;
+            color: inherit;
+            font-size: em(30, 16);
+            background-color: transparent;
+            border: none;
+            outline: none;
+            width: 150px;
+            padding: 2px 10px;
+            margin-inline-end: 10px;
+
+            &:hover,
+            &:focus {
+                background-color: white;
+                color: rgb(10, 10, 10)
+            }
+
         }
 
-        .add-users {
-            color: #000;
-            position: absolute;
-            background-color: whitesmoke;
-            top: 50px;
-            right: 150px;
-            padding: 15px;
+        .privacy {
+            width: 100px;
+            height: 100%;
+            
+            input {
+                line-height: 1.6;
+                height: unset;
+                text-align: center;
+                padding: 10px;
+                font-size: 1.5em;
+                color: #fefefe;
+                background-color: transparent;
+                border: none;
+                outline: none;
+            }
+
+            .el-input__suffix {
+                display: none;
+            }
+
         }
 
-        li {
-            justify-content: space-between;
+        .seperator {
+            float: left;
+            border-left: 1px solid rgba(255, 255, 255, 0.637);
+            // height: 16px;
+            margin: 8px 10px;
         }
 
-        .add-btn {
-            width: 35px;
-            height: 35px;
-            background-color: rgba(0, 0, 0, 0.4);
-            border-radius: 50%;
-        }
-    }
+        .board-members {
+            margin-inline-start: 25px;
+            align-items: center;
 
-    .board-user {
-        span {
-            cursor: pointer;
-        }
-    }
+            .member {
+                margin: -4px;
+                border-radius: 50%;
+                box-shadow: 0 0 2px 0.5px rgba(255, 255, 255, 0.6);
+                &:hover{
+                    z-index: 1;
+                }
+            }
 
-    input {
-        font-size: 1.6rem;
-        border: none;
-        outline: none;
-        background-color: transparent;
-        width: 100%;
-        text-align: center;
+            .add-users {
+                color: #000;
+                position: absolute;
+                background-color: whitesmoke;
+                top: 50px;
+                right: 150px;
+                padding: 15px;
+            }
 
-        &:focus:not(.el-input.is-focus) {
-            box-shadow: 0 1px 0 0 black;
-        }
-    }
+            li {
+                justify-content: space-between;
+            }
 
-    .privacy {
-        justify-self: center;
-    
-        input {
-            font-size: 1.5em;
-            color: #fefefe;
-        }
-
-        .el-input__suffix {
-            display: none;
+            .add-btn {
+                cursor: pointer;
+                margin: 10px;
+                width: 35px;
+                height: 35px;
+                background-color: hsla(0, 0%, 100%, .24);
+                border-radius: 50%;
+            }
         }
 
+        .board-user {
+            span {
+                cursor: pointer;
+            }
+        }
     }
 
     .menu-btn {
         width: fit-content;
+        line-height: 1.8;
         justify-self: flex-end;
-        background-color: rgba(0, 0, 0, 0.2);
-        padding: 10px 15px;
+        background-color: hsla(0, 0%, 100%, .24);
+        padding: 3px 10px;
         border-radius: 5px;
-    }
-}
+        margin: 0 5px;
+        font-size: rem(14px);
+        right: 0;
+        position: relative;
 
-.dropdown {
-    // left:440px!important;
+        &:hover {
+            background-color: hsla(0, 0%, 100%, .32);
+        }
+    }
 }
