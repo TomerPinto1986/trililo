@@ -1,4 +1,13 @@
-// .card-checklist {
-//     .checklist-title::before {
-//     }
-// }
+.card-checklist {
+    h2 {
+        margin-block-start: 10px;    
+    }
+
+    img {
+        width: 15px;
+        margin: 0 6px 0 10px;
+    }
+    // .checklist-title::before {
+
+    // }
+}
