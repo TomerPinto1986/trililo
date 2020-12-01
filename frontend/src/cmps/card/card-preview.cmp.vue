@@ -24,9 +24,9 @@
 		</div>
 		<div class="icons flex wrap">
 			<span class="small-icons">
-				<i v-if="card.dueDate" :style="dueDate" class="far fa-clock"> {{
-					moment(card.createdAt).format("MMM, Do")
-				}}</i>
+				<i v-if="card.dueDate" :style="dueDate" class="far fa-clock">
+					<span>{{moment(card.createdAt).format("MMM, Do")}}</span>
+				</i>
 				<i v-if="card.description" class="fas fa-align-left"></i>
 				<i v-if="card.checklist" class="fas fa-list"></i>
 				<i

@@ -1,5 +1,6 @@
 <template>
-    <section class="add-users">
+    <section class="add-users pop-up">
+        <div class="add-members">
         <h3>Users</h3> <button @click="onClose">x</button>
         <input type="text" placeholder="Serach members" @keyup="filter" v-model="userSearch">
         <ul>
@@ -8,6 +9,8 @@
                     <i class="fas fa-check" v-if="isUser(user._id)"></i>
             </li>
         </ul>
+            
+        </div>
     </section>
 </template>
 
