@@ -58,12 +58,10 @@ export default {
 	},
 	methods: {
 		toggleColor() {
-			console.log('ss')
 			this.isColor = true;
 			this.isBg = false;
 		},
 		togglePhoto() {
-			console.log('ss')
 			this.isPhoto = true;
 			this.isBg = false;
 		},
@@ -74,7 +72,6 @@ export default {
 			this.isBg = true;
 			this.isColor = false;
 			this.isPhoto = false;
-
 		}
 	}
 }
