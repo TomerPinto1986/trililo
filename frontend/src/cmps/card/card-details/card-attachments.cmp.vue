@@ -10,7 +10,7 @@
                 v-for="(attachment, idx) in attachmentsToShow"
                 :key="idx"
             >
-                <img :src="attachment.src" />
+                <img  :src="attachment.src" />
                 {{ attachment.name }}
                 <button @click="emitDelete(attachment.id)">Delete</button>
             </li>

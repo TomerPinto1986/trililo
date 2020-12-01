@@ -101,10 +101,12 @@
                         @updateDesc="updateDesc"
                     />
                 </div>
+                <img v-if="isLoading" class="loading-gif" src="../assets/animations/load.gif" alt="">
                 <div class="attachments-group flex">
                     <i class="fal fa-paperclip"></i>
                     <card-attachments
                         :attachments="attachments"
+                        :isLoading="isLoading"
                         @updateAttachments="updateAttachments"
                     />
                 </div>
