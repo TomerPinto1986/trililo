@@ -1,7 +1,5 @@
 .main-header {
-    position: fixed;
     width: 100vw;
-    top: 0;
     display: grid;
     padding: 0 20px;
 
@@ -30,14 +28,15 @@
             color: #fefefe;
         }
 
-        a, .logout{
-            background-color: rgba(0, 0, 0, 0.2);
+        a,
+        .logout {
+            background-color: hsla(0, 0%, 100%, .24);
             padding: 3px 10px;
             border-radius: 5px;
             cursor: pointer;
-            
-            &:hover{
-                background-color: rgba(0, 0, 0, 0.4);
+
+            &:hover {
+                background-color: hsla(0, 0%, 100%, .32);
             }
         }
     }
@@ -47,8 +46,8 @@
     }
 
     .main-nav {
-        &>* {
-            margin: 0 20px;
+        a{
+            margin: 0 5px;
         }
 
     }
@@ -63,7 +62,7 @@
         justify-content: flex-end;
 
         &>* {
-            margin: 0 20px;
+            margin: 0 5px;
         }
     }
 }

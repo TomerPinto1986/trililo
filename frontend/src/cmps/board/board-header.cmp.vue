@@ -1,44 +1,55 @@
 <template>
 	<section v-if="board" class="board-header flex">
-		<input
-			type="text"
-			@keyup.enter="emitTitleChange"
-			@blur="emitTitleChange"
-			v-model="boardTitle"
-			ref="myInput"
-		/>
-		<el-select
-			v-model="privacy"
-			class="privacy"
-			popper-class="dropdown"
-			@change="emitPrivacyChange"
-		>
-			<el-option
-				v-for="item in options"
-				:key="item.value"
-				:label="item.label"
-				:value="item.value"
-			>
-			</el-option>
-		</el-select>
-		<div class="board-members flex">
-			<div v-for="member in boardMembers" :key="member.id">
-				<avatar :size="35" :username="member.username"></avatar>
-			</div>
-			<span
-				class="add-btn flex f-center"
-				v-if="!isAddUsers"
-				@click="addUsers"
-			>
-				<i class="fas fa-user-plus"></i>
-			</span>
-			<add-users
-				v-if="isAddUsers"
-				:allUsers="users"
-				:boardUsers="this.board.members"
-				@closeUsers="closeUsers"
-				@updateUsers="updateUsers"
+		<div class="header-container flex">
+			<input
+				class="title"
+				type="text"
+				@keyup.enter="emitTitleChange"
+				@blur="emitTitleChange"
+				v-model="boardTitle"
+				ref="myInput"
 			/>
+						<span class="seperator"></span>
+
+			<el-select
+				v-model="privacy"
+				class="privacy flex f-center"
+				popper-class="dropdown"
+				@change="emitPrivacyChange"
+			>
+				<el-option
+					v-for="item in options"
+					:key="item.value"
+					:label="item.label"
+					:value="item.value"
+				>
+				</el-option>
+			</el-select>
+			<span class="seperator"></span>
+			<div class="board-members flex">
+				<div v-for="member in boardMembers" :key="member.id" class="member">
+					<avatar
+						:size="35"
+						:lighten="-90"
+						:customStyle="{ fontWeight: 'bold' }"
+						:username="member.username"
+					></avatar>
+				</div>
+				<span
+					class="add-btn flex f-center"
+					v-if="!isAddUsers"
+					@click="addUsers"
+				>
+					<i class="fas fa-user-plus"></i>
+				</span>
+				<add-users
+					v-if="isAddUsers"
+					:allUsers="users"
+					:boardUsers="this.board.members"
+					@closeUsers="closeUsers"
+					@updateUsers="updateUsers"
+				/>
+			</div>
 		</div>
 		<button class="menu-btn" @click="emitOpenMenu">Menu</button>
 	</section>
@@ -96,7 +107,7 @@ export default {
 		emitPrivacyChange() {
 			this.$emit('privacyChange', this.privacy)
 		},
-		emitDeleteBoard(boardId){
+		emitDeleteBoard(boardId) {
 			this.$emit('deleteBoard', boardId)
 		}
 	},
@@ -112,7 +123,7 @@ export default {
 		this.boardTitle = this.board.title;
 		this.privacy = (this.isPrivate);
 	},
-	destroyed(){
+	destroyed() {
 	},
 	components: {
 		avatar,

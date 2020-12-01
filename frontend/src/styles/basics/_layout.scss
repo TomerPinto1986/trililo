@@ -1,12 +1,14 @@
 .main-layout {
-    display: grid;
-    grid-template-columns: minmax(2rem, 1fr) minmax(auto, 1200px) minmax(2rem, 1fr);
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
 
-    >* {
-        grid-column: 2;
+    .main-content {
+        flex: 1;
     }
 
-    >.full {
-        grid-column: 1 / -1;
-    }
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
 }

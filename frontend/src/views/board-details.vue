@@ -1,11 +1,12 @@
 <template>
-	<section
+	<!-- <section
 		v-if="board"
 		class="board-details flex f-col"
 		v-dragscroll:firstchilddrag
 		:style="boardStyle"
-	>
-		<div class="screen" @click="goBack"></div>
+	> -->
+	<section v-if="board" class="board-details flex f-col">
+		<!-- <div class="screen" @click="goBack"></div> -->
 		<board-header
 			:board="board"
 			:users="users"
@@ -17,7 +18,7 @@
 			@privacyChange="changePrivacy"
 			@deleteBoard="deleteBoard"
 		/>
-		<div class="flex group-container">
+		<div class="flex group-container" v-dragscroll:firstchilddrag>
 			<draggable
 				v-dragscroll:nochilddrag
 				class="drag-area flex"
@@ -61,12 +62,13 @@
 				</form>
 			</div>
 		</div>
-		<card-details
-			v-if="isDetails"
-			@close="closeDetails"
-			@addCard="updateCard"
-			@deleteCard="deleteCard"
-		/>
+		<div class="window" v-if="isDetails" @click="closeDetails">
+			<card-details
+				@close="closeDetails"
+				@addCard="updateCard"
+				@deleteCard="deleteCard"
+			/>
+		</div>
 		<board-menu
 			v-if="isMenu"
 			:board="board"
@@ -83,15 +85,9 @@ import draggable from 'vuedraggable'
 import group from '../cmps/board/group.cmp';
 import boardHeader from '../cmps/board/board-header.cmp';
 import cardDetails from '@/views/card-details';
-import boardMenu from '../cmps/board/board-menu.cmp';
+import boardMenu from '../cmps/board/menu/board-menu.cmp';
 import { utilService } from '@/services/util.service';
 import { socketService } from '@/services/socket.service';
-import bg1 from '../assets/bgs/bg1.jpg';
-import bg2 from '../assets/bgs/bg2.jpg';
-import bg3 from '../assets/bgs/bg3.jpg';
-import bg4 from '../assets/bgs/bg4.jpg';
-import bg5 from '../assets/bgs/bg5.jpg';
-import bg6 from '../assets/bgs/bg6.jpg';
 
 export default {
 	data() {
@@ -100,7 +96,6 @@ export default {
 			isAddingGroup: false,
 			newGroupTitle: '',
 			isScroll: false,
-			bgSrcs: [bg1, bg2, bg3, bg4, bg5, bg6],
 			isMenu: false,
 			filterBy: null
 		}
@@ -109,14 +104,14 @@ export default {
 		toggleMenu() {
 			this.isMenu = !this.isMenu;
 		},
-		goBack() {
-			document.body.querySelector('.screen').style.display = 'none';
-			this.$router.go(-1)
-		},
+		// goBack() {
+		// 	document.body.querySelector('.screen').style.display = 'none';
+		// 	this.$router.go(-1)
+		// },
 		closeDetails() {
 			this.isDetails = false;
 			this.$router.push(`/board/${this.board._id}`)
-			document.body.querySelector('.screen').style.display = 'none';
+			// document.body.querySelector('.screen').style.display = 'none';
 		},
 		addCard(title, groupId) {
 			const newCard = this.getEmptyCard();
@@ -127,7 +122,8 @@ export default {
 			const group = this.board.groups.find(group => group.id === groupId);
 			group.cards.push(newCard);
 			this.updateBoard(board);
-			this.addActivity(` added the card '${newCard.title}'`, newCard)
+			this.addActivity(` added `, newCard)
+			// this.addActivity(` added the card '${newCard.title}'`, newCard)
 		},
 		updateCard(card) {
 			const board = this.board;
@@ -145,7 +141,7 @@ export default {
 				if (cardIdx !== -1) {
 					cardTitle = group.cards[cardIdx].title;
 					group.cards.splice(cardIdx, 1);
-					}
+				}
 			})
 			this.updateBoard(board);
 			this.addActivity(`deleted the card '${cardTitle}'`)
@@ -220,9 +216,9 @@ export default {
 			this.updateBoard(board);
 		},
 		changeBgc(bgc) {
+			this.$store.commit({ type: 'bgChange', bgc })
 			const board = utilService.deepCopy(this.board);
-			if (bgc.includes('rgb')) board.style.background = bgc;
-			else board.style.background = `url(${this.bgSrcs[+bgc]})`
+			board.style.background = bgc;
 			this.updateBoard(board);
 		},
 		changePrivacy(privacy) {
@@ -242,11 +238,9 @@ export default {
 			activity.txt = txt;
 			activity.byMember = utilService.deepCopy(this.$store.getters.loggedinUser);
 			activity.createdAt = Date.now();
-			const url = this.$route.path;
 			if (card) activity.card = {
 				id: card.id,
 				title: card.title,
-				url: url + `/card/${card.id}`
 			}
 			const board = this.board;
 			board.activities.unshift(activity);
@@ -264,7 +258,7 @@ export default {
 		board() {
 			if (this.$store.getters.currBoard) {
 				socketService.emit('board-topic', this.$store.getters.currBoard._id)
-				console.log(this.$store.getters.currBoard._id)}
+			}
 			return utilService.deepCopy(this.$store.getters.currBoard);
 		},
 		users() {

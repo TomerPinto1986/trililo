@@ -1,7 +1,9 @@
 <template>
-	<div id="app" :style="appStyle">
+	<div id="app" class="main-layout flex f-col" :style="appStyle">
 		<main-header :loggedinUserId="loggedinUser" @logout="logout" />
-		<router-view />
+		<div class="main-content flex f-col">
+			<router-view />
+		</div>
 	</div>
 </template>
 
@@ -17,7 +19,8 @@ export default {
 		appStyle() {
 			const page = this.$route.name;
 			const isHome = (page === 'home' || page === 'login' || page === 'signup');
-			return { 'padding-block-start': (isHome) ? '150px' : '0' };
+			return { 'background': (isHome) ? '#eeeeee' :  this.$store.getters.bgc };
+
 		}
 	},
 	methods: {
@@ -29,7 +32,7 @@ export default {
 		socketService.setup();
 		this.$store.dispatch('loadBoards');
 	},
-	destroyed(){
+	destroyed() {
 		socketService.terminate();
 	},
 	components: {

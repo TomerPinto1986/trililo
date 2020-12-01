@@ -1,5 +1,8 @@
 .board-list {
     padding: 100px 30px;
+    background-color: rgb(219, 219, 219);
+    height: 100vh;
+
     button {
         padding: 10px 15px;
     }
@@ -14,8 +17,8 @@
             background-color: transparent;
             box-shadow: 0 0 2px 0 white, inset 0 0 1px 0 white;
             color: white;
-            
-            &:hover{
+
+            &:hover {
                 box-shadow: 0 0 3px 0 white, inset 0 0 2px 0 white;
             }
         }

@@ -34,12 +34,12 @@
 				@click.native="openDetails(card.id)"
 			/>
 		</draggable>
-		<div class="add-card">
+		<div class="add-card flex" >
 			<form v-if="isAdding" @submit.prevent="saveCard">
-				<input ref="card-title" type="text" v-model="newCardTxt" />
+				<textarea ref="card-title" type="text" v-model="newCardTxt" placeholder="Enter a title for this card..." />
 				<button>Save</button>
 			</form>
-			<button v-if="!isAdding" @click="addCard">+ {{ addBtnTxt }}</button>
+			<button class="add-btn"  v-if="!isAdding" @click="addCard">{{ addBtnTxt }}</button>
 		</div>
 	</section>
 </template>
@@ -93,7 +93,7 @@ export default {
 			this.isAdding = false;
 		},
 		openDetails(cardId) {
-			document.body.querySelector('.screen').style.display = 'block';
+			// document.body.querySelector('.screen').style.display = 'block';
 			const boardId = this.$route.params.boardId
 			this.$router.push(`/board/${boardId}/card/${cardId}`)
 		},

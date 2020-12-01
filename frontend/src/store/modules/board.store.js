@@ -6,7 +6,9 @@ export default {
         boards: null,
         currBoard: null,
         emptyGroup: null,
-        emptyActivity: null
+        emptyActivity: null,
+        currCard: null,
+        emptyCard: null,
     },
     getters: {
         boards(state) {
@@ -20,6 +22,15 @@ export default {
         },
         emptyActivity(state) {
             return state.emptyActivity
+        },
+        currCard(state) {
+            return state.currCard;
+        },
+        emptyCard(state) {
+            return state.emptyCard;
+        },
+        activities(state) {
+            return state.currCard.activities;
         }
     },
     mutations: {
@@ -43,7 +54,35 @@ export default {
         setEmptyActivity(state) {
             const activity = utilService.deepCopy(boardService.emptyActivity());
             state.emptyActivity = activity;
-        }
+        },
+        setCurrCard(state, { cardId }) {
+            state.currBoard.groups.forEach(group => {
+                const card = group.cards.find(card => {
+                    console.log(card)
+                    return card.id === cardId
+                });
+                if (card) {
+                    state.currCard = card;
+                }
+            })
+        },
+        updateCurrCard(state, { card }) {
+            state.currCard = card;
+        },
+        setEmptyCard(state) {
+            const card = utilService.deepCopy(boardService.emptyCard());
+            state.emptyCard = card
+        },
+        updateCardStatus(state, { status }) {
+            if ((status.startGroup === status.endGroup && status.endPos === status.startPos) || (status.startGroup === status.endGroup && (!status.endPos && status.endPos !== 0))) return;
+            const board = state.currBoard;
+            const startGroupIdx = board.groups.findIndex(group => group.id === status.startGroup);
+            board.groups[startGroupIdx].cards.splice(status.startPos, 1);
+            const endGroupIdx = board.groups.findIndex(group => group.id === status.endGroup);
+            if (!status.endPos && status.endPos !== 0) {
+                board.groups[endGroupIdx].cards.push(state.currCard);
+            } else board.groups[endGroupIdx].cards.splice(status.endPos, 0, state.currCard);
+        },
     },
     actions: {
         async loadBoards({ commit }) {
@@ -55,6 +94,7 @@ export default {
             if (!boardId) board = null;
             else board = await boardService.getById(boardId)
             commit({ type: 'updateBoard', board })
+            commit('loadBgc')
         },
         async updateBoard({ commit }, { board }) {
             commit({ type: 'updateBoard', board })

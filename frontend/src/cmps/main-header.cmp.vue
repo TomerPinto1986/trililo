@@ -1,7 +1,7 @@
 <template>
 	<section class="main-header" :class="headerClass">
-		<div class="main-nav flex" v-if="!isHome">
-			<router-link to="/" exact>Home</router-link>
+		<div class="main-nav flex " v-if="!isHome">
+			<router-link to="/" exact><i class="fas fa-home"></i></router-link>
 			<router-link to="/board" exact>Boards</router-link>
 		</div>
 		<div class="logo flex">

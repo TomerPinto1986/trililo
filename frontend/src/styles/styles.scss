@@ -13,7 +13,8 @@
 @import 'views/card-details';
 @import 'views/board-list';
 @import 'views/board-details';
-@import 'views/_home-page';
+@import 'views/home-page';
+@import 'views/app';
 // COMPONENTS
 @import './cmps/pop-up';
 @import './cmps/main-header';
@@ -24,3 +25,4 @@
 @import 'cmps/board-preview';
 @import 'cmps/board-menu';
 @import 'cmps/card-checklist';
+@import './cmps/card-description';

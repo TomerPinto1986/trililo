@@ -5,7 +5,6 @@
 html {
     font-family: segoe, mont, Calibri, 'Trebuchet MS', sans-serif;
     line-height: 1.8;
-    overflow-y: hidden;
 }
 
 body {
@@ -48,7 +47,7 @@ ul {
 }
 
 button {
-    font-family: mont;
+    font-family: segoe;
     padding: 5px 10px;
     border: none;
     outline: none;

@@ -1,6 +1,7 @@
 <template>
     <section class="add-members" @click.stop>
         <h3>Members</h3>
+        <hr>
         <input
             type="text"
             placeholder="Serach members"
@@ -8,10 +9,11 @@
             v-model="memberSearch"
         />
         <ul>
+            <h2>board members</h2>
             <li v-for="user in membersToShow" class="flex" :key="user._id">
                 <span class="card-member flex" @click="toggleMember(user._id)">
                     <avatar :size="35" :username="user.username"></avatar>
-                    <span>
+                    <span class="username">
                         {{ user.username }}
                     </span>
                 </span>
