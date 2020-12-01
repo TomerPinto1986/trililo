@@ -4,11 +4,22 @@
         class="card-details flex f-col"
         @click.stop="closePopup"
     >
-        <div class="card-header flex" :style="headerStyle" v-if="card.style.headerColor"></div>
-        <div class="card-main-container">
-            <button class="cancel-btn" @click.stop="emitClose">
-                <i class="el-icon-close"></i>
-            </button>
+        <div
+            class="card-header"
+            :style="headerStyle"
+            v-if="card.style.headerColor"
+        ></div>
+        <button
+            class="cancel-btn flex f-center"
+            @click.stop="emitClose"
+            :class="{ cover: this.card.style.headerColor }"
+        >
+            <i class="el-icon-close"></i>
+        </button>
+        <div
+            class="card-main-container"
+            :class="{ cover: this.card.style.headerColor }"
+        >
             <!-- INFO -->
             <div class="card-info">
                 <div class="info">
@@ -183,6 +194,7 @@
                 <button
                     @click.stop="onAddMembers"
                     class="flex f-a-center content-after"
+                    title="Members"
                     data-txt="Members"
                 >
                     <i class="el-icon-user"></i>
@@ -190,6 +202,7 @@
                 <button
                     @click.stop="openLabels"
                     class="flex f-a-center content-after"
+                    title="Labels"
                     data-txt="Labels"
                 >
                     <i class="el-icon-collection-tag"></i>
@@ -197,6 +210,7 @@
                 <button
                     @click.stop="addChecklist"
                     class="flex f-a-center content-after"
+                    title="Checklist"
                     data-txt="Checklist"
                 >
                     <i class="el-icon-document-checked"></i>
@@ -204,6 +218,7 @@
                 <button>
                     <label
                         class="upload-btn flex f-a-center content-after"
+                        title="Attachment"
                         data-txt="Attachment"
                         for="uploader"
                     >
@@ -219,6 +234,7 @@
                 />
                 <button
                     class="cover-btn flex f-a-center content-after"
+                    title="Cover"
                     data-txt="Cover"
                     @click.stop="openCoverPicker"
                 >
@@ -236,6 +252,7 @@
                 <button
                     @click.stop="setDate"
                     class="flex f-a-center content-after"
+                    title="Set Date"
                     data-txt="Set Date"
                 >
                     <i class="fal fa-clock"></i>
@@ -244,6 +261,7 @@
                     @click.stop="removeDate"
                     v-if="card.dueDate"
                     class="remove-date flex f-a-center content-after"
+                    title="Remove Date"
                     data-txt="Remove Date"
                 >
                     <i class="fal fa-history"></i>
@@ -253,12 +271,14 @@
                 <button
                     @click="cloneCard"
                     class="flex f-a-center content-after"
+                    title="Clone"
                     data-txt="Clone"
                 >
                     <i class="fal fa-clone"></i>
                 </button>
                 <button
                     class="dlt-btn flex f-a-center content-after"
+                    title="Delete"
                     data-txt="Delete Card"
                     @click.stop="deleteCard"
                 >
@@ -266,6 +286,7 @@
                 </button>
                 <button
                     class="move-btn flex f-a-center content-after"
+                    title="Move"
                     data-txt="Move"
                     @click.stop="emitMove"
                 >
