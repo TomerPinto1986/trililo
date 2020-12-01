@@ -4,7 +4,7 @@
         class="card-details flex f-col"
         @click.stop="closePopup"
     >
-        <div class="card-header flex" :style="headerStyle"></div>
+        <div class="card-header flex" :style="headerStyle" v-if="card.style.headerColor"></div>
         <div class="card-main-container">
             <button class="cancel-btn" @click.stop="emitClose">
                 <i class="el-icon-close"></i>
