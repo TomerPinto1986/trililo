@@ -1,9 +1,14 @@
 <template>
-	<section
+	<!-- <section
 		v-if="board"
 		class="board-details flex f-col"
 		v-dragscroll:firstchilddrag
 		:style="boardStyle"
+	> -->
+	<section
+		v-if="board"
+		class="board-details flex f-col"
+		v-dragscroll:firstchilddrag
 	>
 		<div class="screen" @click="goBack"></div>
 		<board-header
@@ -61,12 +66,13 @@
 				</form>
 			</div>
 		</div>
-		<card-details
-			v-if="isDetails"
-			@close="closeDetails"
-			@addCard="updateCard"
-			@deleteCard="deleteCard"
-		/>
+		<div class="window" v-if="isDetails">
+			<card-details
+				@close="closeDetails"
+				@addCard="updateCard"
+				@deleteCard="deleteCard"
+			/>
+		</div>
 		<board-menu
 			v-if="isMenu"
 			:board="board"
@@ -86,12 +92,6 @@ import cardDetails from '@/views/card-details';
 import boardMenu from '../cmps/board/menu/board-menu.cmp';
 import { utilService } from '@/services/util.service';
 import { socketService } from '@/services/socket.service';
-import bg1 from '../assets/bgs/bg1.jpg';
-import bg2 from '../assets/bgs/bg2.jpg';
-import bg3 from '../assets/bgs/bg3.jpg';
-import bg4 from '../assets/bgs/bg4.jpg';
-import bg5 from '../assets/bgs/bg5.jpg';
-import bg6 from '../assets/bgs/bg6.jpg';
 
 export default {
 	data() {
@@ -100,7 +100,6 @@ export default {
 			isAddingGroup: false,
 			newGroupTitle: '',
 			isScroll: false,
-			bgSrcs: [bg1, bg2, bg3, bg4, bg5, bg6],
 			isMenu: false,
 			filterBy: null
 		}
@@ -146,7 +145,7 @@ export default {
 				if (cardIdx !== -1) {
 					cardTitle = group.cards[cardIdx].title;
 					group.cards.splice(cardIdx, 1);
-					}
+				}
 			})
 			this.updateBoard(board);
 			this.addActivity(`deleted the card '${cardTitle}'`)
@@ -221,9 +220,9 @@ export default {
 			this.updateBoard(board);
 		},
 		changeBgc(bgc) {
+			this.$store.commit({ type: 'bgChange', bgc })
 			const board = utilService.deepCopy(this.board);
-			if (bgc.includes('rgb')) board.style.background = bgc;
-			else board.style.background = `url(${this.bgSrcs[+bgc]})`
+			board.style.background = bgc;
 			this.updateBoard(board);
 		},
 		changePrivacy(privacy) {
@@ -263,7 +262,8 @@ export default {
 		board() {
 			if (this.$store.getters.currBoard) {
 				socketService.emit('board-topic', this.$store.getters.currBoard._id)
-				console.log(this.$store.getters.currBoard._id)}
+				console.log(this.$store.getters.currBoard._id)
+			}
 			return utilService.deepCopy(this.$store.getters.currBoard);
 		},
 		users() {
