@@ -53,17 +53,13 @@
                                     :username="member.username"
                                     :src="member.imgUrl"
                                 />
-                                
                             </span>
-                            <span @click.stop="onAddMembers">
-                                <custom-avatar
-                                    class="add-member avatar"
-                                    :size="34"
-                                    :username="'+'"
-                                    background-color="#E2E4E9"
-                                    color="rgb(94, 108, 132)"
-                                />
-                            </span>
+                            <button
+                                class="plus-btn member flex f-center"
+                                @click.stop="onAddMembers"
+                            >
+                                +
+                            </button>
                         </div>
                     </div>
                     <div class="label-marks f-col" v-if="labelsSelected.length">
@@ -78,7 +74,7 @@
                                 {{ label.title }}
                             </div>
                             <button
-                                class="label plus-btn flex f-center"
+                                class="plus-btn flex f-center"
                                 @click.stop="openLabels"
                             >
                                 +

@@ -8,6 +8,8 @@
     background-color: #F4F5F7;
     border-radius: 3px;
     margin-block-end: 20px;
+    transition: width .8s;
+    border-radius: 0;
 
     h2 {
         color: #172b4d;
@@ -41,6 +43,7 @@
         top: 10px;
         width: 40px;
         height: 40px;
+        z-index: 1;
 
         &.cover {
             background-color: rgba(9, 30, 66, .1);
@@ -127,15 +130,26 @@
                             line-height: 40px;
                             padding: 0 12px;
 
-                            &.plus-btn {
-                                background-color: rgb(226, 228, 233);
-                                color: #5e6c84;
-                                font-size: 20px;
-                                font-family: segoe;
-                                font-weight: 400;
-                                text-transform: uppercase;
-                            }
                         }
+
+                    }
+                }
+
+                .plus-btn {
+                    font-size: 20px;
+                    font-family: segoe;
+                    font-weight: 400;
+                    color: #172b4d;
+                    background-color: #e2e4e9;
+                    width: 40px;
+                    height: 32px;
+                    line-height: 40px;
+                    padding: 0 0 4px;
+
+                    &.member {
+                        border-radius: 50%;
+                        width: 32px;
+                        line-height: 32px;
                     }
                 }
 
@@ -300,6 +314,13 @@
     }
 }
 
+@media (max-width: 910px) {
+    .card-details {
+        width: 90%;
+        right: 5%;
+    }
+}
+
 @media (max-width: 720px) {
 
     .card-details {
@@ -318,11 +339,11 @@
                 top: 10px;
             }
         }
-        
+
         .card-main-container {
             height: calc(100vh - 40px);
             padding-block-start: 30px;
-            
+
             &.cover {
                 height: calc(100vh - 120px);
                 padding-block-start: 0;
