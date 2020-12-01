@@ -1,6 +1,5 @@
 import userStore from './modules/user.store';
 import boardStore from './modules/board.store';
-import cardStore from './modules/card.store';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import bg1 from '../assets/bgs/bg1.jpg';
@@ -47,6 +46,5 @@ export default new Vuex.Store({
     modules: {
         boardStore,
         userStore,
-        cardStore
     }
 })
