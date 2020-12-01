@@ -162,7 +162,7 @@
                         @moveCard="moveCard"
                     />
                     <add-members
-                        v-if="isCmpOpen('isAddMembers')"
+                        v-if="isCmpOpen('member')"
                         :cardMembers="cardMembers()"
                         :boardMembers="boardMembers"
                         @updateMembers="updateMembers"
