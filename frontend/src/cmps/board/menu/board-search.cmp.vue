@@ -38,11 +38,12 @@
 					:key="member._id"
 					@click="setFilter('member', member._id)"
 				>
-					<avatar
+					<custom-avatar
 						class="item"
 						:size="30"
 						:username="member.username"
-					></avatar>
+						:src="member.imgUrl"
+					></custom-avatar>
 
 					<div class="member">
 						{{ member.username }}
@@ -59,7 +60,8 @@
 
 <script>
 import { utilService } from '../../../services/util.service';
-import avatar from 'vue-avatar';
+import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
+
 
 export default {
 	props: {
@@ -110,7 +112,7 @@ export default {
 		}
 	},
 	components: {
-		avatar
+		customAvatar
 	}
 }
 </script>

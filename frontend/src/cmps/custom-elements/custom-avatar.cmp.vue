@@ -1,0 +1,63 @@
+<template>
+	<section class="custom-avatar flex f-center" :style="avatarStyle">
+		{{ initials }}
+	</section>
+</template>
+
+<script>
+export default {
+	props: {
+		size: Number,
+		username: String,
+		src: String
+	},
+	data() {
+		return {
+			letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+			colors: ['#81171b','#6a040f', '#1d3557', '#1b4332', '#3a0ca3','#3c096c', '#00509d', '#945D5E', '#3a5a40', '#945D5E'],
+			initials: '',
+			avatarColors: {},
+			isSingleLetter: false,
+			user: ''
+		}
+	},
+	computed: {
+		srcToDisplay() {
+			return (this.src) ? this.src : null;
+		},
+		avatarStyle() {
+            const initials = (this.isSingleLetter) ? this.user[0].charAt(0) + 'A' : this.initials;
+            var bgc;
+            if(this.src) bgc = this.src;
+			else bgc = this.avatarColors[initials]
+			return { background: bgc, width: this.size + 'px', height: this.size + 'px' }
+		}
+	},
+	methods: {
+		setInitials(username, initials) {
+			console.log(username);
+			this.initials = initials;
+		}
+	},
+	created() {
+		const user = this.username.toUpperCase().split(' ');
+		this.user = user;
+		var userInitials
+		if (user.length === 1) {
+			userInitials = user[0].charAt(0);
+			this.isSingleLetter = true;
+		} else userInitials = user[0].charAt(0) + user[1].charAt(0);
+		this.initials = userInitials;
+		var idx = 0;
+		this.letters.forEach(letter1 => {
+			this.letters.forEach(letter2 => {
+				if (idx === 10) idx = 0;
+				const initials = letter1 + letter2;
+				const color = this.colors[idx++];
+				this.avatarColors[initials] = color;
+			})
+		})
+	}
+}
+</script>
+

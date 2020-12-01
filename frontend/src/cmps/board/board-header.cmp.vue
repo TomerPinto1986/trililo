@@ -2,7 +2,11 @@
 	<section v-if="board" class="board-header flex">
 		<div class="header-container flex">
 			<input
-				v-autowidth="{maxWidth: '960px', minWidth: '20px', comfortZone: 0}"
+				v-autowidth="{
+					maxWidth: '960px',
+					minWidth: '20px',
+					comfortZone: 0,
+				}"
 				class="title"
 				type="text"
 				maxlength="10"
@@ -11,7 +15,7 @@
 				v-model="boardTitle"
 				ref="myInput"
 			/>
-						<span class="seperator"></span>
+			<span class="seperator"></span>
 
 			<el-select
 				v-model="privacy"
@@ -29,13 +33,16 @@
 			</el-select>
 			<span class="seperator"></span>
 			<div class="board-members flex">
-				<div v-for="member in boardMembers" :key="member.id" class="member">
-					<avatar
+				<div
+					v-for="member in boardMembers"
+					:key="member.id"
+					class="member"
+				>
+					<custom-avatar
 						:size="35"
-						:lighten="-90"
-						:customStyle="{ fontWeight: 'bold' }"
 						:username="member.username"
-					></avatar>
+						:src="member.imgUrl"
+					/>
 				</div>
 				<span
 					class="add-btn flex f-center"
@@ -59,7 +66,7 @@
 
 <script>
 import addUsers from './add-users.cmp';
-import avatar from 'vue-avatar';
+import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 
 
 export default {
@@ -128,7 +135,7 @@ export default {
 	destroyed() {
 	},
 	components: {
-		avatar,
+		customAvatar,
 		addUsers,
 	}
 }

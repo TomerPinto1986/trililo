@@ -1,7 +1,7 @@
 <template>
 	<section class="activity-preview flex f-col">
 		<div class="avatar">
-			<avatar class="avater" :size="30" :username="username"></avatar>
+			<custom-avatar :size="30" :username="username" :src="activity.byMember.imgUrl" />
 		</div>
 		<div class="desc">
 			<template v-if="activity.txt">
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import avatar from 'vue-avatar';
+import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 
 export default {
 
@@ -40,16 +40,19 @@ export default {
 		},
 		time() {
 			return this.activity.createdAt
-		},
-
+		}
 	},
 	methods: {
 		emitOpenCard() {
 			this.$emit('openCard', this.activity.card.id)
+		},
+		print(a,b){
+			console.log(a,b)
 		}
 	},
 	components: {
-		avatar
+		// avatar,
+		customAvatar
 	},
 };
 </script>
