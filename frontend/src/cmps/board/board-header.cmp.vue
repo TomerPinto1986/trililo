@@ -1,25 +1,25 @@
 <template>
-	<section v-if="board" class="board-header flex">
-		<div class="header-container flex">
+	<section v-if="board" class="board-header">
+		<div class="header-container">
 			<input
 				v-autowidth="{
 					maxWidth: '960px',
 					minWidth: '20px',
-					comfortZone: 0,
+					comfortZone: 30,
 				}"
-				class="title"
+				class="title float"
 				type="text"
-				maxlength="10"
+				maxlength="20"
 				@keyup.enter="emitTitleChange"
 				@blur="emitTitleChange"
 				v-model="boardTitle"
 				ref="myInput"
 			/>
-			<span class="seperator"></span>
+			<span class="seperator float"></span>
 
 			<el-select
 				v-model="privacy"
-				class="privacy flex f-center"
+				class="privacy float"
 				popper-class="dropdown"
 				@change="emitPrivacyChange"
 			>
@@ -31,12 +31,12 @@
 				>
 				</el-option>
 			</el-select>
-			<span class="seperator"></span>
-			<div class="board-members flex">
+			<span class="seperator float"></span>
+			<div class="board-members float">
 				<div
 					v-for="member in boardMembers"
 					:key="member.id"
-					class="member"
+					class="member float"
 				>
 					<custom-avatar
 						:size="35"
@@ -45,11 +45,11 @@
 					/>
 				</div>
 				<span
-					class="add-btn flex f-center"
+					class="add-btn float"
 					v-if="!isAddUsers"
 					@click="addUsers"
 				>
-					<i class="fas fa-user-plus"></i>
+					Invite
 				</span>
 				<add-users
 					v-if="isAddUsers"
@@ -60,7 +60,9 @@
 				/>
 			</div>
 		</div>
-		<button class="menu-btn" @click="emitOpenMenu">Menu</button>
+		<button class="menu-btn float-r" @click="emitOpenMenu">
+			Show Menu
+		</button>
 	</section>
 </template>
 
