@@ -22,7 +22,13 @@
     }
 
     .window {
-        width: 100vw;
-        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        top: 0;
+        z-index: 3;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow-y: auto;
     }
 }

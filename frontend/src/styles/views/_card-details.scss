@@ -2,11 +2,12 @@
     z-index: 3;
     position: absolute;
     width: 800px;
-    height: calc(100vh - 100px);
+    min-height: calc(100vh - 100px);
     top: 50px;
     right: calc(50% - 400px);
     background-color: #F4F5F7;
     border-radius: 10px;
+    margin-block-end: 20px;
 
     h2 {
         color: #172b4d;

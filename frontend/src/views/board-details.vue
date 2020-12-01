@@ -5,12 +5,8 @@
 		v-dragscroll:firstchilddrag
 		:style="boardStyle"
 	> -->
-	<section
-		v-if="board"
-		class="board-details flex f-col"
-		v-dragscroll:firstchilddrag
-	>
-		<div class="screen" @click="goBack"></div>
+	<section v-if="board" class="board-details flex f-col">
+		<!-- <div class="screen" @click="goBack"></div> -->
 		<board-header
 			:board="board"
 			:users="users"
@@ -22,7 +18,7 @@
 			@privacyChange="changePrivacy"
 			@deleteBoard="deleteBoard"
 		/>
-		<div class="flex group-container">
+		<div class="flex group-container" v-dragscroll:firstchilddrag>
 			<draggable
 				v-dragscroll:nochilddrag
 				class="drag-area flex"
@@ -66,7 +62,7 @@
 				</form>
 			</div>
 		</div>
-		<div class="window" v-if="isDetails">
+		<div class="window" v-if="isDetails" @click="closeDetails">
 			<card-details
 				@close="closeDetails"
 				@addCard="updateCard"
@@ -108,14 +104,14 @@ export default {
 		toggleMenu() {
 			this.isMenu = !this.isMenu;
 		},
-		goBack() {
-			document.body.querySelector('.screen').style.display = 'none';
-			this.$router.go(-1)
-		},
+		// goBack() {
+		// 	document.body.querySelector('.screen').style.display = 'none';
+		// 	this.$router.go(-1)
+		// },
 		closeDetails() {
 			this.isDetails = false;
 			this.$router.push(`/board/${this.board._id}`)
-			document.body.querySelector('.screen').style.display = 'none';
+			// document.body.querySelector('.screen').style.display = 'none';
 		},
 		addCard(title, groupId) {
 			const newCard = this.getEmptyCard();
