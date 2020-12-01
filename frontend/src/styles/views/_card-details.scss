@@ -65,7 +65,6 @@
             }
             .card-members {
                 text-transform: uppercase;
-
                 .avatar {
                     border: 2px solid #F4F5F7;
                 }
@@ -118,20 +117,19 @@
                 }
             }
         }
-
-        .description, .attachments-group, .checklist, .activity {
+        .description,
+        .attachments-group,
+        .checklist,
+        .activity {
             margin-block-start: 20px;
-
             i {
                 display: inline-block;
                 width: 40px;
             }
         }
-
         .attachments {
             word-wrap: break-word;
             width: 100%;
-    
             .attachment-card {
                 img {
                     width: 120px;
@@ -216,6 +214,7 @@
         opacity: 0;
     }
     .card-activity {
+        width: 100%;
         activities {
             align-items: baseline;
         }
