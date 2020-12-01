@@ -34,12 +34,29 @@
 				@click.native="openDetails(card.id)"
 			/>
 		</draggable>
-		<div class="add-card flex" >
-			<form v-if="isAdding" @submit.prevent="saveCard">
-				<textarea ref="card-title" type="text" v-model="newCardTxt" placeholder="Enter a title for this card..." />
-				<button>Save</button>
-			</form>
-			<button class="add-btn"  v-if="!isAdding" @click="addCard">{{ addBtnTxt }}</button>
+
+		<div class="add-card-container">
+			<template v-if="isAdding">
+				<!-- add closing when pressing outside of textarea -->
+				<textarea
+					@keyup.enter="saveCard"
+					ref="card-title"
+					class="list-card-composer-textarea js-card-title"
+					placeholder="Enter a title for this card…"
+					maxlength="120"
+					v-model="newCardTxt"
+				></textarea>
+				<div class="add-card-btns flex">
+					<button @click="saveCard" class="add-btn">Add Card</button>
+					<i
+						@click="closeCardAdd"
+						class="el-icon-close close-btn"
+					></i>
+				</div>
+			</template>
+			<div v-else @click="addCard" class="open-add-btn">
+				<i class="el-icon-plus"></i> <span>{{ addBtnTxt }}</span>
+			</div>
 		</div>
 	</section>
 </template>
@@ -52,7 +69,8 @@ export default {
 	props: {
 		group: Object,
 		labels: Array,
-		filterBy: Object
+		filterBy: Object,
+		isCloseAdd: Boolean
 	},
 	data() {
 		return {
@@ -70,11 +88,11 @@ export default {
 			if (!this.filterBy) return this.group.cards
 			console.log('filter', this.filterBy)
 			const cards = this.group.cards.filter(card => {
-				if(!card.labels) card.labels = [];
-				if(!card.members) card.members = [];
+				if (!card.labels) card.labels = [];
+				if (!card.members) card.members = [];
 				return card.title.toLowerCase().includes(this.filterBy.txt.toLowerCase()) &&
 					(!this.filterBy.labelsIds.length || this.filterBy.labelsIds.every(id => card.labels.some(label => label.id === id))) &&
-					(!this.filterBy.membersIds.length || this.filterBy.membersIds.every(id => card.members.some(member => member._id === id))) 
+					(!this.filterBy.membersIds.length || this.filterBy.membersIds.every(id => card.members.some(member => member._id === id)))
 			})
 			return cards
 		}
@@ -88,8 +106,13 @@ export default {
 			setTimeout(() => this.$refs['card-title'].focus(), 0);
 		},
 		saveCard() {
-			if (this.newCardTxt) this.$emit('newCard', this.newCardTxt, this.group.id)
+			if (this.newCardTxt) this.$emit('newCard', this.newCardTxt, this.group.id);
+			console.log(this.$refs, ',');
 			this.newCardTxt = ''
+			this.$refs['card-title'].focus()
+			// setTimeout(() => this.$refs['card-title'].focus(), 100);
+		},
+		closeCardAdd() {
 			this.isAdding = false;
 		},
 		openDetails(cardId) {

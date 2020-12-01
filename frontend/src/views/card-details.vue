@@ -4,11 +4,11 @@
         class="card-details flex f-col"
         @click.stop="closePopup"
     >
-        <div class="card-header flex" :style="headerStyle"></div>
-        <button class="cancel-btn" @click.stop="emitClose">
-            <i class="el-icon-close"></i>
-        </button>
+        <div class="card-header flex" :style="headerStyle" v-if="card.style.headerColor"></div>
         <div class="card-main-container">
+            <button class="cancel-btn" @click.stop="emitClose">
+                <i class="el-icon-close"></i>
+            </button>
             <!-- INFO -->
             <div class="card-info">
                 <div class="info">
@@ -179,20 +179,35 @@
             </div>
             <!-- ACTIONS -->
             <div class="actions flex f-col">
-                <h3>Add to card</h3>
-                <button @click.stop="onAddMembers" class="flex f-center">
-                    <i class="el-icon-user"></i>Members
+                <h3 class="add-to-card-title">Add to card</h3>
+                <button
+                    @click.stop="onAddMembers"
+                    class="flex f-a-center content-after"
+                    data-txt="Members"
+                >
+                    <i class="el-icon-user"></i>
                 </button>
-                <button @click.stop="openLabels" class="flex f-center">
-                    <i class="el-icon-collection-tag"></i>Labels
+                <button
+                    @click.stop="openLabels"
+                    class="flex f-a-center content-after"
+                    data-txt="Labels"
+                >
+                    <i class="el-icon-collection-tag"></i>
                 </button>
-                <button @click.stop="addChecklist" class="flex f-center">
-                    <i class="el-icon-document-checked"></i>Checklist
+                <button
+                    @click.stop="addChecklist"
+                    class="flex f-a-center content-after"
+                    data-txt="Checklist"
+                >
+                    <i class="el-icon-document-checked"></i>
                 </button>
                 <button>
-                    <label class="upload-btn flex f-center" for="uploader">
+                    <label
+                        class="upload-btn flex f-a-center content-after"
+                        data-txt="Attachment"
+                        for="uploader"
+                    >
                         <i class="fal fa-paperclip"></i>
-                        Attachment
                     </label>
                 </button>
                 <input
@@ -203,11 +218,11 @@
                     @change="onUpload"
                 />
                 <button
-                    class="cover-btn flex f-center"
+                    class="cover-btn flex f-a-center content-after"
+                    data-txt="Cover"
                     @click.stop="openCoverPicker"
                 >
                     <i class="fal fa-window-maximize"></i>
-                    Cover
                     <el-color-picker
                         popper-class="color-dropdown"
                         ref="color-picker"
@@ -217,29 +232,44 @@
                         @change="updateCover"
                     ></el-color-picker>
                 </button>
-                <div>
-                    <button @click.stop="setDate" class="flex f-center">
-                        <i class="fal fa-clock"></i>Set Date
-                    </button>
-                    <button
-                        @click.stop="removeDate"
-                        v-if="card.dueDate"
-                        class="flex f-center"
-                    >
-                        <i class="fal fa-history"></i>
-                        Remove Date
-                    </button>
-                </div>
-                <h3>Actions</h3>
-                <button @click="cloneCard" class="flex f-center">
-                    <i class="fal fa-clone"></i>Clone
+                <!-- <div> -->
+                <button
+                    @click.stop="setDate"
+                    class="flex f-a-center content-after"
+                    data-txt="Set Date"
+                >
+                    <i class="fal fa-clock"></i>
                 </button>
-                <button class="dlt-btn flex f-center" @click.stop="deleteCard">
+                <button
+                    @click.stop="removeDate"
+                    v-if="card.dueDate"
+                    class="remove-date flex f-a-center content-after"
+                    data-txt="Remove Date"
+                >
+                    <i class="fal fa-history"></i>
+                </button>
+                <!-- </div> -->
+                <h3 class="actions-title">Actions</h3>
+                <button
+                    @click="cloneCard"
+                    class="flex f-a-center content-after"
+                    data-txt="Clone"
+                >
+                    <i class="fal fa-clone"></i>
+                </button>
+                <button
+                    class="dlt-btn flex f-a-center content-after"
+                    data-txt="Delete Card"
+                    @click.stop="deleteCard"
+                >
                     <i class="fal fa-trash-alt"></i>
-                    Delete Card
                 </button>
-                <button class="move-btn flex f-center" @click.stop="emitMove">
-                    <i class="fal fa-arrow-right"></i>Move
+                <button
+                    class="move-btn flex f-a-center content-after"
+                    data-txt="Move"
+                    @click.stop="emitMove"
+                >
+                    <i class="fal fa-arrow-right"></i>
                 </button>
             </div>
         </div>
