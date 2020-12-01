@@ -45,21 +45,26 @@
 				/>
 			</draggable>
 
-			<div class="add-group group flex f-center" @click="addGroup">
-				<span v-if="!isAddingGroup">+ Add another list</span>
-				<form v-else @submit.prevent="newGroup">
+			<div class="add-group-container group">
+				<div class="title-area" v-if="isAddingGroup">
 					<input
+						@keyup.enter="newGroup"
+						ref="group-title"
+						placeholder="Enter list title..."
 						type="text"
 						v-model="newGroupTitle"
-						placeholder="Enter list title"
+						maxlength="80"
 					/>
-					<div class="new-group-btns">
-						<button>Save</button>
-						<button type="button" @click.stop="closeAddGroup">
-							Cancel
+					<div class="add-group-btns flex">
+						<button @click="newGroup" class="add-btn">
+							Add Card
 						</button>
+						<i class="el-icon-close close-btn" @click="closeAddGroup"></i>
 					</div>
-				</form>
+				</div>
+				<div v-else class="open-add-btn" @click.stop="addGroup">
+					<i class="el-icon-plus"></i> <span>Add another list</span>
+				</div>
 			</div>
 		</div>
 		<div class="window" v-if="isDetails" @click="closeDetails">
@@ -97,7 +102,7 @@ export default {
 			newGroupTitle: '',
 			isScroll: false,
 			isMenu: false,
-			filterBy: null
+			filterBy: null,
 		}
 	},
 	computed: {
@@ -178,9 +183,13 @@ export default {
 			const board = this.board;
 			board.groups.push(newGroup);
 			this.updateBoard(board);
-			this.closeAddGroup();
+			// this.closeAddGroup();
 			this.addActivity('added a group')
 
+		},
+		addGroup() {
+			this.isAddingGroup = true;
+			this.$refs['group-title']
 		},
 		getEmptyCard() { //maybe get from service direct
 			this.$store.commit('setEmptyCard');
@@ -189,9 +198,6 @@ export default {
 		getEmptyGroup() {
 			this.$store.commit('setEmptyGroup');
 			return this.$store.getters.emptyGroup;
-		},
-		addGroup() {
-			this.isAddingGroup = true;
 		},
 		closeAddGroup() {
 			this.isAddingGroup = false;
