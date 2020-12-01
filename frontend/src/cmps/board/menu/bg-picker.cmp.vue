@@ -53,6 +53,10 @@ export default {
 				require('../../../assets/bgs/bg4.jpg'),
 				require('../../../assets/bgs/bg5.jpg'),
 				require('../../../assets/bgs/bg6.jpg'),
+				require('../../../assets/bgs/bg7.jpg'),
+				require('../../../assets/bgs/bg8.jpg'),
+				require('../../../assets/bgs/bg9.jpg'),
+				require('../../../assets/bgs/bg10.jpg'),
 			]
 		}
 	},

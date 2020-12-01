@@ -93,7 +93,7 @@ export default {
 			this.isAdding = false;
 		},
 		openDetails(cardId) {
-			document.body.querySelector('.screen').style.display = 'block';
+			// document.body.querySelector('.screen').style.display = 'block';
 			const boardId = this.$route.params.boardId
 			this.$router.push(`/board/${boardId}/card/${cardId}`)
 		},
