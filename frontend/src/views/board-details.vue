@@ -100,18 +100,30 @@ export default {
 			filterBy: null
 		}
 	},
+	computed: {
+		board() {
+			if (this.$store.getters.currBoard) {
+				socketService.emit('board-topic', this.$store.getters.currBoard._id)
+			}
+			return utilService.deepCopy(this.$store.getters.currBoard);
+		},
+		users() {
+			return this.$store.getters.users;
+		},
+		user() {
+			return this.$store.getters.loggedinUser;
+		},
+		boardStyle() {
+			return { 'background': `${this.board.style.background}` }
+		}
+	},
 	methods: {
 		toggleMenu() {
 			this.isMenu = !this.isMenu;
 		},
-		// goBack() {
-		// 	document.body.querySelector('.screen').style.display = 'none';
-		// 	this.$router.go(-1)
-		// },
 		closeDetails() {
 			this.isDetails = false;
 			this.$router.push(`/board/${this.board._id}`)
-			// document.body.querySelector('.screen').style.display = 'none';
 		},
 		addCard(title, groupId) {
 			const newCard = this.getEmptyCard();
@@ -123,7 +135,6 @@ export default {
 			group.cards.push(newCard);
 			this.updateBoard(board);
 			this.addActivity(` added `, newCard)
-			// this.addActivity(` added the card '${newCard.title}'`, newCard)
 		},
 		updateCard(card) {
 			const board = this.board;
@@ -254,24 +265,7 @@ export default {
 			this.$store.dispatch({ type: 'updateBoard', board });
 		}
 	},
-	computed: {
-		board() {
-			if (this.$store.getters.currBoard) {
-				socketService.emit('board-topic', this.$store.getters.currBoard._id)
-				console.log(this.$store.getters.currBoard._id)
-			}
-			return utilService.deepCopy(this.$store.getters.currBoard);
-		},
-		users() {
-			return this.$store.getters.users;
-		},
-		user() {
-			return this.$store.getters.loggedinUser;
-		},
-		boardStyle() {
-			return { 'background': `${this.board.style.background}` }
-		}
-	},
+
 	watch: {
 		'$route.params'() {
 			if (this.$route.params.cardId) {
@@ -299,7 +293,7 @@ export default {
 		socketService.on('boardUpdate', this.updateBoardSocket)
 	},
 	destroyed() {
-		socketService.off('boardUpdate', this.updateBoard)
+		socketService.off('boardUpdate', this.updateBoardSocket)
 		this.$store.dispatch({ type: 'loadBoard', boardId: null });
 	},
 	components: {
