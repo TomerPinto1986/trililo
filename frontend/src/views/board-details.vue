@@ -258,7 +258,6 @@ export default {
 		board() {
 			if (this.$store.getters.currBoard) {
 				socketService.emit('board-topic', this.$store.getters.currBoard._id)
-				console.log(this.$store.getters.currBoard._id)
 			}
 			return utilService.deepCopy(this.$store.getters.currBoard);
 		},
