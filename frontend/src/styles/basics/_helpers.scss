@@ -146,3 +146,19 @@
     left: 6px;
     top: 3px;
 }
+
+.custom-avatar{
+    border-radius: 50%!important;
+    color: #fefefe;
+    font-size: 1em;
+}
+
+// .avatar {
+//     @each $let in $letters {
+//         @each $let in $letters {
+//             &-#{$let}#{$let} {
+//                 background-color: #{$color} !important;
+//             }
+//         }
+//     }
+// }

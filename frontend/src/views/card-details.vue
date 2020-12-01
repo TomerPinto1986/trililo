@@ -47,21 +47,22 @@
                                 v-for="member in card.members"
                                 :key="member._id"
                             >
-                                <avatar
+                                <custom-avatar
                                     class="avatar"
                                     :size="34"
                                     :username="member.username"
-                                >
-                                </avatar>
+                                    :src="member.imgUrl"
+                                />
+                                
                             </span>
                             <span @click.stop="onAddMembers">
-                                <avatar
+                                <custom-avatar
                                     class="add-member avatar"
                                     :size="34"
                                     :username="'+'"
                                     background-color="#E2E4E9"
                                     color="rgb(94, 108, 132)"
-                                ></avatar>
+                                />
                             </span>
                         </div>
                     </div>
@@ -302,7 +303,7 @@ import { utilService } from '@/services/util.service';
 import { uploadImg } from '@/services/img-upload.service';
 import { socketService } from '@/services/socket.service'
 import checkBox from '../cmps/custom-elements/check-box.cmp';
-import avatar from 'vue-avatar';
+import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 import datePicker from '@/cmps/custom-elements/date-picker.cmp';
 import addMembers from '@/cmps/custom-elements/add-members.cmp';
 import popUp from '../cmps/card/card-details/pop-up.cmp';
@@ -434,6 +435,7 @@ export default {
             this.currPopUp = '';
         },
         emitClose() {
+            console.log('close');
             this.$emit('close');
         },
         cloneCard() {
@@ -605,7 +607,7 @@ export default {
         cardAttachments,
         cardCover,
         cardLabels,
-        avatar,
+        customAvatar,
         popUp,
         checkBox,
         addChecklist,

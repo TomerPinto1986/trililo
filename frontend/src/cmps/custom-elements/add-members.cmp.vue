@@ -12,7 +12,7 @@
             <h2>board members</h2>
             <li v-for="user in membersToShow" class="flex" :key="user._id">
                 <span class="card-member flex" @click="toggleMember(user._id)">
-                    <avatar :size="35" :username="user.username"></avatar>
+                    <custom-avatar :size="35" :username="user.username" :src="user.imgUrl"/>
                     <span class="username">
                         {{ user.username }}
                     </span>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import avatar from 'vue-avatar';
+import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 export default {
     props: {
         boardMembers: Array,
@@ -53,7 +53,7 @@ export default {
         }
     },
     components: {
-        avatar
+        customAvatar
     }
 }
 </script>

@@ -2,7 +2,11 @@
 	<section v-if="board" class="board-header">
 		<div class="header-container">
 			<input
-				v-autowidth="{maxWidth: '960px', minWidth: '20px', comfortZone: 30}"
+				v-autowidth="{
+					maxWidth: '960px',
+					minWidth: '20px',
+					comfortZone: 30,
+				}"
 				class="title float"
 				type="text"
 				maxlength="20"
@@ -11,7 +15,7 @@
 				v-model="boardTitle"
 				ref="myInput"
 			/>
-						<span class="seperator float"></span>
+			<span class="seperator float"></span>
 
 			<el-select
 				v-model="privacy"
@@ -29,20 +33,23 @@
 			</el-select>
 			<span class="seperator float"></span>
 			<div class="board-members float">
-				<div v-for="member in boardMembers" :key="member.id" class="member float">
-					<avatar
+				<div
+					v-for="member in boardMembers"
+					:key="member.id"
+					class="member float"
+				>
+					<custom-avatar
 						:size="35"
-						:lighten="-90"
-						:customStyle="{ fontWeight: 'bold' }"
 						:username="member.username"
-					></avatar>
+						:src="member.imgUrl"
+					/>
 				</div>
 				<span
 					class="add-btn float"
 					v-if="!isAddUsers"
 					@click="addUsers"
 				>
-				Invite
+					Invite
 				</span>
 				<add-users
 					v-if="isAddUsers"
@@ -53,13 +60,15 @@
 				/>
 			</div>
 		</div>
-		<button class="menu-btn float-r" @click="emitOpenMenu">Show Menu</button>
+		<button class="menu-btn float-r" @click="emitOpenMenu">
+			Show Menu
+		</button>
 	</section>
 </template>
 
 <script>
 import addUsers from './add-users.cmp';
-import avatar from 'vue-avatar';
+import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 
 
 export default {
@@ -128,7 +137,7 @@ export default {
 	destroyed() {
 	},
 	components: {
-		avatar,
+		customAvatar,
 		addUsers,
 	}
 }

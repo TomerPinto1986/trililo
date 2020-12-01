@@ -18,7 +18,7 @@ function getGuest() {
         username: 'Guest' + utilService.getRandomInt(1, 1000),
         email: 'guest@guesti.com',
         password: 'guest',
-        imgUrl: '@/assets/imgs/guest.png'
+        imgUrl: ''
     };
 }
 

@@ -4,7 +4,7 @@
         <button v-if="!isAllActivities" @click="toggleShowDetails">Show Details</button>
         <button v-else @click="toggleShowDetails">Hide Details</button>
         <div class="activities flex">
-            <avatar :size="35" :username="user.username"></avatar>
+            <custom-avatar :size="35" :username="user.username" :src="user.imgUrl" />
             <input
                 type="text"
                 placeholder="Write a comment..."
@@ -13,7 +13,7 @@
             />
             <button @click="sendMsg">Send</button>
         </div>
-        <span v-if="userTyping"><avatar :size="35" :username="userTyping"></avatar> Adding a comment</span>
+        <span v-if="userTyping"><custom-avatar :size="35" :username="userTyping" :src="user.imgUrl" /> Adding a comment</span>
         <template v-if="activitiesToShow && activitiesToShow.length">
             <activity-preview
                 v-for="activity in activitiesToShow"
@@ -26,7 +26,7 @@
 
 <script>
 import activityPreview from '../../activity-preview.cmp';
-import avatar from 'vue-avatar';
+import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 import { socketService } from '../../../services/socket.service';
 
 export default {
@@ -105,7 +105,7 @@ export default {
     },
     components: {
         activityPreview,
-        avatar
+        customAvatar
     }
 };
 </script>
