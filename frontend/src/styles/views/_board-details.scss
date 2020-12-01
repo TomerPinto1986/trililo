@@ -7,6 +7,7 @@
         padding-block-start: 5px;
         flex: 1;
         overflow-x: auto;
+        // scroll-behavior: smooth;
     }
 
     .add-group {
@@ -112,13 +113,17 @@
             position: relative;
             text-align: start;
             color: #5e6c84;
-            
+
             &:hover {
                 color: #fefefe;
                 background-color: rgba(0, 0, 0, .25);
             }
         }
 
-
+    }
+    .spacer{
+        width: 3px;
+        height: 10px;
+        opacity: 0;
     }
 }

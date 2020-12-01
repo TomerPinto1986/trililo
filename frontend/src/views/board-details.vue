@@ -1,10 +1,4 @@
 <template>
-	<!-- <section
-		v-if="board"
-		class="board-details flex f-col"
-		v-dragscroll:firstchilddrag
-		:style="boardStyle"
-	> -->
 	<section v-if="board" class="board-details flex f-col">
 		<!-- <div class="screen" @click="goBack"></div> -->
 		<board-header
@@ -59,13 +53,17 @@
 						<button @click="newGroup" class="add-btn">
 							Add Card
 						</button>
-						<i class="el-icon-close close-btn" @click="closeAddGroup"></i>
+						<i
+							class="el-icon-close close-btn"
+							@click="closeAddGroup"
+						></i>
 					</div>
 				</div>
 				<div v-else class="open-add-btn" @click.stop="addGroup">
 					<i class="el-icon-plus"></i> <span>Add another list</span>
 				</div>
 			</div>
+			<div class="spacer">x</div>
 		</div>
 		<div class="window" v-if="isDetails" @click="closeDetails">
 			<card-details
@@ -183,13 +181,17 @@ export default {
 			const board = this.board;
 			board.groups.push(newGroup);
 			this.updateBoard(board);
-			// this.closeAddGroup();
+			this.newGroupTitle = '';
+			setTimeout(() => {
+				this.$refs['group-title'].focus();
+				this.$refs['group-title'].scrollIntoView();
+			}, 10);
 			this.addActivity('added a group')
 
 		},
 		addGroup() {
 			this.isAddingGroup = true;
-			this.$refs['group-title']
+			setTimeout(() => { this.$refs['group-title'].focus() }, 10);
 		},
 		getEmptyCard() { //maybe get from service direct
 			this.$store.commit('setEmptyCard');
