@@ -55,6 +55,7 @@ export default {
             if (!boardId) board = null;
             else board = await boardService.getById(boardId)
             commit({ type: 'updateBoard', board })
+            this.commit('loadBgc')
         },
         async updateBoard({ commit }, { board }) {
             commit({ type: 'updateBoard', board })

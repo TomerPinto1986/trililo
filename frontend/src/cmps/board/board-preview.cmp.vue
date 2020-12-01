@@ -9,11 +9,12 @@
 <script>
 export default {
     props: {
-        boardDetails: Object
+        boardDetails: Object,
+        boardBg: String
     },
     computed: {
         boardStyle() {
-            return { 'background': this.boardDetails.style.background };
+            return { 'background': this.boardBg };
         }
     },
     methods: {

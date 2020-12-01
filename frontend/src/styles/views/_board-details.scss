@@ -1,12 +1,11 @@
 .board-details {
-    background-position: center!important;
-    background-repeat: no-repeat!important;
-    background-size: cover!important;
-    background: url('../assets/bgs/bg4.jpg');
+    overflow: hidden;
+    height: 100%;
 
-    padding: 100px 0 0;
-    overflow-y: hidden;
-    height: 100vh;
+    .group-container {
+        flex: 1;
+        overflow-x: auto;
+    }
 
     .add-group {
         height: fit-content;
@@ -22,5 +21,8 @@
         box-shadow: none;
     }
 
-    
+    .window {
+        width: 100vw;
+        height: 100vh;
+    }
 }
