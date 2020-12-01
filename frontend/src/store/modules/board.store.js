@@ -58,7 +58,6 @@ export default {
         setCurrCard(state, { cardId }) {
             state.currBoard.groups.forEach(group => {
                 const card = group.cards.find(card => {
-                    console.log(card)
                     return card.id === cardId
                 });
                 if (card) {

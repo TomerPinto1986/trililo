@@ -9,7 +9,8 @@
 				<i class="el-icon-close"></i>
 			</button>
 		</div>
-		<div class="card-main-container flex">
+		<div class="card-main-container">
+            <!-- INFO -->
 			<div class="card-info">
 				<div class="info">
 					<span class="card-icon">
@@ -177,20 +178,20 @@
 					/>
 				</pop-up>
 			</div>
-			<!-- BUTTONS -->
+			<!-- ACTIONS -->
 			<div class="actions flex f-col">
 				<h3>Add to card</h3>
-				<button @click.stop="onAddMembers">
+				<button @click.stop="onAddMembers" class="flex f-center">
 					<i class="el-icon-user"></i>Members
 				</button>
-				<button @click.stop="openLabels">
+				<button @click.stop="openLabels" class="flex f-center">
 					<i class="el-icon-collection-tag"></i>Labels
 				</button>
-				<button @click.stop="addChecklist">
+				<button @click.stop="addChecklist" class="flex f-center">
 					<i class="el-icon-document-checked"></i>Checklist
 				</button>
 				<button>
-					<label class="upload-btn" for="uploader">
+					<label class="upload-btn flex f-center" for="uploader">
 						<i class="fal fa-paperclip"></i>
 						Attachment
 					</label>
@@ -202,7 +203,7 @@
 					id="uploader"
 					@change="onUpload"
 				/>
-				<button class="cover-btn" @click.stop="openCoverPicker">
+				<button class="cover-btn flex f-center" @click.stop="openCoverPicker">
 					<i class="fal fa-window-maximize"></i>
 					Cover
 					<el-color-picker
@@ -215,23 +216,23 @@
 					></el-color-picker>
 				</button>
 				<div>
-					<button @click.stop="setDate">
+					<button @click.stop="setDate" class="flex f-center">
 						<i class="fal fa-clock"></i>Set Date
 					</button>
-					<button @click.stop="removeDate" v-if="card.dueDate">
+					<button @click.stop="removeDate" v-if="card.dueDate" class="flex f-center">
 						<i class="fal fa-history"></i>
 						Remove Date
 					</button>
 				</div>
 				<h3>Actions</h3>
-				<button @click="cloneCard">
+				<button @click="cloneCard" class="flex f-center">
 					<i class="fal fa-clone"></i>Clone
 				</button>
-				<button class="dlt-btn" @click.stop="deleteCard">
+				<button class="dlt-btn flex f-center" @click.stop="deleteCard">
 					<i class="fal fa-trash-alt"></i>
 					Delete Card
 				</button>
-				<button class="move-btn" @click.stop="emitMove">
+				<button class="move-btn flex f-center" @click.stop="emitMove">
 					<i class="fal fa-arrow-right"></i>Move
 				</button>
 			</div>
