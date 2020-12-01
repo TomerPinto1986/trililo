@@ -300,7 +300,7 @@
             
             height: calc(100vh - 90px);
             margin: 20px;
-            grid-template-rows: auto 180px;
+            grid-template-rows: auto auto;
             grid-template-columns: auto;
             
             .cancel-btn {
@@ -326,8 +326,7 @@
                 grid-template-rows: repeat(5, 1fr);
                 grid-template-columns: repeat(4, 1fr);
                 gap: 8px;
-                margin: 10px 0;
-                margin-block-start: 0;
+                margin-block-start: 30px;
                 width: 100%;
 
                 .add-to-card-title {
