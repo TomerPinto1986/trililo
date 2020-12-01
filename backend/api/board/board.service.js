@@ -67,10 +67,10 @@ module.exports = {
 // private functions
 
 function _buildCriteria(filterBy) {
-    const criteria = {};
-    if(filterBy.id === 'guest') criteria.isPrivate = false;
-    else{
-        criteria["members._id"] = { $regex: filterBy.id, $options: "$i" };
+    var criteria = {};
+    if (filterBy.id === 'guest') criteria.isPrivate = false;
+    else {
+        criteria = { $or: [{ "members._id": { $regex: filterBy.id } }, { "isPrivate": false }] }
     }
     return criteria;
 }

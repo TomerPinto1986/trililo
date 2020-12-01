@@ -27,6 +27,10 @@ function connectSockets(io) {
         socket.on('updateBoard', board => {
             socket.to(socket.boardTopic).broadcast.emit('boardUpdate', board);
         })
+        socket.on('updateCard', card => {
+            console.log(card)
+            socket.to(socket.boardTopic).broadcast.emit('cardUpdate', card);
+        })
     });
 }
 
