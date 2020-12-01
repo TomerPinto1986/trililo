@@ -2,8 +2,10 @@
 	<section v-if="board" class="board-header flex">
 		<div class="header-container flex">
 			<input
+				v-autowidth="{maxWidth: '960px', minWidth: '20px', comfortZone: 0}"
 				class="title"
 				type="text"
+				maxlength="10"
 				@keyup.enter="emitTitleChange"
 				@blur="emitTitleChange"
 				v-model="boardTitle"
@@ -109,7 +111,7 @@ export default {
 		},
 		emitDeleteBoard(boardId) {
 			this.$emit('deleteBoard', boardId)
-		}
+		},
 	},
 	computed: {
 		boardMembers() {

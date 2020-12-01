@@ -16,7 +16,7 @@
         <main class="main-container flex f-col">
             <article class="home-page-card flex">
                 <div>
-                    <img src="@/assets/animations/home-page2.gif" alt="" />
+                    <img src="@/assets/imgs/home-page1.jpg" alt="" />
                 </div>
                 <div class="flex f-col f-center">
                     <h2>some meaningful words</h2>
@@ -46,7 +46,7 @@
             </article>
             <article class="home-page-card flex">
                 <div>
-                    <img src="@/assets/animations/home-page2.gif" alt="" />
+                    <img src="@/assets/imgs/home-page2.jpg" alt="" />
                 </div>
                 <div class="flex f-col f-center">
                     <h2>some meaningful words</h2>

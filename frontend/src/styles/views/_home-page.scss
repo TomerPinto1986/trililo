@@ -1,4 +1,5 @@
 .home-page {
+    background-color: white;
     .boards-btn {
         font-size: 1.8rem;
         padding: 0.4em 3.5em;
@@ -30,6 +31,7 @@
             text-transform: uppercase;
             font-size: em(30px);
             margin-block-end: 20px;
+            align-self: flex-start;
         }
         p {
             font-size: em(18px);
@@ -39,12 +41,13 @@
             &:first-child {
                 margin-block-start: 180px;
             }
-            article {
-                &:nth-child(even) {
-                    padding-inline-start: 20px;
-                }
-                &:nth-child(odd) {
+            div {
+                &:first-child {
                     padding-inline-end: 20px;
+                    max-width: 420px;
+                }
+                &:last-child {
+                    padding-inline-start: 20px;
                 }
             }
         }
