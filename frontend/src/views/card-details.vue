@@ -434,6 +434,7 @@ export default {
             this.currPopUp = '';
         },
         emitClose() {
+            console.log('close');
             this.$emit('close');
         },
         cloneCard() {
