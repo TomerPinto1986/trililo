@@ -52,7 +52,9 @@ export default {
     computed: {
         percent() {
             const doneCount = this.checklist.items.reduce((acc, item) => acc += item.isDone ? 1 : 0, 0);
-            return Math.trunc(doneCount / this.checklist.items.length * 100) + '%';
+            let percent = Math.trunc(doneCount / this.checklist.items.length * 100);
+            if (isNaN(percent)) percent = 0;
+            return percent + '%';
         }
     },
     methods: {

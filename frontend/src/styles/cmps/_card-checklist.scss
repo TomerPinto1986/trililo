@@ -37,6 +37,7 @@
         height: 10px;
         background: #5ba4cf;
         border-radius: 10px;
+        // transition: width .8s cubic-bezier(.5, 0, .35, 1.35), background-color .8s;
     }
 
     .m-btns {
@@ -54,18 +55,32 @@
         button {
             text-align: end;
             background-color: transparent;
+
+            &.delete-item {
+                i {
+                    width: fit-content;
+                }
+            }
         }
 
-        .checkbox {
-            margin-inline-end: 5px;
-        }
+        .item-edit {
+            width: calc(100% - 32px);
 
-        span {
-            display: inline-block;
-            color: rgb(94, 108, 132);
+            .checkbox {
+                margin-inline-end: 5px;
+            }
 
-            &.done {
-                text-decoration: line-through;
+            .clickable {
+                display: inline-block;
+                width: calc(100% - 23px);
+
+                span {
+                    color: rgb(94, 108, 132);
+
+                    &.done {
+                        text-decoration: line-through;
+                    }
+                }
             }
         }
     }

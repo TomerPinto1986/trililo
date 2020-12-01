@@ -1,27 +1,26 @@
 <template>
-    <section class="item-preview flex f-s-between" @click.stop="focusInput">
+    <section class="item-preview flex f-s-between">
         <div class="item-edit">
             <el-checkbox
                 class="checkbox"
                 v-model="isDoneToEdit"
-                @click.stop="toggleIsDone"
+                @change="toggleIsDone"
             ></el-checkbox>
-            <span
-                v-if="!isEdit"
-                @click.stop="focusInput"
-                :class="{ done: item.isDone }"
-                >{{ item.txt }}</span
-            >
-            <input
-                v-else
-                type="text"
-                ref="myInput"
-                v-model="txtToEdit"
-                @keyup.enter.stop="updateItem"
-                @blur="updateItem"
-            />
+            <div class="clickable" @click.stop="focusInput">
+                <span v-if="!isEdit" :class="{ done: item.isDone }">{{
+                    item.txt
+                }}</span>
+                <input
+                    v-else
+                    type="text"
+                    ref="myInput"
+                    v-model="txtToEdit"
+                    @keyup.enter.stop="updateItem"
+                    @blur="updateItem"
+                />
+            </div>
         </div>
-        <button @click.stop="removeItem">
+        <button @click.stop="removeItem" class="delete-item">
             <i class="fal fa-trash-alt"></i>
         </button>
     </section>
