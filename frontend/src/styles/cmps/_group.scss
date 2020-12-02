@@ -29,6 +29,12 @@
         width: 100%;
         font-size: 0.975em;
 
+        .menu-btn {
+            font-size: 0.7em;
+            letter-spacing: 1;
+            color: #6b778c;
+        }
+
         input {
             width: 85%;
             outline: none;
@@ -88,13 +94,12 @@
             resize: none;
             outline: none;
             border: none;
-            width: 290px;
+            width: 280px;
             height: 70px;
             position: relative;
             background-color: #fff;
             box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
             border-radius: 3px;
-            padding: 10px;
             font-family: segoe;
             font-size: em(14px);
             padding: 6px 8px 2px;
