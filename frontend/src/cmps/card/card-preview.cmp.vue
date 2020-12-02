@@ -27,19 +27,15 @@
                 <i v-if="card.dueDate" :style="dueDate" class="far fa-clock">
                     <span> {{ moment(card.dueDate).format("MMM Do") }}</span>
                 </i>
-                <i v-if="card.description" class="fas fa-align-left"></i>
+                
+                <i v-if="card.description" class="description-icon" ><img src="@/assets/svg/desc.svg" /></i>
                 <i v-if="card.checklist" class="fas fa-list"></i>
                 <i
                     v-if="card.attachments && card.attachments.length"
                     class="fas fa-paperclip"
                 ></i>
+                <i v-if="commentsLen" class="fal fa-comment">{{ commentsLen }}</i>
             </span>
-            <!-- Need to design -->
-            <span v-if="commentsLen">
-                <i class="fal fa-comment"></i>
-                {{ commentsLen }}
-            </span>
-            <!--  -->
             <span class="members-container flex" v-if="card.members && card.members.length">
                 <div
                     class="card-members"
@@ -72,9 +68,8 @@ export default {
     },
     computed: {
         dueDate() {
-            if (this.card.dueDate - Date.now() < 24 * 60 * 60 * 1000) return { color: '#fff', backgroundColor: 'rgba(255, 0, 0, 0.664)' }
-            if (this.card.dueDate - Date.now() < 7 * 24 * 60 * 60 * 1000) return { color: '#121212', backgroundColor: 'rgba(255, 255, 0, 0.616)' }
-            else return { color: '#fff', backgroundColor: 'rgba(0, 128, 0, 0.664)' }
+            if (this.card.dueDate - Date.now() <24 * 60 * 60 * 1000) return { color: '#121212', backgroundColor: '#ec9488' }
+            else return { color: '#fff', backgroundColor: '#61bd4f' }
         },
         headerStyle() {
             return { background: this.card.style.headerColor }
@@ -86,7 +81,8 @@ export default {
             return selctLabels.map(label => label.color);
         },
         commentsLen() {
-            return this.activities.filter(activity => activity.comment && activity.card.id === this.card.id).length;
+            if (!this.activities.filter(activity => activity.comment && activity.card.id === this.card.id).length) return
+            return ' ' + this.activities.filter(activity => activity.comment && activity.card.id === this.card.id).length;
         }
     },
     methods: {
