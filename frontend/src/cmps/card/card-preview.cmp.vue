@@ -14,7 +14,7 @@
 					></div>
 				</li>
 			</ul>
-			<span>{{ card.title }}</span>
+			<span class="description" >{{ card.title }}</span>
 			<div
 				class="attachment"
 				v-if="card.attachments && card.attachments.length"
@@ -34,9 +34,9 @@
 					class="fas fa-paperclip"
 				></i>
 			</span>
-			<span class="flex" v-if="card.members && card.members.length">
+			<span class="members-container flex" v-if="card.members && card.members.length">
 				<div
-					class="card-membes"
+					class="card-members"
 					v-for="member in card.members"
 					:key="member._id"
 				>

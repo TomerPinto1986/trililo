@@ -8,7 +8,11 @@
 				@change="emitChange"
 			/>
 			<button @click="toggleMenu">...</button>
-			<group-menu v-if="isMenu" @closeMenu="toggleMenu" @deleteGroup="emitDelete(group.id)"></group-menu>
+			<group-menu
+				v-if="isMenu"
+				@closeMenu="toggleMenu"
+				@deleteGroup="emitDelete(group.id)"
+			></group-menu>
 			<!-- <div v-if="isMenu" class="group-edit flex f-col">
 				<button @click="emitDelete(group.id)">Delete Group</button>
 			</div> -->
@@ -40,6 +44,7 @@
 			<template v-if="isAdding">
 				<!-- add closing when pressing outside of textarea -->
 				<textarea
+					@keydown.enter.prevent
 					@keyup.enter="saveCard"
 					ref="card-title"
 					class="list-card-composer-textarea js-card-title"
@@ -108,17 +113,15 @@ export default {
 			setTimeout(() => this.$refs['card-title'].focus(), 0);
 		},
 		saveCard() {
-			if (this.newCardTxt) this.$emit('newCard', this.newCardTxt, this.group.id);
-			console.log(this.$refs, ',');
+			if (!this.newCardTxt) return;
+			this.$emit('newCard', this.newCardTxt, this.group.id);
 			this.newCardTxt = ''
 			this.$refs['card-title'].focus()
-			// setTimeout(() => this.$refs['card-title'].focus(), 100);
 		},
 		closeCardAdd() {
 			this.isAdding = false;
 		},
 		openDetails(cardId) {
-			// document.body.querySelector('.screen').style.display = 'block';
 			const boardId = this.$route.params.boardId
 			this.$router.push(`/board/${boardId}/card/${cardId}`)
 		},

@@ -2,7 +2,6 @@
     position: relative;
     width: 310px;
     min-width: 310px;
-    margin: 0px 4px;
     height: fit-content;
     max-height: 750px;
     align-items: center;
@@ -10,6 +9,8 @@
     background-color: #EBECF0;
     border-radius: 3px;
     white-space: normal;
+    margin-inline-end: 8px;
+
 
     &:first-child {
         margin-inline-start: 8px;
@@ -154,8 +155,8 @@
         box-shadow: 0 8px 16px -4px rgba(9, 30, 66, .25), 0 0 0 1px rgba(9, 30, 66, .08);
         overflow: hidden;
         position: absolute;
-        width: 304px;
-        top: 40px;
+        width: 290px;
+        top: 50px;
         right: -120px;
         z-index: 70;
         font-family: segoe;

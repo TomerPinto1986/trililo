@@ -51,7 +51,7 @@ export default {
 		var idx = 0;
 		this.letters.forEach(letter1 => {
 			this.letters.forEach(letter2 => {
-				if (idx === 10) idx = 0;
+				if (idx === this.colors.length) idx = 0;
 				const initials = letter1 + letter2;
 				const color = this.colors[idx++];
 				this.avatarColors[initials] = color;

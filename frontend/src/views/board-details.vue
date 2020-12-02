@@ -42,6 +42,7 @@
 			<div class="add-group-container group">
 				<div class="title-area" v-if="isAddingGroup">
 					<input
+						@keydown.enter.prevent
 						@keyup.enter="newGroup"
 						ref="group-title"
 						placeholder="Enter list title..."
@@ -176,6 +177,7 @@ export default {
 
 		},
 		newGroup() {
+			if (!this.newGroupTitle) return;
 			const newGroup = this.getEmptyGroup();
 			newGroup.title = this.newGroupTitle;
 			const board = this.board;
