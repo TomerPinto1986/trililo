@@ -168,44 +168,10 @@
 
     .activity {
         overflow-y: auto;
-        margin-bottom: 50px;
+        margin-block-end: 50px;
+        padding-inline-end: 5px;
+
     }
-
-    .activity-preview {
-        font-size: em(14, 16);
-        position: relative;
-        margin-left: 40px;
-        padding: 8px 0;
-        line-height: 20px;
-
-        .desc {
-            position: relative;
-
-            .user {
-                font-weight: 600;
-            }
-
-            .card {
-                text-decoration: underline;
-                cursor: pointer;
-            }
-
-        }
-
-        .avatar {
-            height: 32px;
-            left: -40px;
-            position: absolute;
-            top: 8px;
-            width: 32px;
-        }
-
-        .time {
-            font-size: em(12, 14);
-            color: #55637d;
-        }
-    }
-
 
     .bg-picker {
         .select-container {

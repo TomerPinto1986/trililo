@@ -1,18 +1,13 @@
 // COLOR PALETTE
-
 $clr1: #53a5ca;
 $clr2: #2883A7;
 $clr3: #001832;
 $clr4: #fefefe;
 $clr5: #003452;
-
 // LAYOUT BREAKPOINTS
-
 $break-narrow: 500px;
 $break-normal: 700px;
 $break-wide: 960px;
-
-
 $bgcs: rgb(46, 121, 186),
 rgb(72, 171, 200),
 rgb(106, 188, 114),
@@ -21,41 +16,9 @@ rgb(132, 99, 154),
 rgb(191, 98, 143),
 rgb(164, 76, 56),
 rgb(202, 146, 71);
-
-$letters: 'A',
-'B',
-'C',
-'D',
-'E',
-'F',
-'G',
-'H',
-'I',
-'J',
-'K',
-'L',
-'M',
-'N',
-'O',
-'P',
-'Q',
-'R',
-'S',
-'T',
-'U',
-'V',
-'W',
-'X',
-'Y',
-'Z';
-
-$avatarColors: '#6a040f',
-'#1d3557',
-'#3a0ca3',
-'#1b4332',
-'#3c096c',
-'#00509d',
-'#81171b',
-'#1b263b',
-'#3a5a40',
-'#945D5E';
+$labelbgcs : #61bd4f,
+#f2d600,
+#ff9f1a,
+#eb5a46,
+#c377e0,
+#0079bf;

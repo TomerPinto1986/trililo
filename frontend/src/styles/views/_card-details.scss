@@ -58,8 +58,8 @@
         display: grid;
         grid-template-columns: 1fr 20px auto;
         position: relative;
-        // width: 100%;
 
+        // width: 100%;
         .card-info {
             grid-column: 1;
 
@@ -126,7 +126,6 @@
                             font-weight: 600;
                             line-height: 40px;
                             padding: 0 12px;
-
                         }
                     }
                 }
@@ -155,6 +154,7 @@
                     padding-inline-end: 60px;
 
                     .due-date-checkbox {
+                        display: none;
                         margin-block-start: 4px;
                         margin-inline-end: 4px;
                     }
@@ -349,35 +349,6 @@
             align-self: center;
         }
 
-        .activity-preview {
-            font-size: em(14, 16);
-            position: relative;
-            margin-left: 40px;
-            padding: 8px 0;
-            line-height: 20px;
-
-            .desc {
-                position: relative;
-
-                .user {
-                    font-weight: 600;
-                }
-            }
-
-            .avatar {
-                height: 32px;
-                left: -40px;
-                position: absolute;
-                top: 8px;
-                width: 32px;
-            }
-
-            .time {
-                font-size: em(12, 14);
-                color: #55637d;
-            }
-        }
-
         input {
             font-size: 14px;
             margin: 4px 10px 12px;
@@ -474,6 +445,11 @@
                     width: 100%;
                     height: 40px;
                     margin-block-start: 0;
+
+                    i,
+                    img {
+                        margin-inline-end: 0;
+                    }
                 }
             }
         }

@@ -5,15 +5,12 @@
     z-index: 1;
     display: flex;
     font-size: 1rem;
-
     >* {
         color: #fefefe;
     }
-
     .header-container {
         align-items: center;
         flex: 1;
-
         .title {
             padding: 0;
             border-radius: 5px;
@@ -29,13 +26,11 @@
             outline: none;
             cursor: pointer;
             border-radius: 8px;
-
             &:hover,
             &:focus {
                 background-color: hsla(0, 0%, 100%, .32);
             }
         }
-
         .favorite {
             background: inherit;
             font-size: 17px;
@@ -43,16 +38,13 @@
             background-color: rgba(255, 255, 255, 0.24);
             border-radius: 5px;
             height: 35px;
-
             &:hover {
                 background-color: rgba(255, 255, 255, 0.32);
             }
         }
-
         .privacy {
             width: 100px;
             height: 100%;
-
             input {
                 text-align: center;
                 font-size: 1.1em;
@@ -60,16 +52,13 @@
                 background-color: transparent;
                 border: none;
                 outline: none;
-
                 &:hover {
                     background-color: rgba(255, 255, 255, 0.32);
                 }
             }
-
             .el-input__suffix {
                 display: none;
             }
-
             .el-input__inner {
                 padding: 0;
                 line-height: 60px;
@@ -77,31 +66,25 @@
                 background-color: rgba(255, 255, 255, 0.24);
             }
         }
-
         .seperator {
             border-left: 1px solid rgba(255, 255, 255, 0.36);
             margin: 0 10px;
             border-left: 1px solid hsla(0, 0%, 100%, .24);
             height: 18px;
         }
-
         .board-members {
             margin: 0;
             cursor: default;
-
             .member:not(:first-child) {
                 margin: 0 -2px 0;
                 border-radius: 50%;
-
                 .member-card {
                     box-shadow: 0 0 2px 0.5px rgba(255, 255, 255, 0.6);
                 }
-
                 &:hover {
                     z-index: 1;
                 }
             }
-
             .add-users {
                 color: #5e6c84d5;
                 position: absolute;
@@ -112,11 +95,9 @@
                 width: 330px;
                 box-shadow: 0 8px 16px -4px rgba(9, 30, 66, .25), 0 0 0 1px rgba(9, 30, 66, .08);
                 border-radius: 3px;
-
                 .add-users-header {
                     justify-content: space-between;
                 }
-
                 input {
                     font-size: 14px;
                     margin: 4px 0 12px;
@@ -128,89 +109,74 @@
                     padding: 10px 12px;
                     border-radius: 3px;
                     outline: none;
-
                     &:focus {
                         background-color: #fff;
                         box-shadow: inset 0 0 0 2px #0079bf;
                     }
                 }
-
                 h3 {
                     text-align: center;
                     text-transform: capitalize;
                 }
-
                 button {
                     background-color: inherit;
                     color: inherit;
                     font-size: 16px;
-
                     &:hover {
                         color: black;
                     }
                 }
             }
-
             li {
                 justify-content: space-between;
                 align-items: center;
                 padding: 5px;
-
                 &:hover {
                     border-radius: 3px;
                     background-color: #c1c7d042;
                 }
-
                 .card-member {
                     cursor: pointer;
                     align-items: center;
                     width: 90%;
                 }
-
                 .username {
                     margin-inline-start: 8px;
                 }
-
                 .fa-check:before {
                     color: #5e6c84;
                     font-size: 12px;
                 }
             }
-
             .add-btn {
                 cursor: pointer;
                 background-color: hsla(0, 0%, 100%, .24);
-                margin-inline-start: 10px;
+                margin-inline-start: 17px;
                 padding: 3px 13px;
                 border-radius: 5px;
-
                 &:hover {
                     background-color: rgba(255, 255, 255, 0.32);
                 }
             }
         }
-
         .board-user {
             span {
                 cursor: pointer;
             }
         }
     }
-
     .menu-btn {
         background-color: hsla(0, 0%, 100%, .24);
         padding: 8px 10px;
         border-radius: 5px;
         margin: 0 5px;
         font-size: rem(14px);
-
         // right: 0;
         // position: relative;
         &:hover {
             background-color: hsla(0, 0%, 100%, .32);
         }
     }
-
     hr {
         opacity: 0.4;
     }

@@ -1,19 +1,21 @@
 .pop-up {
-    hr {
-        opacity: 0.4;
-    }
 
     position: absolute;
     top: 0;
     min-width: 330px;
+    max-height: 400px;
     right: 0px;
     background: #fff;
     border-radius: 3px;
     padding: 15px;
     box-shadow: 0 8px 16px -4px rgba(9, 30, 66, .25),
-    0 0 0 1px rgba(9, 30, 66, .08);
+        0 0 0 1px rgba(9, 30, 66, .08);
     overflow: hidden;
     z-index: 1;
+
+    hr {
+        opacity: 0.4;
+    }
 
     h3 {
         text-align: center;
@@ -77,10 +79,15 @@
             }
         }
 
+        ul {
+            overflow-y: auto;
+            height: 400px;
+        }
+
         li {
             justify-content: space-between;
             align-items: center;
-            padding: 5px;
+
 
             &:hover {
                 border-radius: 3px;
@@ -88,6 +95,7 @@
             }
 
             .card-member {
+                padding: 5px;
                 cursor: pointer;
                 align-items: center;
                 width: 90%;

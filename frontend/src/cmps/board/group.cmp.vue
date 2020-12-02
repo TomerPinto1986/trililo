@@ -6,6 +6,7 @@
 				class="title"
 				v-model="group.title"
 				@change="emitChange"
+				slot="header"
 			/>
 			<button @click="toggleMenu">
 				<i class="fas fa-ellipsis-h menu-btn"></i>
