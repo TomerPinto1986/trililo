@@ -36,6 +36,7 @@
 				:data-id="idx"
 				:card="card"
 				:labels="labels"
+				:activities="activities"
 				@click.native="openDetails(card.id)"
 			/>
 		</draggable>
@@ -76,6 +77,7 @@ export default {
 	props: {
 		group: Object,
 		labels: Array,
+		activities: Array,
 		filterBy: Object,
 		isCloseAdd: Boolean
 	},

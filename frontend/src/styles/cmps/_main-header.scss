@@ -1,7 +1,6 @@
 .main-header {
     width: 100vw;
     display: grid;
-    padding: 0 20px;
     &.home {
         height: 100px;
         background-color: rgba(224, 224, 224, 0.5);
@@ -10,7 +9,6 @@
         z-index: 1;
     }
     .logo {
-        // font-size: 3rem;
         img:not(:first-child) {
             width: 110px;
         }
