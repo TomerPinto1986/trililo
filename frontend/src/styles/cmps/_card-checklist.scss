@@ -61,6 +61,7 @@
             &.delete-item {
                 i {
                     width: fit-content;
+                    opacity: 0;
                 }
             }
         }
@@ -81,6 +82,17 @@
 
                     &.done {
                         text-decoration: line-through;
+                    }
+                }
+            }
+        }
+
+        &:hover {
+
+            button {
+                &.delete-item {
+                    i {
+                        opacity: 1;
                     }
                 }
             }
