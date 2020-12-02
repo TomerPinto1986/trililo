@@ -1,5 +1,7 @@
 <template>
-	<section class="board-list flex f-center wrap" v-if="boardsForDisplay">
+	<div class="board-list-container flex f-col">
+
+	<section class="board-list flex wrap" v-if="boardsForDisplay">
 		<div class="create-board board-preview flex f-center">
 			<form v-if="isAdding" @submit.prevent="saveBoard">
 				<input
@@ -20,6 +22,8 @@
 			@deleted="deleteBoard"
 		/>
 	</section>
+		<h3 class="">Choose your board or create a new one</h3>
+	</div>
 </template>
 
 <script>
