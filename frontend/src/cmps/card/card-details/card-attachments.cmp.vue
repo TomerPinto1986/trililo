@@ -6,8 +6,8 @@
         <ul>
             <li
                 class="attachment-card flex f-col"
-                :class="ratio(attachment.src)"
                 v-for="(attachment, idx) in attachmentsToShow"
+                :class="attachment.imgClass"
                 :key="idx"
             >
                 <img :src="attachment.src" />
@@ -33,7 +33,6 @@ export default {
     },
     computed: {
         attachmentsToShow() {
-            // return (this.isShowAll) ? this.attachments : this.attachments.slice(0, 4);
             return utilService.deepCopy(this.attachments);
         }
     },
@@ -43,20 +42,6 @@ export default {
             const attachmentIdx = attachments.findIndex(attachment => attachment.id === attachmentId)
             if (attachmentIdx !== -1) attachments.splice(attachmentIdx, 1);
             this.$emit('updateAttachments', attachments)
-        },
-        ratio(url) {
-            var img = new Image();
-            img.src = url;
-            img.onload = () => {
-                console.log('w: ' + img.width + ' / h: ' + img.height);
-                const x = {
-                    regular: Math.abs(img.width - img.height) <= 300,
-                    portrait: img.height - img.width > 300,
-                    landscape: img.width - img.height > 300
-                };
-                console.log('x:', x)
-                return x;
-            }
         }
     }
 }

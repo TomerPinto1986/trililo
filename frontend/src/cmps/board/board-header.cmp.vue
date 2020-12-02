@@ -15,8 +15,20 @@
 				v-model="boardTitle"
 				ref="myInput"
 			/>
-			<button class="favorite flex f-center" v-if="isMarked" @click="toggleMarkBoard"><i class="fas fa-star"></i></button>
-			<button class="favorite flex f-center" v-else @click="toggleMarkBoard"><i class="far fa-star"></i></button>
+			<button
+				class="favorite flex f-center"
+				v-if="isMarked"
+				@click="toggleMarkBoard"
+			>
+				<i class="fas fa-star"></i>
+			</button>
+			<button
+				class="favorite flex f-center"
+				v-else
+				@click="toggleMarkBoard"
+			>
+				<i class="far fa-star"></i>
+			</button>
 			<span class="seperator"></span>
 
 			<el-select
@@ -36,26 +48,24 @@
 			<span class="seperator"></span>
 			<div class="board-members flex">
 				<custom-avatar
-						:size="35"
-						:username="board.byMember.username"
-						:src="board.byMember.imgUrl"
-					/>
+					:size="35"
+					:username="board.byMember.username"
+					:src="board.byMember.imgUrl"
+				/>
 				<div
+					class="member"
 					v-for="member in boardMembers"
 					:key="member.id"
-					class="member"
 				>
-					<custom-avatar v-if="member._id !== board.byMember._id"
+					<custom-avatar
+						v-if="member._id !== board.byMember._id"
+						class="member-card"
 						:size="35"
 						:username="member.username"
 						:src="member.imgUrl"
 					/>
 				</div>
-				<span
-					class="add-btn"
-					v-if="!isAddUsers"
-					@click="addUsers"
-				>
+				<span class="add-btn" v-if="!isAddUsers" @click="addUsers">
 					Invite
 				</span>
 				<add-users
@@ -67,9 +77,7 @@
 				/>
 			</div>
 		</div>
-		<button class="menu-btn" @click="emitOpenMenu">
-			Show Menu
-		</button>
+		<button class="menu-btn" @click="emitOpenMenu">Show Menu</button>
 	</section>
 </template>
 
@@ -99,7 +107,7 @@ export default {
 		}
 	},
 	methods: {
-		toggleMarkBoard(){
+		toggleMarkBoard() {
 			this.isMarked = !this.isMarked;
 		},
 		emitOpenMenu() {
@@ -131,8 +139,8 @@ export default {
 		},
 	},
 	computed: {
-		usersToAdd(){
-			return this.users.filter(user=> user._id !== this.board.byMember._id)
+		usersToAdd() {
+			return this.users.filter(user => user._id !== this.board.byMember._id)
 		},
 		boardMembers() {
 			return this.board.members;

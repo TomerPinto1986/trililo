@@ -17,6 +17,7 @@
                 type="text"
                 placeholder="Write a comment..."
                 @keydown="typing"
+                @keyup.enter="sendMsg"
                 v-model="msg.txt"
             />
             <button class="activities-send" @click="sendMsg">Send</button>
