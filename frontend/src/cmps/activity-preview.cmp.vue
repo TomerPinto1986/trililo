@@ -31,7 +31,10 @@
 					<span class="time">
 						{{ moment(activity.createdAt).fromNow() }}
 					</span>
-					<div class="comment">{{ activity.comment }}</div>
+					<div class="comment-container">
+						<span class="comment">{{ activity.comment }}</span>
+						<span class="delete-btn">Delete</span>
+					</div>
 				</template>
 			</div>
 		</section>

@@ -1,7 +1,7 @@
 <template>
 	<section class="board-menu">
 		<i class="fas fa-chevron-left btn back-btn flex f-center" v-if="isSub" @click="backToMenu"></i>
-		<i @click="emitClose" class="fas fa-times btn close-btn flex f-center"></i>
+		<i @click="emitClose" class="el-icon-close btn close-btn flex f-center"></i>
 		<div class="board-menu-header">
 			<h3>{{ menuTitle }}</h3>
 			<hr class="menu-header-divider" />

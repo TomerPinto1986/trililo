@@ -426,6 +426,7 @@ export default {
             this.card = card;
         },
         addActivity(txt, card, comment = null, user = this.loggedinUser) {
+            console.log(txt,card,comment,user)
             this.$store.commit('setEmptyActivity');
             const activity = utilService.deepCopy(this.$store.getters.emptyActivity);
             activity.txt = txt;
