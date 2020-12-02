@@ -93,7 +93,7 @@
                             ></el-checkbox>
                             <span class="due-date-local-time">{{
                                 moment(card.dueDate).format("MMM Do")
-                            }}</span>
+                            }}<span v-if="card.isComplete" class="complete">complete</span></span>
                         </span>
                         <date-picker
                             ref="date-picker"
@@ -109,7 +109,6 @@
                     <span class="card-icon">
                         <img src="@/assets/svg/desc.svg" />
                     </span>
-
                     <card-description
                         :description="card.description"
                         @updateDesc="updateDesc"
@@ -153,7 +152,7 @@
                     </div>
                 </div>
                 <div class="activity flex">
-                    <span class="card-icon">
+                    <span class="card-icon activity-icon">
                         <img src="@/assets/svg/activities.svg" />
                     </span>
 
@@ -425,7 +424,7 @@ export default {
             this.card = card;
         },
         addActivity(txt, card, comment = null, user = this.loggedinUser) {
-            console.log(txt,card,comment,user)
+            console.log(txt, card, comment, user)
             this.$store.commit('setEmptyActivity');
             const activity = utilService.deepCopy(this.$store.getters.emptyActivity);
             activity.txt = txt;
@@ -606,7 +605,7 @@ export default {
             if (idx !== -1) card.checklistGroup.splice(idx, 1);
             this.updateCard(card);
         },
-        toggleIsComplete(){
+        toggleIsComplete() {
             const card = this.card;
             card.isDone = !card.isDone;
             this.updateCard(card);

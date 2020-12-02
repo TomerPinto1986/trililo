@@ -69,7 +69,8 @@ export default {
     computed: {
         dueDate() {
             if (this.card.dueDate - Date.now() <24 * 60 * 60 * 1000) return { color: '#121212', backgroundColor: '#ec9488' }
-            else return { color: '#fff', backgroundColor: '#61bd4f' }
+            if (this.card.isDone) return { color: '#fff', backgroundColor: '#61bd4f' }
+            else return {}
         },
         headerStyle() {
             return { background: this.card.style.headerColor }
