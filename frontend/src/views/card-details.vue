@@ -419,7 +419,6 @@ export default {
 		},
 		updateCardSocket(card) {
 			const board = this.board;
-			console.log(board.labels)
 			board.groups.forEach(group => {
 				const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
 				if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
@@ -449,7 +448,6 @@ export default {
 			this.currPopUp = '';
 		},
 		emitClose() {
-			console.log('close');
 			this.$emit('close');
 		},
 		cloneCard() {
@@ -544,7 +542,6 @@ export default {
 			const board = this.board;
 			const idx = board.labels.findIndex(label => label.id === labelId);
 			if (idx !== -1) board.labels[idx].title = title;
-			console.log('label', board.labels)
 			this.updateBoard(board);
 		},
 		addChecklist() {
