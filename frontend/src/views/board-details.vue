@@ -12,8 +12,13 @@
 			@privacyChange="changePrivacy"
 			@deleteBoard="deleteBoard"
 		/>
-		<div class="flex group-container" v-dragscroll:firstchilddrag>
+		<div
+			class="flex group-container"
+			v-if="board"
+			v-dragscroll:firstchilddrag
+		>
 			<draggable
+				handle=".handle"
 				v-dragscroll:nochilddrag
 				class="drag-area flex"
 				ghostClass="ghost"
@@ -27,9 +32,11 @@
 			>
 				<group
 					data-no-dragscroll
-					v-for="group in board.groups"
+					v-for="(group, idx) in board.groups"
 					:key="group.id"
 					:group="group"
+					:board="board"
+					:groupIdx="idx"
 					:labels="board.labels"
 					:activities="board.activities"
 					:filterBy="filterBy"
@@ -37,6 +44,9 @@
 					@newCard="addCard"
 					@change="updateGroup"
 					@delete="deleteGroup"
+					@moveGroup="moveGroup"
+					@addClone="addGroupClone"
+					@updateGroup="updateGroup"
 				/>
 			</draggable>
 
@@ -174,7 +184,7 @@ export default {
 			const groupIdx = board.groups.findIndex(currGroup => currGroup.id === groupId);
 			board.groups.splice(groupIdx, 1);
 			this.updateBoard(board);
-			this.addActivity('deleted a group')
+			this.addActivity('deleted a list')
 
 		},
 		newGroup() {
@@ -189,12 +199,25 @@ export default {
 				this.$refs['group-title'].focus();
 				this.$refs['group-title'].scrollIntoView();
 			}, 10);
-			this.addActivity('added a group')
+			this.addActivity('added a list')
 
 		},
 		addGroup() {
 			this.isAddingGroup = true;
 			setTimeout(() => { this.$refs['group-title'].focus() }, 10);
+		},
+		moveGroup(from, to) {
+			const board = utilService.deepCopy(this.board);
+			const group = board.groups.splice(from, 1)
+			board.groups.splice(to - 1, 0, group[0])
+			this.updateBoard(board)
+		},
+		addGroupClone(group) {
+			const board = this.board;
+			board.groups.push(group);
+			this.updateBoard(board)
+			this.addActivity(`added a clone of the list ${group.title}`)
+
 		},
 		getEmptyCard() { //maybe get from service direct
 			this.$store.commit('setEmptyCard');

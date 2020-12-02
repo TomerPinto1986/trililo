@@ -64,7 +64,8 @@
                             </button>
                         </div>
                     </div>
-                    <div class="label-marks f-col" v-if="labelsSelected.length">
+                    <div class="label-marks f-col" v-if="card.labels && labelsSelected.length">
+                        labels!!!!!!!!!!!!!
                         <h3 class="flex">Labels</h3>
                         <div class="label-container flex wrap">
                             <div
@@ -284,7 +285,7 @@
                 </button>
                 <h3 class="actions-title">Actions</h3>
                 <button
-                    @click="cloneCard"
+                    @click.stop="cloneCard"
                     class="flex f-a-center content-after action-btn"
                     title="Clone"
                     data-txt="Clone"
@@ -294,6 +295,14 @@
                         src="@/assets/svg/copy.svg"
                     /> -->
                     <i class="fal fa-clone"></i>
+                    <pop-up v-if="isCmpOpen('clone')" @closePopup="closePopup">
+                        <card-move
+                            :isClone="true"
+                            :groups="board.groups"
+                            :group="getCurrGroup"
+                            :currPosition="getCurrPosition"
+                            @moveCard="moveCard"
+                    /></pop-up>
                 </button>
                 <button
                     class="dlt-btn flex f-a-center content-after action-btn"
@@ -312,6 +321,7 @@
                     <img class="icon-btn" src="@/assets/svg/move.svg" />
                     <pop-up v-if="isCmpOpen('move')" @closePopup="closePopup">
                         <card-move
+                            :isClone="false"
                             :groups="board.groups"
                             :group="getCurrGroup"
                             :currPosition="getCurrPosition"
@@ -372,6 +382,7 @@ export default {
             return this.currPopUp === 'duedate';
         },
         isCmpOpen() {
+            console.log(this.currPopUp,'cmpopen');
             return (cmpName) => this.currPopUp === cmpName;
         },
         headerStyle() {
@@ -388,7 +399,6 @@ export default {
             })
         },
         labelsSelected() {
-            if (!this.card.labels) return [];
             const selectIds = this.card.labels.map(label => label.id);
             return this.board.labels.filter(label => selectIds.includes(label.id));
         },
@@ -449,13 +459,16 @@ export default {
             this.$emit('close');
         },
         cloneCard() {
-            const cardCopy = utilService.deepCopy(this.card);
-            cardCopy.id = utilService.makeId();
-            const board = this.board;
-            const groupIdx = board.groups.findIndex(group => group.cards.some(card => card.id === this.card.id));
-            if (groupIdx === -1) return;
-            board.groups[groupIdx].cards.push(cardCopy);
-            this.updateBoard(board);
+            this.currPopUp = 'clone';
+            this.isPopUp = true;
+            // console.log(this.currPopUp,this.isPopUp = true);
+            // const cardCopy = utilService.deepCopy(this.card);
+            // cardCopy.id = utilService.makeId();
+            // const board = this.board;
+            // const groupIdx = board.groups.findIndex(group => group.cards.some(card => card.id === this.card.id));
+            // if (groupIdx === -1) return;
+            // board.groups[groupIdx].cards.push(cardCopy);
+            // this.updateBoard(board);
         },
         deleteCard() {
             const board = this.board;
@@ -472,13 +485,14 @@ export default {
             this.addActivity(`deleted the card '${cardTitle}'`);
         },
         moveCard(status) {
+            console.log(status);
             this.$store.commit({ type: 'updateCardStatus', status });
             const board = this.board;
             this.updateBoard(board);
             this.isPopUp = false;
             if (status.startGroup !== status.endGroup) {
-                // const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
-                // this.addActivity(`moved card '${this.card.title}' to '${groupTitle}'`, this.card);
+                const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
+                this.addActivity(`moved card '${this.card.title}' to '${groupTitle}'`, this.card);
             }
         },
         startUpload() {

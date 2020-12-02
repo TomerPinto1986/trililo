@@ -1,6 +1,7 @@
 <template>
     <section class="card-move">
-        <h3>Move Card</h3>
+        <h3 v-if="isClone">Clone Card</h3>
+        <h3 v-else>Move Card</h3>
         <hr />
         <h2>Select Destenation</h2>
         <div class="flex">
@@ -33,6 +34,7 @@ import selectPosition from '../../custom-elements/select-position.cmp';
 
 export default {
     props: {
+        isClone: Boolean,
         groups: Array,
         group: Object,
         currPosition: Number
@@ -68,11 +70,13 @@ export default {
         },
         emitMove() {
             const status = {
+                isClone: this.isClone,
                 startPos: this.currPosition - 1,
                 endPos: this.newCardPosition ? this.newCardPosition - 1 : null,
                 startGroup: this.group.id,
                 endGroup: this.newCardGroupId
             }
+            console.log(status);
             this.$emit('moveCard', status)
         }
     },
