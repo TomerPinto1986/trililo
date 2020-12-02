@@ -289,10 +289,11 @@
                     title="Clone"
                     data-txt="Clone"
                 >
-                    <img
+                    <!-- <img
                         class="icon-btn clone-img"
                         src="@/assets/svg/copy.svg"
-                    />
+                    /> -->
+                    <i class="fal fa-clone"></i>
                 </button>
                 <button
                     class="dlt-btn flex f-a-center content-after action-btn"

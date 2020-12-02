@@ -243,7 +243,6 @@
 
             img {
                 width: 15px;
-                margin-inline-end: 12px;
 
                 // &.clone-img {
                 //     width: 20px;
@@ -266,11 +265,6 @@
 
                 &:hover {
                     background-color: rgb(226, 228, 233);
-                }
-
-                i {
-                    width: 20px;
-                    margin-inline-end: 6px;
                 }
             }
 
@@ -454,13 +448,13 @@
 
         .action-btn {
 
-            img,
-            i {
-                margin-inline-end: 0;
+            img {
+                margin-inline-end: 12px;
             }
 
             i {
-                width: fit-content;
+                width: 20px;
+                margin-inline-end: 6px;
             }
         }
     }
