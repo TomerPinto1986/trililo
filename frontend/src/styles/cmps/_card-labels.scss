@@ -2,7 +2,6 @@
     button {
         background-color: transparent;
     }
-
     .label {
         height: 32px;
         width: 240px;
@@ -11,12 +10,14 @@
         margin: 3px 6px;
         cursor: pointer;
         color: white;
-
+        align-items: center;
+        &:hover {
+            box-shadow: -8px 0 rgba(0, 0, 0, 0.363);
+        }
         span {
             align-self: center;
             font-size: 1.25em;
         }
-
         input {
             align-self: center;
             width: fit-content;
