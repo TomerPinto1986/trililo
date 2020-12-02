@@ -343,36 +343,7 @@
         .activities-send {
             align-self: center;
         }
-
-        .activity-preview {
-            font-size: em(14, 16);
-            position: relative;
-            margin-left: 40px;
-            padding: 8px 0;
-            line-height: 20px;
-
-            .desc {
-                position: relative;
-
-                .user {
-                    font-weight: 600;
-                }
-            }
-
-            .avatar {
-                height: 32px;
-                left: -40px;
-                position: absolute;
-                top: 8px;
-                width: 32px;
-            }
-
-            .time {
-                font-size: em(12, 14);
-                color: #55637d;
-            }
-        }
-
+        
         input {
             font-size: 14px;
             margin: 4px 10px 12px;
