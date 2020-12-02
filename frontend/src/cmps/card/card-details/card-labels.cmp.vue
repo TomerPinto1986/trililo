@@ -26,9 +26,6 @@ export default {
         card: Object,
         boardLabels: Array
     },
-    components: {
-        labelPreview
-    },
     methods: {
         emitUpdateCard(card) {
             this.$emit('updateCard', card);
@@ -36,6 +33,9 @@ export default {
         emitUpdateTitle(labelId, title) {
             this.$emit('updateLabelTitle', labelId, title);
         }
-    }
+    },
+     components: {
+        labelPreview
+    },
 };
 </script>
