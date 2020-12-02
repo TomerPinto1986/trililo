@@ -8,14 +8,12 @@
     background-color: #F4F5F7;
     border-radius: 3px;
     margin-block-end: 20px;
-
     h2 {
         color: #172b4d;
         font-weight: 700;
         font-size: 14px;
         text-transform: capitalize;
     }
-
     h3 {
         margin-inline-start: 2px;
         margin-block-end: 4px;
@@ -26,13 +24,11 @@
         color: #5e6c84;
         font-weight: 600;
     }
-
     .card-header {
         border-radius: 3px 3px 0 0;
         width: 100%;
         height: 80px;
     }
-
     .cancel-btn {
         background-color: transparent;
         font-size: 20px;
@@ -42,17 +38,14 @@
         width: 40px;
         height: 40px;
         z-index: 1;
-
         &.cover {
             background-color: rgba(9, 30, 66, .1);
             border-radius: 50%;
-
             &:hover {
                 background-color: rgba(9, 30, 66, .15);
             }
         }
     }
-
     .card-main-container {
         margin: 12px 20px;
         display: grid;
@@ -62,16 +55,13 @@
 
         .card-info {
             grid-column: 1;
-
             // max-width: 632px;
             .info {
                 margin-block-end: 16px;
-
                 .card-icon {
                     display: inline-block;
                     width: 40px;
                 }
-
                 .title {
                     padding-inline-start: 0;
                     color: #172b4d;
@@ -79,7 +69,6 @@
                     font-weight: 600;
                     line-height: 24px;
                 }
-
                 .in-list {
                     font-size: 14px;
                     line-height: 20px;
@@ -87,36 +76,28 @@
                     margin-inline-start: 40px;
                 }
             }
-
             .add-to-card {
                 margin-inline-start: 40px;
-
                 &>* {
                     margin-block-end: 15px;
                     margin-inline-end: 15px;
                 }
-
                 .card-members {
                     text-transform: uppercase;
-
                     .avatar {
                         border: 2px solid #F4F5F7;
                     }
-
                     .add-member {
                         cursor: pointer;
-
                         span {
                             font-size: 20px;
                         }
                     }
                 }
-
                 .label-marks {
                     .label-container {
                         font-weight: 500;
                         color: white;
-
                         .label {
                             border-radius: 3px;
                             margin: 0 2px;
@@ -126,15 +107,13 @@
                             font-weight: 600;
                             line-height: 40px;
                             padding: 0 12px;
-
                         }
                     }
                 }
-
                 .plus-btn {
                     font-size: 20px;
-                    font-family: segoe;
-                    font-weight: 400;
+                    font-family: 'Segoe UI';
+                    letter-spacing: normal;
                     color: #172b4d;
                     background-color: #e2e4e9;
                     width: 40px;
@@ -142,23 +121,19 @@
                     line-height: 40px;
                     padding: 0 0 4px;
                     margin: 0 2px 0 3px;
-
                     &.member {
                         border-radius: 50%;
                         width: 32px;
                         line-height: 32px;
                     }
                 }
-
                 .due-date {
                     position: relative;
                     padding-inline-end: 60px;
-
                     .due-date-checkbox {
                         margin-block-start: 4px;
                         margin-inline-end: 4px;
                     }
-
                     .due-date-local-time {
                         background-color: rgb(226, 228, 233);
                         color: rgb(23, 43, 77);
@@ -168,19 +143,16 @@
                     }
                 }
             }
-
             .description,
             .attachments-group,
             .checklist,
             .activity {
                 margin-block-start: 20px;
-
                 i {
                     display: inline-block;
                     width: 40px;
                 }
             }
-
             .checklist,
             .attachments-group,
             .card-icon,
@@ -226,7 +198,6 @@
                     }
                 }
             }
-
             .loading-gif {
                 width: 100px;
                 position: absolute;
@@ -234,23 +205,19 @@
                 left: 350px;
             }
         }
-
         .actions {
             grid-column: 3;
             width: 168px;
             margin-block-start: 70px;
-
             img {
                 width: 15px;
                 margin-inline-end: 12px;
-
                 &.clone-img {
                     width: 20px;
                     height: 14px;
                 }
             }
-
-            button {
+            .action-btn {
                 margin-block-start: 8px;
                 font-size: 14px;
                 line-height: 20px;
@@ -262,54 +229,45 @@
                 height: 32px;
                 border-radius: 3px;
                 position: relative;
-
                 &:hover {
                     background-color: rgb(226, 228, 233);
                 }
-
                 i {
                     width: 20px;
                     margin-inline-end: 6px;
                 }
             }
-
             .actions-title {
                 margin-block-start: 20px;
             }
         }
     }
-
     .due-date div:first-child {
         text-transform: uppercase;
     }
-
     .btns {
         position: absolute;
         width: 100%;
         bottom: 10px;
         justify-content: space-evenly;
-
         >* {
             font-size: 1.3em;
         }
     }
-
     input,
     textarea {
-        font-family: segoe;
+        font-family: 'Segoe UI';
+        letter-spacing: normal;
         font-size: 1.5em;
         padding: 5px 10px;
         border: none;
-
         &.title {
             background-color: transparent;
         }
-
         &.desc {
             background-color: rgba(255, 255, 255, 0.7);
             background-color: #EAECF0;
             font-size: 14px;
-
             &:focus {
                 background-color: #fff;
                 box-shadow: inset 0 0 0 2px #0079bf;
@@ -317,62 +275,50 @@
             }
         }
     }
-
     .upload {
         display: none;
     }
-
     .upload-btn {
         width: 100%;
         cursor: pointer;
     }
-
     .color-picker {
         position: absolute;
         opacity: 0;
     }
-
     .card-activity {
         width: 100%;
-
         .activities-btn {
             justify-content: space-between;
             align-items: center;
         }
-
+        .activities {
+            align-items: baseline;
+        }
         .activities-send {
             align-self: center;
         }
-
         .activity-preview {
             font-size: em(14, 16);
             position: relative;
             margin-left: 40px;
             padding: 8px 0;
-            line-height: 20px;
-
+            align-items: baseline;
             .desc {
                 position: relative;
-
                 .user {
                     font-weight: 600;
                 }
             }
-
             .avatar {
-                height: 32px;
                 left: -40px;
                 position: absolute;
-                top: 8px;
-                width: 32px;
             }
-
             .time {
                 font-size: em(12, 14);
                 color: #55637d;
             }
         }
-
         input {
             font-size: 14px;
             margin: 4px 10px 12px;
@@ -384,7 +330,6 @@
             padding: 10px 12px;
             border-radius: 3px;
             outline: none;
-
             &:focus {
                 background-color: #fff;
                 box-shadow: inset 0 0 0 2px #0079bf;
@@ -408,40 +353,32 @@
         right: 0;
         margin-block-end: 0;
         border-radius: 0;
-
         .card-header {
             border-radius: 0;
         }
-
         .cancel-btn {
             right: 0;
             top: 5px;
-
             &.cover {
                 right: 10px;
                 top: 10px;
             }
         }
-
         .card-main-container {
             height: calc(100vh - 40px);
             padding-block-start: 30px;
-
             &.cover {
                 height: calc(100vh - 120px);
                 padding-block-start: 0;
             }
-
             margin: 20px 10px 20px 20px;
             grid-template-rows: auto auto;
             grid-template-columns: auto;
-
             .card-info {
                 grid-row: 1;
                 overflow-y: auto;
                 margin-inline-end: 3px;
             }
-
             .actions {
                 grid-column: 1;
                 grid-row: 2;
@@ -451,24 +388,19 @@
                 gap: 8px;
                 margin-block-start: 30px;
                 width: 100%;
-
                 .add-to-card-title {
                     grid-column: 1/-1;
                 }
-
                 .actions-title {
                     grid-column: 1/-1;
                 }
-
                 .actions-title {
                     margin-block-start: 10px;
                 }
-
                 button {
                     width: 100%;
                     height: 40px;
                     margin-block-start: 0;
-
                     i,
                     img {
                         margin-inline-end: 0;
@@ -491,11 +423,9 @@
     .card-details {
         .card-main-container {
             .actions {
-
                 button,
                 label {
                     justify-content: center;
-
                     i {
                         margin-inline-end: 0;
                     }

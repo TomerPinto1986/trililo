@@ -17,9 +17,11 @@
                 type="text"
                 placeholder="Write a comment..."
                 @keydown="typing"
+                @keyup.enter="sendMsg"
                 v-model="msg.txt"
+                @keydown.enter="sendMsg"
             />
-            <button class="activities-send" @click="sendMsg">Send</button>
+            <button class="activities-send"  @click="sendMsg">Send</button>
         </div>
         <span v-if="userTyping"
             ><custom-avatar
