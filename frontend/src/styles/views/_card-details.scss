@@ -58,6 +58,7 @@
         display: grid;
         grid-template-columns: 1fr 20px auto;
         position: relative;
+        // width: 100%;
 
         .card-info {
             grid-column: 1;
@@ -191,19 +192,36 @@
                 }
             }
 
-            .attachments {
-                word-wrap: break-word;
+            .attachments-content {
                 width: 100%;
 
-                ul {
-                    display: grid;
-                    grid-auto-columns: 1fr;
-                    gap: 20px;
+                .attachments {
+                    word-wrap: break-word;
+                    width: 100%;
 
-                    .attachment-card {
-                        img {
-                            // width: 100%;
-                            border-radius: 2px;
+                    .attachment-list {
+                        width: 100%;
+                        display: grid;
+                        grid-auto-columns: 1fr;
+                        grid-auto-rows: 1fr;
+                        gap: 20px;
+
+                        .attachment-card {
+                            img {
+                                border-radius: 2px;
+                            }
+
+                            .regular {
+                                grid-area: span 3 / span 3;
+                            }
+
+                            .portrait {
+                                grid-area: span 3 / span 1;
+                            }
+
+                            .landscape {
+                                grid-area: span 1 / span 3;
+                            }
                         }
                     }
                 }
