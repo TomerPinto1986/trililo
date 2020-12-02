@@ -110,7 +110,6 @@
                     <span class="card-icon">
                         <img src="@/assets/svg/desc.svg" />
                     </span>
-
                     <card-description
                         :description="card.description"
                         @updateDesc="updateDesc"
@@ -154,7 +153,7 @@
                     </div>
                 </div>
                 <div class="activity flex">
-                    <span class="card-icon">
+                    <span class="card-icon activity-icon">
                         <img src="@/assets/svg/activities.svg" />
                     </span>
 
