@@ -13,7 +13,7 @@
                 <img :src="attachment.src" />
                 <div>
                     <small>{{ attachment.name }}</small>
-                    <button @cdivck="emitDelete(attachment.id)">Delete</button>
+                    <button @click="emitDelete(attachment.id)">Delete</button>
                 </div>
             </div>
         </div>
@@ -38,6 +38,7 @@ export default {
     },
     methods: {
         emitDelete(attachmentId) {
+            console.log(attachmentId)
             const attachments = this.attachmentsToShow;
             const attachmentIdx = attachments.findIndex(attachment => attachment.id === attachmentId)
             if (attachmentIdx !== -1) attachments.splice(attachmentIdx, 1);

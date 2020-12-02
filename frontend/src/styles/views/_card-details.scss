@@ -8,6 +8,7 @@
     background-color: #F4F5F7;
     border-radius: 3px;
     margin-block-end: 20px;
+    overflow-y: auto;
 
     h2 {
         color: #172b4d;
@@ -240,6 +241,7 @@
             grid-column: 3;
             width: 168px;
             margin-block-start: 70px;
+            position: sticky;
 
             img {
                 width: 15px;
