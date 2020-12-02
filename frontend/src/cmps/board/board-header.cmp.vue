@@ -1,5 +1,5 @@
 <template>
-	<section v-if="board" class="board-header">
+	<section v-if="board" class="board-header" ref="board-header">
 		<div class="header-container flex">
 			<input
 				v-autowidth="{

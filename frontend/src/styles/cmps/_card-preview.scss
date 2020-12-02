@@ -7,7 +7,7 @@
     background-color: #fff;
     box-shadow: 0 1px 0 rgba(9, 30, 66, .25);
     overflow: hidden;
-    
+
     .description {
         overflow-wrap: break-word;
         max-height: 15ch;
@@ -74,8 +74,12 @@
             flex: 1;
             justify-content: flex-end;
 
+
             .card-members {
-                margin-inline-end: 5px;
+                margin: 0 -2px 0;
+                border-radius: 50%;
+                box-shadow: 0 0 2px 0.5px rgba(255, 255, 255, 0.6);
+
             }
         }
 
@@ -84,6 +88,7 @@
             align-self: center;
             color: rgb(71, 71, 71);
             margin: 0 2px;
+            margin-block-end: 5px;
         }
     }
 }
