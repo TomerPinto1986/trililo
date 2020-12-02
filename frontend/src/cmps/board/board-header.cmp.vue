@@ -1,13 +1,13 @@
 <template>
 	<section v-if="board" class="board-header">
-		<div class="header-container">
+		<div class="header-container flex">
 			<input
 				v-autowidth="{
 					maxWidth: '960px',
 					minWidth: '20px',
 					comfortZone: 30,
 				}"
-				class="title float"
+				class="title"
 				type="text"
 				maxlength="20"
 				@keyup.enter="emitTitleChange"
@@ -15,11 +15,13 @@
 				v-model="boardTitle"
 				ref="myInput"
 			/>
-			<span class="seperator float"></span>
+			<button class="favorite flex f-center" v-if="isMarked" @click="toggleMarkBoard"><i class="fas fa-star"></i></button>
+			<button class="favorite flex f-center" v-else @click="toggleMarkBoard"><i class="far fa-star"></i></button>
+			<span class="seperator"></span>
 
 			<el-select
 				v-model="privacy"
-				class="privacy float"
+				class="privacy"
 				popper-class="dropdown"
 				@change="emitPrivacyChange"
 			>
@@ -31,12 +33,12 @@
 				>
 				</el-option>
 			</el-select>
-			<span class="seperator float"></span>
-			<div class="board-members float">
+			<span class="seperator"></span>
+			<div class="board-members flex">
 				<div
 					v-for="member in boardMembers"
 					:key="member.id"
-					class="member float"
+					class="member"
 				>
 					<custom-avatar
 						:size="35"
@@ -45,7 +47,7 @@
 					/>
 				</div>
 				<span
-					class="add-btn float"
+					class="add-btn"
 					v-if="!isAddUsers"
 					@click="addUsers"
 				>
@@ -60,7 +62,7 @@
 				/>
 			</div>
 		</div>
-		<button class="menu-btn float-r" @click="emitOpenMenu">
+		<button class="menu-btn" @click="emitOpenMenu">
 			Show Menu
 		</button>
 	</section>
@@ -79,6 +81,7 @@ export default {
 	},
 	data() {
 		return {
+			isMarked: false,
 			boardTitle: null,
 			isAddUsers: false,
 			options: (this.user._id !== 'guest') ? [
@@ -91,6 +94,9 @@ export default {
 		}
 	},
 	methods: {
+		toggleMarkBoard(){
+			this.isMarked = !this.isMarked;
+		},
 		emitOpenMenu() {
 			this.$emit('openMenu')
 		},

@@ -1,7 +1,6 @@
 .board-header {
     width: 100vw;
     height: 50px;
-    // padding: 0 20px;
     align-items: center;
     z-index: 1;
     display: flex;
@@ -10,8 +9,12 @@
         color: #fefefe;
     }
     .header-container {
+        align-items: center;
         flex: 1;
         .title {
+            padding: 0;
+            border-radius: 5px;
+            height: 35px;
             text-align: center;
             color: inherit;
             font-size: em(20px);
@@ -21,13 +24,20 @@
             outline: none;
             cursor: pointer;
             border-radius: 8px;
-            line-height: 58px;
             &:hover,
             &:focus {
                 background-color: hsla(0, 0%, 100%, .32);
-                margin-block-start: 12px;
-                height: 34px;
-                padding-block-end: 3px;
+            }
+        }
+        .favorite {
+            background: inherit;
+            font-size: 19px;
+            color: white;
+            background-color: rgba(255, 255, 255, 0.24);
+            border-radius: 5px;
+            height: 35px;
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.32);
             }
         }
         .privacy {
@@ -40,6 +50,9 @@
                 background-color: transparent;
                 border: none;
                 outline: none;
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.32);
+                }
             }
             .el-input__suffix {
                 display: none;
@@ -47,21 +60,20 @@
             .el-input__inner {
                 padding: 0;
                 line-height: 60px;
-                height: unset;
+                height: 35px;
+                background-color: rgba(255, 255, 255, 0.24);
             }
         }
         .seperator {
             border-left: 1px solid rgba(255, 255, 255, 0.36);
-            margin: 18px -10px;
+            margin: 0 10px;
             border-left: 1px solid hsla(0, 0%, 100%, .24);
             height: 18px;
-            margin: 22px 3px 12px;
         }
         .board-members {
-            margin-inline-start: 10px;
-            padding-block-start: 12px;
-            .member:not(:last-child) {
-                margin: -4px;
+            margin: 0;
+            .member:not(:first-child) {
+                margin: 0 -2px 0;
                 border-radius: 50%;
                 box-shadow: 0 0 2px 0.5px rgba(255, 255, 255, 0.6);
                 &:hover {
@@ -85,6 +97,9 @@
                 margin-inline-start: 10px;
                 padding: 3px 13px;
                 border-radius: 5px;
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.32);
+                }
             }
         }
         .board-user {
