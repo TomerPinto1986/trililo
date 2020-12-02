@@ -19,6 +19,15 @@
                 </span>
                 <i class="fas fa-check" v-if="isMember(user._id)"></i>
             </li>
+            <li v-for="user in membersToShow" class="flex" :key="user._id">
+                <span class="card-member flex" @click="toggleMember(user._id)">
+                    <custom-avatar :size="35" :username="user.username" :src="user.imgUrl"/>
+                    <span class="username">
+                        {{ user.username }}
+                    </span>
+                </span>
+                <i class="fas fa-check" v-if="isMember(user._id)"></i>
+            </li>
         </ul>
     </section>
 </template>
@@ -37,6 +46,9 @@ export default {
         }
     },
     computed: {
+        membersToShowSelected() {
+            return this.boardMembers.filter(user => user.username.toLowerCase().includes(this.filterTxt.toLowerCase()));
+        },
         membersToShow() {
             return this.boardMembers.filter(user => user.username.toLowerCase().includes(this.filterTxt.toLowerCase()));
         },
