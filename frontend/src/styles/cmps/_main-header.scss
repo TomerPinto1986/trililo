@@ -3,40 +3,29 @@
     display: grid;
     padding: 0 5px;
     grid-template-columns: repeat(3, 1fr);
-
     .logo {
         justify-content: center;
-
         &-img {
             width: 100px;
             height: 100px;
             transition: 0.4s;
-
         }
-
         &-title {
             height: 120px;
             width: 180px;
             transition: 0.4s;
-
         }
-
     }
-
     a,
     .logout {
         background-color: hsla(0, 0%, 100%, .24);
         padding: 3px 10px;
         border-radius: 5px;
         cursor: pointer;
-
         &:hover {
             background-color: hsla(0, 0%, 100%, .32);
         }
-
     }
-
-
     &.home {
         align-content: center;
         height: 70px;
@@ -44,25 +33,19 @@
         position: fixed;
         z-index: 110;
         transition: 0.4s;
-
         .logo {
             transition: 0.3s;
             margin-block-start: 100px;
-
         }
-
         &.scrolled {
             background-color: rgba(255, 241, 241, 1);
             box-shadow: 0 10px 10px 0 rgba(255, 241, 241, 1);
-
             .logo {
                 margin-block-start: unset;
-
                 &-img {
                     width: 39px;
                     height: 40px;
                 }
-
                 &-title {
                     height: 40px;
                     width: 123px;
@@ -70,52 +53,40 @@
             }
         }
     }
-
     &.app {
         height: 50px;
         background-color: rgba(0, 0, 0, 0.1);
-
         .logo {
             margin-block-start: unset;
-
             &-img {
                 width: 39px;
                 height: 40px;
             }
-
             &-title {
                 height: 40px;
                 width: 123px;
-
             }
         }
-
         >* {
             color: #fefefe;
         }
-
-
     }
-
     &>* {
         align-items: center;
     }
-
     .main-nav {
         a {
             margin-inline-end: 4px;
+            font-family: 'segoe-bold';
         }
     }
-
     .logo {
         span {
             cursor: pointer;
         }
     }
-
     .user-area {
         justify-content: flex-end;
-
         &>* {
             margin-inline-start: 4px;
         }

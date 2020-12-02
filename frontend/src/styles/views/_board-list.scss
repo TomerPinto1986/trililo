@@ -2,8 +2,9 @@
     height: 100%;
     background-color: #fff1f1;
     .board-list {
-        padding: 150px 30px;
-        // background-color: rgb(219, 219, 219);
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 0 30px;
         justify-content: center;
         button {
             padding: 10px 15px;
@@ -28,9 +29,18 @@
         }
     }
     h3 {
+        font-family: 'Segoe UI';
+        font-weight: bold;
         text-align: center;
-        font-size: 48px;
+        font-size: 36px;
         text-transform: capitalize;
+        color: #606266;
+        margin-block-start: 60px;
+    }
+    h4 {
+        margin-block-end: 30px;
+        text-align: center;
+        font-size: 22px;
         color: #606266;
     }
 }
