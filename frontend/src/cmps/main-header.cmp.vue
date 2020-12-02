@@ -1,11 +1,11 @@
 <template>
 	<section class="main-header" :class="headerClass">
 		<div class="main-nav flex " v-if="!isHome">
-			<router-link to="/" exact><i class="fas fa-home"></i></router-link>
+			<router-link to="/" exact><img src="@/assets/svg/home.svg" alt=""></router-link>
 			<router-link to="/board" exact>Boards</router-link>
 		</div>
 		<div class="logo flex">
-			<span @click="goToHome">Taskules</span>
+			<span @click="goToHome" class="flex"><img src="@/assets/svg/logo2.1.svg" alt=""><img src="@/assets/svg/logo-title.svg" alt=""></span>
 		</div>
 		<div class="user-area flex">
 			<template v-if="isGuest">

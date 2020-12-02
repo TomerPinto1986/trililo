@@ -8,8 +8,11 @@
         grid-template-columns: repeat(2, 1fr);
         position: absolute;
         z-index: 1;
-        .logo {
-            font-size: 3rem;
+    }
+    .logo {
+        // font-size: 3rem;
+        img:not(:first-child) {
+            width: 110px;
         }
     }
     &.app {

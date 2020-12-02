@@ -24,7 +24,7 @@
             <div class="card-info">
                 <div class="info">
                     <span class="card-icon">
-                        <i class="el-icon-postcard"></i>
+                        <img src="@/assets/svg/card.svg" alt="">
                     </span>
                     <input
                         class="title"
@@ -107,7 +107,7 @@
                     </div>
                 </section>
                 <div class="description flex">
-                    <i class="fas fa-align-left"></i>
+                    <span><img src="@/assets/svg/desc.svg" alt=""></span>
                     <card-description
                         :description="card.description"
                         @updateDesc="updateDesc"
@@ -120,7 +120,7 @@
                     alt="Loading"
                 />
                 <div class="attachments-group flex">
-                    <i class="fal fa-paperclip"></i>
+                    <img src="@/assets/svg/attach.svg" alt="">
                     <card-attachments
                         :attachments="attachments"
                         :isLoading="isLoading"
@@ -133,7 +133,7 @@
                         v-for="checklist in card.checklistGroup"
                         :key="checklist.id"
                     >
-                        <i class="fal fa-tasks"></i>
+                        <img src="@/assets/svg/checklist.svg" alt="">
                         <card-checklist
                             :checklist="checklist"
                             @updeteChecklist="updeteChecklist"
@@ -142,7 +142,7 @@
                     </div>
                 </div>
                 <div class="activity flex">
-                    <i class="el-icon-notebook-1"></i>
+                    <img src="@/assets/svg/activities.svg" alt="">
                     <card-activity
                         v-if="card"
                         :user="loggedinUser"
@@ -162,7 +162,7 @@
                         @moveCard="moveCard"
                     />
                     <add-members
-                        v-if="isCmpOpen('isAddMembers')"
+                        v-if="isCmpOpen('member')"
                         :cardMembers="cardMembers()"
                         :boardMembers="boardMembers"
                         @updateMembers="updateMembers"
@@ -198,7 +198,7 @@
                     title="Members"
                     data-txt="Members"
                 >
-                    <i class="el-icon-user"></i>
+                    <img class="icon-btn" src="@/assets/svg/member.svg" alt="">
                 </button>
                 <button
                     @click.stop="openLabels"
@@ -206,7 +206,7 @@
                     title="Labels"
                     data-txt="Labels"
                 >
-                    <i class="el-icon-collection-tag"></i>
+                    <img class="icon-btn" src="@/assets/svg/label.svg" alt="">
                 </button>
                 <button
                     @click.stop="addChecklist"
@@ -214,7 +214,7 @@
                     title="Checklist"
                     data-txt="Checklist"
                 >
-                    <i class="el-icon-document-checked"></i>
+                    <img class="icon-btn" src="@/assets/svg/checklist.svg" alt="">
                 </button>
                 <button>
                     <label
@@ -223,7 +223,7 @@
                         data-txt="Attachment"
                         for="uploader"
                     >
-                        <i class="fal fa-paperclip"></i>
+                        <img class="icon-btn" src="@/assets/svg/attach.svg" alt="">
                     </label>
                 </button>
                 <input
@@ -239,7 +239,7 @@
                     data-txt="Cover"
                     @click.stop="openCoverPicker"
                 >
-                    <i class="fal fa-window-maximize"></i>
+                    <img class="icon-btn" src="@/assets/svg/cover.svg" alt="">
                     <el-color-picker
                         popper-class="color-dropdown"
                         ref="color-picker"
@@ -256,7 +256,7 @@
                     title="Set Date"
                     data-txt="Set Date"
                 >
-                    <i class="fal fa-clock"></i>
+                    <img class="icon-btn" src="@/assets/svg/clock.svg" alt="">
                 </button>
                 <button
                     @click.stop="removeDate"
@@ -275,7 +275,7 @@
                     title="Clone"
                     data-txt="Clone"
                 >
-                    <i class="fal fa-clone"></i>
+                    <img class="icon-btn" src="@/assets/svg/copy.svg" alt="">
                 </button>
                 <button
                     class="dlt-btn flex f-a-center content-after"
@@ -291,7 +291,7 @@
                     data-txt="Move"
                     @click.stop="emitMove"
                 >
-                    <i class="fal fa-arrow-right"></i>
+                    <img class="icon-btn" src="@/assets/svg/move.svg" alt="">
                 </button>
             </div>
         </div>

@@ -1,19 +1,34 @@
 <template>
     <section class="card-activity">
-        <h2>activity:</h2>
-        <button v-if="!isAllActivities" @click="toggleShowDetails">Show Details</button>
-        <button v-else @click="toggleShowDetails">Hide Details</button>
+        <div class="flex activities-btn">
+            <h2>activity:</h2>
+            <button v-if="!isAllActivities" @click="toggleShowDetails">
+                Show Details
+            </button>
+            <button v-else @click="toggleShowDetails">Hide Details</button>
+        </div>
         <div class="activities flex">
-            <custom-avatar :size="35" :username="user.username" :src="user.imgUrl" />
+            <custom-avatar
+                :size="35"
+                :username="user.username"
+                :src="user.imgUrl"
+            />
             <input
                 type="text"
                 placeholder="Write a comment..."
                 @keydown="typing"
                 v-model="msg.txt"
             />
-            <button @click="sendMsg">Send</button>
+            <button class="activities-send" @click="sendMsg">Send</button>
         </div>
-        <span v-if="userTyping"><custom-avatar :size="35" :username="userTyping" :src="user.imgUrl" /> Adding a comment</span>
+        <span v-if="userTyping"
+            ><custom-avatar
+                :size="35"
+                :username="userTyping"
+                :src="user.imgUrl"
+            />
+            Adding a comment</span
+        >
         <template v-if="activitiesToShow && activitiesToShow.length">
             <activity-preview
                 v-for="activity in activitiesToShow"
@@ -48,7 +63,7 @@ export default {
         }
     },
     computed: {
-        miniUser(){
+        miniUser() {
             return {
                 _id: this.user._id,
                 username: this.user.username,
@@ -56,7 +71,7 @@ export default {
             }
         },
         activitiesToShow() {
-            if (!this.isAllActivities){
+            if (!this.isAllActivities) {
                 return this.activities.filter(activity => activity.comment && activity.comment.length)
             }
             return (this.activities);
@@ -77,7 +92,7 @@ export default {
                 username: msg.from.username,
                 imgUrl: msg.from.imgUrl
             };
-			this.$emit('addActivity',null,this.card,msg.txt,byMember);
+            this.$emit('addActivity', null, this.card, msg.txt, byMember);
         },
         typing() {
             console.log('typing');

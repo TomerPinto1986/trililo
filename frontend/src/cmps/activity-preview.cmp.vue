@@ -1,5 +1,5 @@
 <template>
-	<section class="activity-preview flex f-col">
+	<section class="activity-preview flex">
 		<div class="avatar">
 			<custom-avatar :size="30" :username="username" :src="activity.byMember.imgUrl" />
 		</div>
