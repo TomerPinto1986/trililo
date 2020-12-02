@@ -115,9 +115,6 @@ export default {
 				this.$refs.myInput.blur();
 			}, 0);
 		},
-		emitBgChange(bgc) {
-			this.$emit('changeBgc', bgc)
-		},
 		closeMenu() {
 			this.isMenu = false;
 		},

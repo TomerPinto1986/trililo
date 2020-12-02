@@ -8,17 +8,16 @@
         justify-content: center;
 
         &-img {
-            width: 100px;
-            height: 100px;
+            width: 70px;
+            height: 110px;
             transition: 0.4s;
 
         }
 
         &-title {
             height: 120px;
-            width: 180px;
+            width: 190px;
             transition: 0.4s;
-
         }
 
     }
@@ -44,6 +43,9 @@
         position: fixed;
         z-index: 110;
         transition: 0.4s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         .logo {
             transition: 0.3s;
@@ -59,12 +61,12 @@
                 margin-block-start: unset;
 
                 &-img {
-                    width: 39px;
+                    width: 40px;
                     height: 40px;
                 }
 
                 &-title {
-                    height: 40px;
+                    height: 46px;
                     width: 123px;
                 }
             }

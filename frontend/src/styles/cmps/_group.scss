@@ -10,6 +10,9 @@
     border-radius: 3px;
     white-space: normal;
     margin-inline-end: 8px;
+    padding: 0 4px;
+    // display: block;
+    overflow: hidden;
 
 
     &:first-child {
@@ -70,6 +73,8 @@
         min-height: 40px;
         height: 100%;
         overflow-y: auto;
+        margin: 0 4px;
+        padding: 0 4px;
     }
 
     .add-card-container {

@@ -1,15 +1,13 @@
 <template>
 	<section class="main-header" :class="headerClass">
-		<div class="main-nav flex">
-			<router-link to="/" exact v-if="!isHome">
+		<div class="main-nav flex" v-if="!isHome">
+			<router-link to="/" exact >
 				<img src="@/assets/svg/home.svg" alt="" />
 			</router-link>
 			<router-link to="/board" exact> Boards </router-link>
 		</div>
 		<div class="logo flex">
 			<span @click="goToHome" class="flex">
-				<!-- <img :src="logoSrc" alt="" />
-				<img :src="titleSrc" alt="" /> -->
 				<svg
 					class="logo-img"
 					xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +90,7 @@
 				</svg>
 			</span>
 		</div>
-		<div class="user-area flex">
+		<div class="user-area flex" v-if="!isHome">
 			<template v-if="isGuest">
 				<router-link to="/login">Login</router-link>
 				<router-link to="/signup">Signup</router-link>
@@ -121,7 +119,7 @@ export default {
 			return { home: this.isHome, scrolled: (this.isHome && !this.isAtTop), app: !this.isHome };
 		},
 		logoColor(){
-			return (this.isHome) ? '#000000' : '#fefefe'
+			return (this.isHome) ? '#362C2C' : '#fefefe'
 		}
 	},
 	methods: {
