@@ -7,10 +7,11 @@
 				v-model="group.title"
 				@change="emitChange"
 			/>
-			<button @click="toggleEdit()">...</button>
-			<div v-if="isEdit" class="group-edit flex f-col">
+			<button @click="toggleMenu">...</button>
+			<group-menu v-if="isMenu" @closeMenu="toggleMenu" @deleteGroup="emitDelete(group.id)"></group-menu>
+			<!-- <div v-if="isMenu" class="group-edit flex f-col">
 				<button @click="emitDelete(group.id)">Delete Group</button>
-			</div>
+			</div> -->
 		</div>
 		<draggable
 			class="drag-area"
@@ -64,6 +65,7 @@
 <script>
 import draggable from 'vuedraggable'
 import cardPreview from '../card/card-preview.cmp';
+import groupMenu from './group-menu.cmp'
 
 export default {
 	props: {
@@ -76,7 +78,7 @@ export default {
 		return {
 			isAdding: false,
 			newCardTxt: '',
-			isEdit: false,
+			isMenu: false,
 			isDrag: false,
 		}
 	},
@@ -98,8 +100,8 @@ export default {
 		}
 	},
 	methods: {
-		toggleEdit() {
-			this.isEdit = !this.isEdit;
+		toggleMenu() {
+			this.isMenu = !this.isMenu;
 		},
 		addCard() {
 			this.isAdding = true;
@@ -128,11 +130,12 @@ export default {
 		},
 		update() {
 			this.emitChange();
-		}
+		},
 	},
 	components: {
 		cardPreview,
-		draggable
+		draggable,
+		groupMenu
 	}
 };
 </script>
