@@ -1,5 +1,7 @@
 <template>
-	<section class="activity-preview flex">
+		<div class="activity-preview ">
+
+	<section class="flex">
 		<div class="avatar">
 			<custom-avatar :size="30" :username="username" :src="activity.byMember.imgUrl" />
 		</div>
@@ -20,17 +22,18 @@
 				>
 			</template>
 		</div>
+	</section>
 		<span class="time">
 			{{ moment(activity.createdAt).fromNow() }}
 		</span>
-	</section>
+	</div>
 </template>
 
 <script>
 import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 
 export default {
-
+	
 	props: {
 		activity: Object
 	},
