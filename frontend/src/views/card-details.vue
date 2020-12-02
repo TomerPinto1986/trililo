@@ -493,10 +493,11 @@ export default {
         async onUpload(ev) {
             this.isLoading = true;
             const res = await uploadImg(ev);
+            const imgRatio = res.width / res.height;
             const imgClass = {
-                regular: Math.abs(res.width - res.height) <= 300,
-                portrait: res.height - res.width > 300,
-                landscape: res.width - res.height > 300
+                regular: imgRatio > 0.9 && imgRatio < 1.1,
+                portrait: imgRatio <= 0.9,
+                landscape: imgRatio >= 1.1
             };
             const attachment = {
                 id: utilService.makeId(),
