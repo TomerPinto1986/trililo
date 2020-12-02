@@ -165,6 +165,7 @@
 						@addActivity="addActivity"
 					/>
 				</div>
+			</div>
 			<!-- ACTIONS -->
 			<div class="actions flex f-col">
 				<h3 class="add-to-card-title">Add to card</h3>
