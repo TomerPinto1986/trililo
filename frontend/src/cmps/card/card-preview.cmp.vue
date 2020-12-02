@@ -40,7 +40,7 @@
                 {{ commentsLen }}
             </span>
             <!--  -->
-            <span class="flex members-container" v-if="card.members && card.members.length">
+            <span class="members-container flex" v-if="card.members && card.members.length">
                 <div
                     class="card-members"
                     v-for="member in card.members"
