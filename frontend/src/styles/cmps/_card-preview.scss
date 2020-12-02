@@ -7,7 +7,6 @@
     background-color: #fff;
     box-shadow: 0 1px 0 rgba(9, 30, 66, .25);
     overflow: hidden;
-    
     .description {
         overflow-wrap: break-word;
         max-height: 15ch;
@@ -15,26 +14,21 @@
         text-overflow: ellipsis;
         display: block;
     }
-
     &:not(:last-of-type) {
         margin-block-end: 8px;
     }
-
     &:hover {
         background-color: #f4f5f7;
         border-bottom-color: rgba(9, 30, 66, .25);
     }
-
     .card-header {
         border-radius: 3px 3px 0 0;
         width: 100%;
         height: 20px;
     }
-
     .card-info {
         color: #172b4dd2;
         padding: 6px 8px 0;
-
         .label-marks {
             div {
                 display: flex;
@@ -46,44 +40,38 @@
                 margin-block-end: 4px;
             }
         }
-
         .attachment {
             img {
                 border-radius: 2px;
             }
         }
     }
-
     .icons {
         align-items: center;
         justify-content: space-between;
         width: 100%;
         padding: 0 5px 3px;
-
         i {
             margin-inline-end: 5px;
             padding: 6px;
             border-radius: 5px;
-
             span {
                 font-family: 'segoe';
             }
         }
-
         .members-container {
             flex: 1;
             justify-content: flex-end;
-
             .card-members {
                 margin-inline-end: 5px;
             }
         }
-
         >* {
             font-size: 0.8em;
             align-self: center;
             color: rgb(71, 71, 71);
             margin: 0 2px;
+            margin-block-end: 6px;
         }
     }
 }

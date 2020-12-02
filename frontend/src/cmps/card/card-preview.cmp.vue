@@ -40,9 +40,9 @@
                 {{ commentsLen }}
             </span>
             <!--  -->
-            <span class="flex" v-if="card.members && card.members.length">
+            <span class="flex members-container" v-if="card.members && card.members.length">
                 <div
-                    class="card-membes"
+                    class="card-members"
                     v-for="member in card.members"
                     :key="member._id"
                 >
