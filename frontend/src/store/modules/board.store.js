@@ -74,13 +74,20 @@ export default {
         },
         updateCardStatus(state, { status }) {
             if ((status.startGroup === status.endGroup && status.endPos === status.startPos) || (status.startGroup === status.endGroup && (!status.endPos && status.endPos !== 0))) return;
+            let cardToMove;
             const board = state.currBoard;
             const startGroupIdx = board.groups.findIndex(group => group.id === status.startGroup);
-            board.groups[startGroupIdx].cards.splice(status.startPos, 1);
+            if (!status.isClone) {
+                cardToMove = state.currCard;
+                board.groups[startGroupIdx].cards.splice(status.startPos, 1);
+            } else {
+                cardToMove = utilService.deepCopy(state.currCard);
+                cardToMove.id = utilService.makeId();
+            }
             const endGroupIdx = board.groups.findIndex(group => group.id === status.endGroup);
             if (!status.endPos && status.endPos !== 0) {
-                board.groups[endGroupIdx].cards.push(state.currCard);
-            } else board.groups[endGroupIdx].cards.splice(status.endPos, 0, state.currCard);
+                board.groups[endGroupIdx].cards.push(cardToMove);
+            } else board.groups[endGroupIdx].cards.splice(status.endPos, 0, cardToMove);
         },
     },
     actions: {
