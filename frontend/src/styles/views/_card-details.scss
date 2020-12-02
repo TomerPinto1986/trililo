@@ -87,6 +87,8 @@
                     text-transform: uppercase;
                     .avatar {
                         border: 2px solid #F4F5F7;
+                        width: 40px;
+                        height: 40px;
                     }
                     .add-member {
                         cursor: pointer;
@@ -214,11 +216,6 @@
                 top: 350px;
                 left: 350px;
             }
-        }
-
-        .description pre {
-            white-space: pre-wrap;
-            word-break: break-all;
         }
 
         .actions {
