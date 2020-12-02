@@ -34,10 +34,12 @@
                     class="fas fa-paperclip"
                 ></i>
             </span>
-            <!-- <span v-if="commentsLen">
+            <!-- Need to design -->
+            <span v-if="commentsLen">
                 <i class="fal fa-comment"></i>
                 {{ commentsLen }}
-            </span> -->
+            </span>
+            <!--  -->
             <span class="flex" v-if="card.members && card.members.length">
                 <div
                     class="card-membes"
