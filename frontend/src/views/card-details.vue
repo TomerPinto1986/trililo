@@ -151,7 +151,7 @@
 					/>
 				</div>
 				<!-- POPUP -->
-				<pop-up v-if="isPopUp" @closePopup="closePopup">
+				<pop-up v-if="false" @closePopup="closePopup">
 					<card-move
 						v-if="isCmpOpen('move')"
 						:groups="board.groups"
@@ -201,6 +201,14 @@
 						src="@/assets/svg/member.svg"
 						alt=""
 					/>
+					<pop-up v-if="isPopUp" @closePopup="closePopup">
+						<add-members
+							v-if="isCmpOpen('member')"
+							:cardMembers="cardMembers()"
+							:boardMembers="boardMembers"
+							@updateMembers="updateMembers"
+						/>
+					</pop-up>
 				</button>
 				<button
 					@click.stop="openLabels"
@@ -398,7 +406,7 @@ export default {
 	},
 	methods: {
 		updateCardTitle() {
-            this.$refs['card-title'].blur();
+			this.$refs['card-title'].blur();
 			this.updateBoard();
 		},
 		updateBoard(board = this.board, isSocket = false) {

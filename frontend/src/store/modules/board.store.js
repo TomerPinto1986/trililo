@@ -108,10 +108,7 @@ export default {
             const user = context.getters.loggedinUser;
             newBoard.title = newBoardTxt;
             if (user._id === 'guest') newBoard.isPrivate = false;
-            else {
-                newBoard.byMember = user;
-                newBoard.members.push(user);
-            }
+            newBoard.byMember = user;
             const activity = boardService.emptyActivity();
             activity.byMember = user;
             activity.createdAt = Date.now();

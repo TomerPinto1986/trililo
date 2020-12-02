@@ -5,14 +5,15 @@
         padding: 0.4em 3.5em;
         display: block;
         width: -webkit-fit-content;
-        width: -moz-fit-content;
+        width: 400px;
         margin: 20px auto;
         box-shadow: 0 0 2px 1px black, inset 0 0 1px 0px black;
         box-shadow: 0 10px 40px -10px rgba(0, 0, 0, .25);
         position: absolute;
         z-index: 100;
         top: 700px;
-        right: 44%;
+        text-align: center;
+        right: calc(50% - 200px);
         background: #455a64;
         /* background: #4E7592; */
         /* background: #e8505b; */

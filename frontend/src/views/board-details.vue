@@ -227,6 +227,7 @@ export default {
 			} else {
 				board.members.splice(memberIdx, 1);
 			}
+			console.log(userId)
 			this.updateBoard(board);
 			const action = (memberIdx === -1) ? `added ${user.username} to the board` : `removed ${user.username} from the board`;
 			this.addActivity(action);
