@@ -40,7 +40,6 @@
 				@click.native="openDetails(card.id)"
 			/>
 		</draggable>
-
 		<div class="add-card-container">
 			<template v-if="isAdding">
 				<!-- add closing when pressing outside of textarea -->

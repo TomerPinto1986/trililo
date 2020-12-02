@@ -1,31 +1,46 @@
-.board-list {
-    padding: 100px 30px;
-    background-color: rgb(219, 219, 219);
-    height: 100vh;
-
-    button {
-        padding: 10px 15px;
-    }
-
-    .create-board {
-        cursor: unset;
-        background-color: #2a2a2a;
-
+.board-list-container {
+    height: 100%;
+    background-color: #fff1f1;
+    .board-list {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 0 30px;
+        justify-content: center;
         button {
-            font-size: 1em;
-            padding: 15px;
-            background-color: transparent;
-            box-shadow: 0 0 2px 0 white, inset 0 0 1px 0 white;
-            color: white;
-
-            &:hover {
-                box-shadow: 0 0 3px 0 white, inset 0 0 2px 0 white;
+            padding: 10px 15px;
+        }
+        .create-board {
+            cursor: unset;
+            background-color: #2a2a2a;
+            button {
+                font-size: 1em;
+                padding: 15px;
+                background-color: transparent;
+                box-shadow: 0 0 2px 0 white, inset 0 0 1px 0 white;
+                color: white;
+                &:hover {
+                    box-shadow: 0 0 3px 0 white, inset 0 0 2px 0 white;
+                }
+            }
+            input {
+                padding: 10px 5px;
+                margin: 10px 0;
             }
         }
-
-        input {
-            padding: 10px 5px;
-            margin: 10px 0;
-        }
+    }
+    h3 {
+        font-family: 'Segoe UI';
+        font-weight: bold;
+        text-align: center;
+        font-size: 36px;
+        text-transform: capitalize;
+        color: #606266;
+        margin-block-start: 60px;
+    }
+    h4 {
+        margin-block-end: 30px;
+        text-align: center;
+        font-size: 22px;
+        color: #606266;
     }
 }

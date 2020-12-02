@@ -50,9 +50,9 @@ export default {
             img.onload = () => {
                 console.log('w: ' + img.width + ' / h: ' + img.height);
                 const x = {
-                    'regular': Math.abs(img.width - img.height) <= 300,
-                    'portrait': img.height - img.width > 300,
-                    'landscape': img.width - img.height > 300
+                    regular: Math.abs(img.width - img.height) <= 300,
+                    portrait: img.height - img.width > 300,
+                    landscape: img.width - img.height > 300
                 };
                 console.log('x:', x)
                 return x;

@@ -18,7 +18,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        bgc: 'rgb(219, 219, 219)',
+        bgc: 'rgb(246, 207, 206)',
         bgSrcs: [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10],
 
     },
@@ -33,7 +33,7 @@ export default new Vuex.Store({
     mutations: {   
         loadBgc(state) {
             const board = this.getters.currBoard;
-            const bgc = (board) ? board.style.background : 'rgb(219, 219, 219)';
+            const bgc = (board) ? board.style.background : 'rgb(246, 207, 206)';
             const style = (bgc.includes('rgb')) ? bgc : `url(${state.bgSrcs[+bgc]})`;
             state.bgc = style;
         },
