@@ -35,12 +35,17 @@
 			</el-select>
 			<span class="seperator"></span>
 			<div class="board-members flex">
+				<custom-avatar
+						:size="35"
+						:username="board.byMember.username"
+						:src="board.byMember.imgUrl"
+					/>
 				<div
 					v-for="member in boardMembers"
 					:key="member.id"
 					class="member"
 				>
-					<custom-avatar
+					<custom-avatar v-if="member._id !== board.byMember._id"
 						:size="35"
 						:username="member.username"
 						:src="member.imgUrl"
@@ -55,7 +60,7 @@
 				</span>
 				<add-users
 					v-if="isAddUsers"
-					:allUsers="users"
+					:allUsers="usersToAdd"
 					:boardUsers="this.board.members"
 					@closeUsers="closeUsers"
 					@updateUsers="updateUsers"
@@ -126,6 +131,9 @@ export default {
 		},
 	},
 	computed: {
+		usersToAdd(){
+			return this.users.filter(user=> user._id !== this.board.byMember._id)
+		},
 		boardMembers() {
 			return this.board.members;
 		},
