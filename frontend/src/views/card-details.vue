@@ -355,9 +355,6 @@ export default {
         loggedinUser() {
             return this.$store.getters.loggedinUser;
         },
-        // localTime() {
-        //     return (new Date(this.card.dueDate)).toLocaleDateString();
-        // },
         boardMembers() {
             if (!this.board.isPrivate) return utilService.deepCopy(this.$store.getters.users);
             return this.board.members;
