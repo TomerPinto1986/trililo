@@ -65,7 +65,7 @@
 						:src="member.imgUrl"
 					/>
 				</div>
-				<span class="add-btn" v-if="!isAddUsers" @click="addUsers">
+				<span class="add-btn" @click="addUsers">
 					Invite
 				</span>
 				<add-users

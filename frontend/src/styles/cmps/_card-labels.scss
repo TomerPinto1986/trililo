@@ -11,8 +11,13 @@
         cursor: pointer;
         color: white;
         align-items: center;
-        &:hover {
-            box-shadow: -8px 0 rgba(0, 0, 0, 0.363);
+        &.bgc {
+            @each $bgc in $labelbgcs {
+                $i: index($labelbgcs, $bgc);
+                &-#{$i}:hover {
+                    box-shadow: -8px 0 #{$bgc};
+                }
+            }
         }
         span {
             align-self: center;

@@ -7,7 +7,9 @@
 				v-model="group.title"
 				@change="emitChange"
 			/>
-			<button @click="toggleMenu">...</button>
+			<button @click="toggleMenu">
+				<i class="fas fa-ellipsis-h menu-btn"></i>
+			</button>
 			<group-menu
 				v-if="isMenu"
 				@closeMenu="toggleMenu"

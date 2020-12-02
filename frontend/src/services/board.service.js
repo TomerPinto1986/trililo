@@ -44,61 +44,61 @@ function emptyBoard() {
         },
         "members": [],
         "groups": [{
-            "id": utilService.makeId() + '',
-            "title": "To Do",
-            "cards": [],
-            "style": {
-                "headerColor": ""
+                "id": utilService.makeId() + '',
+                "title": "To Do",
+                "cards": [],
+                "style": {
+                    "headerColor": ""
+                }
+            },
+            {
+                "id": utilService.makeId() + '',
+                "title": "In Progress",
+                "cards": [],
+                "style": {
+                    "headerColor": ""
+                }
+            },
+            {
+                "id": utilService.makeId() + '',
+                "title": "Done",
+                "cards": [],
+                "style": {
+                    "headerColor": ""
+                }
             }
-        },
-        {
-            "id": utilService.makeId() + '',
-            "title": "In Progress",
-            "cards": [],
-            "style": {
-                "headerColor": ""
-            }
-        },
-        {
-            "id": utilService.makeId() + '',
-            "title": "Done",
-            "cards": [],
-            "style": {
-                "headerColor": ""
-            }
-        }
         ],
         "activities": [],
         "labels": [{
-            "id": "l101",
-            "color": "#61bd4f",
-            "title": "a"
-        },
-        {
-            "id": "l102",
-            "color": "#f2d600",
-            "title": "b"
-        },
-        {
-            "id": "l103",
-            "color": "#ff9f1a",
-            "title": "c"
-        },
-        {
-            "id": "l104",
-            "color": "#eb5a46",
-            "title": "d"
-        },
-        {
-            "id": "l105",
-            "color": "#c377e0",
-            "title": "e"
-        },
-        {
-            "id": "l106",
-            "color": "#0079bf",
-            "title": "f"
-        }
+                "id": "l101",
+                "color": "#61bd4f",
+                "title": "a"
+            },
+            {
+                "id": "l102",
+                "color": "#f2d600",
+                "title": "b"
+            },
+            {
+                "id": "l103",
+                "color": "#ff9f1a",
+                "title": "c"
+            },
+            {
+                "id": "l104",
+                "color": "#eb5a46",
+                "title": "d"
+            },
+            {
+                "id": "l105",
+                "color": "#eb5a46",
+                "title": "e"
+            },
+            {
+                "id": "l106",
+                "color": "#0079bf",
+                "title": "f"
+            }
         ]
     }
 }

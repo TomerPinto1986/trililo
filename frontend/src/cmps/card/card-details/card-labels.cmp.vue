@@ -5,10 +5,11 @@
             <li>
                 <label-preview
                     class="flex"
-                    v-for="label in boardLabels"
+                    v-for="(label,idx) in boardLabels"
                     :key="label.id"
                     :label="label"
                     :card="card"
+                    :idx="idx"
                     @updateCard="emitUpdateCard"
                     @updateLabelTitle="emitUpdateTitle"
                 />
