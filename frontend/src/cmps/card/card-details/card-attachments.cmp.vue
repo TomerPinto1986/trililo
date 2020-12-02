@@ -3,20 +3,20 @@
         v-if="attachmentsToShow && attachmentsToShow.length"
         class="attachments"
     >
-        <ul>
-            <li
-                class="attachment-card flex f-col"
+        <div class="attachment-list">
+            <div
                 v-for="(attachment, idx) in attachmentsToShow"
-                :class="attachment.imgClass"
                 :key="idx"
+                class="attachment-card flex f-col"
+                :class="attachment.imgClass"
             >
                 <img :src="attachment.src" />
                 <div>
                     <small>{{ attachment.name }}</small>
-                    <button @click="emitDelete(attachment.id)">Delete</button>
+                    <button @cdivck="emitDelete(attachment.id)">Delete</button>
                 </div>
-            </li>
-        </ul>
+            </div>
+        </div>
     </section>
 </template>
 

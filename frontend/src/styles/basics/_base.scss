@@ -3,7 +3,8 @@
 }
 
 html {
-    font-family: segoe, mont, Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Segoe UI', mont, Calibri, 'Trebuchet MS', sans-serif;
+    letter-spacing: normal;
     line-height: 1.8;
 }
 
@@ -47,7 +48,8 @@ ul {
 }
 
 button {
-    font-family: segoe;
+    font-family: 'Segoe UI';
+    letter-spacing: normal;
     padding: 5px 10px;
     border: none;
     outline: none;

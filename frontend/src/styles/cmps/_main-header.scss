@@ -36,7 +36,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-
         .logo {
             transition: 0.3s;
             margin-block-start: 100px;
@@ -81,7 +80,9 @@
     .main-nav {
         a {
             margin-inline-end: 4px;
-            font-family: 'segoe-bold';
+            font-family: 'Segoe UI';
+            letter-spacing: normal;
+            font-weight: bold;
         }
     }
     .logo {
