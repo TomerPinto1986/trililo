@@ -51,6 +51,9 @@
         justify-content: space-between;
         width: 100%;
         padding: 0 5px 3px;
+        .description-icon img {
+            width: 13px;
+        }
         i {
             margin-inline-end: 5px;
             padding: 6px;

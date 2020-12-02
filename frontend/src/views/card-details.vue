@@ -86,12 +86,13 @@
                     <div class="due-date" v-if="card.dueDate || dueDate">
                         <h3 @click.stop="setDate">Due Date</h3>
                         <span class="due-date-info" v-if="card.dueDate">
-                            <check-box
-                                class="due-date-checkbox"
-                                :isDone="card.isDone"
-                            ></check-box
-                            ><span class="due-date-local-time">{{
-                                localTime
+                            <el-checkbox
+                                class="checkbox"
+                                v-model="card.isComplete"
+                                @change="toggleIsComplete"
+                            ></el-checkbox>
+                            <span class="due-date-local-time">{{
+                                moment(card.dueDate).format("MMM Do")
                             }}</span>
                         </span>
                         <date-picker
@@ -326,7 +327,7 @@
 import { utilService } from '@/services/util.service';
 import { uploadImg } from '@/services/img-upload.service';
 import { socketService } from '@/services/socket.service'
-import checkBox from '../cmps/custom-elements/check-box.cmp';
+// import checkBox from '../cmps/custom-elements/check-box.cmp';
 import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 import datePicker from '@/cmps/custom-elements/date-picker.cmp';
 import addMembers from '@/cmps/custom-elements/add-members.cmp';
@@ -346,16 +347,16 @@ export default {
             card: null,
             isPopUp: false,
             currPopUp: null,
-            isLoading: false
+            isLoading: false,
         }
     },
     computed: {
         loggedinUser() {
             return this.$store.getters.loggedinUser;
         },
-        localTime() {
-            return (new Date(this.card.dueDate)).toLocaleDateString();
-        },
+        // localTime() {
+        //     return (new Date(this.card.dueDate)).toLocaleDateString();
+        // },
         boardMembers() {
             if (!this.board.isPrivate) return utilService.deepCopy(this.$store.getters.users);
             return this.board.members;
@@ -532,6 +533,7 @@ export default {
             this.addActivity(`removed the due date from `, card);
         },
         setNewDate(dueDate) {
+            this.card.isDone = false;
             const updatedCard = utilService.deepCopy(this.card)
             if (this.card.dueDate) {
                 delete this.card.dueDate;
@@ -603,6 +605,11 @@ export default {
             const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklistId);
             if (idx !== -1) card.checklistGroup.splice(idx, 1);
             this.updateCard(card);
+        },
+        toggleIsComplete(){
+            const card = this.card;
+            card.isDone = !card.isDone;
+            this.updateCard(card);
         }
     },
     created() {
@@ -628,7 +635,7 @@ export default {
         cardLabels,
         customAvatar,
         popUp,
-        checkBox,
+        // checkBox,
         addChecklist,
         cardChecklist,
         cardDescription
