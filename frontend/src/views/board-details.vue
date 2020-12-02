@@ -31,6 +31,7 @@
 					:key="group.id"
 					:group="group"
 					:labels="board.labels"
+					:activities="board.activities"
 					:filterBy="filterBy"
 					@close="closeDetails"
 					@newCard="addCard"
