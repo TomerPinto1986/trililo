@@ -1,319 +1,315 @@
 <template>
-	<section
-		v-if="card"
-		class="card-details flex f-col"
-		@click.stop="closePopup"
-	>
-		<div
-			class="card-header"
-			:style="headerStyle"
-			v-if="card.style.headerColor"
-		></div>
-		<button
-			class="cancel-btn flex f-center"
-			@click.stop="emitClose"
-			:class="{ cover: this.card.style.headerColor }"
-		>
-			<i class="el-icon-close"></i>
-		</button>
-		<div
-			class="card-main-container"
-			:class="{ cover: this.card.style.headerColor }"
-		>
-			<!-- INFO -->
-			<div class="card-info">
-				<div class="info">
-					<span class="card-icon">
-						<img src="@/assets/svg/card.svg" alt="" />
-					</span>
-					<input
-						ref="card-title"
-						class="title"
-						type="text"
-						v-model="card.title"
-						@blur="updateCardTitle"
-						@keyup.enter="updateCardTitle"
-					/>
-					<h4 class="in-list">
-						in list <span>{{ getCurrGroup.title }}</span>
-					</h4>
-				</div>
-				<section class="add-to-card flex wrap">
-					<div
-						class="card-members f-col"
-						v-if="card.members && card.members.length"
-					>
-						<h3>Members</h3>
-						<div class="flex">
-							<span
-								v-for="member in card.members"
-								:key="member._id"
-							>
-								<custom-avatar
-									class="avatar"
-									:size="34"
-									:username="member.username"
-									:src="member.imgUrl"
-								/>
-							</span>
-							<button
-								class="plus-btn member flex f-center"
-								@click.stop="onAddMembers"
-							>
-								+
-							</button>
-						</div>
-					</div>
-					<div class="label-marks f-col" v-if="labelsSelected.length">
-						<h3 class="flex">Labels</h3>
-						<div class="label-container flex wrap">
-							<div
-								v-for="label in labelsSelected"
-								:key="label.id"
-								class="label flex f-center"
-								:style="{ backgroundColor: label.color }"
-							>
-								{{ label.title }}
-							</div>
-							<button
-								class="plus-btn flex f-center"
-								@click.stop="openLabels"
-							>
-								+
-							</button>
-						</div>
-					</div>
-					<div class="due-date" v-if="card.dueDate || dueDate">
-						<h3 @click.stop="setDate">Due Date</h3>
-						<span class="due-date-info" v-if="card.dueDate">
-							<check-box
-								class="due-date-checkbox"
-								:isDone="card.isDone"
-							></check-box
-							><span class="due-date-local-time">{{
-								localTime
-							}}</span>
-						</span>
-						<date-picker
-							ref="date-picker"
-							class="date-picker"
-							slot="date-picker"
-							:dueDate="card.dueDate"
-							v-if="dueDate"
-							@setDate="setNewDate"
-						/>
-					</div>
-				</section>
-				<div class="description flex">
-					<span><img src="@/assets/svg/desc.svg" alt="" /></span>
-					<card-description
-						:description="card.description"
-						@updateDesc="updateDesc"
-					/>
-				</div>
-				<img
-					v-if="isLoading"
-					class="loading-gif"
-					src="../assets/animations/load.gif"
-					alt="Loading"
-				/>
-				<div class="attachments-group flex">
-					<img src="@/assets/svg/attach.svg" alt="" />
-					<card-attachments
-						:attachments="attachments"
-						:isLoading="isLoading"
-						@updateAttachments="updateAttachments"
-					/>
-				</div>
-				<div v-if="card.checklistGroup" class="checklist-group">
-					<div
-						class="checklist flex"
-						v-for="checklist in card.checklistGroup"
-						:key="checklist.id"
-					>
-						<img src="@/assets/svg/checklist.svg" alt="" />
-						<card-checklist
-							:checklist="checklist"
-							@updeteChecklist="updeteChecklist"
-							@deleteChecklist="deleteChecklist"
-						/>
-					</div>
-				</div>
-				<div class="activity flex">
-					<img src="@/assets/svg/activities.svg" alt="" />
-					<card-activity
-						v-if="card"
-						:user="loggedinUser"
-						:card="card"
-						:activities="cardActivities"
-						:isShowDetails="false"
-						@addActivity="addActivity"
-					/>
-				</div>
-				<!-- POPUP -->
-				<pop-up v-if="false" @closePopup="closePopup">
-					<card-move
-						v-if="isCmpOpen('move')"
-						:groups="board.groups"
-						:group="getCurrGroup"
-						:currPosition="getCurrPosition"
-						@moveCard="moveCard"
-					/>
-					<add-members
-						v-if="isCmpOpen('member')"
-						:cardMembers="cardMembers()"
-						:boardMembers="boardMembers"
-						@updateMembers="updateMembers"
-					/>
-					<template v-if="board">
-						<card-labels
-							v-if="isCmpOpen('labels')"
-							:card="card"
-							:boardLabels="board.labels"
-							@updateCard="updateCard"
-							@updateLabelTitle="updateLabelTitle"
-						/>
-					</template>
-					<card-cover
-						v-if="isCmpOpen('cover')"
-						:color="card.style.headerColor"
-						@colorChange="updateCover"
-					/>
-					<add-checklist
-						v-if="isCmpOpen('checklist')"
-						:card="card"
-						@updateCard="updateCard"
-						@close="closePopup"
-					/>
-				</pop-up>
-			</div>
-			<!-- ACTIONS -->
-			<div class="actions flex f-col">
-				<h3 class="add-to-card-title">Add to card</h3>
-				<button
-					@click.stop="onAddMembers"
-					class="flex f-a-center content-after"
-					title="Members"
-					data-txt="Members"
-				>
-					<img
-						class="icon-btn"
-						src="@/assets/svg/member.svg"
-						alt=""
-					/>
-					<pop-up v-if="isPopUp" @closePopup="closePopup">
-						<add-members
-							v-if="isCmpOpen('member')"
-							:cardMembers="cardMembers()"
-							:boardMembers="boardMembers"
-							@updateMembers="updateMembers"
-						/>
-					</pop-up>
-				</button>
-				<button
-					@click.stop="openLabels"
-					class="flex f-a-center content-after"
-					title="Labels"
-					data-txt="Labels"
-				>
-					<img class="icon-btn" src="@/assets/svg/label.svg" alt="" />
-				</button>
-				<button
-					@click.stop="addChecklist"
-					class="flex f-a-center content-after"
-					title="Checklist"
-					data-txt="Checklist"
-				>
-					<img
-						class="icon-btn"
-						src="@/assets/svg/checklist.svg"
-						alt=""
-					/>
-				</button>
-				<button>
-					<label
-						class="upload-btn flex f-a-center content-after"
-						title="Attachment"
-						data-txt="Attachment"
-						for="uploader"
-					>
-						<img
-							class="icon-btn"
-							src="@/assets/svg/attach.svg"
-							alt=""
-						/>
-					</label>
-				</button>
-				<input
-					class="upload"
-					type="file"
-					name="uploader"
-					id="uploader"
-					@change="onUpload"
-				/>
-				<button
-					class="cover-btn flex f-a-center content-after"
-					title="Cover"
-					data-txt="Cover"
-					@click.stop="openCoverPicker"
-				>
-					<img class="icon-btn" src="@/assets/svg/cover.svg" alt="" />
-					<el-color-picker
-						popper-class="color-dropdown"
-						ref="color-picker"
-						class="color-picker"
-						size="mini"
-						v-model="card.style.headerColor"
-						@change="updateCover"
-					></el-color-picker>
-				</button>
-				<!-- <div> -->
-				<button
-					@click.stop="setDate"
-					class="flex f-a-center content-after"
-					title="Set Date"
-					data-txt="Set Date"
-				>
-					<img class="icon-btn" src="@/assets/svg/clock.svg" alt="" />
-				</button>
-				<button
-					@click.stop="removeDate"
-					v-if="card.dueDate"
-					class="remove-date flex f-a-center content-after"
-					title="Remove Date"
-					data-txt="Remove Date"
-				>
-					<i class="fal fa-history"></i>
-				</button>
-				<!-- </div> -->
-				<h3 class="actions-title">Actions</h3>
-				<button
-					@click="cloneCard"
-					class="flex f-a-center content-after"
-					title="Clone"
-					data-txt="Clone"
-				>
-					<img class="icon-btn" src="@/assets/svg/copy.svg" alt="" />
-				</button>
-				<button
-					class="dlt-btn flex f-a-center content-after"
-					title="Delete"
-					data-txt="Delete Card"
-					@click.stop="deleteCard"
-				>
-					<i class="fal fa-trash-alt"></i>
-				</button>
-				<button
-					class="move-btn flex f-a-center content-after"
-					title="Move"
-					data-txt="Move"
-					@click.stop="emitMove"
-				>
-					<img class="icon-btn" src="@/assets/svg/move.svg" alt="" />
-				</button>
-			</div>
-		</div>
-	</section>
+    <section
+        v-if="card"
+        class="card-details flex f-col"
+        @click.stop="closePopup"
+    >
+        <div
+            class="card-header"
+            :style="headerStyle"
+            v-if="card.style.headerColor"
+        ></div>
+        <button
+            class="cancel-btn flex f-center"
+            @click.stop="emitClose"
+            :class="{ cover: this.card.style.headerColor }"
+        >
+            <i class="el-icon-close"></i>
+        </button>
+        <div
+            class="card-main-container"
+            :class="{ cover: this.card.style.headerColor }"
+        >
+            <!-- INFO -->
+            <div class="card-info">
+                <div class="info">
+                    <span class="card-icon">
+                        <img src="@/assets/svg/card.svg" />
+                    </span>
+                    <input
+                        ref="card-title"
+                        class="title"
+                        type="text"
+                        v-model="card.title"
+                        @blur="updateCardTitle"
+                        @keyup.enter="updateCardTitle"
+                    />
+                    <h4 class="in-list">
+                        in list <span>{{ getCurrGroup.title }}</span>
+                    </h4>
+                </div>
+                <section class="add-to-card flex wrap">
+                    <div
+                        class="card-members f-col"
+                        v-if="card.members && card.members.length"
+                    >
+                        <h3>Members</h3>
+                        <div class="flex">
+                            <span
+                                v-for="member in card.members"
+                                :key="member._id"
+                            >
+                                <custom-avatar
+                                    class="avatar"
+                                    :size="34"
+                                    :username="member.username"
+                                    :src="member.imgUrl"
+                                />
+                            </span>
+                            <button
+                                class="plus-btn member flex f-center"
+                                @click.stop="onAddMembers"
+                            >
+                                +
+                            </button>
+                        </div>
+                    </div>
+                    <div class="label-marks f-col" v-if="labelsSelected.length">
+                        <h3 class="flex">Labels</h3>
+                        <div class="label-container flex wrap">
+                            <div
+                                v-for="label in labelsSelected"
+                                :key="label.id"
+                                class="label flex f-center"
+                                :style="{ backgroundColor: label.color }"
+                            >
+                                {{ label.title }}
+                            </div>
+                            <button
+                                class="plus-btn flex f-center"
+                                @click.stop="openLabels"
+                            >
+                                +
+                            </button>
+                        </div>
+                    </div>
+                    <div class="due-date" v-if="card.dueDate || dueDate">
+                        <h3 @click.stop="setDate">Due Date</h3>
+                        <span class="due-date-info" v-if="card.dueDate">
+                            <check-box
+                                class="due-date-checkbox"
+                                :isDone="card.isDone"
+                            ></check-box
+                            ><span class="due-date-local-time">{{
+                                localTime
+                            }}</span>
+                        </span>
+                        <date-picker
+                            ref="date-picker"
+                            class="date-picker"
+                            slot="date-picker"
+                            :dueDate="card.dueDate"
+                            v-if="dueDate"
+                            @setDate="setNewDate"
+                        />
+                    </div>
+                </section>
+                <div class="description flex">
+                    <span><img src="@/assets/svg/desc.svg" /></span>
+                    <card-description
+                        :description="card.description"
+                        @updateDesc="updateDesc"
+                    />
+                </div>
+                <img
+                    v-if="isLoading"
+                    class="loading-gif"
+                    src="../assets/animations/load.gif"
+                    alt="Loading"
+                />
+                <div class="attachments-group flex">
+                    <img src="@/assets/svg/attach.svg" />
+                    <div>
+                        <h2>Attachments</h2>
+                        <card-attachments
+                            :attachments="attachments"
+                            :isLoading="isLoading"
+                            @updateAttachments="updateAttachments"
+                        />
+                    </div>
+                </div>
+                <div v-if="card.checklistGroup" class="checklist-group">
+                    <div
+                        class="checklist flex"
+                        v-for="checklist in card.checklistGroup"
+                        :key="checklist.id"
+                    >
+                        <img src="@/assets/svg/checklist.svg" />
+                        <card-checklist
+                            :checklist="checklist"
+                            @updeteChecklist="updeteChecklist"
+                            @deleteChecklist="deleteChecklist"
+                        />
+                    </div>
+                </div>
+                <div class="activity flex">
+                    <img src="@/assets/svg/activities.svg" />
+                    <card-activity
+                        v-if="card"
+                        :user="loggedinUser"
+                        :card="card"
+                        :activities="cardActivities"
+                        :isShowDetails="false"
+                        @addActivity="addActivity"
+                    />
+                </div>
+                <!-- POPUP -->
+                <pop-up v-if="isPopUp" @closePopup="closePopup">
+                    <card-move
+                        v-if="isCmpOpen('move')"
+                        :groups="board.groups"
+                        :group="getCurrGroup"
+                        :currPosition="getCurrPosition"
+                        @moveCard="moveCard"
+                    />
+                    <add-members
+                        v-if="isCmpOpen('member')"
+                        :cardMembers="cardMembers()"
+                        :boardMembers="boardMembers"
+                        @updateMembers="updateMembers"
+                    />
+                    <template v-if="board">
+                        <card-labels
+                            v-if="isCmpOpen('labels')"
+                            :card="card"
+                            :boardLabels="board.labels"
+                            @updateCard="updateCard"
+                            @updateLabelTitle="updateLabelTitle"
+                        />
+                    </template>
+                    <card-cover
+                        v-if="isCmpOpen('cover')"
+                        :color="card.style.headerColor"
+                        @colorChange="updateCover"
+                    />
+                    <add-checklist
+                        v-if="isCmpOpen('checklist')"
+                        :card="card"
+                        @updateCard="updateCard"
+                        @close="closePopup"
+                    />
+                </pop-up>
+            </div>
+            <!-- ACTIONS -->
+            <div class="actions flex f-col">
+                <h3 class="add-to-card-title">Add to card</h3>
+                <button
+                    @click.stop="onAddMembers"
+                    class="flex f-a-center content-after"
+                    title="Members"
+                    data-txt="Members"
+                >
+                    <img
+                        class="icon-btn"
+                        src="@/assets/svg/member.svg"
+                        alt=""
+                    />
+                </button>
+                <button
+                    @click.stop="openLabels"
+                    class="flex f-a-center content-after"
+                    title="Labels"
+                    data-txt="Labels"
+                >
+                    <img class="icon-btn" src="@/assets/svg/label.svg" />
+                </button>
+                <button
+                    @click.stop="addChecklist"
+                    class="flex f-a-center content-after"
+                    title="Checklist"
+                    data-txt="Checklist"
+                >
+                    <img
+                        class="icon-btn"
+                        src="@/assets/svg/checklist.svg"
+                        alt=""
+                    />
+                </button>
+                <button>
+                    <label
+                        class="upload-btn flex f-a-center content-after"
+                        title="Attachment"
+                        data-txt="Attachment"
+                        for="uploader"
+                    >
+                        <img
+                            class="icon-btn"
+                            src="@/assets/svg/attach.svg"
+                            alt=""
+                        />
+                    </label>
+                </button>
+                <input
+                    class="upload"
+                    type="file"
+                    name="uploader"
+                    id="uploader"
+                    @change="onUpload"
+                />
+                <button
+                    class="cover-btn flex f-a-center content-after"
+                    title="Cover"
+                    data-txt="Cover"
+                    @click.stop="openCoverPicker"
+                >
+                    <img class="icon-btn" src="@/assets/svg/cover.svg" />
+                    <el-color-picker
+                        popper-class="color-dropdown"
+                        ref="color-picker"
+                        class="color-picker"
+                        size="mini"
+                        v-model="card.style.headerColor"
+                        @change="updateCover"
+                    ></el-color-picker>
+                </button>
+                <button
+                    @click.stop="setDate"
+                    class="flex f-a-center content-after"
+                    title="Set Date"
+                    data-txt="Set Date"
+                >
+                    <img class="icon-btn" src="@/assets/svg/clock.svg" />
+                </button>
+                <button
+                    @click.stop="removeDate"
+                    v-if="card.dueDate"
+                    class="remove-date flex f-a-center content-after"
+                    title="Remove Date"
+                    data-txt="Remove Date"
+                >
+                    <i class="fal fa-history"></i>
+                </button>
+                <h3 class="actions-title">Actions</h3>
+                <button
+                    @click="cloneCard"
+                    class="flex f-a-center content-after"
+                    title="Clone"
+                    data-txt="Clone"
+                >
+                    <img
+                        class="icon-btn clone-img"
+                        src="@/assets/svg/copy.svg"
+                    />
+                </button>
+                <button
+                    class="dlt-btn flex f-a-center content-after"
+                    title="Delete"
+                    data-txt="Delete Card"
+                    @click.stop="deleteCard"
+                >
+                    <i class="fal fa-trash-alt"></i>
+                </button>
+                <button
+                    class="move-btn flex f-a-center content-after"
+                    title="Move"
+                    data-txt="Move"
+                    @click.stop="emitMove"
+                >
+                    <img class="icon-btn" src="@/assets/svg/move.svg" />
+                </button>
+            </div>
+        </div>
+    </section>
 </template>
 
 <script>
@@ -612,26 +608,26 @@ export default {
 		this.card = this.$store.getters.currCard;
 		this.$store.dispatch('loadUsers')
 
-	},
-	destroyed() {
-		socketService.off('cardUpdate', this.updateCardSocket)
-		this.$store.commit({ type: 'updateCurrCard', card: null })
-		this.card = null;
-	},
-	components: {
-		cardActivity,
-		cardMove,
-		datePicker,
-		addMembers,
-		cardAttachments,
-		cardCover,
-		cardLabels,
-		customAvatar,
-		popUp,
-		checkBox,
-		addChecklist,
-		cardChecklist,
-		cardDescription
-	}
+    },
+    destroyed() {
+        socketService.off('cardUpdate', this.updateCardSocket)
+        this.$store.commit({ type: 'updateCurrCard', card: null })
+        this.card = null;
+    },
+    components: {
+        cardActivity,
+        cardMove,
+        datePicker,
+        addMembers,
+        cardAttachments,
+        cardCover,
+        cardLabels,
+        customAvatar,
+        popUp,
+        checkBox,
+        addChecklist,
+        cardChecklist,
+        cardDescription
+    }
 }
 </script>
