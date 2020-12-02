@@ -229,20 +229,22 @@
 						/>
 					</pop-up>
 				</button>
-				<button>
-					<label
+				<label
+					title="Attachment"
+					data-txt="Attachment"
+					for="uploader"
+				>
+					<button
 						class="upload-btn flex f-a-center content-after action-btn"
-						title="Attachment"
-						data-txt="Attachment"
-						for="uploader"
 					>
 						<img
 							class="icon-btn"
 							src="@/assets/svg/attach.svg"
 							alt=""
 						/>
-					</label>
-				</button>
+					Attachments
+					</button>
+				</label>
 				<input
 					class="upload"
 					type="file"
@@ -517,104 +519,104 @@ export default {
 			this.card = updatedCard;
 		},
 		updateDesc(newDesc) {
-            let card = this.card;
-            card.description = newDesc;
-            this.updateCard(card);
-        },
-        emitMove() {
-            this.currPopUp = 'move';
-            this.isPopUp = true;
-        },
-        setDate() {
-            this.currPopUp = 'duedate';
-        },
-        removeDate() {
-            const card = utilService.deepCopy(this.card)
-            card.dueDate = null;
-            this.updateCard(card);
-            this.card = card;
-            this.addActivity(`removed the due date from `, card);
-        },
-        setNewDate(dueDate) {
-            const updatedCard = utilService.deepCopy(this.card)
-            if (this.card.dueDate) {
-                delete this.card.dueDate;
-            }
-            updatedCard.dueDate = dueDate
-            this.updateCard(updatedCard);
-            this.card = updatedCard;
-            this.closePopup();
-            this.addActivity(`added due date to `, updatedCard);
-        },
-        openLabels() {
-            this.currPopUp = 'labels';
-            this.isPopUp = true;
-        },
-        updateLabelTitle(labelId, title) {
-            const board = this.board;
-            const idx = board.labels.findIndex(label => label.id === labelId);
-            if (idx !== -1) board.labels[idx].title = title;
-            this.updateBoard(board);
-        },
-        addChecklist() {
-            this.currPopUp = 'checklist';
-            this.isPopUp = true;
-        },
-        openCoverPicker() {
-            this.$refs['color-picker']._data.showPicker = true;
-        },
-        updateCover(color) {
-            this.card.style.headerColor = color;
-            const board = this.board;
-            this.updateBoard(board);
-        },
-        onAddMembers() {
-            this.currPopUp = 'member';
-            this.isPopUp = true;
-        },
-        updateMembers(userId) {
-            const card = this.card;
-            const memberIdx = card.members.findIndex(member => member._id === userId);
-            const newUser = this.$store.getters.users.find(user => user._id === userId);
-            if (memberIdx === -1) {
-                const newMember = {
-                    _id: newUser._id,
-                    username: newUser.username,
-                    imgUrl: newUser.imgUrl
-                };
-                card.members.push(newMember);
-            } else {
-                card.members.splice(memberIdx, 1);
-            }
-            this.updateCard(card);
-            const action = (memberIdx === -1) ? `added ${newUser.username} to ` : `removed ${newUser.username} from`;
-            this.addActivity(action, card, null, this.loggedinUser)
-        },
-        cardMembers() {
-            if (!this.card.members) {
-                this.card.members = [];
-            }
-            return this.card.members
-        },
-        updeteChecklist(checklist) {
-            const card = this.card;
-            const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklist.id);
-            if (idx !== -1) card.checklistGroup.splice(idx, 1, checklist);
-            this.updateCard(card);
-        },
-        deleteChecklist(checklistId) {
-            const card = this.card;
-            const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklistId);
-            if (idx !== -1) card.checklistGroup.splice(idx, 1);
-            this.updateCard(card);
-        }
-    },
-    created() {
-        socketService.on('cardUpdate', this.updateCardSocket)
-        const cardId = this.$route.params.cardId
-        this.$store.commit({ type: 'setCurrCard', cardId })
-        this.card = this.$store.getters.currCard;
-        this.$store.dispatch('loadUsers')
+			let card = this.card;
+			card.description = newDesc;
+			this.updateCard(card);
+		},
+		emitMove() {
+			this.currPopUp = 'move';
+			this.isPopUp = true;
+		},
+		setDate() {
+			this.currPopUp = 'duedate';
+		},
+		removeDate() {
+			const card = utilService.deepCopy(this.card)
+			card.dueDate = null;
+			this.updateCard(card);
+			this.card = card;
+			this.addActivity(`removed the due date from `, card);
+		},
+		setNewDate(dueDate) {
+			const updatedCard = utilService.deepCopy(this.card)
+			if (this.card.dueDate) {
+				delete this.card.dueDate;
+			}
+			updatedCard.dueDate = dueDate
+			this.updateCard(updatedCard);
+			this.card = updatedCard;
+			this.closePopup();
+			this.addActivity(`added due date to `, updatedCard);
+		},
+		openLabels() {
+			this.currPopUp = 'labels';
+			this.isPopUp = true;
+		},
+		updateLabelTitle(labelId, title) {
+			const board = this.board;
+			const idx = board.labels.findIndex(label => label.id === labelId);
+			if (idx !== -1) board.labels[idx].title = title;
+			this.updateBoard(board);
+		},
+		addChecklist() {
+			this.currPopUp = 'checklist';
+			this.isPopUp = true;
+		},
+		openCoverPicker() {
+			this.$refs['color-picker']._data.showPicker = true;
+		},
+		updateCover(color) {
+			this.card.style.headerColor = color;
+			const board = this.board;
+			this.updateBoard(board);
+		},
+		onAddMembers() {
+			this.currPopUp = 'member';
+			this.isPopUp = true;
+		},
+		updateMembers(userId) {
+			const card = this.card;
+			const memberIdx = card.members.findIndex(member => member._id === userId);
+			const newUser = this.$store.getters.users.find(user => user._id === userId);
+			if (memberIdx === -1) {
+				const newMember = {
+					_id: newUser._id,
+					username: newUser.username,
+					imgUrl: newUser.imgUrl
+				};
+				card.members.push(newMember);
+			} else {
+				card.members.splice(memberIdx, 1);
+			}
+			this.updateCard(card);
+			const action = (memberIdx === -1) ? `added ${newUser.username} to ` : `removed ${newUser.username} from`;
+			this.addActivity(action, card, null, this.loggedinUser)
+		},
+		cardMembers() {
+			if (!this.card.members) {
+				this.card.members = [];
+			}
+			return this.card.members
+		},
+		updeteChecklist(checklist) {
+			const card = this.card;
+			const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklist.id);
+			if (idx !== -1) card.checklistGroup.splice(idx, 1, checklist);
+			this.updateCard(card);
+		},
+		deleteChecklist(checklistId) {
+			const card = this.card;
+			const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklistId);
+			if (idx !== -1) card.checklistGroup.splice(idx, 1);
+			this.updateCard(card);
+		}
+	},
+	created() {
+		socketService.on('cardUpdate', this.updateCardSocket)
+		const cardId = this.$route.params.cardId
+		this.$store.commit({ type: 'setCurrCard', cardId })
+		this.card = this.$store.getters.currCard;
+		this.$store.dispatch('loadUsers')
 
 	},
 	destroyed() {
