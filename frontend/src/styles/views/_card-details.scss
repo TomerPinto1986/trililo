@@ -249,10 +249,10 @@
                 width: 15px;
                 margin-inline-end: 12px;
 
-                &.clone-img {
-                    width: 20px;
-                    height: 14px;
-                }
+                // &.clone-img {
+                //     width: 20px;
+                //     height: 14px;
+                // }
             }
 
             .action-btn {
@@ -474,15 +474,6 @@
                     width: 100%;
                     height: 40px;
                     margin-block-start: 0;
-
-                    img,
-                    i {
-                        margin-inline-end: 0;
-                    }
-
-                    i {
-                        width: fit-content;
-                    }
                 }
             }
         }
@@ -493,6 +484,18 @@
     .actions {
         .content-after:after {
             content: attr(data-txt);
+        }
+
+        .action-btn {
+
+            img,
+            i {
+                margin-inline-end: 0;
+            }
+
+            i {
+                width: fit-content;
+            }
         }
     }
 }
