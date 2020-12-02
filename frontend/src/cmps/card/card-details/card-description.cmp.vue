@@ -2,7 +2,7 @@
     <section class="card-description">
         <div class="description-title flex">
             <h2>Description</h2>
-            <button class="edit-desc-btn" v-if="!isEdit && desc" @click="edit">Edit</button>
+            <button class="card-details-btn edit-desc-btn" v-if="!isEdit && desc" @click="edit">Edit</button>
         </div>
         <button class="add-desc-btn" v-if="!isEdit && !desc" @click="edit">
             Add a more detailed description...
@@ -19,8 +19,8 @@
             v-model="descToEdit"
             placeholder="Add a more detailed description..."
         />
-        <button class="save-desc-btn" v-if="isEdit" @click="save">Save</button>
-        <button class="cancel-desc-btn" v-if="isEdit" @click="cancel"><i class="fal fa-times"></i></button>
+        <button class="green-btn" v-if="isEdit" @click="save">Save</button>
+        <button class="cancel-btn" v-if="isEdit" @click="cancel"><i class="fal fa-times"></i></button>
     </section>
 </template>
 

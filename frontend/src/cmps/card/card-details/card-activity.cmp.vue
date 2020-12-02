@@ -2,10 +2,10 @@
     <section class="card-activity">
         <div class="flex activities-btn">
             <h2>activity:</h2>
-            <button v-if="!isAllActivities" @click="toggleShowDetails">
+            <button class="card-details-btn" v-if="!isAllActivities" @click="toggleShowDetails">
                 Show Details
             </button>
-            <button v-else @click="toggleShowDetails">Hide Details</button>
+            <button class="card-details-btn" v-else @click="toggleShowDetails">Hide Details</button>
         </div>
         <div class="activities flex">
             <custom-avatar
@@ -20,7 +20,7 @@
                 @keyup.enter="sendMsg"
                 v-model="msg.txt"
             />
-            <button class="activities-send" @click="sendMsg">Send</button>
+            <!-- <button class="activities-send" @click="sendMsg">Send</button> -->
         </div>
         <span v-if="userTyping"
             ><custom-avatar

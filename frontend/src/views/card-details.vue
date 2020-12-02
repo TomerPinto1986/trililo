@@ -10,7 +10,7 @@
             v-if="card.style.headerColor"
         ></div>
         <button
-            class="cancel-btn flex f-center"
+            class="exit-btn flex f-center"
             @click.stop="emitClose"
             :class="{ cover: this.card.style.headerColor }"
         >
@@ -65,7 +65,6 @@
                         </div>
                     </div>
                     <div class="label-marks f-col" v-if="card.labels && labelsSelected.length">
-                        labels!!!!!!!!!!!!!
                         <h3 class="flex">Labels</h3>
                         <div class="label-container flex wrap">
                             <div

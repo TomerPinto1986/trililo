@@ -1,20 +1,18 @@
 .card-checklist {
     width: 100%;
 
-    button {
-        background-color: rgba(9, 30, 66, .04);
-        line-height: 20px;
-        padding: 6px 12px;
-        font-size: 14px;
-        color: rgb(23, 43, 77);
-    }
-
-    input {
+    .add-item-input {
         outline-color: #5ba4cf;
-        color: rgb(94, 108, 132);
         font-size: 16px;
-        height: 28px;
-        min-width: 170px;
+        height: 37px;
+        width: 100%;
+        color: rgb(23, 43, 77);
+        overflow: hidden;
+        margin-block-end: 12px;
+
+        &::placeholder {
+            color: #838ea0;
+        }
     }
 
     .checklist-title {
@@ -38,12 +36,19 @@
         height: 10px;
         background: #5ba4cf;
         border-radius: 10px;
-        // transition: width .8s cubic-bezier(.5, 0, .35, 1.35), background-color .8s;
         transition: width .6s, background-color .6s;
     }
 
     .m-btns {
         margin-inline-start: 10px;
+
+        &.cancel-btn {
+            left: -8px;
+        }
+    }
+
+    .items-container {
+        margin-block-end: 8px;
     }
 
     .item-preview {

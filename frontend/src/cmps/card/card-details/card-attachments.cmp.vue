@@ -13,7 +13,7 @@
                 <img :src="attachment.src" />
                 <div>
                     <small>{{ attachment.name }}</small>
-                    <button @click="emitDelete(attachment.id)">Delete</button>
+                    <button class="card-details-btn" @click="emitDelete(attachment.id)">Delete</button>
                 </div>
             </div>
         </div>
