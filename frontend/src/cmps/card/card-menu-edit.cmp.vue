@@ -14,7 +14,7 @@
                 <button @click="saveTitle" class="edit-title-btn">Save</button>
             </div>
         </div>
-        <div class="edit-card-actions">
+        <div class="edit-card-actions flex f-col">
             <button class="action-btn" @click="editLabel">
                 Edit Labels
                 <pop-up

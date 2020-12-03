@@ -1,0 +1,11 @@
+.card-menu-edit {
+    position: absolute;
+    z-index: 1;
+    background: blue;
+    height: 200px;
+    padding: 15px;
+    left: 500px;
+    .action-btn {
+        position: relative;
+    }
+}
