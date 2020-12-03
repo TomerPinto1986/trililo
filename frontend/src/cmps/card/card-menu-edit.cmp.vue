@@ -1,6 +1,15 @@
 <template>
     <section class="card-menu-edit flex">
-        <div class="title-edit">
+        <div class="flex f-col">
+        <div class="title-edit mini-preview icons flex wrap">
+            <ul v-if="labelsSelected.length" class="label-marks flex wrap">
+				<li class="flex" v-for="label in labelsSelected" :key="label">
+					<div
+						class="label"
+						:style="{ backgroundColor: label }"
+					></div>
+				</li>
+			</ul>
             <textarea
                 @keydown.enter.prevent
                 @keyup.enter="saveCard"
@@ -10,6 +19,42 @@
                 maxlength="120"
                 v-model="cardTxt"
             ></textarea>
+            <div class="icons flex wrap">
+			<span class="small-icons">
+				<i v-if="card.dueDate" :style="dueDateStyle" class="far fa-clock">
+					<span> {{ moment(card.dueDate).format("MMM Do") }}</span>
+				</i>
+
+				<i v-if="card.description" class="description-icon"
+					><img src="@/assets/svg/desc.svg"
+				/></i>
+				<i v-if="card.checklist" class="fas fa-list"></i>
+				<i
+					v-if="card.attachments && card.attachments.length"
+					class="fas fa-paperclip"
+				></i>
+				<i v-if="commentsLen" class="fal fa-comment">{{
+					commentsLen
+				}}</i>
+			</span>
+			<span
+				class="members-container flex"
+				v-if="card.members && card.members.length"
+			>
+				<div
+					class="card-members"
+					v-for="member in card.members"
+					:key="member._id"
+				>
+					<custom-avatar
+						:size="30"
+						:username="member.username"
+						:src="member.imgUrl"
+					/>
+				</div>
+			</span>
+		</div>
+        </div>
             <div class="add-card-btns flex">
                 <button @click="saveTitle" class="edit-title-btn">Save</button>
             </div>
@@ -79,6 +124,7 @@
 </template>
 
 <script>
+import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 import popUp from '@/cmps/card/card-details/pop-up.cmp';
 import addMembers from '@/cmps/custom-elements/add-members.cmp';
 import datePicker from '@/cmps/custom-elements/date-picker.cmp';
@@ -99,6 +145,17 @@ export default {
         }
     },
     computed: {
+        dueDateStyle() {
+			if (this.card.dueDate - Date.now() < 24 * 60 * 60 * 1000) return { color: '#121212', backgroundColor: '#ec9488' }
+			if (this.card.isDone) return { color: '#fff', backgroundColor: '#61bd4f' }
+			else return {}
+		},
+        labelsSelected() {
+			if (!this.card.labels) return [];
+			const selectIds = this.card.labels.map(label => label.id);
+			const selctLabels = this.board.labels.filter(label => selectIds.includes(label.id));
+			return selctLabels.map(label => label.color);
+		},
         dueDate() {
             return this.currPopUp === 'dueDate';
         },
@@ -188,7 +245,8 @@ export default {
         addMembers,
         cardLabels,
         cardMove,
-        datePicker
+        datePicker,
+        customAvatar
     }
 }
 </script>
