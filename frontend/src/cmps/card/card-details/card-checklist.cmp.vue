@@ -9,7 +9,10 @@
         <div class="show-percent flex">
             <div class="precent">{{ percent }}</div>
             <div class="my-progress">
-                <div class="my-bar" :style="{ width: percent }"></div>
+                <div
+                    class="my-bar"
+                    :style="{ width: percent, backgroundColor: bgc }"
+                ></div>
             </div>
         </div>
         <div class="items-container" v-if="checklist.items.length">
@@ -62,6 +65,10 @@ export default {
             let percent = Math.trunc(doneCount / this.checklist.items.length * 100);
             if (isNaN(percent)) percent = 0;
             return percent + '%';
+        },
+        bgc() {
+            if (this.percent === '100%') return '#5aac44';
+            return '#0079bf';
         }
     },
     methods: {

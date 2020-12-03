@@ -2,7 +2,7 @@
     width: 100%;
 
     .add-item-input {
-        outline-color: #5ba4cf;
+        outline-color: #0079bf;
         font-size: 16px;
         height: 37px;
         width: 100%;
@@ -16,7 +16,12 @@
     }
 
     .checklist-title {
-        width: 98%;
+        width: 100%;
+    }
+
+    .show-percent {
+        margin-block-end: 5px;
+        margin-block-start: 3px;
     }
 
     .precent {
@@ -26,7 +31,7 @@
 
     .my-progress {
         margin: 6.5px 0;
-        width: calc(98% - 40px);
+        width: calc(100% - 40px);
         height: 10px;
         border-radius: 10px;
         background: #ccced3;
@@ -34,9 +39,8 @@
 
     .my-bar {
         height: 10px;
-        background: #5aac44;
         border-radius: 10px;
-        transition: width .6s, background-color .6s;
+        transition: width .8s, background-color .8s;
     }
 
     .m-btns {
@@ -52,8 +56,9 @@
     }
 
     .item-preview {
-        width: 98%;
+        width: 100%;
         cursor: pointer;
+        align-items: center;
 
         &:hover {
             background-color: #eaecf1;
@@ -76,6 +81,8 @@
 
             .checkbox {
                 margin-inline-end: 5px;
+                margin-inline-start: 10px;
+                margin-block-end: 3px;
             }
             .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
                 background-color: #0079bf;
@@ -84,7 +91,7 @@
 
             .clickable {
                 display: inline-block;
-                width: calc(100% - 23px);
+                width: calc(100% - 33px);
 
                 span {
                     color: rgb(94, 108, 132);

@@ -15,7 +15,8 @@
 				@click.stop
 			/> -->
 			<button @click="toggleMenu">
-				<i class="fas fa-ellipsis-h menu-btn"></i>
+				<!-- <i class="fas fa-ellipsis-h menu-btn"></i> -->
+				<i class="fal fa-ellipsis-h"></i>
 			</button>
 			<group-menu
 				v-if="isMenu"
