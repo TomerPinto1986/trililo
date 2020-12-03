@@ -3,7 +3,7 @@
 		<section class="flex">
 			<div class="avatar">
 				<custom-avatar
-					:size="30"
+					:size="avatarSize"
 					:username="username"
 					:src="activity.byMember.imgUrl"
 				/>
@@ -47,7 +47,13 @@ import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 export default {
 
 	props: {
-		activity: Object
+		activity: Object,
+		size: Number
+	},
+	data(){
+		return{
+			avatarSize: 30
+		}
 	},
 	computed: {
 		username() {
@@ -65,8 +71,10 @@ export default {
 			console.log(a, b)
 		}
 	},
+	created(){
+		if(this.size) this.avatarSize = this.size;
+	},
 	components: {
-		// avatar,
 		customAvatar
 	},
 };

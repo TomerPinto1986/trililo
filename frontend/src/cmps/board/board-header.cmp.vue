@@ -48,6 +48,7 @@
 			<span class="seperator"></span>
 			<div class="board-members flex">
 				<custom-avatar
+				class="member"
 					:size="35"
 					:username="board.byMember.username"
 					:src="board.byMember.imgUrl"
@@ -65,9 +66,8 @@
 						:src="member.imgUrl"
 					/>
 				</div>
-				<span class="add-btn" @click="addUsers">
-					Invite
-				</span>
+
+				<span class="add-btn" @click="addUsers"> Invite </span>
 				<add-users
 					v-if="isAddUsers"
 					:allUsers="usersToAdd"
@@ -77,7 +77,9 @@
 				/>
 			</div>
 		</div>
-		<button class="menu-btn" @click="emitOpenMenu">Show Menu</button>
+		<button class="menu-btn" @click="emitOpenMenu">
+			. . . <span data-txt="Show Menu"></span>
+		</button>
 	</section>
 </template>
 

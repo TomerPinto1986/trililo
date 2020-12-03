@@ -84,7 +84,6 @@ export default {
 	},
 	methods: {
 		emitFilter() {
-			console.log(this.filterBy)
 			this.$emit('filter', utilService.deepCopy(this.filterBy))
 		},
 		debSearch() {
@@ -106,7 +105,6 @@ export default {
 			this.emitFilter()
 		},
 		isChecked(item, itemId) {
-			console.log(item, itemId)
 			const itemsIds = this.filterBy[`${item}sIds`]
 			return itemsIds.some(item => item === itemId)
 		}

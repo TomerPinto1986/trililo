@@ -35,7 +35,6 @@ export default {
 	},
 	methods: {
 		setInitials(username, initials) {
-			console.log(username);
 			this.initials = initials;
 		}
 	},

@@ -33,7 +33,7 @@
         // overflow-y: auto;
         padding: 12px 6px 12px 12px;
         width: 100%;
-        height: 100%;
+        height: calc(100% - 60px);
     }
 
     .board-menu-nav-item {
@@ -85,6 +85,9 @@
     }
 
     .filter {
+        overflow-y: auto;
+        height: 100%;
+
         input {
             border: 0;
             box-shadow: inset 0 0 0 2px #dfe1e6;
@@ -169,12 +172,15 @@
 
     .activity {
         overflow-y: auto;
-        margin-block-end: 50px;
+        margin-block-end: 10px;
         padding-inline-end: 5px;
 
     }
 
     .bg-picker {
+        overflow-y: auto;
+        height: 100%;
+
         .select-container {
             margin: 8px;
             width: 100%;
@@ -221,7 +227,7 @@
                 cursor: pointer;
                 border-radius: 8px;
 
-                &.bgc{
+                &.bgc {
                     margin: 4px;
                 }
             }
@@ -239,4 +245,9 @@
         }
     }
 
+    @media (max-width: 585px) {
+        width: 100%;
+
+        
+    }
 }

@@ -155,7 +155,6 @@ export default {
 			this.$refs['nav-btn'].classList.toggle('open')
 		},
 		goTo(dest) {
-			console.log('ss')
 			this.isShowNav = false;
 			this.$refs['nav-btn'].classList.remove('open')
 			this.$router.push(`${dest}`)
