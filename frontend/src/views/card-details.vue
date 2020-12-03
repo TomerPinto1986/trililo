@@ -136,7 +136,7 @@
 					src="../assets/animations/load.gif"
 					alt="Loading"
 				/> -->
-				<div class="attachments-group flex">
+				<div v-if="attachments.length" class="attachments-group flex">
 					<span class="card-icon">
 						<img src="@/assets/svg/attach.svg" />
 					</span>
@@ -529,7 +529,7 @@ export default {
 				name: res.original_filename,
 				format: res.format,
 				src: res.url,
-				imgClass
+                imgClass
 			}
 			if (!this.card.attachments) this.card.attachments = []
 			const updatedCard = utilService.deepCopy(this.card)
