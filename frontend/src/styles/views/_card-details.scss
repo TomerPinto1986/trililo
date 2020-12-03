@@ -389,39 +389,112 @@
     }
 
     .activities {
-        margin-block-start: 10px;
+        margin: 10px 0;
     }
-
+    .activity-preview{
+        margin-left: 50px;
+        .avatar{
+            left: -50px;
+        }
+    }
     .card-activity {
         width: 100%;
+        position: relative;
 
-        .activities-btn {
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .activities-send {
-            align-self: center;
+        .main-avatar {
+            position: absolute;
+            top: 44.5px;
         }
 
         .input-area {
+            margin-inline-start: 50px;
             width: 100%;
-            
+            position: relative;
+
+            .comment-controls {
+                display: none;
+            }
+
             input {
                 font-size: 14px;
-                margin: 4px 0 12px 10px;
-                width: 95%;
+                width: 100%;
                 line-height: 20px;
                 border: 0;
                 box-shadow: inset 0 0 0 2px #dfe1e6;
                 background-color: #fafbfc;
+                color: #929292;
                 padding: 10px 12px;
                 border-radius: 3px;
                 outline: none;
+                transition: .15s;
+            }
 
-                &:focus {
+            &.in-use {
+
+                input {
                     background-color: #fff;
+                    padding-bottom: 56px;
+                    color: unset;
+                    box-shadow: 0 4px 8px -2px rgba(9, 30, 66, .25), 0 0 0 1px rgba(9, 30, 66, .08);
                 }
+
+
+                .comment-controls {
+                    display: block;
+                    position: absolute;
+                    bottom: 8px;
+                    left: 12px;
+                    width: 56px;
+                    height: 32px;
+                    box-shadow: none;
+                    border: none;
+                    color: #fff;
+
+                    span {
+                        font-weight: 400;
+                        line-height: 20px;
+                        margin: 8px 4px 0 0;
+                        padding: 6px 12px;
+                        text-align: center;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 3px;
+                        transition: .25s;
+                    }
+
+                    .disabled {
+                        background-color: rgba(9, 30, 66, .04);
+                        box-shadow: none;
+                        border: none;
+                        color: #a5adba;
+                        cursor: not-allowed;
+                    }
+
+                    .active {
+                        background-color: #5aac44;
+                        box-shadow: none;
+                        border: none;
+                        color: #fff;
+                        cursor: pointer;
+
+                        &:active {
+                            background-color: #49852e;
+                            box-shadow: none;
+                            border: none;
+                            color: #fff;
+                            outline: 0;
+                        }
+                    }
+
+                    .cancel-btn {
+                        position: absolute;
+                        top: 2px;
+                        right: -30px;
+                        width: unset;
+                        cursor: pointer;
+                    }
+                }
+
             }
         }
 
