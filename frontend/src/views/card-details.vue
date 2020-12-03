@@ -113,6 +113,7 @@
 							>
 						</span>
 						<date-picker
+							@click.stop
 							ref="date-picker"
 							class="date-picker"
 							slot="date-picker"
@@ -137,7 +138,10 @@
 					src="../assets/animations/load.gif"
 					alt="Loading"
 				/> -->
-				<div v-if="attachments && attachments.length" class="attachments-group flex">
+				<div
+					v-if="attachments && attachments.length"
+					class="attachments-group flex"
+				>
 					<span class="card-icon">
 						<img src="@/assets/svg/attach.svg" />
 					</span>
@@ -215,7 +219,8 @@
 					<img class="icon-btn" src="@/assets/svg/label.svg" />
 					<pop-up
 						v-if="board && isCmpOpen('labels')"
-						@closePopup="closePopup">
+						@closePopup="closePopup"
+					>
 						<card-labels
 							:card="card"
 							:boardLabels="board.labels"
@@ -423,12 +428,10 @@ export default {
 			this.$refs['card-title'].blur();
 			this.updateBoard();
 		},
-		updateBoard(board = this.board, isSocket = false) {
+		updateBoard(board = this.board) {
 			this.$store.dispatch({ type: 'updateBoard', board });
-			if (!isSocket) {
-				socketService.emit('update-card', this.card)
-				socketService.emit('update-board', board)
-			}
+			socketService.emit('update-card', this.card)
+			socketService.emit('update-board', board)
 		},
 		updateCard(card = this.card) {
 			const board = this.board;
@@ -445,7 +448,7 @@ export default {
 				const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
 				if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
 			})
-			this.updateBoard(board, true);
+			this.$store.dispatch({ type: 'updateBoard', board });
 			this.card = card;
 		},
 		addActivity(txt, card, comment = null, user = this.loggedinUser) {
@@ -465,10 +468,12 @@ export default {
 			board.activities.unshift(activity);
 			this.updateBoard(board);
 		},
-		closePopup(ev) {
-			this.isPopUp = false;
-			this.currPopUp = '';
-			if (ev.target.name !== 'comment') this.$refs.activity.closeInput();
+		closePopup() {
+			// console.log(ev)
+			// this.isPopUp = false;
+			// this.currPopUp = '';
+			// if (ev.target.name !== 'comment') this.$refs.activity.closeInput();
+			return
 		},
 		emitClose() {
 			this.$emit('close');
@@ -530,7 +535,7 @@ export default {
 				name: res.original_filename,
 				format: res.format,
 				src: res.url,
-                imgClass
+				imgClass
 			}
 			if (!this.card.attachments) this.card.attachments = []
 			const updatedCard = utilService.deepCopy(this.card)
@@ -550,6 +555,9 @@ export default {
 		},
 		setDate() {
 			this.currPopUp = 'duedate';
+			this.$nextTick(() => {
+				document.querySelector('.el-date-editor .el-input__inner').focus();
+			})
 		},
 		removeDate() {
 			const card = utilService.deepCopy(this.card)
