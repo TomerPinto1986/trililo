@@ -2,7 +2,7 @@
     <section class="card-menu-edit flex">
         <div class="flex f-col">
         <div class="title-edit mini-preview icons flex wrap">
-            <ul v-if="labelsSelected.length" class="label-marks flex wrap">
+            <ul v-if="card.labels && labelsSelected.length" class="label-marks flex wrap">
 				<li class="flex" v-for="label in labelsSelected" :key="label">
 					<div
 						class="label"
@@ -12,7 +12,7 @@
 			</ul>
             <textarea
                 @keydown.enter.prevent
-                @keyup.enter="saveCard"
+                @keyup.enter="saveTitle"
                 ref="card-title"
                 class="title-edit-menu-bar"
                 placeholder="Enter a title for this card…"
@@ -61,7 +61,14 @@
         </div>
         <div class="edit-card-actions flex f-col">
             <button class="action-btn" @click="editLabel">
+                <div class="flex">
+                <img
+						class="icon-btn"
+						src="@/assets/svg/label-white.svg"
+						alt=""
+					/>
                 Edit Labels
+                </div>
                 <pop-up
                     class="edit-card"
                     v-if="board && isCmpOpen('labels')"
@@ -76,7 +83,14 @@
                 </pop-up>
             </button>
             <button class="action-btn" @click="changeMembers">
+                <div class="flex">
+                <img
+						class="icon-btn"
+						src="@/assets/svg/member-white.svg"
+						alt=""
+					/>
                 Change Members
+                </div>
                 <pop-up
                     class="edit-card"
                     v-if="isCmpOpen('member')"
@@ -88,28 +102,51 @@
                     />
                 </pop-up>
             </button>
-            <button class="action-btn" @click="move">Move</button>
-            <pop-up v-if="isCmpOpen('move')" @closePopup="closePopup">
+            <button class="action-btn" @click="move">
+                <div class="flex">
+                <img
+						class="icon-btn"
+						src="@/assets/svg/move-white.svg"
+						alt=""
+					/>
+                Move
+                </div>
+            <pop-up class="edit-card" v-if="isCmpOpen('move')" @closePopup="closePopup">
                 <card-move
-                    class="edit-card"
                     :isClone="false"
                     :groups="board.groups"
                     :group="currGroup"
                     :currPosition="currPosition"
                     @moveCard="moveCard"
             /></pop-up>
-            <button class="action-btn" @click="copy">Copy</button>
-            <pop-up v-if="isCmpOpen('clone')" @closePopup="closePopup">
+            </button>
+            <button class="action-btn" @click="copy">
+                <div class="flex">
+                <img
+						class="icon-btn"
+						src="@/assets/svg/copy-white.svg"
+						alt=""
+					/>
+                Copy
+                </div>   
+            <pop-up class="edit-card" v-if="isCmpOpen('clone')" @closePopup="closePopup">
                 <card-move
-                    class="edit-card"
                     :isClone="true"
                     :groups="board.groups"
                     :group="currGroup"
                     :currPosition="currPosition"
                     @moveCard="moveCard"
             /></pop-up>
+            </button>
             <button class="action-btn" @click="changeDueDate">
+                <div class="flex">
+                <img
+						class="icon-btn"
+						src="@/assets/svg/clock-white.svg"
+						alt=""
+					/>
                 Change Due Date
+                </div>
                 <date-picker
                     ref="date-picker"
                     class="date-picker"
@@ -166,7 +203,6 @@ export default {
         },
         currGroup() {
             const group = this.board.groups.find(group => group.cards.some(card => card.id === this.card.id));
-            console.log('currGroup', group.title);
             return group;
         },
         currPosition() {
@@ -197,6 +233,8 @@ export default {
         },
         saveTitle() {
             this.$emit('updateCardTitle', this.cardTxt, this.card);
+            this.closePopup();
+
         },
         editLabel() {
             this.isPopUp = true;
@@ -243,7 +281,6 @@ export default {
     },
     mounted() {
         setTimeout(() => this.$refs['card-title'].focus(), 0);
-        console.log(this.card.id);
     },
     components: {
         popUp,

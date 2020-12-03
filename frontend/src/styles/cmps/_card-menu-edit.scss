@@ -19,6 +19,17 @@
         text-decoration: none;
         transition: transform 85ms ease-in;
         font-size: 14px;
+        img {
+            height: 15px;
+            width: 15px;
+            align-self: center;
+            margin-inline-end: 4px;
+        }
+        &:hover {
+            background: rgba(0, 0, 0, .8);
+            color: #fff;
+            transform: translateX(5px);
+        }
     }
     .mini-preview {
         .label {
