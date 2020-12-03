@@ -1,78 +1,73 @@
 <template>
 	<section v-if="group" class="group flex f-col">
-		<div class="group-header">
+		<div class="group-header handle">
 			<input
 				type="text"
 				class="title"
 				v-model="group.title"
 				@change="emitChange"
 			/>
-			<button @click="toggleMenu">
-				<!-- <i class="fas fa-ellipsis-h menu-btn"></i> -->
-				<i class="fal fa-ellipsis-h"></i>
-			</button>
-			<group-menu
-				v-if="isMenu"
-				:clickPos="getClickPos"
-				@closeMenu="toggleMenu"
-				@addCard="addCard"
-				@deleteGroup="emitDelete(group.id)"
-				@cloneGroup="cloneGroup"
-				@openMove="openMove"
-				@openSort="openSort"
-				@backToMenu="backToMenu"
-			>
-				<template v-if="isMove || isSort">
-					<i
-						@click="backToMenu"
-						slot="back-btn"
-						class="fas fa-chevron-left back-btn"
-					></i>
-					<template v-if="isMove">
-						<span class="header" slot="header"> Move List </span>
-						<div class="content" slot="body">
-							Move To:
-							<el-select
-								class="move-select"
-								@change="changeGroupPos"
-								v-model="pos"
+		</div>
+		<i @click="toggleMenu" class="fal fa-ellipsis-h menu-btn"></i>
+		<group-menu
+			v-if="isMenu"
+			:clickPos="getClickPos"
+			@closeMenu="toggleMenu"
+			@addCard="addCard"
+			@deleteGroup="emitDelete(group.id)"
+			@cloneGroup="cloneGroup"
+			@openMove="openMove"
+			@openSort="openSort"
+			@backToMenu="backToMenu"
+		>
+			<template v-if="isMove || isSort">
+				<i
+					data-name="group-menu"
+					@click="backToMenu"
+					slot="back-btn"
+					class="fas fa-chevron-left back-btn"
+				></i>
+				<template v-if="isMove">
+					<span class="header" slot="header"> Move List </span>
+					<div class="content" slot="body">
+						Move To:
+						<el-select
+							class="move-select"
+							@change="changeGroupPos"
+							v-model="pos"
+						>
+							<el-option
+								v-for="idx in board.groups.length"
+								:key="idx"
+								:label="idx"
+								:value="idx"
 							>
-								<el-option
-									v-for="idx in board.groups.length"
-									:key="idx"
-									:label="idx"
-									:value="idx"
-								>
-								</el-option>
-							</el-select>
+							</el-option>
+						</el-select>
+					</div>
+				</template>
+				<template v-if="isSort">
+					<span class="header" slot="header"> Sort List </span>
+					<div class="content" slot="body">
+						<div @click="sortBy('createdAt', 1)">
+							Date Created (Newest First)
 						</div>
-					</template>
-					<template v-if="isSort">
-						<span class="header" slot="header"> Sort List </span>
-						<div class="content" slot="body">
-							<div @click="sortBy('createdAt', 1)">
-								Date Created (Newest First)
-							</div>
-							<div @click="sortBy('createdAt', -1)">
-								Date Created (Oldest First)
-							</div>
-							<div @click="sortBy('title', 1)">
-								Card Name (Alphabetically)
-							</div>
-							<!-- <div
+						<div @click="sortBy('createdAt', -1)">
+							Date Created (Oldest First)
+						</div>
+						<div @click="sortBy('title', 1)">
+							Card Name (Alphabetically)
+						</div>
+						<!-- <div
 								@click="sortBy('dueDate', -1)"
 								v-if="hasDueDate"
 							>
 								Due Date
 							</div> -->
-						</div>
-					</template>
+					</div>
 				</template>
-			</group-menu>
-			<!-- <div v-if="isMenu" class="group-edit flex f-col">
-				<button @click="emitDelete(group.id)">Delete Group</button>
-			</div> -->
-		</div>
+			</template>
+		</group-menu>
 		<draggable
 			class="drag-area"
 			ghostClass="ghost"
@@ -97,7 +92,7 @@
 				@openDetails="openDetails"
 			/>
 		</draggable>
-		<div class="add-card-container">
+		<div class="add-card-container" @click.stop>
 			<template v-if="isAdding">
 				<!-- add closing when pressing outside of textarea -->
 				<textarea
@@ -118,7 +113,8 @@
 				</div>
 			</template>
 			<div v-else @click="addCard" class="open-add-btn">
-				<i class="el-icon-plus"></i> <span>{{ addBtnTxt }}</span>
+				<i class="el-icon-plus"></i>
+				<span>{{ addBtnTxt }}</span>
 			</div>
 		</div>
 	</section>
@@ -151,7 +147,7 @@ export default {
 			isMove: false,
 			isSort: false,
 			pos: null,
-			
+
 		}
 	},
 	computed: {
@@ -172,10 +168,10 @@ export default {
 		hasDueDate() {
 			return this.group.cards.some(card => card.dueDate)
 		},
-		getClickPos(){
-			return this.clickPos
+		getClickPos() {
+			return this.clickPos;
 		}
-		
+
 	},
 	methods: {
 		toggleMenu() {
@@ -194,6 +190,7 @@ export default {
 			this.$refs['card-title'].focus()
 		},
 		closeCardAdd() {
+			this.newCardTxt = '';
 			this.isAdding = false;
 		},
 		openDetails(cardId) {
@@ -253,13 +250,22 @@ export default {
 			})
 			this.$emit('updateGroup', group)
 		},
-		emitOpenEditCard(card){
+		emitOpenEditCard(card) {
 			this.$emit('openEditCard', card)
+		},
+		checkClickPos() {
+			this.closeCardAdd();
 		}
 
 	},
 	created() {
-		this.pos = this.groupIdx + 1
+		this.pos = this.groupIdx + 1;
+		setTimeout(() => {
+			window.addEventListener('click', this.checkClickPos)
+		}, 1000)
+	},
+	destroyed() {
+		window.removeEventListener('click', this.checkClickPos)
 	},
 	components: {
 		cardPreview,

@@ -1,16 +1,16 @@
 <template>
-	<section name="group-menu" class="group-menu" :class="clickPos">
+	<section class="group-menu" :class="clickPos" @click.stop>
 		<div class="header-container">
 			<slot name="back-btn"></slot>
 			<span class="close-btn">
 				<i class="el-icon-close" @click="emitClose"></i>
 			</span>
-			<slot name="header">
-				<span class="header"> List Actions </span>
-			</slot>
+			<span class="header">
+				<slot name="header"> List Actions </slot>
+			</span>
 		</div>
-		<slot name="body">
-			<div class="content">
+		<div class="content">
+			<slot name="body">
 				<div @click="emitAdd">Add Card...</div>
 				<div @click="emitClone">Clone List...</div>
 				<div @click="emitMove">Move List...</div>
@@ -18,15 +18,15 @@
 				<div @click="emitSort">Sort By...</div>
 				<hr />
 				<div @click="emitDelete">Delete this List</div>
-			</div>
-		</slot>
+			</slot>
+		</div>
 	</section>
 </template>
 
 <script>
 export default {
-	props:{
-		clickPos:String
+	props: {
+		clickPos: String
 	},
 	methods: {
 		emitClose() {
@@ -50,19 +50,18 @@ export default {
 		emitSort() {
 			this.$emit('openSort');
 		},
-		emitBackToMenu(){
+		emitBackToMenu() {
 			this.$emit('backToMenu')
-		},
-		checkClickPos(ev){
-			console.dir(ev.target.name)
 		}
 
 	},
-	created(){
-		window.addEventListener('click', this.checkClickPos)
+	created() {
+		setTimeout(() => {
+			window.addEventListener('click', this.emitClose)
+		}, 100)
 	},
-	destroyed(){
-		window.removeEventListener('click', this.checkClickPos)
+	destroyed() {
+		window.removeEventListener('click', this.emitClose)
 	}
 }
 </script>
