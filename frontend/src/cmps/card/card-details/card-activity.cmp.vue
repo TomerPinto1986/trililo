@@ -1,6 +1,6 @@
 <template>
 	<section class="card-activity">
-		<div class="flex activities-btn">
+		<div class="flex activities-btn f-s-between">
 			<h2>activity:</h2>
 			<button
 				class="card-details-btn"
@@ -23,7 +23,7 @@
 			<div
 				ref="input-area"
 				@click="openInput"
-				class="input-area flex f-s-between"
+				class="input-area flex"
 			>
 				<input
 					type="text"
