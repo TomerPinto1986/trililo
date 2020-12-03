@@ -188,6 +188,13 @@
                 }
 
                 .due-date {
+
+                    .el-checkbox__input.is-checked .el-checkbox__inner,
+                    .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+                        background-color: #0079bf;
+                        border-color: #0079bf;
+                    }
+
                     position: relative;
                     padding-inline-end: 60px;
                     margin: 4px 0 0;
@@ -520,7 +527,7 @@
             min-width: 285px;
             width: 100%;
             left: -3px;
-            bottom:0;
+            bottom: 0;
             top: unset;
         }
     }
@@ -531,19 +538,28 @@
         .content-after:after {
             content: attr(data-txt);
         }
-
-        .action-btn {
-            img {
-                margin-inline-end: 12px;
-            }
-
-            i {
-                width: 20px;
-                margin-inline-end: 6px;
-            }
-        }
     }
 }
+
+
+// @media (min-width: 585px) {
+//     .actions {
+//         .content-after:after {
+//             content: attr(data-txt);
+//         }
+
+//         .action-btn {
+//             img {
+//                 margin-inline-end: 12px;
+//             }
+
+//             i {
+//                 width: 20px;
+//                 margin-inline-end: 6px;
+//             }
+//         }
+//     }
+// }
 
 @media (max-width: 585px) {
     .card-details {
