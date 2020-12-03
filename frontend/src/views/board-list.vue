@@ -2,7 +2,7 @@
     <div class="board-list-container flex f-col">
         <h3 class="">Choose your board</h3>
 		<h4>or create one from screcth</h4>
-        <section class="board-list flex wrap" v-if="boardsForDisplay">
+        <section class="board-list" v-if="boardsForDisplay">
             <div class="create-board board-preview flex f-center">
                 <form v-if="isAdding" @submit.prevent="saveBoard">
                     <input

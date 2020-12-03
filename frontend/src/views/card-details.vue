@@ -54,6 +54,7 @@
                                     :size="40"
                                     :username="member.username"
                                     :src="member.imgUrl"
+                                    :style="{fontSize:'12px'}"
                                 />
                             </span>
                             <button

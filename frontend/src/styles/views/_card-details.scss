@@ -430,7 +430,7 @@
 }
 
 @media (max-width: 720px) {
-    .board-details.window {
+    .window {
         overflow: hidden !important;
     }
 
@@ -511,8 +511,17 @@
                     width: 100%;
                     height: 40px;
                     margin-block-start: 0;
+                    position: unset;
                 }
             }
+        }
+
+        .pop-up {
+            min-width: 285px;
+            width: 100%;
+            left: -3px;
+            bottom:0;
+            top: unset;
         }
     }
 }

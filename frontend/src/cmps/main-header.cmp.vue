@@ -1,7 +1,7 @@
 <template>
 	<section class="main-header" :class="headerClass">
 		<div class="main-nav flex" v-if="!isHome">
-			<router-link to="/" exact >
+			<router-link to="/" exact>
 				<img src="@/assets/svg/home.svg" alt="" />
 			</router-link>
 			<router-link to="/board" exact> Boards </router-link>
@@ -31,7 +31,7 @@
 					</g>
 				</svg>
 				<svg
-				class="logo-title"
+					class="logo-title"
 					xmlns="http://www.w3.org/2000/svg"
 					width="123"
 					height="24"
@@ -97,6 +97,22 @@
 			</template>
 			<span class="logout" v-else @click="emitLogout">Logout</span>
 		</div>
+		<template v-if="!isHome">
+			<i
+				class="fas fa-bars sm-header-btn"
+				@click="toggleNav"
+				ref="nav-btn"
+			></i>
+			<div class="sm-header flex f-col" v-if="isShowNav">
+				<div @click="goTo('/')" class="nav-link">Home Page</div>
+
+				<div @click="goTo('board')" class="nav-link">Boards</div>
+
+				<div @click="goTo('/login')" class="nav-link">Login</div>
+
+				<div @click="goTo('/signup')" class="nav-link">Signup</div>
+			</div>
+		</template>
 	</section>
 </template>
 
@@ -108,7 +124,8 @@ export default {
 	data() {
 		return {
 			isHome: false,
-			isAtTop: true
+			isAtTop: true,
+			isShowNav: false
 		}
 	},
 	computed: {
@@ -118,7 +135,7 @@ export default {
 		headerClass() {
 			return { home: this.isHome, scrolled: (this.isHome && !this.isAtTop), app: !this.isHome };
 		},
-		logoColor(){
+		logoColor() {
 			return (this.isHome) ? '#362C2C' : '#fefefe'
 		}
 	},
@@ -131,7 +148,17 @@ export default {
 			this.$router.push('/');
 		},
 		checkPosition() {
-			this.isAtTop = (window.scrollY === 0)
+			this.isAtTop = (window.scrollY === 0);
+		},
+		toggleNav() {
+			this.isShowNav = !this.isShowNav;
+			this.$refs['nav-btn'].classList.toggle('open')
+		},
+		goTo(dest) {
+			console.log('ss')
+			this.isShowNav = false;
+			this.$refs['nav-btn'].classList.remove('open')
+			this.$router.push(`${dest}`)
 		}
 	},
 	watch: {
