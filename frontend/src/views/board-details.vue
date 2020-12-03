@@ -363,7 +363,7 @@ export default {
 			// this.isCardEdit = true;
 		},
 		checkClickPos(ev){
-			console.log(ev.target)
+			console.dir(ev.target)
 		}
 	},
 

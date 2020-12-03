@@ -2,7 +2,7 @@
 	<section class="card-preview flex f-col">
 		<div>
 			<i
-				name="card-edit-menu"
+				data-name="card-edit-menu"
 				class="fas fa-pen edit-btn"
 				@click="editCard"
 			>
