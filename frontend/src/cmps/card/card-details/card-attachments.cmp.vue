@@ -11,9 +11,14 @@
                 :class="attachment.imgClass"
             >
                 <img :src="attachment.src" />
-                <div>
-                    <small>{{ attachment.name }}</small>
-                    <button class="card-details-btn" @click="emitDelete(attachment.id)">Delete</button>
+                <div class="flex f-between">
+                    <small>{{ attachment.name }}.{{ attachment.format }}</small>
+                    <button
+                        class="card-details-btn"
+                        @click="emitDelete(attachment.id)"
+                    >
+                        Delete
+                    </button>
                 </div>
             </div>
         </div>
