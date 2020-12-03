@@ -1,138 +1,163 @@
 <template>
-	<section class="card-menu-edit flex">
-		<div class="flex f-col">
-			<div class="title-edit mini-preview icons flex wrap">
-				<ul v-if="labelsSelected.length" class="label-marks flex wrap">
-					<li
-						class="flex"
-						v-for="label in labelsSelected"
-						:key="label"
-					>
-						<div
-							class="label"
-							:style="{ backgroundColor: label }"
-						></div>
-					</li>
-				</ul>
-				<textarea
-					@keydown.enter.prevent
-					@keyup.enter="saveCard"
-					ref="card-title"
-					class="title-edit-menu-bar"
-					placeholder="Enter a title for this card…"
-					maxlength="120"
-					v-model="cardTxt"
-				></textarea>
-				<div class="icons flex wrap">
-					<span class="small-icons">
-						<i
-							v-if="card.dueDate"
-							:style="dueDateStyle"
-							class="far fa-clock"
-						>
-							<span>
-								{{
-									moment(card.dueDate).format("MMM Do")
-								}}</span
-							>
-						</i>
+    <section class="card-menu-edit flex">
+        <div class="flex f-col">
+        <div class="title-edit mini-preview icons flex wrap">
+            <ul v-if="card.labels && labelsSelected.length" class="label-marks flex wrap">
+				<li class="flex" v-for="label in labelsSelected" :key="label">
+					<div
+						class="label"
+						:style="{ backgroundColor: label }"
+					></div>
+				</li>
+			</ul>
+            <textarea
+                @keydown.enter.prevent
+                @keyup.enter="saveTitle"
+                ref="card-title"
+                class="title-edit-menu-bar"
+                placeholder="Enter a title for this card…"
+                maxlength="120"
+                v-model="cardTxt"
+            ></textarea>
+            <div class="icons flex wrap">
+			<span class="small-icons">
+				<i v-if="card.dueDate" :style="dueDateStyle" class="far fa-clock">
+					<span> {{ moment(card.dueDate).format("MMM Do") }}</span>
+				</i>
 
-						<i v-if="card.description" class="description-icon"
-							><img src="@/assets/svg/desc.svg"
-						/></i>
-						<i v-if="card.checklist" class="fas fa-list"></i>
-						<i
-							v-if="card.attachments && card.attachments.length"
-							class="fas fa-paperclip"
-						></i>
-						<i v-if="commentsLen" class="fal fa-comment">{{
-							commentsLen
-						}}</i>
-					</span>
-					<span
-						class="members-container flex"
-						v-if="card.members && card.members.length"
-					>
-						<div
-							class="card-members"
-							v-for="member in card.members"
-							:key="member._id"
-						>
-							<custom-avatar
-								:size="30"
-								:username="member.username"
-								:src="member.imgUrl"
-							/>
-						</div>
-					</span>
-				</div>
-			</div>
-			<div class="add-card-btns flex">
-				<button @click="saveTitle" class="edit-title-btn">Save</button>
-			</div>
-		</div>
-		<div class="edit-card-actions flex f-col">
-			<button class="action-btn" @click="editLabel">
-				Edit Labels
-				<pop-up
-					class="edit-card"
-					v-if="board && isCmpOpen('labels')"
-					@closePopup="closePopup"
+				<i v-if="card.description" class="description-icon"
+					><img src="@/assets/svg/desc.svg"
+				/></i>
+				<i v-if="card.checklist" class="fas fa-list"></i>
+				<i
+					v-if="card.attachments && card.attachments.length"
+					class="fas fa-paperclip"
+				></i>
+				<i v-if="commentsLen" class="fal fa-comment">{{
+					commentsLen
+				}}</i>
+			</span>
+			<span
+				class="members-container flex"
+				v-if="card.members && card.members.length"
+			>
+				<div
+					class="card-members"
+					v-for="member in card.members"
+					:key="member._id"
 				>
-					<card-labels
-						:card="card"
-						:boardLabels="board.labels"
-						@updateCard="updateCardLabel"
-						@updateLabelTitle="updateLabelTitle"
+					<custom-avatar
+						:size="30"
+						:username="member.username"
+						:src="member.imgUrl"
 					/>
-				</pop-up>
-			</button>
-			<button class="action-btn" @click="changeMembers">
-				Change Members
-				<pop-up
-					class="edit-card"
-					v-if="isCmpOpen('member')"
-					@closePopup="closePopup"
-					><add-members
-						:cardMembers="cardMembers()"
-						:boardMembers="boardMembers"
-						@updateMembers="updateMembers"
-					/>
-				</pop-up>
-			</button>
-			<button class="action-btn" @click="move">Move</button>
-			<pop-up v-if="isCmpOpen('move')" @closePopup="closePopup">
-				<card-move
-					class="edit-card"
-					:isClone="false"
-					:groups="board.groups"
-					:group="currGroup"
-					:currPosition="currPosition"
-					@moveCard="moveCard"
-			/></pop-up>
-			<button class="action-btn" @click="copy">Copy</button>
-			<pop-up v-if="isCmpOpen('clone')" @closePopup="closePopup">
-				<card-move
-					class="edit-card"
-					:isClone="true"
-					:groups="board.groups"
-					:group="currGroup"
-					:currPosition="currPosition"
-					@moveCard="moveCard"
-			/></pop-up>
-			<button class="action-btn" @click="changeDueDate">
-				Change Due Date
-				<date-picker
-					ref="date-picker"
-					class="date-picker"
-					slot="date-picker"
-					:dueDate="card.dueDate"
-					v-if="isPopUp"
-					@setDate="setNewDate"
-				/>
-			</button>
+				</div>
+			</span>
 		</div>
-	</section>
+        </div>
+            <div class="add-card-btns flex">
+                <button @click="saveTitle" class="edit-title-btn">Save</button>
+            </div>
+        </div>
+        <div class="edit-card-actions flex f-col">
+            <button class="action-btn" @click="editLabel">
+                <div class="flex">
+                <img
+						class="icon-btn"
+						src="@/assets/svg/label-white.svg"
+						alt=""
+					/>
+                Edit Labels
+                </div>
+                <pop-up
+                    class="edit-card"
+                    v-if="board && isCmpOpen('labels')"
+                    @closePopup="closePopup"
+                >
+                    <card-labels
+                        :card="card"
+                        :boardLabels="board.labels"
+                        @updateCard="updateCardLabel"
+                        @updateLabelTitle="updateLabelTitle"
+                    />
+                </pop-up>
+            </button>
+            <button class="action-btn" @click="changeMembers">
+                <div class="flex">
+                <img
+						class="icon-btn"
+						src="@/assets/svg/member-white.svg"
+						alt=""
+					/>
+                Change Members
+                </div>
+                <pop-up
+                    class="edit-card"
+                    v-if="isCmpOpen('member')"
+                    @closePopup="closePopup"
+                    ><add-members
+                        :cardMembers="cardMembers()"
+                        :boardMembers="boardMembers"
+                        @updateMembers="updateMembers"
+                    />
+                </pop-up>
+            </button>
+            <button class="action-btn" @click="move">
+                <div class="flex">
+                <img
+						class="icon-btn"
+						src="@/assets/svg/move-white.svg"
+						alt=""
+					/>
+                Move
+                </div>
+            <pop-up class="edit-card" v-if="isCmpOpen('move')" @closePopup="closePopup">
+                <card-move
+                    :isClone="false"
+                    :groups="board.groups"
+                    :group="currGroup"
+                    :currPosition="currPosition"
+                    @moveCard="moveCard"
+            /></pop-up>
+            </button>
+            <button class="action-btn" @click="copy">
+                <div class="flex">
+                <img
+						class="icon-btn"
+						src="@/assets/svg/copy-white.svg"
+						alt=""
+					/>
+                Copy
+                </div>   
+            <pop-up class="edit-card" v-if="isCmpOpen('clone')" @closePopup="closePopup">
+                <card-move
+                    :isClone="true"
+                    :groups="board.groups"
+                    :group="currGroup"
+                    :currPosition="currPosition"
+                    @moveCard="moveCard"
+            /></pop-up>
+            </button>
+            <button class="action-btn" @click="changeDueDate">
+                <div class="flex">
+                <img
+						class="icon-btn"
+						src="@/assets/svg/clock-white.svg"
+						alt=""
+					/>
+                Change Due Date
+                </div>
+                <date-picker
+                    ref="date-picker"
+                    class="date-picker"
+                    slot="date-picker"
+                    :dueDate="card.dueDate"
+                    v-if="isPopUp"
+                    @setDate="setNewDate"
+                />
+            </button>
+        </div>
+    </section>
 </template>
 
 <script>
@@ -167,7 +192,7 @@ export default {
 			if (this.card.isDone) return { color: '#fff', backgroundColor: '#61bd4f' }
 			else return {}
 		},
-		labelsSelected() {
+        labelsSelected() {
 			if (!this.card.labels) return [];
 			const selectIds = this.card.labels.map(label => label.id);
 			const selctLabels = this.board.labels.filter(label => selectIds.includes(label.id));
@@ -178,7 +203,6 @@ export default {
         },
         currGroup() {
             const group = this.board.groups.find(group => group.cards.some(card => card.id === this.card.id));
-            console.log('currGroup', group.title);
             return group;
         },
         currPosition() {
@@ -209,6 +233,8 @@ export default {
         },
         saveTitle() {
             this.$emit('updateCardTitle', this.cardTxt, this.card);
+            this.closePopup();
+
         },
         editLabel() {
             this.isPopUp = true;
@@ -255,7 +281,6 @@ export default {
     },
     mounted() {
         setTimeout(() => this.$refs['card-title'].focus(), 0);
-        console.log(this.card.id);
     },
     components: {
         popUp,

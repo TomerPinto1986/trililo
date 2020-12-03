@@ -179,6 +179,7 @@ export default {
 			let updateCard = utilService.deepCopy(card)
 			updateCard.title = title;
 			this.updateCard(updateCard);
+			this.cardToEdit = null;
 		},
 		toggleMenu() {
 			this.isMenu = !this.isMenu;
