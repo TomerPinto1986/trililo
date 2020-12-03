@@ -66,7 +66,7 @@
 				/>
 			</draggable>
 
-			<div class="add-group-container group">
+			<div class="add-group-container group" @click.stop> 
 				<div class="title-area" v-if="isAddingGroup">
 					<input
 						@keydown.enter.prevent
@@ -132,7 +132,7 @@ export default {
 			filterBy: null,
 			// isCardEdit: false,
 			cardToEdit: null,
-			clickPos:''
+			clickPos: ''
 		}
 	},
 	computed: {
@@ -176,7 +176,6 @@ export default {
 			this.updateBoard(board);
 		},
 		updateCardTitle(title, card) {
-			console.log('gg');
 			let updateCard = utilService.deepCopy(card)
 			updateCard.title = title;
 			this.updateCard(updateCard);
@@ -365,14 +364,11 @@ export default {
 			this.$store.dispatch({ type: 'updateBoard', board });
 		},
 		openEditCard(currCard) {
-			console.log(currCard)
 			this.cardToEdit = currCard;
 			// this.isCardEdit = true;
 		},
-		setClickPos(ev){
-			var pos = (window.innerWidth - ev.x <= 170)? 'right' : (ev.x <= 170) ? 'left' : 'middle';
-			console.log(pos, ev.x);
-			// this.$store.commit({type:'setClickPos', pos})
+		setClickPos(ev) {
+			var pos = (window.innerWidth - ev.x <= 170) ? 'right' : (ev.x <= 170) ? 'left' : 'middle';
 			this.clickPos = pos;
 		}
 	},
@@ -396,13 +392,19 @@ export default {
 		setTimeout(() => {
 			if (this.$store.getters.loggedinUser._id === 'guest' && this.board.isPrivate) this.$router.push('/board')
 		}, 500)
-		socketService.emit('set-board', boardId)
-		socketService.on('board-update', this.updateBoardSocket)
-		document.addEventListener('click', this.setClickPos)
+		socketService.emit('set-board', boardId);
+		socketService.on('board-update', this.updateBoardSocket);
+		document.addEventListener('click', (ev) => {
+			this.setClickPos(ev);
+			this.closeAddGroup();
+		})
 	},
 	destroyed() {
-		document.removeEventListener('click', this.setClickPos)
-		socketService.off('board-update', this.updateBoardSocket)
+		document.removeEventListener('click', (ev) => {
+			this.setClickPos(ev);
+			this.closeAddGroup();
+		})
+		socketService.off('board-update', this.updateBoardSocket);
 		this.$store.dispatch({ type: 'loadBoard', boardId: null });
 	},
 	components: {

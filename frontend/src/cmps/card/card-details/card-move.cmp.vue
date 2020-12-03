@@ -6,13 +6,13 @@
         <h2>Select Destenation</h2>
         <div class="flex">
             <span class="flex f-col">
-				List
-				<select-list
-                @changeCardGroup="changeCardGroup"
-                :groups="groups"
-                :title="group.title"
-            ></select-list>
-			</span>
+                List
+                <select-list
+                    @changeCardGroup="changeCardGroup"
+                    :groups="groups"
+                    :title="group.title"
+                ></select-list>
+            </span>
             <span class="flex f-col">
                 Position
                 <select-position
@@ -22,9 +22,8 @@
                     :currPosition="getCurrPosition"
                 ></select-position>
             </span>
-
         </div>
-            <button @click.stop="emitMove">Move</button>
+        <button @click.stop="emitMove">Move</button>
     </section>
 </template>
 
@@ -69,10 +68,11 @@ export default {
             this.newCardPosition = position;
         },
         emitMove() {
+            const endPos = this.newCardPosition ? this.newCardPosition - 1 : this.isClone ? this.currPosition : null;
             const status = {
                 isClone: this.isClone,
                 startPos: this.currPosition - 1,
-                endPos: this.newCardPosition ? this.newCardPosition - 1 : null,
+                endPos,
                 startGroup: this.group.id,
                 endGroup: this.newCardGroupId
             }
