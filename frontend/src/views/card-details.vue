@@ -44,20 +44,20 @@
                         v-if="card.members && card.members.length"
                     >
                         <h3>Members</h3>
-                        <div class="flex">
+                        <div class="flex wrap">
                             <span
                                 v-for="member in card.members"
                                 :key="member._id"
                             >
                                 <custom-avatar
                                     class="avatar"
-                                    :size="34"
+                                    :size="40"
                                     :username="member.username"
                                     :src="member.imgUrl"
                                 />
                             </span>
                             <button
-                                class="plus-btn member flex f-center"
+                                class="card-details-btn plus-btn member flex f-center"
                                 @click.stop="onAddMembers"
                             >
                                 +
@@ -76,7 +76,7 @@
                                 {{ label.title }}
                             </div>
                             <button
-                                class="plus-btn flex f-center"
+                                class="card-details-btn plus-btn flex f-center"
                                 @click.stop="openLabels"
                             >
                                 +
@@ -84,14 +84,14 @@
                         </div>
                     </div>
                     <div class="due-date" v-if="card.dueDate || dueDate">
-                        <h3 @click.stop="setDate">Due Date</h3>
+                        <h3>Due Date</h3>
                         <span class="due-date-info" v-if="card.dueDate">
                             <el-checkbox
                                 class="checkbox"
                                 v-model="card.isComplete"
                                 @change="toggleIsComplete"
                             ></el-checkbox>
-                            <span class="due-date-local-time">{{
+                            <span class="card-details-btn due-date-local-time" @click.stop="setDate">{{
                                 moment(card.dueDate).format("MMM Do")
                             }}<span v-if="card.isComplete" class="complete">complete</span></span>
                         </span>
