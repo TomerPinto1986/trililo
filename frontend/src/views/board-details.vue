@@ -176,7 +176,6 @@ export default {
 			this.updateBoard(board);
 		},
 		updateCardTitle(title, card) {
-			console.log('gg');
 			let updateCard = utilService.deepCopy(card)
 			updateCard.title = title;
 			this.updateCard(updateCard);
@@ -365,7 +364,6 @@ export default {
 			this.$store.dispatch({ type: 'updateBoard', board });
 		},
 		openEditCard(currCard) {
-			console.log(currCard)
 			this.cardToEdit = currCard;
 			// this.isCardEdit = true;
 		},

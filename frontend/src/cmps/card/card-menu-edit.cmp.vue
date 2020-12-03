@@ -104,7 +104,6 @@ export default {
         },
         currGroup() {
             const group = this.board.groups.find(group => group.cards.some(card => card.id === this.card.id));
-            console.log('currGroup', group.title);
             return group;
         },
         currPosition() {
@@ -155,7 +154,6 @@ export default {
         moveCard(stat) {
             const status = stat;
             status.cardId = this.card.id
-            console.log(status);
             this.$emit('moveCard', status);
             this.closePopup();
         },
@@ -181,7 +179,6 @@ export default {
     },
     mounted() {
         setTimeout(() => this.$refs['card-title'].focus(), 0);
-        console.log(this.card.id);
     },
     components: {
         popUp,

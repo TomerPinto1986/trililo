@@ -156,7 +156,6 @@ export default {
 		},
 		cardsToShow() {
 			if (!this.filterBy) return this.group.cards
-			console.log('filter', this.filterBy)
 			const cards = this.group.cards.filter(card => {
 				if (!card.labels) card.labels = [];
 				if (!card.members) card.members = [];

@@ -168,7 +168,8 @@
 .custom-avatar {
     border-radius: 50% !important;
     color: #fefefe;
-    font-size: 1em;
+    font-size: em(14px);
+    font-weight: 600;
 }
 
 // .avatar {
