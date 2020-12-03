@@ -145,19 +145,24 @@ import cardMove from '@/cmps/card/card-details/card-move.cmp';
 import { utilService } from '@/services/util.service.js'
 
 export default {
-	props: {
-		card: Object,
-		board: Object
-	},
-	data() {
-		return {
-			cardTxt: this.card.title,
-			isPopUp: false,
-			currPopUp: null,
-		}
-	},
-	computed: {
-		dueDateStyle() {
+    props: {
+        card: Object,
+        board: Object
+    },
+    data() {
+        return {
+            cardTxt: this.card.title,
+            isPopUp: false,
+            currPopUp: null,
+            activities: this.board.activities
+        }
+    },
+    computed: {
+        commentsLen() {
+			if (!this.activities.filter(activity => activity.comment && activity.card.id === this.card.id).length) return
+			return ' ' + this.activities.filter(activity => activity.comment && activity.card.id === this.card.id).length;
+		},
+        dueDateStyle() {
 			if (this.card.dueDate - Date.now() < 24 * 60 * 60 * 1000) return { color: '#121212', backgroundColor: '#ec9488' }
 			if (this.card.isDone) return { color: '#fff', backgroundColor: '#61bd4f' }
 			else return {}
@@ -168,100 +173,98 @@ export default {
 			const selctLabels = this.board.labels.filter(label => selectIds.includes(label.id));
 			return selctLabels.map(label => label.color);
 		},
-		dueDate() {
-			return this.currPopUp === 'dueDate';
-		},
-		currGroup() {
-			const group = this.board.groups.find(group => group.cards.some(card => card.id === this.card.id));
-			return group;
-		},
-		currPosition() {
-			return this.currGroup.cards.findIndex(card => card.id === this.card.id) + 1;
-		},
-		isCmpOpen() {
-			return (cmpName) => this.isPopUp && this.currPopUp === cmpName;
-		},
-		boardMembers() {
-			if (!this.board.isPrivate) return utilService.deepCopy(this.$store.getters.users);
-			return this.board.members;
-		},
-		commentsLen() {
-			if (!this.board.activities.filter(activity => activity.comment && activity.card.id === this.card.id).length) return
-			return ' ' + this.board.activities.filter(activity => activity.comment && activity.card.id === this.card.id).length;
-		}
-
-	},
-	methods: {
-		changeDueDate() {
-			this.isPopUp = true;
-			this.currPopUp = 'dueDate';
-		},
-		closePopup() {
-			this.isPopUp = false;
-			this.currPopUp = '';
-		},
-		updateCardLabel(card) {
-			this.$emit('updateCardLabel', card)
-		},
-		updateLabelTitle(labelId, title) {
-			this.$emit('updateLabelTitle', labelId, title);
-		},
-		saveTitle() {
-			this.$emit('updateCardTitle', this.cardTxt, this.card);
-		},
-		editLabel() {
-			this.isPopUp = true;
-			this.currPopUp = 'labels';
-		},
-		changeMembers() {
-			this.isPopUp = true;
-			this.currPopUp = 'member';
-		},
-		move() {
-			this.isPopUp = true;
-			this.currPopUp = 'move';
-		},
-		copy() {
-			this.isPopUp = true;
-			this.currPopUp = 'clone';
-		},
-		moveCard(stat) {
-			const status = stat;
-			status.cardId = this.card.id
-			this.$emit('moveCard', status);
-			this.closePopup();
-		},
-		cardMembers() {
-			if (!this.card.members) {
-				this.card.members = [];
-			}
-			return this.card.members;
-		},
-		updateMembers(userId) {
-			this.$emit('updateMembers', userId, this.card)
-		},
-		setNewDate(dueDate) {
-			this.card.isDone = false;
-			if (this.card.dueDate) {
-				delete this.card.dueDate;
-			}
-			this.card.dueDate = dueDate;
-			this.$emit('updateCard', this.card);
-			this.isPopUp = false;
-			this.currPopUp = null;
-		},
-	},
-	mounted() {
-		setTimeout(() => this.$refs['card-title'].focus(), 0);
-	},
-	components: {
-		popUp,
-		addMembers,
-		cardLabels,
-		cardMove,
-		datePicker,
-		customAvatar
-	}
+        dueDate() {
+            return this.currPopUp === 'dueDate';
+        },
+        currGroup() {
+            const group = this.board.groups.find(group => group.cards.some(card => card.id === this.card.id));
+            console.log('currGroup', group.title);
+            return group;
+        },
+        currPosition() {
+            return this.currGroup.cards.findIndex(card => card.id === this.card.id) + 1;
+        },
+        isCmpOpen() {
+            return (cmpName) => this.isPopUp && this.currPopUp === cmpName;
+        },
+        boardMembers() {
+            if (!this.board.isPrivate) return utilService.deepCopy(this.$store.getters.users);
+            return this.board.members;
+        },
+    },
+    methods: {
+        changeDueDate() {
+            this.isPopUp = true;
+            this.currPopUp = 'dueDate';
+        },
+        closePopup() {
+            this.isPopUp = false;
+            this.currPopUp = '';
+        },
+        updateCardLabel(card) {
+            this.$emit('updateCardLabel', card)
+        },
+        updateLabelTitle(labelId, title) {
+            this.$emit('updateLabelTitle', labelId, title);
+        },
+        saveTitle() {
+            this.$emit('updateCardTitle', this.cardTxt, this.card);
+        },
+        editLabel() {
+            this.isPopUp = true;
+            this.currPopUp = 'labels';
+        },
+        changeMembers() {
+            this.isPopUp = true;
+            this.currPopUp = 'member';
+        },
+        move() {
+            this.isPopUp = true;
+            this.currPopUp = 'move';
+        },
+        copy() {
+            this.isPopUp = true;
+            this.currPopUp = 'clone';
+        },
+        moveCard(stat) {
+            const status = stat;
+            status.cardId = this.card.id
+            console.log(status);
+            this.$emit('moveCard', status);
+            this.closePopup();
+        },
+        cardMembers() {
+            if (!this.card.members) {
+                this.card.members = [];
+            }
+            return this.card.members;
+        },
+        updateMembers(userId) {
+            this.$emit('updateMembers', userId, this.card)
+        },
+        setNewDate(dueDate) {
+            this.card.isDone = false;
+            if (this.card.dueDate) {
+                delete this.card.dueDate;
+            }
+            this.card.dueDate = dueDate;
+            this.$emit('updateCard', this.card);
+            this.isPopUp = false;
+            this.currPopUp = null;
+        },
+    },
+    mounted() {
+        setTimeout(() => this.$refs['card-title'].focus(), 0);
+        console.log(this.card.id);
+    },
+    components: {
+        popUp,
+        addMembers,
+        cardLabels,
+        cardMove,
+        datePicker,
+        customAvatar
+    }
 }
 </script>
 

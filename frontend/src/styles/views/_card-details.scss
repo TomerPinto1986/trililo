@@ -202,6 +202,15 @@
 
                 .due-date {
 
+                    .el-input__inner,
+                    .block .date-picker,
+                    i.el-input__icon.el-icon-time {
+                        // display: none;
+                        opacity: 0;
+                        height: 0;
+                    }
+
+
                     .el-checkbox__input.is-checked .el-checkbox__inner,
                     .el-checkbox__input.is-indeterminate .el-checkbox__inner {
                         background-color: #0079bf;
@@ -295,17 +304,18 @@
                                 text-overflow: ellipsis;
                                 max-width: 7ch;
                             }
-                            
+
                             &.regular {
                                 grid-area: span 2 / span 2;
                             }
-                            
+
                             &.portrait {
                                 grid-area: span 3 / span 2;
                             }
-                            
+
                             &.landscape {
                                 grid-area: span 2 / span 4;
+
                                 small {
                                     max-width: 10ch;
                                 }
@@ -417,12 +427,15 @@
     .activities {
         margin: 10px 0;
     }
-    .activity-preview{
+
+    .activity-preview {
         margin-left: 50px;
-        .avatar{
+
+        .avatar {
             left: -50px;
         }
     }
+
     .card-activity {
         width: 100%;
         position: relative;
@@ -687,4 +700,8 @@
             }
         }
     }
+}
+
+.el-picker-panel.el-date-picker.el-popper.has-sidebar.has-time {
+    top: 340px!important;
 }
