@@ -121,10 +121,10 @@
 					src="../assets/animations/load.gif"
 					alt="Loading"
 				/> -->
-                <div class="attachments-group flex">
-                    <span class="card-icon">
-                        <img src="@/assets/svg/attach.svg" />
-                    </span>
+				<div class="attachments-group flex">
+					<span class="card-icon">
+						<img src="@/assets/svg/attach.svg" />
+					</span>
 
                     <div v-if="attachments" class="attachments-content">
                         <h2>Attachments</h2>
@@ -145,192 +145,192 @@
                             <img src="@/assets/svg/checklist.svg" />
                         </span>
 
-                        <card-checklist
-                            :checklist="checklist"
-                            @updeteChecklist="updeteChecklist"
-                            @deleteChecklist="deleteChecklist"
-                        />
-                    </div>
-                </div>
-                <div class="activity flex">
-                    <span class="card-icon activity-icon">
-                        <img src="@/assets/svg/activities.svg" />
-                    </span>
+						<card-checklist
+							:checklist="checklist"
+							@updeteChecklist="updeteChecklist"
+							@deleteChecklist="deleteChecklist"
+						/>
+					</div>
+				</div>
+				<div class="activity flex">
+					<span class="card-icon activity-icon">
+						<img src="@/assets/svg/activities.svg" />
+					</span>
 
-                    <card-activity
-                        v-if="card"
-                        :user="loggedinUser"
-                        :card="card"
-                        :activities="cardActivities"
-                        :isShowDetails="false"
-                        @addActivity="addActivity"
-                    />
-                </div>
-            </div>
-            <!-- ACTIONS -->
-            <div class="actions flex f-col">
-                <h3 class="add-to-card-title">Add to card</h3>
-                <button
-                    @click.stop="onAddMembers"
-                    class="flex f-a-center content-after action-btn"
-                    title="Members"
-                    data-txt="Members"
-                >
-                    <img
-                        class="icon-btn"
-                        src="@/assets/svg/member.svg"
-                        alt=""
-                    />
-                    <pop-up v-if="isCmpOpen('member')" @closePopup="closePopup"
-                        ><add-members
-                            :cardMembers="cardMembers()"
-                            :boardMembers="boardMembers"
-                            @updateMembers="updateMembers"
-                        />
-                    </pop-up>
-                </button>
-                <button
-                    @click.stop="openLabels"
-                    class="flex f-a-center content-after action-btn"
-                    title="Labels"
-                    data-txt="Labels"
-                >
-                    <img class="icon-btn" src="@/assets/svg/label.svg" />
-                    <pop-up
-                        v-if="board && isCmpOpen('labels')"
-                        @closePopup="closePopup"
-                    >
-                        <card-labels
-                            :card="card"
-                            :boardLabels="board.labels"
-                            @updateCard="updateCard"
-                            @updateLabelTitle="updateLabelTitle"
-                        />
-                    </pop-up>
-                </button>
-                <button
-                    @click.stop="addChecklist"
-                    class="flex f-a-center content-after action-btn"
-                    title="Checklist"
-                    data-txt="Checklist"
-                >
-                    <img
-                        class="icon-btn"
-                        src="@/assets/svg/checklist.svg"
-                        alt=""
-                    />
-                    <pop-up
-                        v-if="isCmpOpen('checklist')"
-                        @closePopup="closePopup"
-                    >
-                        <add-checklist
-                            :card="card"
-                            @updateCard="updateCard"
-                            @close="closePopup"
-                        />
-                    </pop-up>
-                </button>
-                <button
-                    @click="startUpload"
-                    class="upload-btn flex f-a-center content-after action-btn"
-                    data-txt="Attachments"
-                >
-                    <img class="icon-btn" src="@/assets/svg/attach.svg" />
-                </button>
-                <input
-                    ref="upload"
-                    class="upload"
-                    type="file"
-                    name="uploader"
-                    id="uploader"
-                    @change="onUpload"
-                />
-                <button
-                    class="cover-btn flex f-a-center content-after action-btn"
-                    title="Cover"
-                    data-txt="Cover"
-                    @click.stop="openCoverPicker"
-                >
-                    <img class="icon-btn" src="@/assets/svg/cover.svg" />
-                    <el-color-picker
-                        popper-class="color-dropdown"
-                        ref="color-picker"
-                        class="color-picker"
-                        size="mini"
-                        v-model="card.style.headerColor"
-                        @change="updateCover"
-                    ></el-color-picker>
-                    <pop-up v-if="isCmpOpen('cover')" @closePopup="closePopup">
-                        <card-cover
-                            :color="card.style.headerColor"
-                            @colorChange="updateCover"
-                    /></pop-up>
-                </button>
-                <button
-                    @click.stop="setDate"
-                    class="flex f-a-center content-after action-btn"
-                    title="Set Date"
-                    data-txt="Set Date"
-                >
-                    <img class="icon-btn" src="@/assets/svg/clock.svg" />
-                </button>
-                <button
-                    @click.stop="removeDate"
-                    v-if="card.dueDate"
-                    class="remove-date flex f-a-center content-after action-btn"
-                    title="Remove Date"
-                    data-txt="Remove Date"
-                >
-                    <i class="fal fa-history"></i>
-                </button>
-                <h3 class="actions-title">Actions</h3>
-                <button
-                    @click.stop="cloneCard"
-                    class="flex f-a-center content-after action-btn"
-                    title="Clone"
-                    data-txt="Clone"
-                >
-                    <!-- <img
+					<card-activity
+						v-if="card"
+						:user="loggedinUser"
+						:activities="cardActivities"
+						:isShowDetails="false"
+						:card="card"
+						@addComment="addActivity"
+					/>
+				</div>
+			</div>
+			<!-- ACTIONS -->
+			<div class="actions flex f-col">
+				<h3 class="add-to-card-title">Add to card</h3>
+				<button
+					@click.stop="onAddMembers"
+					class="flex f-a-center content-after action-btn"
+					title="Members"
+					data-txt="Members"
+				>
+					<img
+						class="icon-btn"
+						src="@/assets/svg/member.svg"
+						alt=""
+					/>
+					<pop-up v-if="isCmpOpen('member')" @closePopup="closePopup"
+						><add-members
+							:cardMembers="cardMembers()"
+							:boardMembers="boardMembers"
+							@updateMembers="updateMembers"
+						/>
+					</pop-up>
+				</button>
+				<button
+					@click.stop="openLabels"
+					class="flex f-a-center content-after action-btn"
+					title="Labels"
+					data-txt="Labels"
+				>
+					<img class="icon-btn" src="@/assets/svg/label.svg" />
+					<pop-up
+						v-if="board && isCmpOpen('labels')"
+						@closePopup="closePopup"
+					>
+						<card-labels
+							:card="card"
+							:boardLabels="board.labels"
+							@updateCard="updateCard"
+							@updateLabelTitle="updateLabelTitle"
+						/>
+					</pop-up>
+				</button>
+				<button
+					@click.stop="addChecklist"
+					class="flex f-a-center content-after action-btn"
+					title="Checklist"
+					data-txt="Checklist"
+				>
+					<img
+						class="icon-btn"
+						src="@/assets/svg/checklist.svg"
+						alt=""
+					/>
+					<pop-up
+						v-if="isCmpOpen('checklist')"
+						@closePopup="closePopup"
+					>
+						<add-checklist
+							:card="card"
+							@updateCard="updateCard"
+							@close="closePopup"
+						/>
+					</pop-up>
+				</button>
+				<button
+					@click="startUpload"
+					class="upload-btn flex f-a-center content-after action-btn"
+					data-txt="Attachments"
+				>
+					<img class="icon-btn" src="@/assets/svg/attach.svg" />
+				</button>
+				<input
+					ref="upload"
+					class="upload"
+					type="file"
+					name="uploader"
+					id="uploader"
+					@change="onUpload"
+				/>
+				<button
+					class="cover-btn flex f-a-center content-after action-btn"
+					title="Cover"
+					data-txt="Cover"
+					@click.stop="openCoverPicker"
+				>
+					<img class="icon-btn" src="@/assets/svg/cover.svg" />
+					<el-color-picker
+						popper-class="color-dropdown"
+						ref="color-picker"
+						class="color-picker"
+						size="mini"
+						v-model="card.style.headerColor"
+						@change="updateCover"
+					></el-color-picker>
+					<pop-up v-if="isCmpOpen('cover')" @closePopup="closePopup">
+						<card-cover
+							:color="card.style.headerColor"
+							@colorChange="updateCover"
+					/></pop-up>
+				</button>
+				<button
+					@click.stop="setDate"
+					class="flex f-a-center content-after action-btn"
+					title="Set Date"
+					data-txt="Set Date"
+				>
+					<img class="icon-btn" src="@/assets/svg/clock.svg" />
+				</button>
+				<button
+					@click.stop="removeDate"
+					v-if="card.dueDate"
+					class="remove-date flex f-a-center content-after action-btn"
+					title="Remove Date"
+					data-txt="Remove Date"
+				>
+					<i class="fal fa-history"></i>
+				</button>
+				<h3 class="actions-title">Actions</h3>
+				<button
+					@click.stop="cloneCard"
+					class="flex f-a-center content-after action-btn"
+					title="Clone"
+					data-txt="Clone"
+				>
+					<!-- <img
                         class="icon-btn clone-img"
                         src="@/assets/svg/copy.svg"
                     /> -->
-                    <i class="fal fa-clone"></i>
-                    <pop-up v-if="isCmpOpen('clone')" @closePopup="closePopup">
-                        <card-move
-                            :isClone="true"
-                            :groups="board.groups"
-                            :group="getCurrGroup"
-                            :currPosition="getCurrPosition"
-                            @moveCard="moveCard"
-                    /></pop-up>
-                </button>
-                <button
-                    class="dlt-btn flex f-a-center content-after action-btn"
-                    title="Delete"
-                    data-txt="Delete Card"
-                    @click.stop="deleteCard"
-                >
-                    <i class="fal fa-trash-alt"></i>
-                </button>
-                <button
-                    class="move-btn flex f-a-center content-after action-btn"
-                    title="Move"
-                    data-txt="Move"
-                    @click.stop="emitMove"
-                >
-                    <img class="icon-btn" src="@/assets/svg/move.svg" />
-                    <pop-up v-if="isCmpOpen('move')" @closePopup="closePopup">
-                        <card-move
-                            :isClone="false"
-                            :groups="board.groups"
-                            :group="getCurrGroup"
-                            :currPosition="getCurrPosition"
-                            @moveCard="moveCard"
-                    /></pop-up>
-                </button>
-            </div>
-        </div>
-    </section>
+					<i class="fal fa-clone"></i>
+					<pop-up v-if="isCmpOpen('clone')" @closePopup="closePopup">
+						<card-move
+							:isClone="true"
+							:groups="board.groups"
+							:group="getCurrGroup"
+							:currPosition="getCurrPosition"
+							@moveCard="moveCard"
+					/></pop-up>
+				</button>
+				<button
+					class="dlt-btn flex f-a-center content-after action-btn"
+					title="Delete"
+					data-txt="Delete Card"
+					@click.stop="deleteCard"
+				>
+					<i class="fal fa-trash-alt"></i>
+				</button>
+				<button
+					class="move-btn flex f-a-center content-after action-btn"
+					title="Move"
+					data-txt="Move"
+					@click.stop="emitMove"
+				>
+					<img class="icon-btn" src="@/assets/svg/move.svg" />
+					<pop-up v-if="isCmpOpen('move')" @closePopup="closePopup">
+						<card-move
+							:isClone="false"
+							:groups="board.groups"
+							:group="getCurrGroup"
+							:currPosition="getCurrPosition"
+							@moveCard="moveCard"
+					/></pop-up>
+				</button>
+			</div>
+		</div>
+	</section>
 </template>
 
 <script>
@@ -352,306 +352,302 @@ import cardChecklist from '../cmps/card/card-details/card-checklist.cmp';
 import cardDescription from '../cmps/card/card-details/card-description.cmp';
 
 export default {
-    data() {
-        return {
-            card: null,
-            isPopUp: false,
-            currPopUp: null,
-            isLoading: false,
-        }
-    },
-    computed: {
-        loggedinUser() {
-            return this.$store.getters.loggedinUser;
-        },
-        boardMembers() {
-            if (!this.board.isPrivate) return utilService.deepCopy(this.$store.getters.users);
-            return this.board.members;
-        },
-        board() {
-            return utilService.deepCopy(this.$store.getters.currBoard);
-        },
-        getCurrGroup() {
-            const group = this.board.groups.find(group => group.cards.some(card => card.id === this.card.id));
-            return group;
-        },
-        getCurrPosition() { //get rid of get
-            return this.getCurrGroup.cards.findIndex(card => card.id === this.card.id) + 1;
-        },
-        dueDate() {
-            return this.currPopUp === 'duedate';
-        },
-        isCmpOpen() {
-            console.log(this.currPopUp,'cmpopen');
-            return (cmpName) => this.currPopUp === cmpName;
-        },
-        headerStyle() {
-            return { background: this.card.style.headerColor };
-        },
-        attachments() {
-            return this.card.attachments;
-        },
-        cardActivities() {
-            return this.board.activities.filter(activity => {
-                if (activity.card) {
-                    if (activity.card.id === this.card.id) return activity
-                }
-            })
-        },
-        labelsSelected() {
-            const selectIds = this.card.labels.map(label => label.id);
-            return this.board.labels.filter(label => selectIds.includes(label.id));
-        },
-    },
-    methods: {
-        updateCardTitle() {
-            this.$refs['card-title'].blur();
-            this.updateBoard();
-        },
-        updateBoard(board = this.board, isSocket = false) {
-            this.$store.dispatch({ type: 'updateBoard', board });
-            if (!isSocket) {
-                socketService.emit('updateCard', this.card)
-                socketService.emit('updateBoard', board)
-            }
-        },
-        updateCard(card = this.card) {
-            const board = this.board;
-            board.groups.forEach(group => {
-                const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
-                if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
-            })
-            this.updateBoard(board);
-            this.card = card;
-        },
-        updateCardSocket(card) {
-            const board = this.board;
-            board.groups.forEach(group => {
-                const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
-                if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
-            })
-            this.updateBoard(board, true);
-            this.card = card;
-        },
-        addActivity(txt, card, comment = null, user = this.loggedinUser) {
-            console.log(txt, card, comment, user)
-            this.$store.commit('setEmptyActivity');
-            const activity = utilService.deepCopy(this.$store.getters.emptyActivity);
-            activity.txt = txt;
-            activity.comment = comment;
-            activity.byMember = utilService.deepCopy(user);
-            activity.createdAt = Date.now();
-            if (card) {
-                activity.card = {
-                    id: card.id,
-                    title: card.title,
-                }
-            }
-            const board = this.board;
-            board.activities.unshift(activity);
-            this.updateBoard(board);
-        },
-        closePopup() {
-            this.isPopUp = false;
-            this.currPopUp = '';
-        },
-        emitClose() {
-            this.$emit('close');
-        },
-        cloneCard() {
-            this.currPopUp = 'clone';
-            this.isPopUp = true;
-            // console.log(this.currPopUp,this.isPopUp = true);
-            // const cardCopy = utilService.deepCopy(this.card);
-            // cardCopy.id = utilService.makeId();
-            // const board = this.board;
-            // const groupIdx = board.groups.findIndex(group => group.cards.some(card => card.id === this.card.id));
-            // if (groupIdx === -1) return;
-            // board.groups[groupIdx].cards.push(cardCopy);
-            // this.updateBoard(board);
-        },
-        deleteCard() {
-            const board = this.board;
-            let cardTitle;
-            board.groups.forEach(group => {
-                const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
-                if (cardIdx !== -1) {
-                    cardTitle = group.cards[cardIdx].title;
-                    group.cards.splice(cardIdx, 1);
-                }
-            })
-            this.updateBoard(board);
-            this.emitClose();
-            this.addActivity(`deleted the card '${cardTitle}'`);
-        },
-        moveCard(status) {
-            console.log(status);
-            this.$store.commit({ type: 'updateCardStatus', status });
-            const board = this.board;
-            this.updateBoard(board);
-            this.isPopUp = false;
-            if (status.startGroup !== status.endGroup) {
-                const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
-                this.addActivity(`moved card '${this.card.title}' to '${groupTitle}'`, this.card);
-            }
-        },
-        startUpload() {
-            this.$refs['upload'].click();
-        },
-        updateAttachments(attachments) {
-            const card = utilService.deepCopy(this.card)
-            card.attachments = attachments;
-            this.updateCard(card);
-        },
-        async onUpload(ev) {
-            this.isLoading = true;
-            const res = await uploadImg(ev);
-            const imgRatio = res.width / res.height;
-            const imgClass = {
-                regular: imgRatio > 0.9 && imgRatio < 1.1,
-                portrait: imgRatio <= 0.9,
-                landscape: imgRatio >= 1.1
-            };
-            const attachment = {
-                id: utilService.makeId(),
-                name: res.original_filename,
-                format: res.format,
-                src: res.url,
-                imgClass
-            }
-            if (!this.card.attachments) this.card.attachments = []
-            const updatedCard = utilService.deepCopy(this.card)
-            updatedCard.attachments.push(attachment)
-            this.isLoading = false;
-            this.updateCard(updatedCard)
-            this.card = updatedCard;
-        },
-        updateDesc(newDesc) {
-            let card = this.card;
-            card.description = newDesc;
-            this.updateCard(card);
-        },
-        emitMove() {
-            this.currPopUp = 'move';
-            this.isPopUp = true;
-        },
-        setDate() {
-            this.currPopUp = 'duedate';
-        },
-        removeDate() {
-            const card = utilService.deepCopy(this.card)
-            card.dueDate = null;
-            this.updateCard(card);
-            this.card = card;
-            this.addActivity(`removed the due date from `, card);
-        },
-        setNewDate(dueDate) {
-            this.card.isDone = false;
-            const updatedCard = utilService.deepCopy(this.card)
-            if (this.card.dueDate) {
-                delete this.card.dueDate;
-            }
-            updatedCard.dueDate = dueDate
-            this.updateCard(updatedCard);
-            this.card = updatedCard;
-            this.closePopup();
-            this.addActivity(`added due date to `, updatedCard);
-        },
-        openLabels() {
-            this.currPopUp = 'labels';
-            this.isPopUp = true;
-        },
-        updateLabelTitle(labelId, title) {
-            const board = this.board;
-            const idx = board.labels.findIndex(label => label.id === labelId);
-            if (idx !== -1) board.labels[idx].title = title;
-            this.updateBoard(board);
-        },
-        addChecklist() {
-            this.currPopUp = 'checklist';
-            this.isPopUp = true;
-        },
-        openCoverPicker() {
-            this.$refs['color-picker']._data.showPicker = true;
-        },
-        updateCover(color) {
-            this.card.style.headerColor = color;
-            const board = this.board;
-            this.updateBoard(board);
-        },
-        onAddMembers() {
-            this.currPopUp = 'member';
-            this.isPopUp = true;
-        },
-        updateMembers(userId) {
-            const card = this.card;
-            const memberIdx = card.members.findIndex(member => member._id === userId);
-            const newUser = this.$store.getters.users.find(user => user._id === userId);
-            if (memberIdx === -1) {
-                const newMember = {
-                    _id: newUser._id,
-                    username: newUser.username,
-                    imgUrl: newUser.imgUrl
-                };
-                card.members.push(newMember);
-            } else {
-                card.members.splice(memberIdx, 1);
-            }
-            this.updateCard(card);
-            const action = (memberIdx === -1) ? `added ${newUser.username} to ` : `removed ${newUser.username} from`;
-            this.addActivity(action, card, null, this.loggedinUser)
-        },
-        cardMembers() {
-            if (!this.card.members) {
-                this.card.members = [];
-            }
-            return this.card.members
-        },
-        updeteChecklist(checklist) {
-            const card = this.card;
-            const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklist.id);
-            if (idx !== -1) card.checklistGroup.splice(idx, 1, checklist);
-            this.updateCard(card);
-        },
-        deleteChecklist(checklistId) {
-            const card = this.card;
-            const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklistId);
-            if (idx !== -1) card.checklistGroup.splice(idx, 1);
-            this.updateCard(card);
-        },
-        toggleIsComplete() {
-            const card = this.card;
-            card.isDone = !card.isDone;
-            this.updateCard(card);
-        }
-    },
-    created() {
-        socketService.on('cardUpdate', this.updateCardSocket)
+	data() {
+		return {
+			card: null,
+			isPopUp: false,
+			currPopUp: null,
+			isLoading: false,
+		}
+	},
+	computed: {
+		loggedinUser() {
+			return this.$store.getters.loggedinUser;
+		},
+		boardMembers() {
+			if (!this.board.isPrivate) return utilService.deepCopy(this.$store.getters.users);
+			return this.board.members;
+		},
+		board() {
+			return utilService.deepCopy(this.$store.getters.currBoard);
+		},
+		getCurrGroup() {
+			const group = this.board.groups.find(group => group.cards.some(card => card.id === this.card.id));
+			return group;
+		},
+		getCurrPosition() { //get rid of get
+			return this.getCurrGroup.cards.findIndex(card => card.id === this.card.id) + 1;
+		},
+		dueDate() {
+			return this.currPopUp === 'duedate';
+		},
+		isCmpOpen() {
+			return (cmpName) => this.isPopUp && this.currPopUp === cmpName;
+		},
+		headerStyle() {
+			return { background: this.card.style.headerColor };
+		},
+		attachments() {
+			return this.card.attachments;
+		},
+		cardActivities() {
+			return this.board.activities.filter(activity => {
+				if (activity.card) {
+					if (activity.card.id === this.card.id) return activity
+				}
+			})
+		},
+		labelsSelected() {
+			const selectIds = this.card.labels.map(label => label.id);
+			return this.board.labels.filter(label => selectIds.includes(label.id));
+		},
+	},
+	methods: {
+		updateCardTitle() {
+			this.$refs['card-title'].blur();
+			this.updateBoard();
+		},
+		updateBoard(board = this.board, isSocket = false) {
+			this.$store.dispatch({ type: 'updateBoard', board });
+			if (!isSocket) {
+				socketService.emit('update-card', this.card)
+				socketService.emit('update-board', board)
+			}
+		},
+		updateCard(card = this.card) {
+			const board = this.board;
+			board.groups.forEach(group => {
+				const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
+				if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
+			})
+			this.updateBoard(board);
+			this.card = card;
+		},
+		updateCardSocket(card) {
+			const board = this.board;
+			board.groups.forEach(group => {
+				const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
+				if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
+			})
+			this.updateBoard(board, true);
+			this.card = card;
+		},
+		addActivity(txt, card, comment = null, user = this.loggedinUser) {
+			this.$store.commit('setEmptyActivity');
+			const activity = utilService.deepCopy(this.$store.getters.emptyActivity);
+			activity.txt = txt;
+			activity.comment = comment;
+			activity.byMember = utilService.deepCopy(user);
+			activity.createdAt = Date.now();
+			if (card) {
+				activity.card = {
+					id: card.id,
+					title: card.title,
+				}
+			}
+			const board = this.board;
+			board.activities.unshift(activity);
+			this.updateBoard(board);
+		},
+		closePopup() {
+			this.isPopUp = false;
+			this.currPopUp = '';
+		},
+		emitClose() {
+			this.$emit('close');
+		},
+		cloneCard() {
+			this.currPopUp = 'clone';
+			this.isPopUp = true;
+			// const cardCopy = utilService.deepCopy(this.card);
+			// cardCopy.id = utilService.makeId();
+			// const board = this.board;
+			// const groupIdx = board.groups.findIndex(group => group.cards.some(card => card.id === this.card.id));
+			// if (groupIdx === -1) return;
+			// board.groups[groupIdx].cards.push(cardCopy);
+			// this.updateBoard(board);
+		},
+		deleteCard() {
+			const board = this.board;
+			let cardTitle;
+			board.groups.forEach(group => {
+				const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
+				if (cardIdx !== -1) {
+					cardTitle = group.cards[cardIdx].title;
+					group.cards.splice(cardIdx, 1);
+				}
+			})
+			this.updateBoard(board);
+			this.emitClose();
+			this.addActivity(`deleted the card '${cardTitle}'`);
+		},
+		moveCard(status) {
+			this.$store.commit({ type: 'updateCardStatus', status });
+			const board = this.board;
+			this.updateBoard(board);
+			this.isPopUp = false;
+			if (status.startGroup !== status.endGroup) {
+				const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
+				this.addActivity(`moved card '${this.card.title}' to '${groupTitle}'`, this.card);
+			}
+		},
+		startUpload() {
+			this.$refs['upload'].click();
+		},
+		updateAttachments(attachments) {
+			const card = utilService.deepCopy(this.card)
+			card.attachments = attachments;
+			this.updateCard(card);
+		},
+		async onUpload(ev) {
+			this.isLoading = true;
+			const res = await uploadImg(ev);
+			const imgRatio = res.width / res.height;
+			const imgClass = {
+				regular: imgRatio > 0.9 && imgRatio < 1.1,
+				portrait: imgRatio <= 0.9,
+				landscape: imgRatio >= 1.1
+			};
+			const attachment = {
+				id: utilService.makeId(),
+				name: res.original_filename,
+				format: res.format,
+				src: res.url,
+				imgClass
+			}
+			if (!this.card.attachments) this.card.attachments = []
+			const updatedCard = utilService.deepCopy(this.card)
+			updatedCard.attachments.push(attachment)
+			this.isLoading = false;
+			this.updateCard(updatedCard)
+			this.card = updatedCard;
+		},
+		updateDesc(newDesc) {
+			let card = this.card;
+			card.description = newDesc;
+			this.updateCard(card);
+		},
+		emitMove() {
+			this.currPopUp = 'move';
+			this.isPopUp = true;
+		},
+		setDate() {
+			this.currPopUp = 'duedate';
+		},
+		removeDate() {
+			const card = utilService.deepCopy(this.card)
+			card.dueDate = null;
+			this.updateCard(card);
+			this.card = card;
+			this.addActivity(`removed the due date from `, card);
+		},
+		setNewDate(dueDate) {
+			this.card.isDone = false;
+			const updatedCard = utilService.deepCopy(this.card)
+			if (this.card.dueDate) {
+				delete this.card.dueDate;
+			}
+			updatedCard.dueDate = dueDate
+			this.updateCard(updatedCard);
+			this.card = updatedCard;
+			this.closePopup();
+			this.addActivity(`added due date to `, updatedCard);
+		},
+		openLabels() {
+			this.currPopUp = 'labels';
+			this.isPopUp = true;
+		},
+		updateLabelTitle(labelId, title) {
+			const board = this.board;
+			const idx = board.labels.findIndex(label => label.id === labelId);
+			if (idx !== -1) board.labels[idx].title = title;
+			this.updateBoard(board);
+		},
+		addChecklist() {
+			this.currPopUp = 'checklist';
+			this.isPopUp = true;
+		},
+		openCoverPicker() {
+			this.$refs['color-picker']._data.showPicker = true;
+		},
+		updateCover(color) {
+			this.card.style.headerColor = color;
+			const board = this.board;
+			this.updateBoard(board);
+		},
+		onAddMembers() {
+			this.currPopUp = 'member';
+			this.isPopUp = true;
+		},
+		updateMembers(userId) {
+			const card = this.card;
+			const memberIdx = card.members.findIndex(member => member._id === userId);
+			const newUser = this.$store.getters.users.find(user => user._id === userId);
+			if (memberIdx === -1) {
+				const newMember = {
+					_id: newUser._id,
+					username: newUser.username,
+					imgUrl: newUser.imgUrl
+				};
+				card.members.push(newMember);
+			} else {
+				card.members.splice(memberIdx, 1);
+			}
+			this.updateCard(card);
+			const action = (memberIdx === -1) ? `added ${newUser.username} to ` : `removed ${newUser.username} from`;
+			this.addActivity(action, card, null, this.loggedinUser)
+		},
+		cardMembers() {
+			if (!this.card.members) {
+				this.card.members = [];
+			}
+			return this.card.members
+		},
+		updeteChecklist(checklist) {
+			const card = this.card;
+			const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklist.id);
+			if (idx !== -1) card.checklistGroup.splice(idx, 1, checklist);
+			this.updateCard(card);
+		},
+		deleteChecklist(checklistId) {
+			const card = this.card;
+			const idx = card.checklistGroup.findIndex(currChecklist => currChecklist.id === checklistId);
+			if (idx !== -1) card.checklistGroup.splice(idx, 1);
+			this.updateCard(card);
+		},
+		toggleIsComplete() {
+			const card = this.card;
+			card.isDone = !card.isDone;
+			this.updateCard(card);
+		}
+	},
+	created() {
         const cardId = this.$route.params.cardId
-        this.$store.commit({ type: 'setCurrCard', cardId })
-        this.card = this.$store.getters.currCard;
-        this.$store.dispatch('loadUsers')
-
-    },
-    destroyed() {
-        socketService.off('cardUpdate', this.updateCardSocket)
-        this.$store.commit({ type: 'updateCurrCard', card: null })
-        this.card = null;
-    },
-    components: {
-        cardActivity,
-        cardMove,
-        datePicker,
-        addMembers,
-        cardAttachments,
-        cardCover,
-        cardLabels,
-        customAvatar,
-        popUp,
-        // checkBox,
-        addChecklist,
-        cardChecklist,
-        cardDescription
-    }
+		this.$store.commit({ type: 'setCurrCard', cardId })
+		this.card = this.$store.getters.currCard;
+		this.$store.dispatch('loadUsers')
+        socketService.on('card-update', this.updateCardSocket)
+		socketService.emit('set-card', cardId);
+	},
+	destroyed() {
+		socketService.off('card-update', this.updateCardSocket)
+		this.$store.commit({ type: 'updateCurrCard', card: null })
+		this.card = null;
+	},
+	components: {
+		cardActivity,
+		cardMove,
+		datePicker,
+		addMembers,
+		cardAttachments,
+		cardCover,
+		cardLabels,
+		customAvatar,
+		popUp,
+		// checkBox,
+		addChecklist,
+		cardChecklist,
+		cardDescription
+	}
 }
 </script>

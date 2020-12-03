@@ -38,7 +38,6 @@ export default {
     },
     methods: {
         emitDelete(attachmentId) {
-            console.log(attachmentId)
             const attachments = this.attachmentsToShow;
             const attachmentIdx = attachments.findIndex(attachment => attachment.id === attachmentId)
             if (attachmentIdx !== -1) attachments.splice(attachmentIdx, 1);

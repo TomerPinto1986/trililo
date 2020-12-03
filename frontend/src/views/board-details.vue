@@ -24,6 +24,7 @@
 				ghostClass="ghost"
 				chosenClass="chosen"
 				dragClass="drag"
+				draggableSelector="div"
 				:list="board.groups"
 				:animation="200"
 				:group="'board'"
@@ -117,9 +118,9 @@ export default {
 	},
 	computed: {
 		board() {
-			if (this.$store.getters.currBoard) {
-				socketService.emit('board-topic', this.$store.getters.currBoard._id)
-			}
+			// if (this.$store.getters.currBoard) {
+			// 	socketService.emit('set-board', this.$store.getters.currBoard._id)
+			// }
 			return utilService.deepCopy(this.$store.getters.currBoard);
 		},
 		users() {
@@ -232,9 +233,8 @@ export default {
 			this.newGroupTitle = '';
 		},
 		updateBoard(board) {
-			console.log(board)
 			this.$store.dispatch({ type: 'updateBoard', board });
-			socketService.emit('updateBoard', board);
+			socketService.emit('update-board', board);
 		},
 		updateboardUsers(userId) {
 			const board = this.board;
@@ -250,7 +250,6 @@ export default {
 			} else {
 				board.members.splice(memberIdx, 1);
 			}
-			console.log(userId)
 			this.updateBoard(board);
 			const action = (memberIdx === -1) ? `added ${user.username} to the board` : `removed ${user.username} from the board`;
 			this.addActivity(action);
@@ -296,7 +295,6 @@ export default {
 			this.filterBy = filterBy
 		},
 		updateBoardSocket(board) {
-			console.log(board)
 			this.$store.dispatch({ type: 'updateBoard', board });
 		}
 	},
@@ -312,11 +310,6 @@ export default {
 			if (this.$store.getters.loggedinUser._id === 'guest' && this.board.isPrivate) this.$router.push('/board')
 		}
 	},
-	mounted() {
-		// setTimeout(() => {
-		// 	if (this.$route.params.cardId) document.body.querySelector('.screen').style.display = 'block';
-		// }, 600)
-	},
 	created() {
 		this.$store.dispatch('loadUsers');
 		if (this.$route.params.cardId) this.isDetails = true;
@@ -325,10 +318,11 @@ export default {
 		setTimeout(() => {
 			if (this.$store.getters.loggedinUser._id === 'guest' && this.board.isPrivate) this.$router.push('/board')
 		}, 500)
-		socketService.on('boardUpdate', this.updateBoardSocket)
+		socketService.emit('set-board', boardId)
+		socketService.on('board-update', this.updateBoardSocket)
 	},
 	destroyed() {
-		socketService.off('boardUpdate', this.updateBoardSocket)
+		socketService.off('board-update', this.updateBoardSocket)
 		this.$store.dispatch({ type: 'loadBoard', boardId: null });
 	},
 	components: {

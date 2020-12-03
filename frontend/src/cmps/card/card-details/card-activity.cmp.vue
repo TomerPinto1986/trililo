@@ -46,82 +46,69 @@ import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 import { socketService } from '../../../services/socket.service';
 
 export default {
-    props: {
-        activities: Array,
-        user: Object,
-        card: Object,
-        isShowDetails: Boolean
-    },
-    data() {
-        return {
-            msg: {
-                from: null,
-                txt: ''
-            },
-            userTyping: null,
-            timeOutTyping: null,
-            isAllActivities: this.isShowDetails
-        }
-    },
-    computed: {
-        miniUser() {
-            return {
-                _id: this.user._id,
-                username: this.user.username,
-                url: this.user.url
-            }
-        },
-        activitiesToShow() {
-            if (!this.isAllActivities) {
-                return this.activities.filter(activity => activity.comment && activity.comment.length)
-            }
-            return (this.activities);
-        }
-    },
-    methods: {
-        toggleShowDetails() {
-            this.isAllActivities = !this.isAllActivities;
-        },
-        sendMsg() {
-            socketService.emit('activity-newMsg', this.msg)
-            this.msg.txt = '';
-        },
-        addMsg(msg) {
+	props: {
+		activities: Array,
+		user: Object,
+        isShowDetails: Boolean,
+        card: Object
+	},
+	data() {
+		return {
+			msg: {
+				from: null,
+				txt: ''
+			},
+			userTyping: null,
+			timeOutTyping: null,
+			isAllActivities: this.isShowDetails
+		}
+	},
+	computed: {
+		miniUser() {
+			return {
+				_id: this.user._id,
+				username: this.user.username,
+				url: this.user.url
+			}
+		},
+		activitiesToShow() {
+			if (!this.isAllActivities) {
+				return this.activities.filter(activity => activity.comment && activity.comment.length)
+			}
+			return (this.activities);
+		},
+		isWriting() {
+			return (this.msg.txt !== '');
+		}
+	},
+	methods: {
+		toggleShowDetails() {
+			this.isAllActivities = !this.isAllActivities;
+		},
+		addComment() {
             this.userTyping = null;
-            const byMember = {
-                _id: msg.from._id,
-                username: msg.from.username,
-                imgUrl: msg.from.imgUrl
-            };
-            this.$emit('addActivity', null, this.card, msg.txt, byMember);
-        },
-        typing() {
-            console.log('typing');
-            socketService.emit('typing', this.msg.from.username);
-        },
-        setUserTyping(username) {
-            this.userTyping = username
-            if (this.timeOutTyping) clearTimeout(this.timeOutTyping)
-            this.timeOutTyping = setTimeout(() => {
-                this.userTyping = null
-            }, 1500)
-        }
-    },
-    created() {
-        this.msg.from = this.miniUser;
-        // socketService.setup();
-        socketService.emit('card-topic', this.card.id);
-        // socketService.on('chat-history', (chat => this.chat = chat))
-        socketService.on('activity-addMsg', this.addMsg);
-        socketService.on('user-typing', this.setUserTyping);
-    },
-    destroyed() {
-        socketService.off('activity-addMsg', this.addMsg)
-        // socketService.terminate();
-    },
-    components: {
-        activityPreview,
-        customAvatar
-    }
+            this.$emit('addComment', null, this.card, this.msg.txt, this.msg.from);
+            this.msg.txt = '';
+		},
+		typing() {
+			if (this.isWriting) return;
+			socketService.emit('commenting', this.msg.from.username);
+		},
+		setUserTyping(username) {
+			this.userTyping = username
+			if (this.timeOutTyping) clearTimeout(this.timeOutTyping)
+			this.timeOutTyping = setTimeout(() => {
+				this.userTyping = null
+			}, 1000)
+		}
+	},
+	created() {
+		this.msg.from = this.miniUser;
+		socketService.on('user-commenting', this.setUserTyping);
+	},
+	components: {
+		activityPreview,
+		customAvatar
+	}
 };
 </script>

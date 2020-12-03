@@ -76,7 +76,6 @@ export default {
                 startGroup: this.group.id,
                 endGroup: this.newCardGroupId
             }
-            console.log(status);
             this.$emit('moveCard', status)
         }
     },

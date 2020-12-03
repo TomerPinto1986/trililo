@@ -13,7 +13,6 @@
 			<div class="content">
 				<div @click="emitAdd">Add Card...</div>
 				<div @click="emitClone">Clone List...</div>
-				<!-- Need to make it work with recursive/itterative to change IDs -->
 				<div @click="emitMove">Move List...</div>
 				<hr />
 				<div @click="emitSort">Sort By...</div>
@@ -49,7 +48,6 @@ export default {
 			this.$emit('openSort');
 		},
 		emitBackToMenu(){
-			console.log('ss')
 			this.$emit('backToMenu')
 		}
 
