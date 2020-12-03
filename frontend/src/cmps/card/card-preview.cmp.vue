@@ -1,5 +1,10 @@
 <template>
     <section class="card-preview flex f-col">
+        <div>
+        <i class="fas fa-pen edit-btn" @click.stop="editCard">
+        </i>
+            <card-menu-edit :card="card" v-if="isCardEdit"/>
+        </div>
         <div
             v-if="card.style.headerColor"
             class="card-header"
@@ -55,6 +60,7 @@
 
 <script>
 import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
+import cardMenuEdit from '@/cmps/card/card-menu-edit.cmp'
 
 export default {
     props: {
@@ -64,6 +70,7 @@ export default {
     },
     data() {
         return {
+            isCardEdit: false,
         }
     },
     computed: {
@@ -87,12 +94,15 @@ export default {
         }
     },
     methods: {
-
+        editCard(){
+            this.isCardEdit =true;
+        }
     },
     created() {
     },
     components: {
-        customAvatar
+        customAvatar,
+        cardMenuEdit
     }
 };
 </script>

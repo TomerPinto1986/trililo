@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 	<section class="card-activity">
 		<div class="flex activities-btn">
 			<h2>activity:</h2>
@@ -46,6 +47,47 @@
 			/>
 		</template>
 	</section>
+=======
+    <section class="card-activity">
+        <div class="flex activities-btn">
+            <h2>activity:</h2>
+            <button class="card-details-btn" v-if="!isAllActivities" @click="toggleShowDetails">
+                Show Details
+            </button>
+            <button class="card-details-btn" v-else @click="toggleShowDetails">Hide Details</button>
+        </div>
+        <div class="activities flex">
+            <custom-avatar
+                :size="35"
+                :username="user.username"
+                :src="user.imgUrl"
+            />
+            <input
+                type="text"
+                placeholder="Write a comment..."
+                @keydown="typing"
+                @keyup.enter="sendMsg"
+                v-model="msg.txt"
+            />
+            <button class="activities-send" v-if="userTyping" @click="sendMsg">Send</button>
+        </div>
+        <span v-if="userTyping"
+            ><custom-avatar
+                :size="35"
+                :username="userTyping"
+                :src="user.imgUrl"
+            />
+            Adding a comment</span
+        >
+        <template v-if="activitiesToShow && activitiesToShow.length">
+            <activity-preview
+                v-for="activity in activitiesToShow"
+                :key="activity.id"
+                :activity="activity"
+            />
+        </template>
+    </section>
+>>>>>>> ab504e0c4cef3171d534eeb24edd6bb04aebcb4a
 </template>
 
 <script>
