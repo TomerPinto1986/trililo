@@ -11,6 +11,8 @@
         cursor: pointer;
         color: white;
         align-items: center;
+        transition: 75ms;
+        ;
         &.bgc {
             @each $bgc in $labelbgcs {
                 $i: index($labelbgcs, $bgc);

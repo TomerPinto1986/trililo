@@ -3,7 +3,7 @@
         v-if="card"
         class="card-details flex f-col"
         @click.stop="closePopup"
-    >
+    >   
         <div
             class="card-header"
             :style="headerStyle"

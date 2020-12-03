@@ -1,4 +1,5 @@
 .card-preview {
+    position: relative;
     margin: 0 auto 1px;
     cursor: pointer;
     box-shadow: 0 0 3px 0 black;
@@ -17,9 +18,25 @@
     &:not(:last-of-type) {
         margin-block-end: 8px;
     }
+    .edit-btn {
+        display: none;
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        font-size: 10px;
+        color: #42526e;
+        padding: 8px;
+        border-radius: 3px;
+        &:hover {
+            background-color: rgba(226, 228, 233, 0.493);
+        }
+    }
     &:hover {
         background-color: #f4f5f7;
         border-bottom-color: rgba(9, 30, 66, .25);
+        .edit-btn {
+            display: block;
+        }
     }
     .card-header {
         border-radius: 3px 3px 0 0;
