@@ -66,7 +66,7 @@
 				/>
 			</draggable>
 
-			<div class="add-group-container group" @click.stop> 
+			<div class="add-group-container group" @click.stop>
 				<div class="title-area" v-if="isAddingGroup">
 					<input
 						@keydown.enter.prevent
@@ -150,11 +150,7 @@ export default {
 		},
 		boardStyle() {
 			return { 'background': `${this.board.style.background}` }
-		},
-		// getClickPos(){
-		// 	console.log(this.$store.getters.clickPos, 'board')
-		// 	return this.$store.getters.clickPos;
-		// }
+		}
 	},
 	methods: {
 		moveCard(status) {
@@ -371,7 +367,11 @@ export default {
 		setClickPos(ev) {
 			var pos = (window.innerWidth - ev.x <= 170) ? 'right' : (ev.x <= 170) ? 'left' : 'middle';
 			this.clickPos = pos;
-		}
+		},
+		// setClickPos({ x, y }) {
+		// 	const pos = { x, y, width: window.innerWidth, height: window.innerHeight }
+		// 	this.clickPos = pos;
+		// }
 	},
 
 	watch: {
