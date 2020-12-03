@@ -72,7 +72,8 @@
 						></i>
 					</div>
 				</div>
-				<div v-else class="open-add-btn" @click.stop="addGroup">
+				<div v-else class="open-add-btn" @click="addGroup">
+				<!-- <div v-else class="open-add-btn" @click.stop="addGroup"> -->
 					<i class="el-icon-plus"></i> <span>Add another list</span>
 				</div>
 			</div>
@@ -296,6 +297,9 @@ export default {
 		},
 		updateBoardSocket(board) {
 			this.$store.dispatch({ type: 'updateBoard', board });
+		},
+		checkClickPos(ev){
+			console.log(ev)
 		}
 	},
 
@@ -320,8 +324,10 @@ export default {
 		}, 500)
 		socketService.emit('set-board', boardId)
 		socketService.on('board-update', this.updateBoardSocket)
+		document.addEventListener('click', this.checkClickPos)
 	},
 	destroyed() {
+		document.removeEventListener('click', this.checkClickPos)
 		socketService.off('board-update', this.updateBoardSocket)
 		this.$store.dispatch({ type: 'loadBoard', boardId: null });
 	},

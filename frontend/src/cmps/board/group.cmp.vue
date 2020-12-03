@@ -6,9 +6,15 @@
 				class="title"
 				v-model="group.title"
 				@change="emitChange"
-				@click.stop
 			/>
-			<button @click.stop="toggleMenu">
+			<!-- <input
+				type="text"
+				class="title"
+				v-model="group.title"
+				@change="emitChange"
+				@click.stop
+			/> -->
+			<button @click="toggleMenu">
 				<i class="fas fa-ellipsis-h menu-btn"></i>
 			</button>
 			<group-menu

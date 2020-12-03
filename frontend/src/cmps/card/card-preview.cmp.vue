@@ -1,7 +1,8 @@
 <template>
     <section class="card-preview flex f-col">
         <div>
-        <i class="fas fa-pen edit-btn" @click.stop="editCard">
+        <i name="card-edit-menu" class="fas fa-pen edit-btn" @click="editCard">
+        <!-- <i class="fas fa-pen edit-btn" @click.stop="editCard"> -->
         </i>
             <card-menu-edit :card="card" v-if="isCardEdit"/>
         </div>

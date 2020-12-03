@@ -57,12 +57,19 @@
 									:style="{ fontSize: '12px' }"
 								/>
 							</span>
-							<button
+							<span>
+								<custom-avatar
+									class="card-details-btn plus-btn member"
+									:size="40"
+									:isAdd="true"
+								/>
+							</span>
+							<!-- <button
 								class="card-details-btn plus-btn member flex f-center"
 								@click.stop="onAddMembers"
 							>
 								+
-							</button>
+							</button> -->
 						</div>
 					</div>
 					<div
@@ -171,6 +178,7 @@
 						:activities="cardActivities"
 						:isShowDetails="false"
 						:card="card"
+						ref="activity"
 						@addComment="addActivity"
 					/>
 				</div>
@@ -457,9 +465,10 @@ export default {
 			board.activities.unshift(activity);
 			this.updateBoard(board);
 		},
-		closePopup() {
+		closePopup(ev) {
 			this.isPopUp = false;
 			this.currPopUp = '';
+			if (ev.target.name !== 'comment') this.$refs.activity.closeInput();
 		},
 		emitClose() {
 			this.$emit('close');

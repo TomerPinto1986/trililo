@@ -32,6 +32,7 @@
 					@keyup.enter="addComment"
 					v-model="msg.txt"
 					ref="input"
+					name="comment"
 				/>
 				<div class="comment-controls" @click.stop="addComment">
 					<span type="text" :class="addBtnClass">Save</span>
@@ -132,7 +133,6 @@ export default {
 			this.$refs['input-area'].classList.add('in-use')
 		},
 		closeInput() {
-			console.log('s')
 			this.$refs['input-area'].classList.remove('in-use')
 			this.$refs['input'].blur();
 			this.msg.txt = '';
