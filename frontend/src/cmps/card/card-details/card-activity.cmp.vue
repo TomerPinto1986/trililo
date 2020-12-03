@@ -20,7 +20,7 @@
                 @keyup.enter="sendMsg"
                 v-model="msg.txt"
             />
-            <!-- <button class="activities-send" @click="sendMsg">Send</button> -->
+            <button class="activities-send" v-if="userTyping" @click="sendMsg">Send</button>
         </div>
         <span v-if="userTyping"
             ><custom-avatar

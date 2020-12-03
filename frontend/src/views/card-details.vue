@@ -126,7 +126,7 @@
                         <img src="@/assets/svg/attach.svg" />
                     </span>
 
-                    <div class="attachments-content">
+                    <div v-if="attachments" class="attachments-content">
                         <h2>Attachments</h2>
                         <card-attachments
                             :attachments="attachments"

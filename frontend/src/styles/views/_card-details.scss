@@ -159,6 +159,11 @@
                     }
                 }
                 .due-date {
+                    .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+                        background-color: #0079bf;
+                        border-color: #0079bf;
+                    }
+
                     position: relative;
                     padding-inline-end: 60px;
                     margin: 4px 0 0;
