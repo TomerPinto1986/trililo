@@ -365,6 +365,7 @@ export default {
 			this.$store.dispatch({ type: 'updateBoard', board });
 		},
 		openEditCard(currCard) {
+			console.log(currCard)
 			this.cardToEdit = currCard;
 			// this.isCardEdit = true;
 		},

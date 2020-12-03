@@ -105,11 +105,13 @@ export default {
 	},
 	methods: {
 		editCard() {
+			console.log('s', this.card)
 			this.$emit('openEditCard', this.card);
 			this.isEditing = true;
 		},
 		emitOpenDetails(){
-			if(!this.isEditing)this.$emit('openDetails');
+			console.log(this.isEditing)
+			if(!this.isEditing)this.$emit('openDetails', this.card.id);
 			this.isEditing = false;
 		}
 	},

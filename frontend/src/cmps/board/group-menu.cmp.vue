@@ -1,5 +1,5 @@
 <template>
-	<section data-name="group-menu" class="group-menu" :class="clickPos">
+	<section name="group-menu" class="group-menu" :class="clickPos">
 		<div class="header-container">
 			<slot name="back-btn"></slot>
 			<span class="close-btn">
@@ -54,7 +54,7 @@ export default {
 			this.$emit('backToMenu')
 		},
 		checkClickPos(ev){
-			console.dir(ev.target)
+			console.dir(ev.target.name)
 		}
 
 	},
