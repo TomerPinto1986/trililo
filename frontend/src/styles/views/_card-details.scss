@@ -83,18 +83,32 @@
         height: 40px;
         z-index: 1;
 
+        &:hover {
+            i {
+                background-color: #dcdfe5;
+                border-radius: 50%;
+                box-sizing: unset;
+                border: 3px solid #dcdfe5;
+            }
+        }
+
         &.cover {
             background-color: rgba(9, 30, 66, .1);
             border-radius: 50%;
 
             &:hover {
                 background-color: rgba(9, 30, 66, .15);
+
+                i {
+                    background-color: transparent;
+                    border: 0;
+                }
             }
         }
     }
 
     .card-main-container {
-        margin: 12px 20px;
+        margin: 12px;
         display: grid;
         grid-template-columns: 1fr 20px auto;
         position: relative;
@@ -254,6 +268,7 @@
 
                 .attachments {
                     word-wrap: break-word;
+                    text-overflow: ellipsis;
                     width: 100%;
 
                     .attachment-list {
@@ -273,16 +288,27 @@
                                 border-radius: 2px;
                             }
 
+                            small {
+                                display: inline-block;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                text-overflow: ellipsis;
+                                max-width: 7ch;
+                            }
+                            
                             &.regular {
                                 grid-area: span 2 / span 2;
                             }
-
+                            
                             &.portrait {
                                 grid-area: span 3 / span 2;
                             }
-
+                            
                             &.landscape {
                                 grid-area: span 2 / span 4;
+                                small {
+                                    max-width: 10ch;
+                                }
                             }
                         }
                     }
@@ -406,7 +432,7 @@
 
         .input-area {
             width: 100%;
-            
+
             input {
                 font-size: 14px;
                 margin: 4px 0 12px 10px;
@@ -458,10 +484,12 @@
         .exit-btn {
             right: 0;
             top: 5px;
+            padding: 5px 3px 5px 9px;
 
             &.cover {
                 right: 10px;
                 top: 10px;
+                padding: 5px 10px;
             }
         }
 
@@ -472,7 +500,7 @@
             .card-description,
             .attachments-group,
             .card-activity {
-                margin-inline-end: 15px;
+                margin-inline-end: 12px;
             }
 
             .checklist-group {
@@ -494,7 +522,8 @@
             .card-info {
                 grid-row: 1;
                 overflow-y: auto;
-                margin-inline-end: 3px;
+                -webkit-margin-end: 0;
+                margin-inline-end: 0;
             }
 
             .actions {
@@ -531,6 +560,21 @@
             left: -3px;
             bottom: 0;
             top: unset;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .card-details .card-main-container .card-info .attachments-content .attachments .attachment-list .attachment-card {
+        button {
+            padding: 6px;
+        }
+
+        &.portrait,
+        &.regular {
+            button {
+                margin: 0;
+            }
         }
     }
 }
