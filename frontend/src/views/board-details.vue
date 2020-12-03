@@ -54,6 +54,7 @@
 					:labels="board.labels"
 					:activities="board.activities"
 					:filterBy="filterBy"
+					:clickPos="clickPos"
 					@close="closeDetails"
 					@newCard="addCard"
 					@change="updateGroup"
@@ -130,7 +131,8 @@ export default {
 			isMenu: false,
 			filterBy: null,
 			// isCardEdit: false,
-			cardToEdit: null
+			cardToEdit: null,
+			clickPos:''
 		}
 	},
 	computed: {
@@ -148,7 +150,11 @@ export default {
 		},
 		boardStyle() {
 			return { 'background': `${this.board.style.background}` }
-		}
+		},
+		// getClickPos(){
+		// 	console.log(this.$store.getters.clickPos, 'board')
+		// 	return this.$store.getters.clickPos;
+		// }
 	},
 	methods: {
 		moveCard(status) {
@@ -362,8 +368,11 @@ export default {
 			this.cardToEdit = currCard;
 			// this.isCardEdit = true;
 		},
-		checkClickPos(ev){
-			console.log(ev.target)
+		setClickPos(ev){
+			var pos = (window.innerWidth - ev.x <= 170)? 'right' : (ev.x <= 170) ? 'left' : 'middle';
+			console.log(pos, ev.x);
+			// this.$store.commit({type:'setClickPos', pos})
+			this.clickPos = pos;
 		}
 	},
 
@@ -388,10 +397,10 @@ export default {
 		}, 500)
 		socketService.emit('set-board', boardId)
 		socketService.on('board-update', this.updateBoardSocket)
-		document.addEventListener('click', this.checkClickPos)
+		document.addEventListener('click', this.setClickPos)
 	},
 	destroyed() {
-		document.removeEventListener('click', this.checkClickPos)
+		document.removeEventListener('click', this.setClickPos)
 		socketService.off('board-update', this.updateBoardSocket)
 		this.$store.dispatch({ type: 'loadBoard', boardId: null });
 	},

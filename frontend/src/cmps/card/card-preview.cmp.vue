@@ -1,10 +1,10 @@
 <template>
-	<section class="card-preview flex f-col">
+	<section class="card-preview flex f-col" @click="emitOpenDetails">
 		<div>
 			<i
-				name="card-edit-menu"
+				data-name="card-edit-menu"
 				class="fas fa-pen edit-btn"
-				@click="editCard"
+				@click="editCard()"
 			>
 				<!-- <i class="fas fa-pen edit-btn" @click.stop="editCard"> -->
 			</i>
@@ -78,6 +78,11 @@ export default {
 		labels: Array,
 		activities: Array
 	},
+	data(){
+		return {
+			isEditing: false
+		}
+	},
 	computed: {
 		dueDate() {
 			if (this.card.dueDate - Date.now() < 24 * 60 * 60 * 1000) return { color: '#121212', backgroundColor: '#ec9488' }
@@ -101,6 +106,11 @@ export default {
 	methods: {
 		editCard() {
 			this.$emit('openEditCard', this.card);
+			this.isEditing = true;
+		},
+		emitOpenDetails(){
+			if(!this.isEditing)this.$emit('openDetails');
+			this.isEditing = false;
 		}
 	},
 	created() {
