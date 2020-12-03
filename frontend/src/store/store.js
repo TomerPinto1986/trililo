@@ -20,6 +20,7 @@ export default new Vuex.Store({
     state: {
         bgc: 'rgb(246, 207, 206)',
         bgSrcs: [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10],
+        clickPos: ''
 
     },
     getters: {
@@ -28,6 +29,10 @@ export default new Vuex.Store({
         },
         bgSrcs(state) {
             return state.bgSrcs;
+        },
+        clickPos(state){
+            console.log(state.clickPos)
+            return state.clickPos
         }
     },
     mutations: {   
@@ -40,6 +45,10 @@ export default new Vuex.Store({
         bgChange(state, { bgc }) {
             const style = (bgc.includes('rgb')) ? bgc : `url(${state.bgSrcs[+bgc]})`;
             state.bgc = style;
+        },
+        setClickPos(state, {pos}){
+            console.log(pos)
+            state.clickPosition = pos;
         }
     },
     actions: {},

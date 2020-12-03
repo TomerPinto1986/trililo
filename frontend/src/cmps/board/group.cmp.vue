@@ -1,24 +1,18 @@
 <template>
 	<section v-if="group" class="group flex f-col">
-		<div class="group-header handle">
+		<div class="group-header">
 			<input
 				type="text"
 				class="title"
 				v-model="group.title"
 				@change="emitChange"
 			/>
-			<!-- <input
-				type="text"
-				class="title"
-				v-model="group.title"
-				@change="emitChange"
-				@click.stop
-			/> -->
 			<button @click="toggleMenu">
 				<i class="fas fa-ellipsis-h menu-btn"></i>
 			</button>
 			<group-menu
 				v-if="isMenu"
+				:clickPos="getClickPos"
 				@closeMenu="toggleMenu"
 				@addCard="addCard"
 				@deleteGroup="emitDelete(group.id)"
@@ -99,7 +93,6 @@
 				:labels="labels"
 				:activities="activities"
 				@click.native="openDetails(card.id)"
-				@openEditCard="openEditCard"
 			/>
 		</draggable>
 		<div class="add-card-container">
@@ -143,7 +136,9 @@ export default {
 		filterBy: Object,
 		isCloseAdd: Boolean,
 		board: Object,
-		groupIdx: Number
+		groupIdx: Number,
+		clickPos: String
+
 	},
 	data() {
 		return {
@@ -154,6 +149,7 @@ export default {
 			isMove: false,
 			isSort: false,
 			pos: null,
+			
 		}
 	},
 	computed: {
@@ -162,6 +158,7 @@ export default {
 		},
 		cardsToShow() {
 			if (!this.filterBy) return this.group.cards
+			console.log('filter', this.filterBy)
 			const cards = this.group.cards.filter(card => {
 				if (!card.labels) card.labels = [];
 				if (!card.members) card.members = [];
@@ -173,7 +170,12 @@ export default {
 		},
 		hasDueDate() {
 			return this.group.cards.some(card => card.dueDate)
+		},
+		getClickPos(){
+			console.log(this.clickPos, 'group');
+			return this.clickPos
 		}
+		
 	},
 	methods: {
 		toggleMenu() {
@@ -250,11 +252,7 @@ export default {
 				}
 			})
 			this.$emit('updateGroup', group)
-		},
-		openEditCard(currCard){
-            this.$emit('openEditCard',currCard);
-        }
-		
+		}
 
 	},
 	created() {
