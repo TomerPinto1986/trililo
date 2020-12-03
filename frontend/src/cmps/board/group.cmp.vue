@@ -93,6 +93,7 @@
 				:labels="labels"
 				:activities="activities"
 				@click.native="openDetails(card.id)"
+				@openEditCard="openEditCard"
 			/>
 		</draggable>
 		<div class="add-card-container">
@@ -243,7 +244,11 @@ export default {
 				}
 			})
 			this.$emit('updateGroup', group)
-		}
+		},
+		openEditCard(currCard){
+            this.$emit('openEditCard',currCard);
+        }
+		
 
 	},
 	created() {

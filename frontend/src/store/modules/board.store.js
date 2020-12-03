@@ -73,7 +73,17 @@ export default {
             state.emptyCard = card
         },
         updateCardStatus(state, { status }) {
+            console.log(status);
             if ((status.startGroup === status.endGroup && status.endPos === status.startPos) || (status.startGroup === status.endGroup && (!status.endPos && status.endPos !== 0))) return;
+            if (status.cardId) {
+                console.log(status.cardId, 'cardid stats');
+                state.currBoard.groups.forEach(group => {
+                    const card = group.cards.find(card => card.id === status.cardId)
+                    if (card) state.currCard = card;
+                });
+            }
+            console.log(state.currCard);
+            console.log(status);
             let cardToMove;
             const board = state.currBoard;
             const startGroupIdx = board.groups.findIndex(group => group.id === status.startGroup);
@@ -88,6 +98,10 @@ export default {
             if (!status.endPos && status.endPos !== 0) {
                 board.groups[endGroupIdx].cards.push(cardToMove);
             } else board.groups[endGroupIdx].cards.splice(status.endPos, 0, cardToMove);
+            // if (status.cardId) {
+            //     state.currCard = null;
+            // }
+            return
         },
     },
     actions: {

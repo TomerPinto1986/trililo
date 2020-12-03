@@ -198,8 +198,7 @@
 					<img class="icon-btn" src="@/assets/svg/label.svg" />
 					<pop-up
 						v-if="board && isCmpOpen('labels')"
-						@closePopup="closePopup"
-					>
+						@closePopup="closePopup">
 						<card-labels
 							:card="card"
 							:boardLabels="board.labels"
@@ -601,7 +600,7 @@ export default {
 			if (!this.card.members) {
 				this.card.members = [];
 			}
-			return this.card.members
+			return this.card.members;
 		},
 		updeteChecklist(checklist) {
 			const card = this.card;

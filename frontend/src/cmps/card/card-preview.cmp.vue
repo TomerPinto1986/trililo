@@ -1,10 +1,6 @@
 <template>
     <section class="card-preview flex f-col">
-        <div>
-        <i class="fas fa-pen edit-btn" @click.stop="editCard">
-        </i>
-            <card-menu-edit :card="card" v-if="isCardEdit"/>
-        </div>
+            <i class="fas fa-pen edit-btn" @click.stop="editCard"> </i>
         <div
             v-if="card.style.headerColor"
             class="card-header"
@@ -19,7 +15,7 @@
                     ></div>
                 </li>
             </ul>
-			<span class="description" >{{ card.title }}</span>
+            <span class="description">{{ card.title }}</span>
             <div
                 class="attachment"
                 v-if="card.attachments && card.attachments.length"
@@ -32,16 +28,23 @@
                 <i v-if="card.dueDate" :style="dueDate" class="far fa-clock">
                     <span> {{ moment(card.dueDate).format("MMM Do") }}</span>
                 </i>
-                
-                <i v-if="card.description" class="description-icon" ><img src="@/assets/svg/desc.svg" /></i>
+
+                <i v-if="card.description" class="description-icon"
+                    ><img src="@/assets/svg/desc.svg"
+                /></i>
                 <i v-if="card.checklist" class="fas fa-list"></i>
                 <i
                     v-if="card.attachments && card.attachments.length"
                     class="fas fa-paperclip"
                 ></i>
-                <i v-if="commentsLen" class="fal fa-comment">{{ commentsLen }}</i>
+                <i v-if="commentsLen" class="fal fa-comment">{{
+                    commentsLen
+                }}</i>
             </span>
-            <span class="members-container flex" v-if="card.members && card.members.length">
+            <span
+                class="members-container flex"
+                v-if="card.members && card.members.length"
+            >
                 <div
                     class="card-members"
                     v-for="member in card.members"
@@ -60,7 +63,6 @@
 
 <script>
 import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
-import cardMenuEdit from '@/cmps/card/card-menu-edit.cmp'
 
 export default {
     props: {
@@ -68,14 +70,9 @@ export default {
         labels: Array,
         activities: Array
     },
-    data() {
-        return {
-            isCardEdit: false,
-        }
-    },
     computed: {
         dueDate() {
-            if (this.card.dueDate - Date.now() <24 * 60 * 60 * 1000) return { color: '#121212', backgroundColor: '#ec9488' }
+            if (this.card.dueDate - Date.now() < 24 * 60 * 60 * 1000) return { color: '#121212', backgroundColor: '#ec9488' }
             if (this.card.isDone) return { color: '#fff', backgroundColor: '#61bd4f' }
             else return {}
         },
@@ -94,15 +91,14 @@ export default {
         }
     },
     methods: {
-        editCard(){
-            this.isCardEdit =true;
+        editCard() {
+            this.$emit('openEditCard',this.card);
         }
     },
     created() {
     },
     components: {
         customAvatar,
-        cardMenuEdit
     }
 };
 </script>

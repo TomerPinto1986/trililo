@@ -2,18 +2,15 @@
     overflow: hidden;
     height: 100%;
     margin-block-end: 8px;
-
     .group-container {
         padding-block-start: 5px;
         flex: 1;
         overflow-x: auto;
         // scroll-behavior: smooth;
     }
-
     .chosen {
         box-shadow: none;
     }
-
     .window {
         background-color: rgba(0, 0, 0, 0.5);
         top: 0;
@@ -24,7 +21,6 @@
         right: 0;
         overflow-y: auto;
     }
-
     .add-group-container {
         background-color: transparent;
         margin-inline-end: 0;
@@ -37,7 +33,6 @@
             padding: 4px 8px;
             background-color: #ebecf0;
         }
-
         input {
             background-color: #fff;
             box-shadow: inset 0 0 0 2px #0079bf;
@@ -50,7 +45,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             border: none;
         }
-
         .add-group-btns {
             align-items: center;
             margin-block-start: 4px;
@@ -59,7 +53,6 @@
             height: auto;
             min-height: 32px;
             padding: 4px;
-
             .add-btn {
                 font-size: 14px;
                 background-color: #5aac44;
@@ -74,7 +67,6 @@
                 padding: 6px 12px;
                 text-align: center;
                 border-radius: 3px;
-
                 &:hover {
                     background-color: #61bd4f;
                     box-shadow: none;
@@ -82,20 +74,17 @@
                     color: #fff;
                 }
             }
-
             .close-btn {
                 color: #42526e;
                 height: 32px;
                 line-height: 32px;
                 width: 32px;
                 font-size: 24px;
-
                 &:hover {
                     color: #172b4d;
                 }
             }
         }
-
         .open-add-btn {
             background-color: rgba(0, 0, 0, .15);
             font-size: 16px;
@@ -105,15 +94,24 @@
             position: relative;
             text-align: start;
             color: #5e6c84;
-
             &:hover {
                 color: #fefefe;
                 background-color: rgba(0, 0, 0, .25);
             }
         }
-
     }
-
+    .card-menu-edit {
+        position: absolute;
+        z-index: 1;
+        background: blue;
+        width: 200px;
+        height: 200px;
+        padding: 15px;
+        left: 500px;
+        .action-btn {
+            position: relative;
+        }
+    }
     .spacer {
         width: 3px;
         height: 10px;
