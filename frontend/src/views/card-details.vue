@@ -559,7 +559,7 @@ export default {
 			this.addActivity(`removed the due date from `, card);
 		},
 		setNewDate(dueDate) {
-			this.card.isDone = false;
+			// this.card.isDone = false;
 			const updatedCard = utilService.deepCopy(this.card)
 			if (this.card.dueDate) {
 				delete this.card.dueDate;
