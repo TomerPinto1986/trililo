@@ -18,6 +18,18 @@
         margin-inline-start: 8px;
     }
 
+    .menu-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 1.3em;
+        color: #6b778c;
+
+        &.ghost {
+            display: none;
+        }
+    }
+
     .group-header {
         display: flex;
         justify-content: space-between;
@@ -28,11 +40,7 @@
         width: 100%;
         font-size: 0.975em;
 
-        .menu-btn {
-            font-size: 0.7em;
-            letter-spacing: 1;
-            color: #6b778c;
-        }
+
 
         input {
             width: 85%;
@@ -166,14 +174,31 @@
         }
     }
 
-
+    &.chosen{
+        .menu-btn{
+            opacity: 0;
+        }
+    }
     &.ghost {
+        &::before {
+            content: "";
+            border-radius: 5px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background-color: rgb(41, 41, 41);
+        }
+        .card-preview{
+            opacity: 0;
+        }
         .card-header {
             border-radius: 10px;
             box-shadow: none;
         }
 
-        .add-card {
+        .add-card-container {
             opacity: 0;
         }
     }
