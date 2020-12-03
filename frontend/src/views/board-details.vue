@@ -12,6 +12,19 @@
 			@privacyChange="changePrivacy"
 			@deleteBoard="deleteBoard"
 		/>
+		<div v-if="cardToEdit" class="window" @click="closeCardToEdit">
+			<card-menu-edit
+				@click.stop.native
+				@updateMembers="updateMembers"
+				@updateCardTitle="updateCardTitle"
+				@updateCardLabel="updateCard"
+				@updateLabelTitle="updateLabelTitle"
+				@moveCard="moveCard"
+				@updateCard="updateCard"
+				:board="board"
+				:card="cardToEdit"
+			/>
+		</div>
 		<div
 			class="flex group-container"
 			v-if="board"
@@ -48,6 +61,7 @@
 					@moveGroup="moveGroup"
 					@addClone="addGroupClone"
 					@updateGroup="updateGroup"
+					@openEditCard="openEditCard"
 				/>
 			</draggable>
 
@@ -104,6 +118,7 @@ import cardDetails from '@/views/card-details';
 import boardMenu from '../cmps/board/menu/board-menu.cmp';
 import { utilService } from '@/services/util.service';
 import { socketService } from '@/services/socket.service';
+import cardMenuEdit from '@/cmps/card/card-menu-edit.cmp'
 
 export default {
 	data() {
@@ -114,6 +129,8 @@ export default {
 			isScroll: false,
 			isMenu: false,
 			filterBy: null,
+			// isCardEdit: false,
+			cardToEdit: null
 		}
 	},
 	computed: {
@@ -134,12 +151,39 @@ export default {
 		}
 	},
 	methods: {
+		moveCard(status) {
+			// console.log(status);
+			this.$store.commit({ type: 'updateCardStatus', status });
+			const board = this.board;
+			this.updateBoard(board);
+			this.cardToEdit = false;
+			// if (status.startGroup !== status.endGroup) {
+			// 	const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
+			// 	this.addActivity(`moved card '${this.card.title}' to '${groupTitle}'`, this.card);
+			// }
+
+		},
+		updateLabelTitle(labelId, title) {
+			const board = this.board;
+			const idx = board.labels.findIndex(label => label.id === labelId);
+			if (idx !== -1) board.labels[idx].title = title;
+			this.updateBoard(board);
+		},
+		updateCardTitle(title, card) {
+			console.log('gg');
+			let updateCard = utilService.deepCopy(card)
+			updateCard.title = title;
+			this.updateCard(updateCard);
+		},
 		toggleMenu() {
 			this.isMenu = !this.isMenu;
 		},
 		closeDetails() {
 			this.isDetails = false;
 			this.$router.push(`/board/${this.board._id}`)
+		},
+		closeCardToEdit() {
+			this.cardToEdit = null;
 		},
 		addCard(title, groupId) {
 			const newCard = this.getEmptyCard();
@@ -255,6 +299,23 @@ export default {
 			this.addActivity(action);
 
 		},
+		updateMembers(userId, card) {
+			const memberIdx = card.members.findIndex(member => member._id === userId);
+			const newUser = this.$store.getters.users.find(user => user._id === userId);
+			if (memberIdx === -1) {
+				const newMember = {
+					_id: newUser._id,
+					username: newUser.username,
+					imgUrl: newUser.imgUrl
+				};
+				card.members.push(newMember);
+			} else {
+				card.members.splice(memberIdx, 1);
+			}
+			this.updateCard(card);
+			// const action = (memberIdx === -1) ? `added ${newUser.username} to ` : `removed ${newUser.username} from`;
+			// this.addActivity(action, card, null, this.loggedinUser)
+		},
 		updateBoardTitle(boardTitle) {
 			const board = this.board;
 			board.title = boardTitle;
@@ -296,6 +357,13 @@ export default {
 		},
 		updateBoardSocket(board) {
 			this.$store.dispatch({ type: 'updateBoard', board });
+		},
+		openEditCard(currCard) {
+			this.cardToEdit = currCard;
+			// this.isCardEdit = true;
+		},
+		checkClickPos(ev){
+			console.log(ev.target)
 		}
 	},
 
@@ -320,8 +388,10 @@ export default {
 		}, 500)
 		socketService.emit('set-board', boardId)
 		socketService.on('board-update', this.updateBoardSocket)
+		document.addEventListener('click', this.checkClickPos)
 	},
 	destroyed() {
+		document.removeEventListener('click', this.checkClickPos)
 		socketService.off('board-update', this.updateBoardSocket)
 		this.$store.dispatch({ type: 'loadBoard', boardId: null });
 	},
@@ -330,7 +400,8 @@ export default {
 		boardHeader,
 		cardDetails,
 		draggable,
-		boardMenu
+		boardMenu,
+		cardMenuEdit
 	}
 }
 </script>

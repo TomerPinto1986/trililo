@@ -6,9 +6,15 @@
 				class="title"
 				v-model="group.title"
 				@change="emitChange"
-				@click.stop
 			/>
-			<button @click.stop="toggleMenu">
+			<!-- <input
+				type="text"
+				class="title"
+				v-model="group.title"
+				@change="emitChange"
+				@click.stop
+			/> -->
+			<button @click="toggleMenu">
 				<i class="fas fa-ellipsis-h menu-btn"></i>
 			</button>
 			<group-menu
@@ -93,6 +99,7 @@
 				:labels="labels"
 				:activities="activities"
 				@click.native="openDetails(card.id)"
+				@openEditCard="openEditCard"
 			/>
 		</draggable>
 		<div class="add-card-container">
@@ -243,7 +250,11 @@ export default {
 				}
 			})
 			this.$emit('updateGroup', group)
-		}
+		},
+		openEditCard(currCard){
+            this.$emit('openEditCard',currCard);
+        }
+		
 
 	},
 	created() {

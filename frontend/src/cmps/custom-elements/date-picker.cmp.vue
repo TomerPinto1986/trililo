@@ -63,7 +63,7 @@ export default {
 		},
 	},
 	mounted() {
-		this.$refs.date._data.pickerVisible = true;
+		// this.$refs.date._data.pickerVisible = true;
 	}
 };
 </script>

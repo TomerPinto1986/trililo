@@ -115,6 +115,7 @@ export default {
     },
     created() {
         this.msg.from = this.miniUser;
+        console.log(this.$root)
         // socketService.emit('card-topic', this.card.id);
         // socketService.on('activity-addMsg', this.addMsg);
         socketService.on('user-typing', this.setUserTyping);
