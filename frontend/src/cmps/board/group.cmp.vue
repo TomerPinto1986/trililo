@@ -160,7 +160,6 @@ export default {
 		},
 		cardsToShow() {
 			if (!this.filterBy) return this.group.cards
-			console.log('filter', this.filterBy)
 			const cards = this.group.cards.filter(card => {
 				if (!card.labels) card.labels = [];
 				if (!card.members) card.members = [];
@@ -174,7 +173,6 @@ export default {
 			return this.group.cards.some(card => card.dueDate)
 		},
 		getClickPos(){
-			console.log(this.clickPos, 'group');
 			return this.clickPos
 		}
 		
@@ -256,7 +254,6 @@ export default {
 			this.$emit('updateGroup', group)
 		},
 		emitOpenEditCard(card){
-			console.log(card.title,'group')
 			this.$emit('openEditCard', card)
 		}
 

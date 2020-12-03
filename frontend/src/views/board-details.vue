@@ -176,7 +176,6 @@ export default {
 			this.updateBoard(board);
 		},
 		updateCardTitle(title, card) {
-			console.log('gg');
 			let updateCard = utilService.deepCopy(card)
 			updateCard.title = title;
 			this.updateCard(updateCard);
@@ -365,13 +364,11 @@ export default {
 			this.$store.dispatch({ type: 'updateBoard', board });
 		},
 		openEditCard(currCard) {
-			console.log(currCard)
 			this.cardToEdit = currCard;
 			// this.isCardEdit = true;
 		},
 		setClickPos(ev){
 			var pos = (window.innerWidth - ev.x <= 170)? 'right' : (ev.x <= 170) ? 'left' : 'middle';
-			console.log(pos, ev.x);
 			// this.$store.commit({type:'setClickPos', pos})
 			this.clickPos = pos;
 		}
