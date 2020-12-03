@@ -142,9 +142,14 @@ export default {
             cardTxt: this.card.title,
             isPopUp: false,
             currPopUp: null,
+            activities: this.board.activities
         }
     },
     computed: {
+        commentsLen() {
+			if (!this.activities.filter(activity => activity.comment && activity.card.id === this.card.id).length) return
+			return ' ' + this.activities.filter(activity => activity.comment && activity.card.id === this.card.id).length;
+		},
         dueDateStyle() {
 			if (this.card.dueDate - Date.now() < 24 * 60 * 60 * 1000) return { color: '#121212', backgroundColor: '#ec9488' }
 			if (this.card.isDone) return { color: '#fff', backgroundColor: '#61bd4f' }
@@ -161,6 +166,7 @@ export default {
         },
         currGroup() {
             const group = this.board.groups.find(group => group.cards.some(card => card.id === this.card.id));
+            console.log('currGroup', group.title);
             return group;
         },
         currPosition() {
@@ -211,6 +217,7 @@ export default {
         moveCard(stat) {
             const status = stat;
             status.cardId = this.card.id
+            console.log(status);
             this.$emit('moveCard', status);
             this.closePopup();
         },
@@ -236,6 +243,7 @@ export default {
     },
     mounted() {
         setTimeout(() => this.$refs['card-title'].focus(), 0);
+        console.log(this.card.id);
     },
     components: {
         popUp,
