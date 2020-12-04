@@ -91,8 +91,10 @@
 					@closePopup="closePopup"
 				>
 					<card-labels
+						ref="labels"
 						:card="card"
 						:boardLabels="board.labels"
+						:clickPos="clickPos"
 						@updateCard="updateCardLabel"
 						@updateLabelTitle="updateLabelTitle"
 					/>
@@ -116,6 +118,7 @@
 					v-if="isCmpOpen('member')"
 					@closePopup="closePopup"
 					><add-members
+						ref="members"
 						:cardMembers="cardMembers()"
 						:boardMembers="boardMembers"
 						@updateMembers="updateMembers"
@@ -137,6 +140,7 @@
 					@closePopup="closePopup"
 				>
 					<card-move
+						ref="move"
 						:isClone="false"
 						:groups="board.groups"
 						:group="currGroup"
@@ -159,6 +163,7 @@
 					@closePopup="closePopup"
 				>
 					<card-move
+						ref="clone"
 						:isClone="true"
 						:groups="board.groups"
 						:group="currGroup"
@@ -327,7 +332,7 @@ export default {
 		},
 	},
 	mounted() {
-		setTimeout(() => this.$refs['card-title'].focus(), 0);
+		this.$nextTick(() => this.$refs['card-title'].focus());
 	},
 	components: {
 		popUp,
