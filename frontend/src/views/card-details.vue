@@ -181,141 +181,141 @@
                         <img src="@/assets/svg/activities.svg" />
                     </span>
 
-                    <card-activity
-                        v-if="card"
-                        :user="loggedinUser"
-                        :activities="cardActivities"
-                        :isShowDetails="false"
-                        :card="card"
-                        ref="activity"
-                        @addComment="addActivity"
-                    />
-                </div>
-            </div>
-            <!-- ACTIONS -->
-            <div class="actions flex f-col">
-                <h3 class="add-to-card-title">Add to card</h3>
-                <button
-                    @click.stop="onAddMembers"
-                    class="flex f-a-center content-after action-btn"
-                    title="Members"
-                    data-txt="Members"
-                >
-                    <img
-                        class="icon-btn"
-                        src="@/assets/svg/member.svg"
-                        alt=""
-                    />
-                    <pop-up v-if="isCmpOpen('member')" @closePopup="closePopup"
-                        ><add-members
-                            :cardMembers="cardMembers()"
-                            :boardMembers="boardMembers"
-                            @updateMembers="updateMembers"
-                        />
-                    </pop-up>
-                </button>
-                <button
-                    @click.stop="openLabels"
-                    class="flex f-a-center content-after action-btn"
-                    title="Labels"
-                    data-txt="Labels"
-                >
-                    <img class="icon-btn" src="@/assets/svg/label.svg" />
-                    <pop-up
-                        v-if="board && isCmpOpen('labels')"
-                        @closePopup="closePopup"
-                    >
-                        <card-labels
-                            :card="card"
-                            :boardLabels="board.labels"
-                            @updateCard="updateCard"
-                            @updateLabelTitle="updateLabelTitle"
-                        />
-                    </pop-up>
-                </button>
-                <button
-                    @click.stop="addChecklist"
-                    class="flex f-a-center content-after action-btn"
-                    title="Checklist"
-                    data-txt="Checklist"
-                >
-                    <img
-                        class="icon-btn"
-                        src="@/assets/svg/checklist.svg"
-                        alt=""
-                    />
-                    <pop-up
-                        v-if="isCmpOpen('checklist')"
-                        @closePopup="closePopup"
-                    >
-                        <add-checklist
-                            :card="card"
-                            @updateCard="updateCard"
-                            @close="closePopup"
-                        />
-                    </pop-up>
-                </button>
-                <button
-                    @click="startUpload"
-                    class="upload-btn flex f-a-center content-after action-btn"
-                    data-txt="Attachments"
-                >
-                    <img class="icon-btn" src="@/assets/svg/attach.svg" />
-                </button>
-                <input
-                    ref="upload"
-                    class="upload"
-                    type="file"
-                    name="uploader"
-                    id="uploader"
-                    @change="onUpload"
-                />
-                <button
-                    class="cover-btn flex f-a-center content-after action-btn"
-                    title="Cover"
-                    data-txt="Cover"
-                    @click.stop="openCoverPicker"
-                >
-                    <img class="icon-btn" src="@/assets/svg/cover.svg" />
-                    <el-color-picker
-                        popper-class="color-dropdown"
-                        ref="color-picker"
-                        class="color-picker"
-                        size="mini"
-                        v-model="card.style.headerColor"
-                        @change="updateCover"
-                    ></el-color-picker>
-                    <pop-up v-if="isCmpOpen('cover')" @closePopup="closePopup">
-                        <card-cover
-                            :color="card.style.headerColor"
-                            @colorChange="updateCover"
-                    /></pop-up>
-                </button>
-                <button
-                    @click.stop="setDate"
-                    class="flex f-a-center content-after action-btn"
-                    title="Set Date"
-                    data-txt="Set Date"
-                >
-                    <img class="icon-btn" src="@/assets/svg/clock.svg" />
-                </button>
-                <button
-                    @click.stop="removeDate"
-                    v-if="card.dueDate"
-                    class="remove-date flex f-a-center content-after action-btn"
-                    title="Remove Date"
-                    data-txt="Remove Date"
-                >
-                    <i class="fal fa-history"></i>
-                </button>
-                <h3 class="actions-title">Actions</h3>
-                <button
-                    @click.stop="cloneCard"
-                    class="flex f-a-center content-after action-btn"
-                    title="Clone"
-                    data-txt="Clone"
-                >
-                    <!-- <img
+					<card-activity
+						v-if="card"
+						:user="loggedinUser"
+						:activities="cardActivities"
+						:isShowDetails="false"
+						:card="card"
+						ref="activity"
+						@addComment="addActivity"
+					/>
+				</div>
+			</div>
+			<!-- ACTIONS -->
+			<div class="actions flex f-col">
+				<h3 class="add-to-card-title">Add to card</h3>
+				<button
+					@click.stop="onAddMembers"
+					class="flex f-a-center content-after action-btn"
+					title="Members"
+					data-txt="Members"
+				>
+					<img
+						class="icon-btn"
+						src="@/assets/svg/member.svg"
+						alt=""
+					/>
+					<pop-up v-if="isCmpOpen('member')" @closePopup="closePopup"
+						><add-members
+							:cardMembers="cardMembers()"
+							:boardMembers="boardMembers"
+							@updateMembers="updateMembers"
+						/>
+					</pop-up>
+				</button>
+				<button
+					@click.stop="openLabels"
+					class="flex f-a-center content-after action-btn"
+					title="Labels"
+					data-txt="Labels"
+				>
+					<img class="icon-btn" src="@/assets/svg/label.svg" />
+					<pop-up
+						v-if="board && isCmpOpen('labels')"
+						@closePopup="closePopup"
+					>
+						<card-labels
+							:card="card"
+							:boardLabels="board.labels"
+							@updateCard="updateCard"
+							@updateLabelTitle="updateLabelTitle"
+						/>
+					</pop-up>
+				</button>
+				<button
+					@click.stop="addChecklist"
+					class="flex f-a-center content-after action-btn"
+					title="Checklist"
+					data-txt="Checklist"
+				>
+					<img
+						class="icon-btn"
+						src="@/assets/svg/checklist.svg"
+						alt=""
+					/>
+					<pop-up
+						v-if="isCmpOpen('checklist')"
+						@closePopup="closePopup"
+					>
+						<add-checklist
+							:card="card"
+							@updateCard="updateCard"
+							@close="closePopup"
+						/>
+					</pop-up>
+				</button>
+				<button
+					@click="startUpload"
+					class="upload-btn flex f-a-center content-after action-btn"
+					data-txt="Attachments"
+				>
+					<img class="icon-btn" src="@/assets/svg/attach.svg" />
+				</button>
+				<input
+					ref="upload"
+					class="upload"
+					type="file"
+					name="uploader"
+					id="uploader"
+					@change="onUpload"
+				/>
+				<button
+					class="cover-btn flex f-a-center content-after action-btn"
+					title="Cover"
+					data-txt="Cover"
+					@click.stop="openCoverPicker"
+				>
+					<img class="icon-btn" src="@/assets/svg/cover.svg" />
+					<el-color-picker
+						popper-class="color-dropdown"
+						ref="color-picker"
+						class="color-picker"
+						size="mini"
+						v-model="card.style.headerColor"
+						@change="updateCover"
+					></el-color-picker>
+					<pop-up v-if="isCmpOpen('cover')" @closePopup="closePopup">
+						<card-cover
+							:color="card.style.headerColor"
+							@colorChange="updateCover"
+					/></pop-up>
+				</button>
+				<button
+					@click.stop="setDate"
+					class="flex f-a-center content-after action-btn"
+					title="Set Date"
+					data-txt="Set Date"
+				>
+					<img class="icon-btn" src="@/assets/svg/clock.svg" />
+				</button>
+				<button
+					@click.stop="removeDate"
+					v-if="card.dueDate"
+					class="remove-date flex f-a-center content-after action-btn"
+					title="Remove Date"
+					data-txt="Remove Date"
+				>
+					<i class="fal fa-history"></i>
+				</button>
+				<h3 class="actions-title">Actions</h3>
+				<button
+					@click.stop="cloneCard"
+					class="flex f-a-center content-after action-btn"
+					title="Copy"
+					data-txt="Copy"
+				>
+					<!-- <img
                         class="icon-btn clone-img"
                         src="@/assets/svg/copy.svg"
                     /> -->

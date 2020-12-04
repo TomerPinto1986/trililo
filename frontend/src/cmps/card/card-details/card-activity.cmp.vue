@@ -63,7 +63,6 @@
 import activityPreview from '../../activity-preview.cmp';
 import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 import { socketService } from '../../../services/socket.service';
-const Swal = require('sweetalert2');
 
 export default {
     props: {
@@ -108,10 +107,6 @@ export default {
     methods: {
         toggleShowDetails() {
             this.isAllActivities = !this.isAllActivities;
-            // --------------------------------------------------------------------------------
-            console.log('Swal:', Swal)
-            Swal.fire('Remove success!', '', 'success');
-            // --------------------------------------------------------------------------------
         },
         addComment() {
             if (!this.isWriting) return;

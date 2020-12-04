@@ -1,7 +1,7 @@
 <template>
     <div class="board-list-container flex f-col">
         <h3 class="">Choose your board</h3>
-		<h4>or create one from screcth</h4>
+        <h4>or create one from screcth</h4>
         <section class="board-list" v-if="boardsForDisplay">
             <div class="create-board board-preview flex f-center">
                 <form v-if="isAdding" @submit.prevent="saveBoard">
@@ -28,6 +28,7 @@
 
 <script>
 import boardPreview from '../cmps/board/board-preview.cmp';
+import { socketService } from '../services/socket.service';
 
 export default {
     data() {
@@ -55,6 +56,7 @@ export default {
         async saveBoard() {
             if (this.newBoardTxt) {
                 const savedBoard = await this.$store.dispatch('createNewBoard', this.newBoardTxt);
+                socketService.emit('create-board', { msg: 'New board is created!', by: this.$store.getters.loggedinUser.username, boardName: savedBoard.title, boardId: savedBoard._id });
                 this.$router.push(`/board/${savedBoard._id}`);
             }
             this.newBoardTxt = '';
@@ -69,7 +71,7 @@ export default {
     created() {
         this.$store.dispatch('loadBoards');
         this.$store.dispatch('loadUsers');
-        this.$store.commit('loadBgc')
+        this.$store.commit('loadBgc');
     },
     components: {
         boardPreview
