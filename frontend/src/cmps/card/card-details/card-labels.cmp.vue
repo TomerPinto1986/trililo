@@ -24,7 +24,8 @@ import labelPreview from '../label-preview.cmp';
 export default {
     props: {
         card: Object,
-        boardLabels: Array
+        boardLabels: Array,
+        clickPos: Object
     },
     methods: {
         emitUpdateCard(card) {
@@ -33,6 +34,9 @@ export default {
         emitUpdateTitle(labelId, title) {
             this.$emit('updateLabelTitle', labelId, title);
         }
+    },
+    mounted(){
+        console.log(this.$el.clientHeight)
     },
      components: {
         labelPreview

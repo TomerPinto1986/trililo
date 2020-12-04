@@ -333,7 +333,7 @@ export default {
         },
     },
     mounted() {
-        setTimeout(() => this.$refs['card-title'].focus(), 0);
+       	this.$nextTick(() => this.$refs['card-title'].focus());
     },
     components: {
         popUp,
