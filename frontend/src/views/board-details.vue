@@ -103,6 +103,9 @@
 				@deleteCard="deleteCard"
 			/>
 		</div>
+		<div class="window" v-if="isDashboard" @click="closeDashboard">
+			<dashboard />
+		</div>
 		<board-menu
 			v-if="isMenu"
 			:board="board"
@@ -120,22 +123,24 @@ import group from '../cmps/board/group.cmp';
 import boardHeader from '../cmps/board/board-header.cmp';
 import cardDetails from '@/views/card-details';
 import boardMenu from '../cmps/board/menu/board-menu.cmp';
+import cardMenuEdit from '@/cmps/card/card-menu-edit.cmp';
+import dashboard from '@/cmps/dashboard.cmp'
 import { utilService } from '@/services/util.service';
 import { socketService } from '@/services/socket.service';
-import cardMenuEdit from '@/cmps/card/card-menu-edit.cmp'
 
 export default {
 	data() {
 		return {
 			isDetails: false,
 			isAddingGroup: false,
-			newGroupTitle: '',
 			isScroll: false,
 			isMenu: false,
-			filterBy: null,
 			isCardEdit: false,
+			isDashboard: true,
+			newGroupTitle: '',
+			filterBy: null,
 			cardToEdit: null,
-			clickPos: {}
+			clickPos: {},
 		}
 	},
 	computed: {
@@ -374,6 +379,9 @@ export default {
 		},
 		setIsEditing(val) {
 			this.isCardEdit = val;
+		},
+		closeDashboard(){
+			this.isDashboard = false;
 		}
 	},
 	watch: {
@@ -416,7 +424,8 @@ export default {
 		cardDetails,
 		draggable,
 		boardMenu,
-		cardMenuEdit
+		cardMenuEdit,
+		dashboard
 	}
 }
 </script>

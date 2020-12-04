@@ -3,7 +3,7 @@
 		<h3 v-if="isClone">Clone Card</h3>
 		<h3 v-else>Move Card</h3>
 		<hr />
-		<h2>Select Destenation</h2>
+		<h2>Select Destination</h2>
 		<div class="flex">
 			<span class="flex f-col">
 				List

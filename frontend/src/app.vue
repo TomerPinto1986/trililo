@@ -29,6 +29,8 @@ export default {
             this.$store.dispatch('logout');
         },
         userMsg(data) {
+            console.log('data:', data)
+            if (!data.members.includes(this.$store.getters.loggedinUser._id)) return;
             Swal.fire({
                 position: 'bottom-end',
                 title: data.msg,
@@ -40,9 +42,7 @@ export default {
     created() {
         socketService.setup();
         this.$store.dispatch('loadBoards');
-		socketService.on('set-proj', 'Taskules');
-		console.log('app');
-        socketService.on('user-msg', (data) => this.userMsg(data));
+        socketService.on('user-msg', data => this.userMsg(data));
     },
     destroyed() {
         socketService.terminate();

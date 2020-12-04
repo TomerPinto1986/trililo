@@ -15,7 +15,7 @@ export default {
 	data() {
 		return {
 			letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
-			colors: ['#81171b', '#6a040f', '#1d3557', '#1b4332', '#3a0ca3', '#3c096c', '#00509d', '#945D5E', '#3a5a40', '#945D5E'],
+			colors: ['#00A3BF', '#96B0B7', '#76558C', '#BD0031', '#FD495F', '#006F54', '#A33468', '#DE7394', '#005B93', '#009274', '#9D4400', '#802C00', '#A31B20', '#7A7585', '#005242', '#6453CB', '#FD495F'],
 			initials: '',
 			avatarColors: {},
 			isSingleLetter: false,

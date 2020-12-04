@@ -24,8 +24,7 @@ import labelPreview from '../label-preview.cmp';
 export default {
     props: {
         card: Object,
-        boardLabels: Array,
-        clickPos: Object
+        boardLabels: Array
     },
     methods: {
         emitUpdateCard(card) {

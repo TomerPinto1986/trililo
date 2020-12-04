@@ -49,21 +49,18 @@
 				<template v-if="isSort">
 					<span class="header" slot="header"> Sort List </span>
 					<div class="content" slot="body">
-						<div @click="sortBy('createdAt', 1)">
+						<div @click="sortBy('createdAt', -1)">
 							Date Created (Newest First)
 						</div>
-						<div @click="sortBy('createdAt', -1)">
+						<div @click="sortBy('createdAt', 1)">
 							Date Created (Oldest First)
 						</div>
 						<div @click="sortBy('title', 1)">
 							Card Name (Alphabetically)
 						</div>
-						<!-- <div
-								@click="sortBy('dueDate', -1)"
-								v-if="hasDueDate"
-							>
-								Due Date
-							</div> -->
+						<div @click="sortBy('dueDate', 1)" v-if="hasDueDate">
+							Due Date
+						</div>
 					</div>
 				</template>
 			</template>
@@ -125,6 +122,7 @@ import draggable from 'vuedraggable'
 import cardPreview from '../card/card-preview.cmp';
 import groupMenu from './group-menu.cmp'
 import { utilService } from '@/services/util.service'
+const Swal = require('sweetalert2');
 
 export default {
 	props: {
@@ -202,8 +200,18 @@ export default {
 		emitChange() {
 			this.$emit('change', this.group)
 		},
-		emitDelete(groupId) {
-			this.$emit('delete', groupId)
+		async emitDelete(groupId) {
+			const userAnc = await Swal.fire({
+				position: 'top-end',
+				title: 'Are you sure you want to delete this list?',
+				showCancelButton: true,
+				showConfirmButton: true,
+				confirmButtonColor: '#455a64',
+				cancelButtonColor: '#ff505b',
+				confirmButtonText: 'Delete'
+			});
+			if (!userAnc.isConfirmed) return;
+			this.$emit('delete', groupId);
 		},
 		update() {
 			this.emitChange();
@@ -239,17 +247,18 @@ export default {
 					if (a.title.toLowerCase() < b.title.toLowerCase()) return -1 * diff;
 					if (a.title.toLowerCase() > b.title.toLowerCase()) return 1 * diff;
 					return 0;
-				} else {
-					// if (item === 'dueDate') {
-					// 	if (!a.dueDate && b.dueDate) return -1
-					// 	else if (a.dueDate && !b.dueDate) return 1
-					// 	else if (!a.dueDate && !b.dueDate) return 0
-					// }
-					if (a[item] < b[item]) return -1 * diff;
-					if (a[item] > b[item]) return 1 * diff;
-					return 0;
+				} else if (item === 'dueDate') {
+					console.log(a.dueDate, b.dueDate)
+					if (!a.dueDate && !b.dueDate) return 0
+					else if (a.dueDate && !b.dueDate) return -1 * diff
+					else if (!a.dueDate && b.dueDate) return 1 * diff
+
 				}
-			})
+				if (a[item] < b[item]) return -1 * diff;
+				if (a[item] > b[item]) return 1 * diff;
+				return 0;
+			}
+			)
 			this.$emit('updateGroup', group)
 		},
 		emitOpenEditCard(card) {

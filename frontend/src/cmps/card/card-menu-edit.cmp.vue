@@ -170,14 +170,9 @@
 						:group="currGroup"
 						:currPosition="currPosition"
 						@moveCard="moveCard"
-						@setHeight="setPopupHeight"
 				/></pop-up>
 			</button>
-			<button
-				class="action-btn"
-				@click="changeDueDate"
-				:class="btnsClass"
-			>
+			<button class="action-btn" @click="changeDueDate">
 				<div class="flex">
 					<img
 						class="icon-btn"
@@ -259,23 +254,28 @@ export default {
 			return this.board.members;
 		},
 		menuPos() {
-			const xDiff = (this.clickPos.width - this.clickPos.x < 175) ? 165 : 0;
+			const xDiff = (this.clickPos.width - this.clickPos.x - this.clickPos.offsetX < 190) ? 165 : 0;
 			const yDiff = (this.clickPos.height - this.clickPos.y < 200) ? 75 : 0;
-			const x = this.clickPos.x - this.clickPos.offsetX + 24 - 290 - xDiff;
-			const y = this.clickPos.y - 17.5 - this.clickPos.offsetY - yDiff;
+			const x = this.clickPos.x - this.clickPos.offsetX + 14 - 280 - xDiff;
+			const y = this.clickPos.y - 18 - this.clickPos.offsetY - yDiff;
 			return { 'left': x + 'px', 'top': y + 'px' }
 		},
 		menuClass() {
-			return { 'rtl': (this.clickPos.width - this.clickPos.x < 175) }
+			return { 'rtl': (this.clickPos.width - this.clickPos.x - this.clickPos.offsetX < 190) }
 		},
 		btnsClass() {
+			console.log(!this.isPopUp)
 			return { 'no-popup': !this.isPopUp }
 		},
 		popupPos() {
-			const yPos = (this.newClickPos.height - this.newClickPos.y < this.popupHeight + 35)
+			const yPos = (this.newClickPos.height - this.newClickPos.y < this.popupHeight + 85)
+			const xPos = this.newClickPos.width - this.newClickPos.x + this.newClickPos.offsetX 
+			const isRtl = (this.clickPos.width - this.clickPos.x - this.clickPos.offsetX < 190) 
+			const left = (isRtl) ? 'unset' :  (xPos < 330) ? xPos - 330 + 'px' : 0;
+			const right = (isRtl) ? 0 : 'unset'
 			const top = (yPos) ? 'unset' : '35px';
 			const bottom = (yPos) ? '35px' : 'unset';
-			return { 'top': top, 'left': 0 + 'px', 'bottom': bottom }
+			return { 'top': top, 'bottom': bottom, 'left': left, 'right': right }
 		}
 	},
 	methods: {
@@ -360,7 +360,7 @@ export default {
 			}
 			this.card.dueDate = dueDate;
 			this.$emit('updateCard', this.card);
-			// this.closePopup();
+			this.closePopup();
 			this.$emit('updateActivities', `${txt} due date to `, this.card)
 		},
 		setPopupHeight(height) {

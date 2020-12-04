@@ -9,7 +9,7 @@
 				<slot name="header"> List Actions </slot>
 			</span>
 		</div>
-		<div class="content">
+		<div class="content-container">
 			<slot name="body">
 				<div @click="emitAdd">Add Card...</div>
 				<div @click="emitClone">Clone List...</div>
