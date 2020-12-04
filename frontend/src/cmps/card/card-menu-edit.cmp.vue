@@ -1,5 +1,5 @@
 <template>
-	<section class="card-menu-edit flex" :style="menuPos">
+	<section class="card-menu-edit flex" :style="menuPos" :class="menuClass">
 		<div class="flex f-col">
 			<div class="title-edit mini-preview icons flex wrap">
 				<ul
@@ -75,7 +75,7 @@
 			</div>
 		</div>
 		<div class="edit-card-actions flex f-col">
-			<button class="action-btn" @click="editLabel">
+			<button class="action-btn" @click="editLabel" :class="btnsClass">
 				<div class="flex">
 					<img
 						class="icon-btn"
@@ -85,6 +85,7 @@
 					Edit Labels
 				</div>
 				<pop-up
+					ref="popup"
 					class="edit-card"
 					v-if="board && isCmpOpen('labels')"
 					@closePopup="closePopup"
@@ -97,7 +98,11 @@
 					/>
 				</pop-up>
 			</button>
-			<button class="action-btn" @click="changeMembers">
+			<button
+				class="action-btn"
+				@click="changeMembers"
+				:class="btnsClass"
+			>
 				<div class="flex">
 					<img
 						class="icon-btn"
@@ -117,7 +122,7 @@
 					/>
 				</pop-up>
 			</button>
-			<button class="action-btn" @click="move">
+			<button class="action-btn" @click="move" :class="btnsClass">
 				<div class="flex">
 					<img
 						class="icon-btn"
@@ -139,7 +144,7 @@
 						@moveCard="moveCard"
 				/></pop-up>
 			</button>
-			<button class="action-btn" @click="copy">
+			<button class="action-btn" @click="copy" :class="btnsClass">
 				<div class="flex">
 					<img
 						class="icon-btn"
@@ -161,7 +166,11 @@
 						@moveCard="moveCard"
 				/></pop-up>
 			</button>
-			<button class="action-btn" @click="changeDueDate">
+			<button
+				class="action-btn"
+				@click="changeDueDate"
+				:class="btnsClass"
+			>
 				<div class="flex">
 					<img
 						class="icon-btn"
@@ -240,9 +249,16 @@ export default {
 			return this.board.members;
 		},
 		menuPos() {
-            const x = this.clickPos.x - this.clickPos.offsetX + 24 - 290
-            const y = this.clickPos.y -17.5 - this.clickPos.offsetY
-			return { 'left': x + 'px', 'top': y +'px' }
+			const xDiff = (this.clickPos.width - this.clickPos.x < 165) ? 165 : 0;
+			const x = this.clickPos.x - this.clickPos.offsetX + 24 - 290 - xDiff;
+			const y = this.clickPos.y - 17.5 - this.clickPos.offsetY;
+			return { 'left': x + 'px', 'top': y + 'px' }
+		},
+		menuClass() {
+			return { 'rtl': (this.clickPos.width - this.clickPos.x < 165) }
+		},
+		btnsClass() {
+			return { 'no-popup': !this.isPopUp }
 		}
 	},
 	methods: {
@@ -307,7 +323,7 @@ export default {
 			this.card.dueDate = dueDate;
 			this.$emit('updateCard', this.card);
 			this.isPopUp = false;
-            this.currPopUp = null;
+			this.currPopUp = null;
 		},
 	},
 	mounted() {

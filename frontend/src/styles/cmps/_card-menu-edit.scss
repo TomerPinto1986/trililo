@@ -5,6 +5,9 @@
     padding: 15px;
     left: 500px;
     top: 100px;
+    .edit-card-actions {
+        width: 165px;
+    }
     .action-btn {
         position: relative;
         background: rgba(0, 0, 0, .6);
@@ -17,7 +20,7 @@
         margin: 0 0 4px 8px;
         padding: 6px 12px 6px 8px;
         text-decoration: none;
-        transition: transform 85ms ease-in;
+        transition: none;
         font-size: 14px;
         img {
             height: 15px;
@@ -25,10 +28,13 @@
             align-self: center;
             margin-inline-end: 4px;
         }
-        &:hover {
-            background: rgba(0, 0, 0, .8);
-            color: #fff;
-            transform: translateX(5px);
+        &.no-popup {
+            transition: transform 85ms ease-in;
+            &:hover {
+                background: rgba(0, 0, 0, .8);
+                color: #fff;
+                transform: translateX(5px);
+            }
         }
     }
     .mini-preview {
@@ -44,7 +50,7 @@
     }
     .title-edit {
         background-color: #fff;
-        width: 240px;
+        width: 280px;
         padding: 6px 8px 2px;
         border-radius: 3px;
         textarea {
@@ -107,5 +113,14 @@
     i.el-input__icon.el-icon-time {
         opacity: 0;
         height: 0;
+    }
+    &.rtl {
+        flex-direction: row-reverse;
+        .edit-card-actions {
+            align-items: flex-end;
+            .action-btn {
+                margin: 0 8px 4px 0;
+            }
+        }
     }
 }

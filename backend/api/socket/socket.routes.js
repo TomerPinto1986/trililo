@@ -12,7 +12,7 @@ function connectSockets(io) {
         socket.on('update-board', board => {
             socket.to(socket.boardTopic).broadcast.emit('board-update', board);
         })
-        socket.on('cset-card', topic => {
+        socket.on('set-card', topic => {
             if (socket.myTopic) {
                 socket.leave(socket.myTopic);
             }
@@ -31,8 +31,7 @@ function connectSockets(io) {
             console.log('1---socket.myTopic:', socket.myTopic)
         });
         socket.on('create-board', data => {
-            socket.to(socket.myTopic).emit('user-msg', data);
-            console.log('2---socket.myTopic:', socket.myTopic)
+            io.emit('user-msg', data);
         });
     });
 }
