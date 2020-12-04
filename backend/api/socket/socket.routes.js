@@ -5,6 +5,7 @@ function connectSockets(io) {
             if (socket.boardTopic) {
                 socket.leave(socket.boardTopic);
             }
+            console.log('connect', topic);
             socket.join(topic);
             socket.boardTopic = topic;
         });
@@ -23,6 +24,15 @@ function connectSockets(io) {
         })
         socket.on('commenting', username => {
             socket.to(socket.myTopic).broadcast.emit('user-commenting', username);
+        });
+        socket.on('set-proj', topic => {
+            socket.join(topic);
+            socket.myTopic = topic;
+            console.log('1---socket.myTopic:', socket.myTopic)
+        });
+        socket.on('create-board', data => {
+            socket.to(socket.myTopic).emit('user-msg', data);
+            console.log('2---socket.myTopic:', socket.myTopic)
         });
     });
 }

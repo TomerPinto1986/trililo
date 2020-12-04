@@ -303,8 +303,8 @@
 				<button
 					@click.stop="cloneCard"
 					class="flex f-a-center content-after action-btn"
-					title="Clone"
-					data-txt="Clone"
+					title="Copy"
+					data-txt="Copy"
 				>
 					<!-- <img
                         class="icon-btn clone-img"
