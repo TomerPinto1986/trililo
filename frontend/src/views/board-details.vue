@@ -80,7 +80,7 @@
 					/>
 					<div class="add-group-btns flex">
 						<button @click="newGroup" class="add-btn">
-							Add Card
+							Add List
 						</button>
 						<i
 							class="el-icon-close close-btn"
