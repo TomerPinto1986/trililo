@@ -154,16 +154,15 @@ export default {
 		}
 	},
 	methods: {
-		moveCard(status) {
-			// console.log(status);
+		moveCard(status, card) {
 			this.$store.commit({ type: 'updateCardStatus', status });
 			const board = this.board;
 			this.updateBoard(board);
 			this.cardToEdit = false;
-			// if (status.startGroup !== status.endGroup) {
-			// 	const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
-			// 	this.addActivity(`moved card '${this.card.title}' to '${groupTitle}'`, this.card);
-			// }
+			if (status.startGroup !== status.endGroup) {
+				const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
+				this.addActivity(`moved card '${card.title}' to '${groupTitle}'`, card, null, card );
+			}
 
 		},
 		updateLabelTitle(labelId, title) {
@@ -316,8 +315,8 @@ export default {
 				card.members.splice(memberIdx, 1);
 			}
 			this.updateCard(card);
-			// const action = (memberIdx === -1) ? `added ${newUser.username} to ` : `removed ${newUser.username} from`;
-			// this.addActivity(action, card, null, this.loggedinUser)
+			const action = (memberIdx === -1) ? `added ${newUser.username} to ` : `removed ${newUser.username} from`;
+			this.addActivity(action, card, null, this.loggedinUser)
 		},
 		updateBoardTitle(boardTitle) {
 			const board = this.board;
@@ -341,11 +340,12 @@ export default {
 			this.$store.dispatch('deleteBoard', boardId);
 			setTimeout(() => { this.$router.push('/board'); }, 200)
 		},
-		addActivity(txt, card) {
+		addActivity(txt, card, comment = null, user = this.user) {
 			this.$store.commit('setEmptyActivity');
 			const activity = utilService.deepCopy(this.$store.getters.emptyActivity);
 			activity.txt = txt;
-			activity.byMember = utilService.deepCopy(this.$store.getters.loggedinUser);
+			activity.comment = comment;
+			activity.byMember = utilService.deepCopy(user);
 			activity.createdAt = Date.now();
 			if (card) activity.card = {
 				id: card.id,

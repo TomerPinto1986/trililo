@@ -5,7 +5,6 @@
     padding: 15px;
     left: 500px;
     top: 100px;
-
     .action-btn {
         position: relative;
         background: rgba(0, 0, 0, .6);
@@ -20,21 +19,18 @@
         text-decoration: none;
         transition: transform 85ms ease-in;
         font-size: 14px;
-
         img {
             height: 15px;
             width: 15px;
             align-self: center;
             margin-inline-end: 4px;
         }
-
         &:hover {
             background: rgba(0, 0, 0, .8);
             color: #fff;
             transform: translateX(5px);
         }
     }
-
     .mini-preview {
         .label {
             display: flex;
@@ -46,13 +42,11 @@
             margin-block-end: 4px;
         }
     }
-
     .title-edit {
         background-color: #fff;
         width: 240px;
         padding: 6px 8px 2px;
         border-radius: 3px;
-
         textarea {
             border: none;
             overflow: hidden;
@@ -62,39 +56,32 @@
             width: 100%;
             outline: none;
         }
-
         .icons {
             align-items: center;
             justify-content: space-between;
             width: 100%;
             padding: 0 5px 3px;
-
             .description-icon img {
                 width: 13px;
             }
-
             i {
                 margin-inline-end: 5px;
                 padding: 6px;
                 border-radius: 5px;
-
                 span {
                     font-family: 'Segoe UI';
                     letter-spacing: normal;
                 }
             }
-
             .members-container {
                 flex: 1;
                 justify-content: flex-end;
-
                 .card-members {
                     margin: 0 -2px 0;
                     border-radius: 50%;
                     box-shadow: 0 0 2px 0.5px rgba(255, 255, 255, 0.6);
                 }
             }
-
             >* {
                 font-size: 0.8em;
                 align-self: center;
@@ -104,7 +91,6 @@
             }
         }
     }
-
     .edit-title-btn {
         font-size: 14px;
         margin-block-start: 20px;
@@ -116,7 +102,6 @@
         width: 73px;
         border-radius: 3px;
     }
-
     .el-input__inner,
     .block .date-picker,
     i.el-input__icon.el-icon-time {

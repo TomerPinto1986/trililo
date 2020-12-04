@@ -288,7 +288,7 @@ export default {
 			const status = stat;
 			status.cardId = this.card.id
 			console.log(status);
-			this.$emit('moveCard', status);
+			this.$emit('moveCard', status, this.card);
 			this.closePopup();
 		},
 		cardMembers() {
