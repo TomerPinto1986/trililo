@@ -1,5 +1,5 @@
 <template>
-	<section class="card-menu-edit flex">
+	<section class="card-menu-edit flex" :style="menuPos">
 		<div class="flex f-col">
 			<div class="title-edit mini-preview icons flex wrap">
 				<ul
@@ -195,7 +195,8 @@ import { utilService } from '@/services/util.service.js'
 export default {
 	props: {
 		card: Object,
-		board: Object
+		board: Object,
+		clickPos: Object
 	},
 	data() {
 		return {
@@ -238,6 +239,11 @@ export default {
 			if (!this.board.isPrivate) return utilService.deepCopy(this.$store.getters.users);
 			return this.board.members;
 		},
+		menuPos() {
+            const x = this.clickPos.x - this.clickPos.offsetX + 24 - 290
+            const y = this.clickPos.y -17.5 - this.clickPos.offsetY
+			return { 'left': x + 'px', 'top': y +'px' }
+		}
 	},
 	methods: {
 		changeDueDate() {
