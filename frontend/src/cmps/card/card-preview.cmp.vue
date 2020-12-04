@@ -85,8 +85,8 @@ export default {
 	},
 	computed: {
 		dueDate() {
-			if (this.card.isDone) return { color: 'white', backgroundColor: '#5aac44' }
-			else if (this.card.dueDate < Date.now()) return { color: 'white', backgroundColor: '#ec9488' }
+			if (this.card.dueDate - Date.now() < 24 * 60 * 60 * 1000) return { color: '#121212', backgroundColor: '#ec9488' }
+			if (this.card.isDone) return { color: '#fff', backgroundColor: '#61bd4f' }
 			else return {}
 		},
 		headerStyle() {
