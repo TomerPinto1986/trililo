@@ -28,7 +28,7 @@
 
 <script>
 import boardPreview from '../cmps/board/board-preview.cmp';
-import { socketService } from '../services/socket.service';
+const Swal = require('sweetalert2');
 
 export default {
     data() {
@@ -46,8 +46,17 @@ export default {
         }
     },
     methods: {
-        deleteBoard(boardId) {
-            if (!confirm('Are you sure you want to delete this board?')) return;
+        async deleteBoard(boardId) {
+            const userAnc = await Swal.fire({
+                position: 'top-end',
+                title: 'Are you sure you want to delete this board?',
+                showCancelButton: true,
+                showConfirmButton: true,
+                confirmButtonColor: '#455a64',
+                cancelButtonColor: '#ff505b',
+                confirmButtonText: 'Delete'
+            });
+            if (!userAnc.isConfirmed) return;
             this.$store.dispatch('deleteBoard', boardId);
         },
         addBoard() {
@@ -56,7 +65,6 @@ export default {
         async saveBoard() {
             if (this.newBoardTxt) {
                 const savedBoard = await this.$store.dispatch('createNewBoard', this.newBoardTxt);
-                socketService.emit('create-board', { msg: 'New board is created!', by: this.$store.getters.loggedinUser.username, boardName: savedBoard.title, boardId: savedBoard._id });
                 this.$router.push(`/board/${savedBoard._id}`);
             }
             this.newBoardTxt = '';
