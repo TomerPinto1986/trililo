@@ -11,16 +11,28 @@ export default {
     methods: {
         logInWithFacebook() {
             window.FB.login(function (response) {
+                console.log(response);
+                console.dir(response);
                 if (response.authResponse) {
                     console.log('Welcome!  Fetching your information.... ');
-                    window.FB.api('/me', function (response) {
-                        console.log('Good to see you, ' + response.name + '.');
-                        console.log(response);
-                    });
+                    window.FB.api('/me', 'GET',
+                        { "fields": "email" }, function (response) {
+                            const userId = response.id;
+                            console.log(userId);
+                            window.FB.api(
+                                `/${userId}`,
+                                'GET',
+                                { "fields": "name,email,picture" },
+                                function (response) {
+                                    console.log(response);
+                                }
+                            );
+                        });
+
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
-            }, {scope: 'public_profile,email'});
+            }, { scope: 'public_profile,email', return_scopes: true });
 
         },
 

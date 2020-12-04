@@ -43,9 +43,11 @@ export default {
         socketService.setup();
         this.$store.dispatch('loadBoards');
         socketService.on('user-msg', (data) => this.userMsg(data));
-        window.FB.getLoginStatus(function(response) {
-        console.dir(response);
-});
+        setTimeout(() => {
+            window.FB.getLoginStatus(function (response) {
+                console.dir(response);
+            });
+        }, 0)
     },
     destroyed() {
         socketService.terminate();
