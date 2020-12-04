@@ -476,11 +476,10 @@ export default {
             board.activities.unshift(activity);
             this.updateBoard(board);
         },
-        closePopup() {
-            // console.log(ev)
-            // this.isPopUp = false;
-            // this.currPopUp = '';
-            // if (ev.target.name !== 'comment') this.$refs.activity.closeInput();
+        closePopup(ev) {
+            this.isPopUp = false;
+            this.currPopUp = '';
+            if (ev.target.name !== 'comment') this.$refs.activity.closeInput();
             return
         },
         emitClose() {

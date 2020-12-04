@@ -27,7 +27,7 @@
 				</span>
 				<i class="fas fa-check" v-if="isMember(user._id)"></i>
 			</li>
-			<li v-for="user in membersToShow" class="flex" :key="user._id+1">
+			<li v-for="user in membersToShow" class="flex" :key="user._id + 1">
 				<span
 					v-if="!isMember(user._id)"
 					class="card-member flex"
@@ -49,7 +49,7 @@
 
 <script>
 import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
-import {utilService} from '@/services/util.service'
+import { utilService } from '@/services/util.service'
 export default {
 	props: {
 		boardMembers: Array,
@@ -63,12 +63,12 @@ export default {
 	},
 	computed: {
 		membersToShow() {
-            var members = utilService.deepCopy(this.boardMembers)
-            members.sort((a, b) => {
+			var members = utilService.deepCopy(this.boardMembers)
+			members.sort((a, b) => {
 				if (a.username.toLowerCase() < b.username.toLowerCase()) return -1;
 				if (a.username.toLowerCase() > b.username.toLowerCase()) return 1;
 				return 0;
-            })
+			})
 			return members.filter(user => user.username.toLowerCase().includes(this.filterTxt.toLowerCase()));
 		},
 	},
@@ -82,6 +82,9 @@ export default {
 		isMember(userId) {
 			return this.cardMembers.some(member => member._id === userId);
 		}
+	},
+	mounted() {
+		this.$emit('setHeight', this.$el.clientHeight)
 	},
 	components: {
 		customAvatar

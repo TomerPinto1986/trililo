@@ -34,6 +34,9 @@ export default {
             this.$emit('updateLabelTitle', labelId, title);
         }
     },
+    mounted(){
+        this.$emit('setHeight', this.$el.clientHeight)
+    },
      components: {
         labelPreview
     },

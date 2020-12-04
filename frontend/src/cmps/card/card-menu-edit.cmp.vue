@@ -1,5 +1,5 @@
 <template>
-	<section class="card-menu-edit flex" :style="menuPos">
+	<section class="card-menu-edit flex" :style="menuPos" :class="menuClass">
 		<div class="flex f-col">
 			<div class="title-edit mini-preview icons flex wrap">
 				<ul
@@ -75,7 +75,7 @@
 			</div>
 		</div>
 		<div class="edit-card-actions flex f-col">
-			<button class="action-btn" @click="editLabel">
+			<button class="action-btn" @click="editLabel" :class="btnsClass">
 				<div class="flex">
 					<img
 						class="icon-btn"
@@ -88,16 +88,22 @@
 					class="edit-card"
 					v-if="board && isCmpOpen('labels')"
 					@closePopup="closePopup"
+					:style="popupPos"
 				>
 					<card-labels
 						:card="card"
 						:boardLabels="board.labels"
 						@updateCard="updateCardLabel"
 						@updateLabelTitle="updateLabelTitle"
+						@setHeight="setPopupHeight"
 					/>
 				</pop-up>
 			</button>
-			<button class="action-btn" @click="changeMembers">
+			<button
+				class="action-btn"
+				@click="changeMembers"
+				:class="btnsClass"
+			>
 				<div class="flex">
 					<img
 						class="icon-btn"
@@ -110,14 +116,16 @@
 					class="edit-card"
 					v-if="isCmpOpen('member')"
 					@closePopup="closePopup"
+					:style="popupPos"
 					><add-members
 						:cardMembers="cardMembers()"
 						:boardMembers="boardMembers"
 						@updateMembers="updateMembers"
+						@setHeight="setPopupHeight"
 					/>
 				</pop-up>
 			</button>
-			<button class="action-btn" @click="move">
+			<button class="action-btn" @click="move" :class="btnsClass">
 				<div class="flex">
 					<img
 						class="icon-btn"
@@ -130,6 +138,7 @@
 					class="edit-card"
 					v-if="isCmpOpen('move')"
 					@closePopup="closePopup"
+					:style="popupPos"
 				>
 					<card-move
 						:isClone="false"
@@ -137,9 +146,10 @@
 						:group="currGroup"
 						:currPosition="currPosition"
 						@moveCard="moveCard"
+						@setHeight="setPopupHeight"
 				/></pop-up>
 			</button>
-			<button class="action-btn" @click="copy">
+			<button class="action-btn" @click="copy" :class="btnsClass">
 				<div class="flex">
 					<img
 						class="icon-btn"
@@ -152,6 +162,7 @@
 					class="edit-card"
 					v-if="isCmpOpen('clone')"
 					@closePopup="closePopup"
+					:style="popupPos"
 				>
 					<card-move
 						:isClone="true"
@@ -197,13 +208,16 @@ export default {
 		card: Object,
 		board: Object,
 		clickPos: Object
+
 	},
 	data() {
 		return {
 			cardTxt: this.card.title,
 			isPopUp: false,
 			currPopUp: null,
-			activities: this.board.activities
+			activities: this.board.activities,
+			popupHeight: null,
+			newClickPos: {}
 		}
 	},
 	computed: {
@@ -240,14 +254,41 @@ export default {
 			return this.board.members;
 		},
 		menuPos() {
-            const x = this.clickPos.x - this.clickPos.offsetX + 24 - 290
-            const y = this.clickPos.y -17.5 - this.clickPos.offsetY
-			return { 'left': x + 'px', 'top': y +'px' }
+			const xDiff = (this.clickPos.width - this.clickPos.x - this.clickPos.offsetX < 190) ? 165 : 0;
+			const yDiff = (this.clickPos.height - this.clickPos.y < 200) ? 75 : 0;
+			const x = this.clickPos.x - this.clickPos.offsetX + 14 - 280 - xDiff;
+			const y = this.clickPos.y - 18 - this.clickPos.offsetY - yDiff;
+			return { 'left': x + 'px', 'top': y + 'px' }
+		},
+		menuClass() {
+			return { 'rtl': (this.clickPos.width - this.clickPos.x - this.clickPos.offsetX < 190) }
+		},
+		btnsClass() {
+			console.log(!this.isPopUp)
+			return { 'no-popup': !this.isPopUp }
+		},
+		popupPos() {
+			const yPos = (this.newClickPos.height - this.newClickPos.y < this.popupHeight + 85)
+			const xPos = this.newClickPos.width - this.newClickPos.x + this.newClickPos.offsetX 
+			const isRtl = (this.clickPos.width - this.clickPos.x - this.clickPos.offsetX < 190) 
+			const left = (isRtl) ? 'unset' :  (xPos < 330) ? xPos - 330 + 'px' : 0;
+			const right = (isRtl) ? 0 : 'unset'
+			const top = (yPos) ? 'unset' : '35px';
+			const bottom = (yPos) ? '35px' : 'unset';
+			return { 'top': top, 'bottom': bottom, 'left': left, 'right': right }
 		}
 	},
 	
 	methods: {
+		// openPopup(cmp) {
+		// 	this.isPoUp = true;
+		// 	this.currPopUp = cmp;
+		// 	if (cmp === 'dueDate') this.$nextTick(() => {
+		// 		document.querySelector('.el-date-editor .el-input__inner').focus();
+		// 	})
+		// },
 		changeDueDate() {
+			this.$emit('isEditing', true)
 			this.isPopUp = true;
 			this.currPopUp = 'dueDate';
 			this.$nextTick(() => {
@@ -257,6 +298,7 @@ export default {
 		closePopup() {
 			this.isPopUp = false;
 			this.currPopUp = '';
+			this.$emit('isEditing', false)
 		},
 		updateCardLabel(card) {
 			this.$emit('updateCardLabel', card)
@@ -267,29 +309,36 @@ export default {
 		saveTitle() {
 			this.$emit('updateCardTitle', this.cardTxt, this.card);
 			this.closePopup();
-
 		},
-		editLabel() {
+		editLabel(ev) {
+			this.setClickPos(ev)
 			this.isPopUp = true;
+			this.$emit('isEditing', true)
 			this.currPopUp = 'labels';
 		},
-		changeMembers() {
+		changeMembers(ev) {
+			this.setClickPos(ev)
 			this.isPopUp = true;
+			this.$emit('isEditing', true)
 			this.currPopUp = 'member';
 		},
-		move() {
+		move(ev) {
+			this.setClickPos(ev)
 			this.isPopUp = true;
+			this.$emit('isEditing', true)
 			this.currPopUp = 'move';
 		},
-		copy() {
+		copy(ev) {
+			this.setClickPos(ev)
 			this.isPopUp = true;
+			this.$emit('isEditing', true)
 			this.currPopUp = 'clone';
 		},
 		moveCard(stat) {
 			const status = stat;
 			status.cardId = this.card.id
 			console.log(status);
-			this.$emit('moveCard', status);
+			this.$emit('moveCard', status, this.card);
 			this.closePopup();
 		},
 		cardMembers() {
@@ -302,18 +351,36 @@ export default {
 			this.$emit('updateMembers', userId, this.card)
 		},
 		setNewDate(dueDate) {
-			this.card.isDone = false;
+			let txt;
 			if (this.card.dueDate) {
 				delete this.card.dueDate;
+				txt = 'changed'
+			} else {
+				txt = 'added'
+				this.card.isDone = false;
 			}
 			this.card.dueDate = dueDate;
 			this.$emit('updateCard', this.card);
-			this.isPopUp = false;
-			this.currPopUp = null;
+			this.closePopup();
+			this.$emit('updateActivities', `${txt} due date to `, this.card)
+		},
+		setPopupHeight(height) {
+			this.popupHeight = height;
+		},
+		setClickPos({ x, y, offsetX, offsetY }) {
+			if (this.isPopUp) return
+			const pos = { x, y, width: window.innerWidth, height: window.innerHeight, offsetX, offsetY }
+			this.newClickPos = pos;
 		},
 	},
 	mounted() {
-		setTimeout(() => this.$refs['card-title'].focus(), 0);
+		this.$nextTick(() => this.$refs['card-title'].focus());
+	},
+	created() {
+		this.newClickPos = utilService.deepCopy(this.clickPos)
+	},
+	destroyed() {
+		this.$emit('isEditing', false)
 	},
 	components: {
 		popUp,
