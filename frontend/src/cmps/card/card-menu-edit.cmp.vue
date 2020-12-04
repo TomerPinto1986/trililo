@@ -211,8 +211,8 @@ export default {
 			return ' ' + this.activities.filter(activity => activity.comment && activity.card.id === this.card.id).length;
 		},
 		dueDateStyle() {
-			if (this.card.dueDate - Date.now() < 24 * 60 * 60 * 1000) return { color: '#121212', backgroundColor: '#ec9488' }
-			if (this.card.isDone) return { color: '#fff', backgroundColor: '#61bd4f' }
+			if (this.card.isDone) return { color: 'white', backgroundColor: '#5aac44' }
+			if (this.card.dueDate < Date.now()) return { color: 'white', backgroundColor: '#ec9488' }
 			else return {}
 		},
 		labelsSelected() {
@@ -295,14 +295,13 @@ export default {
 			this.$emit('updateMembers', userId, this.card)
 		},
 		setNewDate(dueDate) {
-			this.card.isDone = false;
 			if (this.card.dueDate) {
 				delete this.card.dueDate;
-			}
+			} else this.card.isDone = false;
 			this.card.dueDate = dueDate;
 			this.$emit('updateCard', this.card);
 			this.isPopUp = false;
-			this.currPopUp = null;
+            this.currPopUp = null;
 		},
 	},
 	mounted() {
