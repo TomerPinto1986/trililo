@@ -63,7 +63,7 @@
         color: rgb(9, 30, 66);
 
         &:hover {
-            background-color: rgb(226, 228, 233);
+            background-color: rgb(226, 228, 233)!important;
         }
     }
 
@@ -193,6 +193,7 @@
                     line-height: 40px;
                     padding: 0 1px 5px 0;
                     margin: 0 2px;
+                    cursor: pointer;
 
                     &.member {
                         border-radius: 50%;

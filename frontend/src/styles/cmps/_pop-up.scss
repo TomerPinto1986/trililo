@@ -47,6 +47,8 @@
             .el-input--suffix .el-input__inner {
                 background-color: rgba(9, 30, 66, .04);
                 font-size: 14px;
+                height: unset;
+                opacity: 1;
             }
         }
     }
