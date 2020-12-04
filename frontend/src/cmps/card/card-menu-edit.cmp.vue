@@ -282,7 +282,6 @@ export default {
         saveTitle() {
             this.$emit('updateCardTitle', this.cardTxt, this.card);
             this.closePopup();
-
         },
         editLabel() {
             this.isPopUp = true;
@@ -333,7 +332,7 @@ export default {
         },
     },
     mounted() {
-       	this.$nextTick(() => this.$refs['card-title'].focus());
+        this.$nextTick(() => this.$refs['card-title'].focus());
     },
     components: {
         popUp,

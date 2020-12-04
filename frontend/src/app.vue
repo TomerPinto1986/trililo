@@ -43,6 +43,9 @@ export default {
 		socketService.on('set-proj', 'Taskules');
 		console.log('app');
         socketService.on('user-msg', (data) => this.userMsg(data));
+        window.FB.getLoginStatus(function(response) {
+        console.dir(response);
+});
     },
     destroyed() {
         socketService.terminate();

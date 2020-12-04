@@ -1,5 +1,7 @@
 <template>
     <section class="login">
+        <h3>login with facebook</h3>
+        <facebookLogin></facebookLogin>
         <form @submit.prevent="loginOrSignup" class="flex f-col f-center">
             <h2>{{ titleTxt }}:</h2>
             <h2 class="red">{{ msg }}</h2>
@@ -25,6 +27,7 @@
 </template>
 
 <script>
+import facebookLogin from '@/cmps/facebook-login.cmp'
 export default {
     data() {
         return {
@@ -101,6 +104,9 @@ export default {
             else this.isSignup = false;
             this.userToEdit = this.getUserToEdit();
         }
+    },
+    components: {
+        facebookLogin
     }
 };
 </script>
