@@ -10,7 +10,7 @@
 			@updateboardUsers="updateboardUsers"
 			@changeBgc="changeBgc"
 			@privacyChange="changePrivacy"
-			@deleteBoard="deleteBoard"
+			@filter="filter"
 		/>
 		<div v-if="cardToEdit" class="window" @click="closeCardToEdit">
 			<card-menu-edit

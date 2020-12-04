@@ -87,7 +87,6 @@ export default {
 			this.$emit('filter', utilService.deepCopy(this.filterBy))
 		},
 		debSearch() {
-
 			if (this.debTimeout) clearTimeout(this.debTimeout);
 			this.debTimeout = setTimeout(() => this.emitFilter(), 500)
 		},

@@ -48,10 +48,12 @@
 			<span class="seperator"></span>
 			<div class="board-members flex">
 				<custom-avatar
-				class="member"
+					class="member member-card"
 					:size="40"
 					:username="board.byMember.username"
 					:src="board.byMember.imgUrl"
+					@click.native="emitFilter(board.byMember._id)"
+					:class="checkClass(board.byMember._id)"
 				/>
 				<div
 					class="member"
@@ -64,6 +66,8 @@
 						:size="40"
 						:username="member.username"
 						:src="member.imgUrl"
+						@click.native="emitFilter(member._id)"
+						:class="checkClass(member._id)"
 					/>
 				</div>
 
@@ -86,6 +90,7 @@
 <script>
 import addUsers from './add-users.cmp';
 import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
+import { utilService } from '../../services/util.service';
 
 
 export default {
@@ -105,7 +110,12 @@ export default {
 			] : [
 					{ value: 'public', label: 'Public' }
 				],
-			privacy: null
+			privacy: null,
+			filterBy: {
+				txt: "",
+				membersIds: [],
+				labelsIds: []
+			}
 		}
 	},
 	methods: {
@@ -136,9 +146,17 @@ export default {
 		emitPrivacyChange() {
 			this.$emit('privacyChange', this.privacy)
 		},
-		emitDeleteBoard(boardId) {
-			this.$emit('deleteBoard', boardId)
+		emitFilter(memberId) {
+			if (this.filterBy['membersIds'].includes(memberId)) {
+				const idIdx = this.filterBy['membersIds'].findIndex(currId => currId === memberId)
+				if (idIdx !== -1) this.filterBy['membersIds'].splice(idIdx, 1)
+			} else this.filterBy['membersIds'].push(memberId)
+
+			this.$emit('filter', utilService.deepCopy(this.filterBy))
 		},
+		isChecked(memberId) {
+			return this.filterBy.membersIds.some(id => id === memberId)
+		}
 	},
 	computed: {
 		usersToAdd() {
@@ -149,6 +167,9 @@ export default {
 		},
 		isPrivate() {
 			return this.board.isPrivate ? 'Private' : 'Public'
+		},
+		checkClass() {
+			return (memberId) => ({ 'checked': this.isChecked(memberId) })
 		}
 	},
 	created() {
