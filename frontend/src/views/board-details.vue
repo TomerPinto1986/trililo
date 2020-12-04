@@ -22,6 +22,7 @@
 				@moveCard="moveCard"
 				@updateCard="updateCard"
 				@updateActivities="addActivity"
+				@isEditing="setIsEditing"
 				:clickPos="clickPos"
 				:board="board"
 				:card="cardToEdit"
@@ -132,7 +133,7 @@ export default {
 			isScroll: false,
 			isMenu: false,
 			filterBy: null,
-			// isCardEdit: false,
+			isCardEdit: false,
 			cardToEdit: null,
 			clickPos: {}
 		}
@@ -162,7 +163,7 @@ export default {
 			this.cardToEdit = false;
 			if (status.startGroup !== status.endGroup) {
 				const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
-				this.addActivity(`moved card '${card.title}' to '${groupTitle}'`, card, null, card );
+				this.addActivity(`moved card '${card.title}' to '${groupTitle}'`, card, null, card);
 			}
 
 		},
@@ -366,17 +367,15 @@ export default {
 			this.cardToEdit = currCard;
 			// this.isCardEdit = true;
 		},
-		// setClickPos(ev) {
-		// 	var pos = (window.innerWidth - ev.x <= 170) ? 'right' : (ev.x <= 170) ? 'left' : 'middle';
-		// 	this.clickPos = pos;
-		// },
 		setClickPos({ x, y, offsetX, offsetY }) {
-			const pos = { x, y, width: window.innerWidth, height: window.innerHeight, offsetX, offsetY }
-			console.log(pos)
+			if (this.isCardEdit) return
+			const pos = { x, y, width: window.innerWidth, height: window.innerHeight, offsetX, offsetY}
 			this.clickPos = pos;
+		},
+		setIsEditing(val) {
+			this.isCardEdit = val;
 		}
 	},
-
 	watch: {
 		'$route.params'() {
 			if (this.$route.params.cardId) {

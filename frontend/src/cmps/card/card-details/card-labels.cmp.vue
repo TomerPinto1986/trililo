@@ -36,7 +36,7 @@ export default {
         }
     },
     mounted(){
-        console.log(this.$el.clientHeight)
+        this.$emit('setHeight', this.$el.clientHeight)
     },
      components: {
         labelPreview
