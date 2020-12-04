@@ -21,6 +21,7 @@
 				@updateLabelTitle="updateLabelTitle"
 				@moveCard="moveCard"
 				@updateCard="updateCard"
+				@updateActivities="addActivity"
 				:clickPos="clickPos"
 				:board="board"
 				:card="cardToEdit"

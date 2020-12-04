@@ -23,7 +23,8 @@
                 ></select-position>
             </span>
         </div>
-        <button @click.stop="emitMove">Move</button>
+        <button v-if="isClone" @click.stop="emitMove">Clone</button>
+        <button v-else @click.stop="emitMove">Move</button>
     </section>
 </template>
 

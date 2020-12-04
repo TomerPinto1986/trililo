@@ -575,14 +575,19 @@ export default {
         },
         setNewDate(dueDate) {
             const updatedCard = utilService.deepCopy(this.card)
+            let txt;
             if (this.card.dueDate) {
                 delete this.card.dueDate;
-            } else this.card.isDone = false;
+                txt = 'changed'
+            } else {
+                txt = 'added'
+                this.card.isDone = false;
+            }
             updatedCard.dueDate = dueDate
             this.updateCard(updatedCard);
             this.card = updatedCard;
             this.closePopup();
-            this.addActivity(`added due date to `, updatedCard);
+            this.addActivity(`${txt} due date to `, updatedCard);
         },
         openLabels() {
             this.currPopUp = 'labels';
