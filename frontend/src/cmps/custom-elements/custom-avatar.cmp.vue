@@ -1,6 +1,6 @@
 <template>
 	<section class="custom-avatar flex f-center" :style="avatarStyle">
-		{{ initials }}
+		{{ txtToShow }}
 	</section>
 </template>
 
@@ -33,6 +33,9 @@ export default {
 			if (this.src) bgc = this.src;
 			else bgc = this.avatarColors[initials]
 			return { background: bgc, width: this.size + 'px', height: this.size + 'px' }
+		},
+		txtToShow() {
+			return (this.src) ? '' : this.initials;
 		}
 	},
 	methods: {
