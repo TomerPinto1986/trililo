@@ -107,9 +107,13 @@
                                 class="card-details-btn due-date-local-time"
                                 @click.stop="setDate"
                                 >{{ moment(card.dueDate).format("MMM Do")
-                                }}<span v-if="card.isComplete" class="complete"
-                                    >complete</span
-                                ></span
+                                }}<span v-if="card.isComplete" class="complete">
+									complete
+									</span>
+									<span class="over-due" v-else-if="isOverDue">
+										overdue
+									</span>
+								</span
                             >
                         </span>
                         <date-picker
@@ -422,7 +426,10 @@ export default {
         labelsSelected() {
             const selectIds = this.card.labels.map(label => label.id);
             return this.board.labels.filter(label => selectIds.includes(label.id));
-        },
+		},
+		isOverDue(){
+			return this.card.dueDate<Date.now();
+		}
     },
     methods: {
         updateCardTitle() {
@@ -469,10 +476,12 @@ export default {
             board.activities.unshift(activity);
             this.updateBoard(board);
         },
-        closePopup(ev) {
-            this.isPopUp = false;
-            this.currPopUp = '';
-            if (ev.target && ev.target.name !== 'comment') this.$refs.activity.closeInput();
+        closePopup() {
+            // console.log(ev)
+            // this.isPopUp = false;
+            // this.currPopUp = '';
+            // if (ev.target.name !== 'comment') this.$refs.activity.closeInput();
+            return
         },
         emitClose() {
             this.$emit('close');
@@ -576,16 +585,20 @@ export default {
             this.addActivity(`removed the due date from `, card);
         },
         setNewDate(dueDate) {
-            // this.card.isDone = false;
             const updatedCard = utilService.deepCopy(this.card)
+            let txt;
             if (this.card.dueDate) {
                 delete this.card.dueDate;
+                txt = 'changed'
+            } else {
+                txt = 'added'
+                this.card.isDone = false;
             }
             updatedCard.dueDate = dueDate
             this.updateCard(updatedCard);
             this.card = updatedCard;
             this.closePopup();
-            this.addActivity(`added due date to `, updatedCard);
+            this.addActivity(`${txt} due date to `, updatedCard);
         },
         openLabels() {
             this.currPopUp = 'labels';
