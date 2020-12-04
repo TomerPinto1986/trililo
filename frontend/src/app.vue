@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="main-layout flex f-col" :style="appStyle">
-        <main-header :loggedinUserId="loggedinUser" @logout="logout" />
+        <main-header :loggedinUser="loggedinUser" @logout="logout" />
         <div class="main-content flex f-col">
             <router-view />
         </div>
@@ -15,7 +15,7 @@ const Swal = require('sweetalert2');
 export default {
     computed: {
         loggedinUser() {
-            return this.$store.getters.loggedinUser._id;
+            return this.$store.getters.loggedinUser;
         },
         appStyle() {
             const page = this.$route.name;
@@ -42,6 +42,7 @@ export default {
     created() {
         socketService.setup();
         this.$store.dispatch('loadBoards');
+        this.$store.dispatch('loadUsers');
         socketService.on('user-msg', (data) => this.userMsg(data));
         setTimeout(() => {
             window.FB.getLoginStatus(function (response) {

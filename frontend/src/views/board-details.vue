@@ -136,7 +136,7 @@ export default {
 			isScroll: false,
 			isMenu: false,
 			isCardEdit: false,
-			isDashboard: true,
+			isDashboard: false,
 			newGroupTitle: '',
 			filterBy: null,
 			cardToEdit: null,

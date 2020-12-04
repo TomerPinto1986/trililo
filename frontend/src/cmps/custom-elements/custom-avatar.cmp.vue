@@ -29,10 +29,9 @@ export default {
 		avatarStyle() {
 			if (this.isAdd) return { background: '#eaecf0', width: this.size + 'px', height: this.size + 'px' }
 			const initials = (this.isSingleLetter) ? this.user[0].charAt(0) + 'A' : this.initials;
-			var bgc;
-			if (this.src) bgc = this.src;
-			else bgc = this.avatarColors[initials]
-			return { background: bgc, width: this.size + 'px', height: this.size + 'px' }
+			const bgc = (this.src) ? `url(${this.src})` : this.avatarColors[initials];
+			console.log(bgc)
+			return { background: bgc, width: this.size + 'px', height: this.size + 'px', 'background-size': 'cover' }
 		},
 		txtToShow() {
 			return (this.src) ? '' : this.initials;

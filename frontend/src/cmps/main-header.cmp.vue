@@ -95,7 +95,14 @@
 				<router-link to="/login">Login</router-link>
 				<router-link to="/signup">Signup</router-link>
 			</template>
-			<span class="logout" v-else @click="emitLogout">Logout</span>
+			<template v-else>
+				<span class="logout" @click="emitLogout">Logout</span>
+				<custom-avatar
+					:size="40"
+					:username="loggedinUser.username"
+					:src="loggedinUser.imgUrl"
+				/>
+			</template>
 		</div>
 		<template v-if="!isHome">
 			<i
@@ -117,9 +124,10 @@
 </template>
 
 <script>
+import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 export default {
 	props: {
-		loggedinUserId: String,
+		loggedinUser: Object,
 	},
 	data() {
 		return {
@@ -130,7 +138,8 @@ export default {
 	},
 	computed: {
 		isGuest() {
-			return this.loggedinUserId === 'guest' ? true : false;
+			console.log(this.loggedinUser,this.loggedinUser._id)
+			return this.loggedinUser._id === 'guest' ? true : false;
 		},
 		headerClass() {
 			return { home: this.isHome, scrolled: (this.isHome && !this.isAtTop), app: !this.isHome };
@@ -173,6 +182,9 @@ export default {
 	},
 	destroyed() {
 		window.removeEventListener('scroll', this.checkPosition);
+	},
+	components: {
+		customAvatar
 	}
 };
 </script>

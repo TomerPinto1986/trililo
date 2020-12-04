@@ -49,7 +49,7 @@
 			<div class="board-members flex">
 				<custom-avatar
 				class="member"
-					:size="35"
+					:size="40"
 					:username="board.byMember.username"
 					:src="board.byMember.imgUrl"
 				/>
@@ -61,7 +61,7 @@
 					<custom-avatar
 						v-if="member._id !== board.byMember._id"
 						class="member-card"
-						:size="35"
+						:size="40"
 						:username="member.username"
 						:src="member.imgUrl"
 					/>
