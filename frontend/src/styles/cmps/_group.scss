@@ -20,11 +20,17 @@
 
     .menu-btn {
         position: absolute;
-        top: 15px;
-        right: 15px;
-        font-size: 1.3em;
+        top: 10px;
+        right: 10px;
+        font-size: 1.5em;
         color: #6b778c;
-
+        padding: 4px 8px;
+        border-radius: 3px;
+        
+        &:hover{
+            color: #172b4d;
+            background-color: rgba(9,30,66,.08);
+        }
         &.ghost {
             display: none;
         }

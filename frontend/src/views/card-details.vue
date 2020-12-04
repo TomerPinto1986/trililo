@@ -468,12 +468,10 @@ export default {
 			board.activities.unshift(activity);
 			this.updateBoard(board);
 		},
-		closePopup() {
-			// console.log(ev)
-			// this.isPopUp = false;
-			// this.currPopUp = '';
-			// if (ev.target.name !== 'comment') this.$refs.activity.closeInput();
-			return
+		closePopup(ev) {
+			this.isPopUp = false;
+			this.currPopUp = '';
+			if (ev.target && ev.target.name !== 'comment') this.$refs.activity.closeInput();
 		},
 		emitClose() {
 			this.$emit('close');

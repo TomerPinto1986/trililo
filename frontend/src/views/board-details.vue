@@ -21,6 +21,7 @@
 				@updateLabelTitle="updateLabelTitle"
 				@moveCard="moveCard"
 				@updateCard="updateCard"
+				:clickPos="clickPos"
 				:board="board"
 				:card="cardToEdit"
 			/>
@@ -132,7 +133,7 @@ export default {
 			filterBy: null,
 			// isCardEdit: false,
 			cardToEdit: null,
-			clickPos: ''
+			clickPos: {}
 		}
 	},
 	computed: {
@@ -364,14 +365,15 @@ export default {
 			this.cardToEdit = currCard;
 			// this.isCardEdit = true;
 		},
-		setClickPos(ev) {
-			var pos = (window.innerWidth - ev.x <= 170) ? 'right' : (ev.x <= 170) ? 'left' : 'middle';
-			this.clickPos = pos;
-		},
-		// setClickPos({ x, y }) {
-		// 	const pos = { x, y, width: window.innerWidth, height: window.innerHeight }
+		// setClickPos(ev) {
+		// 	var pos = (window.innerWidth - ev.x <= 170) ? 'right' : (ev.x <= 170) ? 'left' : 'middle';
 		// 	this.clickPos = pos;
-		// }
+		// },
+		setClickPos({ x, y, offsetX, offsetY }) {
+			const pos = { x, y, width: window.innerWidth, height: window.innerHeight, offsetX, offsetY }
+			console.log(pos)
+			this.clickPos = pos;
+		}
 	},
 
 	watch: {
