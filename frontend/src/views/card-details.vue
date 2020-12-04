@@ -62,7 +62,7 @@
                                     class="card-details-btn plus-btn member"
                                     :size="40"
                                     :isAdd="true"
-                                    @click.stop.native="onAddMembers"
+                                    @click.stop="onAddMembers"
                                 />
                             </span>
                             <!-- <button
@@ -479,7 +479,7 @@ export default {
         closePopup(ev) {
             this.isPopUp = false;
             this.currPopUp = '';
-            if (ev && ev.target.name !== 'comment') this.$refs.activity.closeInput();
+            if (ev.target.name !== 'comment') this.$refs.activity.closeInput();
             return
         },
         emitClose() {
@@ -622,7 +622,6 @@ export default {
             this.updateBoard(board);
         },
         onAddMembers() {
-            console.log('ss')
             this.currPopUp = 'member';
             this.isPopUp = true;
         },
