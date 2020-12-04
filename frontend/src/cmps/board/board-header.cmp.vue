@@ -78,7 +78,7 @@
 			</div>
 		</div>
 		<button class="menu-btn" @click="emitOpenMenu">
-			. . . <span data-txt="Show Menu"></span>
+			Show Menu <span data-txt=""></span>
 		</button>
 	</section>
 </template>

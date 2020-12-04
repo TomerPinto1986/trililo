@@ -1,5 +1,5 @@
 <template>
-	<section class="group-menu" :class="clickPos" @click.stop>
+	<section class="group-menu" @click.stop>
 		<div class="header-container">
 			<slot name="back-btn"></slot>
 			<span class="close-btn">
@@ -25,9 +25,6 @@
 
 <script>
 export default {
-	props: {
-		clickPos: String
-	},
 	methods: {
 		emitClose() {
 			this.$emit('closeMenu');

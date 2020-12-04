@@ -11,7 +11,7 @@
 		<i @click="toggleMenu" class="fal fa-ellipsis-h menu-btn"></i>
 		<group-menu
 			v-if="isMenu"
-			:clickPos="getClickPos"
+			:style="menuPosition"
 			@closeMenu="toggleMenu"
 			@addCard="addCard"
 			@deleteGroup="emitDelete(group.id)"
@@ -135,7 +135,7 @@ export default {
 		isCloseAdd: Boolean,
 		board: Object,
 		groupIdx: Number,
-		clickPos: String
+		clickPos: Object
 
 	},
 	data() {
@@ -168,8 +168,10 @@ export default {
 		hasDueDate() {
 			return this.group.cards.some(card => card.dueDate)
 		},
-		getClickPos() {
-			return this.clickPos;
+		menuPosition() {
+			if (!this.clickPos) return '290px'
+			const x = this.clickPos.width - this.clickPos.x
+			return { 'left': (x < 290) ? x - 24 + this.clickPos.offsetX + 'px' : 275 + 'px' };
 		}
 
 	},

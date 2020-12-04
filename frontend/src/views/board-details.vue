@@ -21,6 +21,7 @@
 				@updateLabelTitle="updateLabelTitle"
 				@moveCard="moveCard"
 				@updateCard="updateCard"
+				:clickPos="clickPos"
 				:board="board"
 				:card="cardToEdit"
 			/>
@@ -66,7 +67,7 @@
 				/>
 			</draggable>
 
-			<div class="add-group-container group" @click.stop> 
+			<div class="add-group-container group" @click.stop>
 				<div class="title-area" v-if="isAddingGroup">
 					<input
 						@keydown.enter.prevent
@@ -132,7 +133,7 @@ export default {
 			filterBy: null,
 			// isCardEdit: false,
 			cardToEdit: null,
-			clickPos: ''
+			clickPos: {}
 		}
 	},
 	computed: {
@@ -150,11 +151,7 @@ export default {
 		},
 		boardStyle() {
 			return { 'background': `${this.board.style.background}` }
-		},
-		// getClickPos(){
-		// 	console.log(this.$store.getters.clickPos, 'board')
-		// 	return this.$store.getters.clickPos;
-		// }
+		}
 	},
 	methods: {
 		moveCard(status) {
@@ -368,8 +365,13 @@ export default {
 			this.cardToEdit = currCard;
 			// this.isCardEdit = true;
 		},
-		setClickPos(ev) {
-			var pos = (window.innerWidth - ev.x <= 170) ? 'right' : (ev.x <= 170) ? 'left' : 'middle';
+		// setClickPos(ev) {
+		// 	var pos = (window.innerWidth - ev.x <= 170) ? 'right' : (ev.x <= 170) ? 'left' : 'middle';
+		// 	this.clickPos = pos;
+		// },
+		setClickPos({ x, y, offsetX, offsetY }) {
+			const pos = { x, y, width: window.innerWidth, height: window.innerHeight, offsetX, offsetY }
+			console.log(pos)
 			this.clickPos = pos;
 		}
 	},

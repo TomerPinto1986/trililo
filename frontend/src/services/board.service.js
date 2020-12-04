@@ -123,7 +123,8 @@ function emptyCard() {
         "byMember": "",
         "style": {
             "headerColor": ""
-        }
+        },
+        "labels":[]
     }
 }
 
