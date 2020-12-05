@@ -167,9 +167,12 @@ export default {
 			return this.group.cards.some(card => card.dueDate)
 		},
 		menuPosition() {
-			if (!this.clickPos) return '290px'
+			// if (!this.clickPos) return '290px'
 			const x = this.clickPos.width - this.clickPos.x
-			return { 'left': (x < 290) ? x - 24 + this.clickPos.offsetX + 'px' : 275 + 'px' };
+			const padding = 24;
+			const itemWidth = 290;
+			const ogPosition = 270;
+			return { 'left': (x < itemWidth) ? x - padding + this.clickPos.offsetX + 'px' : ogPosition + 'px' };
 		}
 
 	},

@@ -372,9 +372,12 @@ export default {
 			this.cardToEdit = currCard;
 			// this.isCardEdit = true;
 		},
-		setClickPos({ x, y, offsetX, offsetY }) {
+		setClickPos({ x, y, offsetX, offsetY, target }) {
+			console.dir(target) 
 			if (this.isCardEdit) return
-			const pos = { x, y, width: window.innerWidth, height: window.innerHeight, offsetX, offsetY}
+			const imgOffsetX = (target.name === 'edit') ? 8 : 0; 
+			const imgOffsetY = (target.name === 'edit') ? 8 : 0; 
+			const pos = { x, y, width: window.innerWidth, height: window.innerHeight, offsetX: offsetX + imgOffsetX, offsetY: offsetY + imgOffsetY}
 			this.clickPos = pos;
 		},
 		setIsEditing(val) {

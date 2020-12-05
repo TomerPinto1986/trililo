@@ -7,7 +7,7 @@
 				:class="{ 'full-header': card.style.isFull }"
 				@click="editCard()"
 			>
-				<img src="@/assets/svg/edit.svg" alt="" />
+				<img name="edit" src="@/assets/svg/edit.svg" alt="" />
 				<!-- <i class="fas fa-pen edit-btn" @click.stop="editCard"> -->
 			</i>
 		</div>
