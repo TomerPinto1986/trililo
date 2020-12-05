@@ -250,8 +250,9 @@ export default {
 			return (cmpName) => this.isPopUp && this.currPopUp === cmpName;
 		},
 		boardMembers() {
-			if (!this.board.isPrivate) return utilService.deepCopy(this.$store.getters.users);
-			return this.board.members;
+			const membersToShow = utilService.deepCopy(this.board.members);
+			membersToShow.push(utilService.deepCopy(this.board.byMember));
+			return membersToShow
 		},
 		menuPos() {
 			const xDiff = (this.clickPos.width - this.clickPos.x - this.clickPos.offsetX < 190) ? 165 : 0;
