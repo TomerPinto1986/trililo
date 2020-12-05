@@ -315,11 +315,11 @@
                     title="Copy"
                     data-txt="Copy"
                 >
-                    <!-- <img
+                    <img
                         class="icon-btn clone-img"
-                        src="@/assets/svg/copy.svg"
-                    /> -->
-                    <i class="fal fa-clone"></i>
+                        src="@/assets/svg/clone.svg"
+                    />
+                    <!-- <i class="fal fa-clone"></i> -->
                     <pop-up v-if="isCmpOpen('clone')" @closePopup="closePopup">
                         <card-move
                             :isClone="true"
