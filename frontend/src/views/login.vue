@@ -1,7 +1,5 @@
 <template>
-	<section class="login">
-		<h3>login with facebook</h3>
-		<facebookLogin @loggedin="$router.push('/board')" />
+	<section class="login flex f-col f-center">
 		<form @submit.prevent="loginOrSignup" class="flex f-col f-center">
 			<h2>{{ titleTxt }}:</h2>
 			<h2 class="red">{{ msg }}</h2>
@@ -21,8 +19,8 @@
 			<button>{{ btnTxt }}</button>
 		</form>
 		OR
-		<hr />
 		<router-link :to="to">{{ linkTxt }}</router-link>
+		<facebookLogin class="fb-btn connect" @loggedin="$router.push('/board')" />
 	</section>
 </template>
 

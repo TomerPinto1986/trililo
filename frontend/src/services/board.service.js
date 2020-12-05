@@ -91,7 +91,7 @@ function emptyBoard() {
             },
             {
                 "id": "l105",
-                "color": "#eb5a46",
+                "color": "#c377e0",
                 "title": "e"
             },
             {
@@ -124,7 +124,7 @@ function emptyCard() {
         "style": {
             "headerColor": ""
         },
-        "labels":[]
+        "labels": []
     }
 }
 

@@ -172,7 +172,7 @@
 						@moveCard="moveCard"
 				/></pop-up>
 			</button>
-			<button class="action-btn" @click="changeDueDate">
+			<button class="action-btn due-date" @click="changeDueDate">
 				<div class="flex">
 					<img
 						class="icon-btn"

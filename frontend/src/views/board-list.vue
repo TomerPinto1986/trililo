@@ -4,13 +4,13 @@
         <h4>or create one from screcth</h4>
         <section class="board-list" v-if="boardsForDisplay">
             <div class="create-board board-preview flex f-center">
-                <form v-if="isAdding" @submit.prevent="saveBoard">
+                <form class="flex f-col" v-if="isAdding" @submit.prevent="saveBoard">
                     <input
                         type="text"
                         v-model="newBoardTxt"
                         placeholder="Enter your board name"
                     />
-                    <button>Create</button>
+                    <button class="create-btn">Create</button>
                 </form>
                 <button v-else @click="addBoard">+ CREATE BOARD</button>
             </div>

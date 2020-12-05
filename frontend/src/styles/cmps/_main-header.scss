@@ -43,6 +43,7 @@
         .logo {
             transition: 0.3s;
             margin-block-start: 100px;
+            margin-inline-end: 33px;
         }
         &.scrolled {
             background-color: rgba(255, 241, 241, 1);
@@ -146,8 +147,4 @@
             }
         }
     }
-}
-
-.login {
-    padding-top: 200px;
 }
