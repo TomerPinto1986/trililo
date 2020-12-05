@@ -38,11 +38,12 @@
 					:key="member._id"
 					@click="setFilter('member', member._id)"
 				>
-					<avatar
+					<custom-avatar
 						class="item"
 						:size="30"
 						:username="member.username"
-					></avatar>
+						:src="member.imgUrl"
+					></custom-avatar>
 
 					<div class="member">
 						{{ member.username }}
@@ -59,7 +60,8 @@
 
 <script>
 import { utilService } from '../../../services/util.service';
-import avatar from 'vue-avatar';
+import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
+
 
 export default {
 	props: {
@@ -82,11 +84,9 @@ export default {
 	},
 	methods: {
 		emitFilter() {
-			console.log(this.filterBy)
 			this.$emit('filter', utilService.deepCopy(this.filterBy))
 		},
 		debSearch() {
-
 			if (this.debTimeout) clearTimeout(this.debTimeout);
 			this.debTimeout = setTimeout(() => this.emitFilter(), 500)
 		},
@@ -104,13 +104,12 @@ export default {
 			this.emitFilter()
 		},
 		isChecked(item, itemId) {
-			console.log(item, itemId)
 			const itemsIds = this.filterBy[`${item}sIds`]
 			return itemsIds.some(item => item === itemId)
 		}
 	},
 	components: {
-		avatar
+		customAvatar
 	}
 }
 </script>

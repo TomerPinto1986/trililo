@@ -1,24 +1,59 @@
 <template>
     <section class="card-activity">
-        <h2>activity:</h2>
-        <button v-if="!isAllActivities" @click="toggleShowDetails">Show Details</button>
-        <button v-else @click="toggleShowDetails">Hide Details</button>
-        <div class="activities flex">
-            <avatar :size="35" :username="user.username"></avatar>
-            <input
-                type="text"
-                placeholder="Write a comment..."
-                @keydown="typing"
-                v-model="msg.txt"
-            />
-            <button @click="sendMsg">Send</button>
+        <div class="flex activities-btn f-s-between">
+            <h2>activity:</h2>
+            <button
+                class="card-details-btn"
+                v-if="!isAllActivities"
+                @click="toggleShowDetails"
+            >
+                Show Details
+            </button>
+            <button class="card-details-btn" v-else @click="toggleShowDetails">
+                Hide Details
+            </button>
         </div>
-        <span v-if="userTyping"><avatar :size="35" :username="userTyping"></avatar> Adding a comment</span>
+        <div class="activities flex">
+            <custom-avatar
+                class="main-avatar"
+                :size="35"
+                :username="user.username"
+                :src="user.imgUrl"
+            />
+            <div ref="input-area" @click="openInput" class="input-area flex">
+                <input
+                    type="text"
+                    placeholder="Write a comment..."
+                    @keydown="typing"
+                    @keyup.enter="addComment"
+                    v-model="msg.txt"
+                    ref="input"
+                    name="comment"
+                />
+                <div class="comment-controls" @click.stop="addComment">
+                    <span type="text" :class="addBtnClass">Save</span>
+                    <i
+                        class="fal fa-times cancel-btn"
+                        aria-hidden="true"
+                        @click.stop="closeInput"
+                    ></i>
+                </div>
+            </div>
+        </div>
+        <span v-if="userTyping"
+            ><custom-avatar
+                :size="35"
+                :username="userTyping"
+                :src="user.imgUrl"
+            />
+            Adding a comment</span
+        >
         <template v-if="activitiesToShow && activitiesToShow.length">
             <activity-preview
                 v-for="activity in activitiesToShow"
                 :key="activity.id"
                 :activity="activity"
+                :size="35"
             />
         </template>
     </section>
@@ -26,15 +61,15 @@
 
 <script>
 import activityPreview from '../../activity-preview.cmp';
-import avatar from 'vue-avatar';
+import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 import { socketService } from '../../../services/socket.service';
 
 export default {
     props: {
         activities: Array,
         user: Object,
+        isShowDetails: Boolean,
         card: Object,
-        isShowDetails: Boolean
     },
     data() {
         return {
@@ -48,7 +83,7 @@ export default {
         }
     },
     computed: {
-        miniUser(){
+        miniUser() {
             return {
                 _id: this.user._id,
                 username: this.user.username,
@@ -56,56 +91,57 @@ export default {
             }
         },
         activitiesToShow() {
-            if (!this.isAllActivities){
+            if (!this.isAllActivities) {
                 return this.activities.filter(activity => activity.comment && activity.comment.length)
             }
             return (this.activities);
+        },
+        isWriting() {
+            console.log(this.msg.txt !== '')
+            return (this.msg.txt !== '');
+        },
+        addBtnClass() {
+            return { 'active': this.isWriting, 'disabled': !this.isWriting }
         }
     },
     methods: {
         toggleShowDetails() {
             this.isAllActivities = !this.isAllActivities;
         },
-        sendMsg() {
-            socketService.emit('activity-newMsg', this.msg)
-            this.msg.txt = '';
-        },
-        addMsg(msg) {
+        addComment() {
+            if (!this.isWriting) return;
             this.userTyping = null;
-            const byMember = {
-                _id: msg.from._id,
-                username: msg.from.username,
-                imgUrl: msg.from.imgUrl
-            };
-			this.$emit('addActivity',null,this.card,msg.txt,byMember);
+            this.$emit('addComment', null, this.card, this.msg.txt, this.msg.from);
+            this.closeInput();
+
         },
         typing() {
-            console.log('typing');
-            socketService.emit('typing', this.msg.from.username);
+            socketService.emit('commenting', this.msg.from.username);
         },
         setUserTyping(username) {
             this.userTyping = username
             if (this.timeOutTyping) clearTimeout(this.timeOutTyping)
             this.timeOutTyping = setTimeout(() => {
                 this.userTyping = null
-            }, 1500)
+            }, 1000)
+        },
+        openInput() {
+            this.$refs['input-area'].classList.add('in-use')
+        },
+        closeInput() {
+            this.$refs['input-area'].classList.remove('in-use')
+            this.$refs['input'].blur();
+            this.msg.txt = '';
+
         }
     },
     created() {
         this.msg.from = this.miniUser;
-        // socketService.setup();
-        socketService.emit('card-topic', this.card.id);
-        // socketService.on('chat-history', (chat => this.chat = chat))
-        socketService.on('activity-addMsg', this.addMsg);
-        socketService.on('user-typing', this.setUserTyping);
-    },
-    destroyed() {
-        socketService.off('activity-addMsg', this.addMsg)
-        // socketService.terminate();
+        socketService.on('user-commenting', this.setUserTyping);
     },
     components: {
         activityPreview,
-        avatar
+        customAvatar
     }
 };
 </script>

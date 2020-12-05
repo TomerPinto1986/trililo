@@ -33,7 +33,7 @@
         // overflow-y: auto;
         padding: 12px 6px 12px 12px;
         width: 100%;
-        height: 100%;
+        height: calc(100% - 60px);
     }
 
     .board-menu-nav-item {
@@ -85,6 +85,9 @@
     }
 
     .filter {
+        overflow-y: auto;
+        height: 100%;
+
         input {
             border: 0;
             box-shadow: inset 0 0 0 2px #dfe1e6;
@@ -157,7 +160,8 @@
         width: 32px;
 
         &.close-btn {
-            right: 6px;
+            right: 4px;
+            top: 15px;
         }
 
         &.back-btn {
@@ -168,46 +172,15 @@
 
     .activity {
         overflow-y: auto;
-        margin-bottom: 50px;
+        margin-block-end: 10px;
+        padding-inline-end: 5px;
+
     }
-
-    .activity-preview {
-        font-size: em(14, 16);
-        position: relative;
-        margin-left: 40px;
-        padding: 8px 0;
-        line-height: 20px;
-
-        .desc {
-            position: relative;
-
-            .user {
-                font-weight: 600;
-            }
-
-            .card {
-                text-decoration: underline;
-                cursor: pointer;
-            }
-
-        }
-
-        .avatar {
-            height: 32px;
-            left: -40px;
-            position: absolute;
-            top: 8px;
-            width: 32px;
-        }
-
-        .time {
-            font-size: em(12, 14);
-            color: #55637d;
-        }
-    }
-
 
     .bg-picker {
+        overflow-y: auto;
+        height: 100%;
+
         .select-container {
             margin: 8px;
             width: 100%;
@@ -254,7 +227,7 @@
                 cursor: pointer;
                 border-radius: 8px;
 
-                &.bgc{
+                &.bgc {
                     margin: 4px;
                 }
             }
@@ -272,4 +245,9 @@
         }
     }
 
+    @media (max-width: 585px) {
+        width: 100%;
+
+        
+    }
 }

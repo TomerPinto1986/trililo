@@ -1,38 +1,59 @@
 <template>
-	<section class="activity-preview flex f-col">
-		<div class="avatar">
-			<avatar class="avater" :size="30" :username="username"></avatar>
-		</div>
-		<div class="desc">
-			<template v-if="activity.txt">
-				<span class="user" >{{ username }} </span>
-				<span class="activity">{{ activity.txt }} </span>
-				<span v-if="activity.card" class="card" @click="emitOpenCard">{{
-					activity.card.title
-				}}</span>
-			</template>
-			<template v-else>
-				<span class="user">{{ username }}</span>
-				on
-				<span class="activity"
-					><span class="card" @click="emitOpenCard">{{ activity.card.title }}</span
-					>: {{ activity.comment }}</span
-				>
-			</template>
-		</div>
-		<span class="time">
-			{{ moment(activity.createdAt).fromNow() }}
-		</span>
-	</section>
+	<div class="activity-preview">
+		<section class="flex">
+			<div class="avatar">
+				<custom-avatar
+					:size="avatarSize"
+					:username="username"
+					:src="activity.byMember.imgUrl"
+				/>
+			</div>
+			<div class="desc">
+				<template v-if="activity.txt">
+					<span class="user">{{ username }} </span>
+					<span class="activity">{{ activity.txt }} </span>
+					<span
+						v-if="activity.card"
+						class="card"
+						@click="emitOpenCard"
+						>{{ activity.card.title }}</span
+					>
+					<div class="time">
+						{{ moment(activity.createdAt).fromNow() }}
+					</div>
+				</template>
+				<template v-else>
+					<span class="user">{{ username }}</span>
+					on
+					<span class="card activity" @click="emitOpenCard">{{
+						activity.card.title
+					}}</span>
+					<span class="time">
+						{{ moment(activity.createdAt).fromNow() }}
+					</span>
+					<div class="comment-container">
+						<span class="comment">{{ activity.comment }}</span>
+						<span class="delete-btn">Delete</span>
+					</div>
+				</template>
+			</div>
+		</section>
+	</div>
 </template>
 
 <script>
-import avatar from 'vue-avatar';
+import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
 
 export default {
 
 	props: {
-		activity: Object
+		activity: Object,
+		size: Number
+	},
+	data(){
+		return{
+			avatarSize: 30
+		}
 	},
 	computed: {
 		username() {
@@ -40,16 +61,21 @@ export default {
 		},
 		time() {
 			return this.activity.createdAt
-		},
-
+		}
 	},
 	methods: {
 		emitOpenCard() {
 			this.$emit('openCard', this.activity.card.id)
+		},
+		print(a, b) {
+			console.log(a, b)
 		}
 	},
+	created(){
+		if(this.size) this.avatarSize = this.size;
+	},
 	components: {
-		avatar
+		customAvatar
 	},
 };
 </script>

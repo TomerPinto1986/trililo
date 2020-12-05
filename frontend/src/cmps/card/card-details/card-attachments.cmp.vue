@@ -3,18 +3,25 @@
         v-if="attachmentsToShow && attachmentsToShow.length"
         class="attachments"
     >
-        <h2>Attachments</h2>
-        <ul>
-            <li
-                class="attachment-card"
+        <div class="attachment-list">
+            <div
                 v-for="(attachment, idx) in attachmentsToShow"
                 :key="idx"
+                class="attachment-card flex f-col"
+                :class="attachment.imgClass"
             >
-                <img  :src="attachment.src" />
-                {{ attachment.name }}
-                <button @click="emitDelete(attachment.id)">Delete</button>
-            </li>
-        </ul>
+                <img :src="attachment.src" />
+                <div class="flex f-between">
+                    <small>{{ attachment.name }}.{{ attachment.format }}</small>
+                    <button
+                        class="card-details-btn"
+                        @click="emitDelete(attachment.id)"
+                    >
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
     </section>
 </template>
 
@@ -31,7 +38,6 @@ export default {
     },
     computed: {
         attachmentsToShow() {
-            // return (this.isShowAll) ? this.attachments : this.attachments.slice(0, 4);
             return utilService.deepCopy(this.attachments);
         }
     },

@@ -58,7 +58,6 @@ export default {
         setCurrCard(state, { cardId }) {
             state.currBoard.groups.forEach(group => {
                 const card = group.cards.find(card => {
-                    console.log(card)
                     return card.id === cardId
                 });
                 if (card) {
@@ -75,13 +74,30 @@ export default {
         },
         updateCardStatus(state, { status }) {
             if ((status.startGroup === status.endGroup && status.endPos === status.startPos) || (status.startGroup === status.endGroup && (!status.endPos && status.endPos !== 0))) return;
+            if (status.cardId) {
+                state.currBoard.groups.forEach(group => {
+                    const card = group.cards.find(card => card.id === status.cardId)
+                    if (card) state.currCard = card;
+                });
+            }
+            let cardToMove;
             const board = state.currBoard;
             const startGroupIdx = board.groups.findIndex(group => group.id === status.startGroup);
-            board.groups[startGroupIdx].cards.splice(status.startPos, 1);
+            if (!status.isClone) {
+                cardToMove = state.currCard;
+                board.groups[startGroupIdx].cards.splice(status.startPos, 1);
+            } else {
+                cardToMove = utilService.deepCopy(state.currCard);
+                cardToMove.id = utilService.makeId();
+            }
             const endGroupIdx = board.groups.findIndex(group => group.id === status.endGroup);
             if (!status.endPos && status.endPos !== 0) {
-                board.groups[endGroupIdx].cards.push(state.currCard);
-            } else board.groups[endGroupIdx].cards.splice(status.endPos, 0, state.currCard);
+                board.groups[endGroupIdx].cards.push(cardToMove);
+            } else board.groups[endGroupIdx].cards.splice(status.endPos, 0, cardToMove);
+            // if (status.cardId) {
+            //     state.currCard = null;
+            // }
+            return
         },
     },
     actions: {
@@ -109,10 +125,7 @@ export default {
             const user = context.getters.loggedinUser;
             newBoard.title = newBoardTxt;
             if (user._id === 'guest') newBoard.isPrivate = false;
-            else {
-                newBoard.byMember = user;
-                newBoard.members.push(user);
-            }
+            newBoard.byMember = user;
             const activity = boardService.emptyActivity();
             activity.byMember = user;
             activity.createdAt = Date.now();

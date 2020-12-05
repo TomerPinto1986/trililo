@@ -1,19 +1,39 @@
 <template>
-	<section v-if="board" class="board-header flex">
+	<section v-if="board" class="board-header" ref="board-header">
 		<div class="header-container flex">
 			<input
+				v-autowidth="{
+					maxWidth: '960px',
+					minWidth: '20px',
+					comfortZone: 30,
+				}"
 				class="title"
 				type="text"
+				maxlength="20"
 				@keyup.enter="emitTitleChange"
 				@blur="emitTitleChange"
 				v-model="boardTitle"
 				ref="myInput"
 			/>
-						<span class="seperator"></span>
+			<button
+				class="favorite flex f-center"
+				v-if="isMarked"
+				@click="toggleMarkBoard"
+			>
+				<i class="fas fa-star"></i>
+			</button>
+			<button
+				class="favorite flex f-center"
+				v-else
+				@click="toggleMarkBoard"
+			>
+				<i class="far fa-star"></i>
+			</button>
+			<span class="seperator"></span>
 
 			<el-select
 				v-model="privacy"
-				class="privacy flex f-center"
+				class="privacy"
 				popper-class="dropdown"
 				@change="emitPrivacyChange"
 			>
@@ -27,37 +47,50 @@
 			</el-select>
 			<span class="seperator"></span>
 			<div class="board-members flex">
-				<div v-for="member in boardMembers" :key="member.id" class="member">
-					<avatar
-						:size="35"
-						:lighten="-90"
-						:customStyle="{ fontWeight: 'bold' }"
-						:username="member.username"
-					></avatar>
-				</div>
-				<span
-					class="add-btn flex f-center"
-					v-if="!isAddUsers"
-					@click="addUsers"
+				<custom-avatar
+					class="member member-card"
+					:size="40"
+					:username="board.byMember.username"
+					:src="board.byMember.imgUrl"
+					@click.native="emitFilter(board.byMember._id)"
+					:class="checkClass(board.byMember._id)"
+				/>
+				<div
+					class="member"
+					v-for="member in boardMembers"
+					:key="member.id"
 				>
-					<i class="fas fa-user-plus"></i>
-				</span>
+					<custom-avatar
+						v-if="member._id !== board.byMember._id"
+						class="member-card"
+						:size="40"
+						:username="member.username"
+						:src="member.imgUrl"
+						@click.native="emitFilter(member._id)"
+						:class="checkClass(member._id)"
+					/>
+				</div>
+
+				<span class="add-btn" @click="addUsers"> Invite </span>
 				<add-users
 					v-if="isAddUsers"
-					:allUsers="users"
+					:allUsers="usersToAdd"
 					:boardUsers="this.board.members"
 					@closeUsers="closeUsers"
 					@updateUsers="updateUsers"
 				/>
 			</div>
 		</div>
-		<button class="menu-btn" @click="emitOpenMenu">Menu</button>
+		<button class="menu-btn" @click="emitOpenMenu">
+			Show Menu <span data-txt=""></span>
+		</button>
 	</section>
 </template>
 
 <script>
 import addUsers from './add-users.cmp';
-import avatar from 'vue-avatar';
+import customAvatar from '@/cmps/custom-elements/custom-avatar.cmp'
+import { utilService } from '../../services/util.service';
 
 
 export default {
@@ -68,6 +101,7 @@ export default {
 	},
 	data() {
 		return {
+			isMarked: false,
 			boardTitle: null,
 			isAddUsers: false,
 			options: (this.user._id !== 'guest') ? [
@@ -76,10 +110,18 @@ export default {
 			] : [
 					{ value: 'public', label: 'Public' }
 				],
-			privacy: null
+			privacy: null,
+			filterBy: {
+				txt: "",
+				membersIds: [],
+				labelsIds: []
+			}
 		}
 	},
 	methods: {
+		toggleMarkBoard() {
+			this.isMarked = !this.isMarked;
+		},
 		emitOpenMenu() {
 			this.$emit('openMenu')
 		},
@@ -98,25 +140,36 @@ export default {
 				this.$refs.myInput.blur();
 			}, 0);
 		},
-		emitBgChange(bgc) {
-			this.$emit('changeBgc', bgc)
-		},
 		closeMenu() {
 			this.isMenu = false;
 		},
 		emitPrivacyChange() {
 			this.$emit('privacyChange', this.privacy)
 		},
-		emitDeleteBoard(boardId) {
-			this.$emit('deleteBoard', boardId)
+		emitFilter(memberId) {
+			if (this.filterBy['membersIds'].includes(memberId)) {
+				const idIdx = this.filterBy['membersIds'].findIndex(currId => currId === memberId)
+				if (idIdx !== -1) this.filterBy['membersIds'].splice(idIdx, 1)
+			} else this.filterBy['membersIds'].push(memberId)
+
+			this.$emit('filter', utilService.deepCopy(this.filterBy))
+		},
+		isChecked(memberId) {
+			return this.filterBy.membersIds.some(id => id === memberId)
 		}
 	},
 	computed: {
+		usersToAdd() {
+			return this.users.filter(user => user._id !== this.board.byMember._id)
+		},
 		boardMembers() {
 			return this.board.members;
 		},
 		isPrivate() {
 			return this.board.isPrivate ? 'Private' : 'Public'
+		},
+		checkClass() {
+			return (memberId) => ({ 'checked': this.isChecked(memberId) })
 		}
 	},
 	created() {
@@ -126,7 +179,7 @@ export default {
 	destroyed() {
 	},
 	components: {
-		avatar,
+		customAvatar,
 		addUsers,
 	}
 }

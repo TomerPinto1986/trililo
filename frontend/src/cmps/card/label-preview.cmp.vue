@@ -1,7 +1,7 @@
 <template>
     <section class="label-preview">
         <div
-            class="label flex f-s-between"
+            :class="`label bgc-${idx+1} flex f-s-between `"
             :style="{ backgroundColor: label.color }"
             @click.stop="toggleLabel"
         >
@@ -16,7 +16,7 @@
             />
             <i :class="isSelect()"></i>
         </div>
-        <button @click.stop="focusInput"><i class="fal fa-pen"></i></button>
+        <button class="label-edit" @click.stop="focusInput"><img  src="@/assets/svg/edit.svg" alt=""></button>
     </section>
 </template>
 
@@ -25,6 +25,7 @@ import { utilService } from '../../services/util.service.js';
 
 export default {
     props: {
+        idx: Number,
         label: Object,
         card: Object
     },

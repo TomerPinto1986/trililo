@@ -11,11 +11,23 @@
         Taskules
     </title>
 
-
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://kit.fontawesome.com/e2e09dddc5.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+    <script>
+        window.fbAsyncInit = function() {
+            console.log('facebookinit');
+            window.FB.init({
+                appId: '413653196490003',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v9.0'
+            });
+        };
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
     <noscript>
         <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
             Please enable it to continue.</strong>

@@ -24,9 +24,6 @@ export default {
 	data() {
 		return {
 			pickerOptions: {
-				disabledDate(time) {
-					return time.getTime() < Date.now();
-				},
 				shortcuts: [
 					{
 						text: 'Tomorrow',
@@ -63,7 +60,7 @@ export default {
 		},
 	},
 	mounted() {
-		this.$refs.date._data.pickerVisible = true;
+		// this.$refs.date._data.pickerVisible = true;
 	}
 };
 </script>

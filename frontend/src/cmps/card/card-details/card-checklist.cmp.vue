@@ -2,12 +2,17 @@
     <section class="card-checklist">
         <div class="checklist-title flex f-s-between">
             <h2>{{ checklist.title }}</h2>
-            <button @click="deleteChecklist">Delete</button>
+            <button class="card-details-btn" @click="deleteChecklist">
+                Delete
+            </button>
         </div>
         <div class="show-percent flex">
             <div class="precent">{{ percent }}</div>
             <div class="my-progress">
-                <div class="my-bar" :style="{ width: percent }"></div>
+                <div
+                    class="my-bar"
+                    :style="{ width: percent, backgroundColor: bgc }"
+                ></div>
             </div>
         </div>
         <div class="items-container" v-if="checklist.items.length">
@@ -22,16 +27,21 @@
         </div>
         <template v-if="isEdit">
             <input
+                class="add-item-input"
                 type="text"
                 placeholder="Add an item"
                 v-model="newItem"
                 ref="myInput"
                 @keyup.enter="saveItem"
             />
-            <button class="m-btns" @click="saveItem">Save</button>
-            <button class="m-btns" @click="cancel">Cancel</button>
+            <button class="green-btn" @click="saveItem">Save</button>
+            <button class="cancel-btn m-btns" @click="cancel">
+                <i class="fal fa-times"></i>
+            </button>
         </template>
-        <button v-else @click="openInput">Add an item</button>
+        <button class="card-details-btn" v-else @click="openInput">
+            Add an item
+        </button>
     </section>
 </template>
 
@@ -55,6 +65,10 @@ export default {
             let percent = Math.trunc(doneCount / this.checklist.items.length * 100);
             if (isNaN(percent)) percent = 0;
             return percent + '%';
+        },
+        bgc() {
+            if (this.percent === '100%') return '#5aac44';
+            return '#0079bf';
         }
     },
     methods: {

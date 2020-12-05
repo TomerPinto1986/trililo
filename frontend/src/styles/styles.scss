@@ -9,6 +9,7 @@
 @import 'basics/base';
 @import 'basics/layout';
 @import 'basics/scrollbar';
+@import 'basics/swal';
 // VIEWS
 @import 'views/card-details';
 @import 'views/board-list';
@@ -16,6 +17,8 @@
 @import 'views/home-page';
 @import 'views/app';
 // COMPONENTS
+@import './cmps/login';
+@import './cmps/card-menu-edit';
 @import './cmps/pop-up';
 @import './cmps/main-header';
 @import './cmps/board-header';
@@ -26,3 +29,7 @@
 @import 'cmps/board-menu';
 @import 'cmps/card-checklist';
 @import './cmps/card-description';
+@import './cmps/activity-preview';
+@import './cmps/group-menu';
+@import './cmps/dashboard';
+@import './cmps/card-cover';

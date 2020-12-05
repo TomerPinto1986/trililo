@@ -1,14 +1,16 @@
 <template>
     <section class="card-label flex f-col f-center">
         <h3>Labels</h3>
+        <hr>
         <ul class="label-list flex f-col">
             <li>
                 <label-preview
                     class="flex"
-                    v-for="label in boardLabels"
+                    v-for="(label,idx) in boardLabels"
                     :key="label.id"
                     :label="label"
                     :card="card"
+                    :idx="idx"
                     @updateCard="emitUpdateCard"
                     @updateLabelTitle="emitUpdateTitle"
                 />
@@ -25,9 +27,6 @@ export default {
         card: Object,
         boardLabels: Array
     },
-    components: {
-        labelPreview
-    },
     methods: {
         emitUpdateCard(card) {
             this.$emit('updateCard', card);
@@ -35,6 +34,12 @@ export default {
         emitUpdateTitle(labelId, title) {
             this.$emit('updateLabelTitle', labelId, title);
         }
-    }
+    },
+    mounted(){
+        this.$emit('setHeight', this.$el.clientHeight)
+    },
+     components: {
+        labelPreview
+    },
 };
 </script>
