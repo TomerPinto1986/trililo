@@ -16,7 +16,7 @@
             />
             <i :class="isSelect()"></i>
         </div>
-        <button @click.stop="focusInput"><i class="fal fa-pen"></i></button>
+        <button class="label-edit" @click.stop="focusInput"><img  src="@/assets/svg/edit.svg" alt=""></button>
     </section>
 </template>
 

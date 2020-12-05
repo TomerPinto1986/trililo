@@ -30,6 +30,9 @@
         &:hover {
             background-color: rgba(226, 228, 233, 0.493);
         }
+        img {
+            width: 13px;
+        }
     }
     &:hover {
         background-color: #f4f5f7;
@@ -70,6 +73,17 @@
         padding: 0 5px 3px;
         .description-icon img {
             width: 13px;
+        }
+        .checklist-icon {
+            &.complete {
+                background-color: green;
+            }
+            img {
+                width: 13px;
+            }
+        }
+        .comments-icon {
+            width: 26px;
         }
         i {
             margin-inline-end: 5px;

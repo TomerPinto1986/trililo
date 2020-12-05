@@ -27,48 +27,43 @@
 					v-model="cardTxt"
 				></textarea>
 				<div class="icons flex wrap">
-					<span class="small-icons">
-						<i
-							v-if="card.dueDate"
-							:style="dueDateStyle"
-							class="far fa-clock"
-						>
-							<span>
-								{{
-									moment(card.dueDate).format("MMM Do")
-								}}</span
-							>
-						</i>
+            <span class="small-icons flex">
+                <i v-if="card.dueDate" :style="dueDateStyle" class="far fa-clock">
+                    <span> {{ moment(card.dueDate).format("MMM Do") }}</span>
+                </i>
 
-						<i v-if="card.description" class="description-icon"
-							><img src="@/assets/svg/desc.svg"
-						/></i>
-						<i v-if="card.checklist" class="fas fa-list"></i>
-						<i
-							v-if="card.attachments && card.attachments.length"
-							class="fas fa-paperclip"
-						></i>
-						<i v-if="commentsLen" class="fal fa-comment">{{
-							commentsLen
-						}}</i>
-					</span>
-					<span
-						class="members-container flex"
-						v-if="card.members && card.members.length"
-					>
-						<div
-							class="card-members"
-							v-for="member in card.members"
-							:key="member._id"
-						>
-							<custom-avatar
-								:size="30"
-								:username="member.username"
-								:src="member.imgUrl"
-							/>
-						</div>
-					</span>
-				</div>
+                <i v-if="card.description" class="description-icon"
+                    ><img src="@/assets/svg/desc.svg"
+                /></i>
+                <i v-if="card.checklistGroup" class="checklist-icon">
+                    <img src="@/assets/svg/checklist.svg" />{{ todoStauts }}</i
+                >
+                <i
+                    v-if="card.attachments && card.attachments.length"
+                    class="fas fa-paperclip"
+                ></i>
+                <i v-if="commentsLen" class="flex comments-icon">
+                    <img src="@/assets/svg/txtbox.svg" />
+                    {{ commentsLen }}</i
+                >
+            </span>
+            <span
+                class="members-container flex"
+                v-if="card.members && card.members.length"
+            >
+                <div
+                    class="card-members"
+                    v-for="member in card.members"
+                    :key="member._id"
+                >
+                    <custom-avatar
+                        :size="30"
+                        :username="member.username"
+                        :src="member.imgUrl"
+                    />
+                </div>
+            </span>
+        </div>
 			</div>
 			<div class="add-card-btns flex">
 				<button @click="saveTitle" class="edit-title-btn">Save</button>
@@ -221,6 +216,20 @@ export default {
 		}
 	},
 	computed: {
+		todoStatus(){
+			const totalTodos = this.card.checklistGroup.reduce((checklist,counterList) =>{
+				let counterItem = checklist.reduce((item,counterItem)=>{
+					counterItem.total++;
+					if (item.isdone) counterItem.done++;
+					return counterItem;
+				},{total:0,done:0})
+				counterList.toatl += counterItem.total;
+				counterList.toatl += counterItem.done;
+				return counterList;
+			},{total:0,done:0})
+			console.log(totalTodos);
+		return totalTodos;
+		},
 		commentsLen() {
 			if (!this.activities.filter(activity => activity.comment && activity.card.id === this.card.id).length) return
 			return ' ' + this.activities.filter(activity => activity.comment && activity.card.id === this.card.id).length;
@@ -352,17 +361,19 @@ export default {
 		},
 		setNewDate(dueDate) {
 			let txt;
-			if (this.card.dueDate) {
-				delete this.card.dueDate;
+			const updateCard = utilService.deepCopy(this.card)
+			if (updateCard.dueDate) {
+				delete updateCard.dueDate;
 				txt = 'changed'
 			} else {
 				txt = 'added'
-				this.card.isDone = false;
+				updateCard.isDone = false;
 			}
 			this.card.dueDate = dueDate;
-			this.$emit('updateCard', this.card);
+			this.$emit('updateCard', updateCard);
 			this.closePopup();
-			this.$emit('updateActivities', `${txt} due date to `, this.card)
+			this.$emit('updateActivities', `${txt} due date to `, updateCard)
+			this.card = updateCard;
 		},
 		setPopupHeight(height) {
 			this.popupHeight = height;
