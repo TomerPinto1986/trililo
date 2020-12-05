@@ -88,7 +88,7 @@
 					class="_9HlyjDStZT9Tkt _3wVGI--mpmR634"
 				></button>
 				<button
-					@click="setColor('172b4d')"
+					@click="setColor('2D928D')"
 					class="_9HlyjDStZT9Tkt _36HiOr-q2SnKP7"
 				></button>
 			</div>
