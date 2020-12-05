@@ -206,7 +206,7 @@ export default {
             this.updateBoard(board);
             const loggedinUser = this.$store.getters.loggedinUser;
             socketService.emit('change-board', { msg: `${loggedinUser.username} added a new '${title}' card`, boardId: board._id, members: this.members(loggedinUser) });
-            this.myAlert('The card was successfully added');
+            // this.myAlert('The card was successfully added');
             this.addActivity(` added `, newCard)
         },
         updateCard(card) {
