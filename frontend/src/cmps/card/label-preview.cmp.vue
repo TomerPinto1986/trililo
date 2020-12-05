@@ -11,6 +11,7 @@
                 type="text"
                 ref="myInput"
                 v-model="titleToEdit"
+                @click.stop
                 @keyup.enter.stop="updateTitle"
                 @blur.stop="updateTitle"
             />

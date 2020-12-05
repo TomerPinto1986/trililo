@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <div v-else class="open-add-btn" @click.stop="addGroup">
-                    <i class="el-icon-plus"></i> <span>Add another list</span>
+                    <i class="el-icon-plus"></i> <span> Add another list</span>
                 </div>
             </div>
             <div class="spacer">x</div>

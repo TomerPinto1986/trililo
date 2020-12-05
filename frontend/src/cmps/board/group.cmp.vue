@@ -167,7 +167,6 @@ export default {
 			return this.group.cards.some(card => card.dueDate)
 		},
 		menuPosition() {
-			// if (!this.clickPos) return '290px'
 			const x = this.clickPos.width - this.clickPos.x
 			const padding = 24;
 			const itemWidth = 290;
