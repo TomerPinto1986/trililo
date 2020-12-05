@@ -71,7 +71,7 @@ export default {
             this.isAdding = false;
         },
         boardBg(bgc) {
-            const bgSrcs = this.$store.getters.bgSrcs;
+            const bgSrcs = this.$store.getters.sBgSrcs;
             const style = (bgc.includes('rgb')) ? bgc : `url(${bgSrcs[+bgc]})`;
             return style;
         }
