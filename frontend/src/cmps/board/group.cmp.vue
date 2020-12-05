@@ -167,7 +167,6 @@ export default {
 			return this.group.cards.some(card => card.dueDate)
 		},
 		menuPosition() {
-			// if (!this.clickPos) return '290px'
 			const x = this.clickPos.width - this.clickPos.x
 			const padding = 24;
 			const itemWidth = 290;
@@ -209,7 +208,7 @@ export default {
 				title: 'Are you sure you want to delete this list?',
 				showCancelButton: true,
 				showConfirmButton: true,
-				confirmButtonColor: '#455a64',
+				confirmButtonColor: '#4E7592',
 				cancelButtonColor: '#ff505b',
 				confirmButtonText: 'Delete'
 			});

@@ -52,15 +52,15 @@
 		<div class="colors">
 			<div class="_3zYZrEHtMpYE6i">
 				<button
-					@click="setColor('7bc86c', 'green')"
+					@click="setColor('7bc86c')"
 					class="_9HlyjDStZT9Tkt _VjutK-Uakd6Op"
 				></button>
 				<button
-					@click="setColor('f5dd29', 'yellow')"
+					@click="setColor('f5dd29')"
 					class="_9HlyjDStZT9Tkt _3wmQ8lVe3zahD9"
 				></button>
 				<button
-					@click="setColor('ffaf3f', 'orange')"
+					@click="setColor('ffaf3f')"
 					class="_9HlyjDStZT9Tkt _3IxJVmJ52SXvxO"
 				></button>
 				<button

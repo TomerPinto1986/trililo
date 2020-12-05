@@ -27,6 +27,7 @@ function remove(boardId) {
 }
 
 function save(board) {
+    console.log(board)
     if (board._id) {
         return httpService.put(`board/${board._id}`, board);
     } else {

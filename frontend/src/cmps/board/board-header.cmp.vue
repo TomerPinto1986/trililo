@@ -71,8 +71,11 @@
 					/>
 				</div>
 
-				<span class="add-btn" @click="addUsers"> Invite </span>
+				<span class="add-btn add-btn" @click.stop="addUsers">
+					Invite
+				</span>
 				<add-users
+					@click.stop
 					v-if="isAddUsers"
 					:allUsers="usersToAdd"
 					:boardUsers="this.board.members"
@@ -156,6 +159,11 @@ export default {
 		},
 		isChecked(memberId) {
 			return this.filterBy.membersIds.some(id => id === memberId)
+		},
+		closeAddUsers(ev) {
+			console.log(ev.target)
+			if(ev.target.dataset.name === 'member') return
+			this.isAddUsers = false;
 		}
 	},
 	computed: {
@@ -175,8 +183,10 @@ export default {
 	created() {
 		this.boardTitle = this.board.title;
 		this.privacy = (this.isPrivate);
+		document.addEventListener('click', this.closeAddUsers)
 	},
 	destroyed() {
+		document.removeEventListener('click', this.closeAddUsers)
 	},
 	components: {
 		customAvatar,

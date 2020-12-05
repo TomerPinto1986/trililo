@@ -5,7 +5,7 @@
     overflow: hidden;
     position: absolute;
     width: 290px;
-    top: 40px;
+    top: 45px;
     left: 275px;
     z-index: 70;
     font-family: 'Segoe UI';
@@ -57,7 +57,7 @@
         padding: 0 12px 12px;
     }
 
-    .content {
+    .content-container {
         padding: 0 12px 12px;
 
         div {
@@ -70,7 +70,7 @@
             color: rgba(23, 43, 77, 0.85);
 
             &:hover {
-                background-color: rgba(9, 30, 66, .04);
+                background-color: rgba(9, 30, 66, 0.08);
                 color: rgba(9, 30, 66, 0.85);
             }
         }
@@ -91,5 +91,19 @@
         margin: 8px 0;
     }
 
+    .el-input.el-input--suffix {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .el-input__inner {
+            padding: 0 15px;
+            text-align: center;
+        }
+    }
+
+    .el-select__caret.el-input__icon.el-icon-arrow-up {
+        display: none;
+    }
 
 }
