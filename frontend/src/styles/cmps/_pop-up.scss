@@ -71,8 +71,10 @@
             }
         }
         ul {
+            color: #40506c;
             overflow-y: auto;
-            height: 400px;
+            height: 270px;
+            padding: 5px;
         }
         li {
             justify-content: space-between;
