@@ -172,7 +172,7 @@
 						@moveCard="moveCard"
 				/></pop-up>
 			</button>
-			<button class="action-btn due-date" @click="changeDueDate">
+			<button class="action-btn due-date" @click="changeDueDate" :class="btnsClass">
 				<div class="flex">
 					<img
 						class="icon-btn"
@@ -264,7 +264,6 @@ export default {
 			return { 'rtl': (this.clickPos.width - this.clickPos.x - this.clickPos.offsetX < 190) }
 		},
 		btnsClass() {
-			console.log(!this.isPopUp)
 			return { 'no-popup': !this.isPopUp }
 		},
 		popupPos() {
@@ -298,7 +297,7 @@ export default {
 		closePopup() {
 			this.isPopUp = false;
 			this.currPopUp = '';
-			this.$emit('isEditing', false)
+			setTimeout(()=>this.$emit('isEditing', false), 10)
 		},
 		updateCardLabel(card) {
 			this.$emit('updateCardLabel', card)

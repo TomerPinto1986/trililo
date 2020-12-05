@@ -70,7 +70,7 @@ function _buildCriteria(filterBy) {
     var criteria = {};
     if (filterBy.id === 'guest') criteria.isPrivate = false;
     else {
-        criteria = { $or: [{ "members._id": { $regex: filterBy.id } }, { "isPrivate": false }] }
+        criteria = { $or: [{ "members._id": { $regex: filterBy.id } }, { "byMember._id": { $regex: filterBy.id } }, { "isPrivate": false }] }
     }
     return criteria;
 }

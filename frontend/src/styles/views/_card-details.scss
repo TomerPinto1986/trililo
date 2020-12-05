@@ -63,7 +63,7 @@
         color: rgb(9, 30, 66);
 
         &:hover {
-            background-color: rgb(226, 228, 233)!important;
+            background-color: rgb(226, 228, 233) !important;
         }
     }
 
@@ -82,19 +82,21 @@
         width: 40px;
         height: 40px;
         z-index: 1;
+        border-radius: 50%;
 
         &:hover {
-            i {
-                background-color: #dcdfe5;
-                border-radius: 50%;
-                box-sizing: unset;
-                border: 3px solid #dcdfe5;
-            }
+            background-color: #dcdfe5;
+
+            // i {
+                // background-color: #dcdfe5;
+            //     border-radius: 50%;
+            //     box-sizing: unset;
+            //     border: 3px solid #dcdfe5;
+            // }
         }
 
         &.cover {
             background-color: rgba(9, 30, 66, .1);
-            border-radius: 50%;
 
             &:hover {
                 background-color: rgba(9, 30, 66, .15);
@@ -541,6 +543,14 @@
             display: none;
         }
     }
+
+    .loading {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        top: calc(50% - 150px);
+        left: calc(50% - 150px);
+    }
 }
 
 @media (max-width: 910px) {
@@ -703,5 +713,5 @@
 }
 
 .el-picker-panel.el-date-picker.el-popper.has-sidebar.has-time {
-    top: 340px!important;
+    top: 340px !important;
 }
