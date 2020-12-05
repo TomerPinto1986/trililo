@@ -58,7 +58,7 @@
 				<div
 					class="member"
 					v-for="member in boardMembers"
-					:key="member.id"
+					:key="member._id"
 				>
 					<custom-avatar
 						v-if="member._id !== board.byMember._id"
