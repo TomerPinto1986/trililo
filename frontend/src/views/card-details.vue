@@ -276,17 +276,18 @@
 					@click.stop="openCoverPicker"
 				>
 					<img class="icon-btn" src="@/assets/svg/cover.svg" />
-					<el-color-picker
+					<!-- <el-color-picker
 						popper-class="color-dropdown"
 						ref="color-picker"
 						class="color-picker"
 						size="mini"
 						v-model="card.style.headerColor"
 						@change="updateCover"
-					></el-color-picker>
+					></el-color-picker> -->
 					<pop-up v-if="isCmpOpen('cover')" @closePopup="closePopup">
 						<card-cover
 							:color="card.style.headerColor"
+							:showFull="card.style.isFull"
 							@colorChange="updateCover"
 					/></pop-up>
 				</button>
@@ -617,12 +618,14 @@ export default {
 			this.isPopUp = true;
 		},
 		openCoverPicker() {
-			this.$refs['color-picker']._data.showPicker = true;
+			this.currPopUp = 'cover';
+			this.isPopUp = true;
 		},
-		updateCover(color) {
-			this.card.style.headerColor = color;
-			const board = this.board;
-			this.updateBoard(board);
+		updateCover(color, isFull) {
+			const card = utilService.deepCopy(this.card)
+			card.style.headerColor = color;
+			card.style.isFull = isFull;
+			this.updateCard(card);
 		},
 		onAddMembers() {
 			this.currPopUp = 'member';
