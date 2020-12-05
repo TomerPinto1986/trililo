@@ -10,11 +10,11 @@
 		/>
 			<h2>board members</h2>
 		<ul>
-			<li v-for="user in membersToShow" class="flex" :key="user._id">
+			<li v-for="user in membersToShow" class="flex" :key="user._id" @click="toggleMember(user._id)">
 				<span
 					v-if="isMember(user._id)"
 					class="card-member flex"
-					@click="toggleMember(user._id)"
+					
 				>
 					<custom-avatar
 						:size="35"
@@ -27,11 +27,11 @@
 				</span>
 				<i class="fas fa-check" v-if="isMember(user._id)"></i>
 			</li>
-			<li v-for="user in membersToShow" class="flex" :key="user._id + 1">
+			<li v-for="user in membersToShow" class="flex" :key="user._id + 1" @click="toggleMember(user._id)">
 				<span
 					v-if="!isMember(user._id)"
 					class="card-member flex"
-					@click="toggleMember(user._id)"
+					
 				>
 					<custom-avatar
 						:size="35"

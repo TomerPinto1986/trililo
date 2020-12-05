@@ -12,12 +12,13 @@
 			v-model="userSearch"
 		/>
 		<ul>
-			<li v-for="user in usersToShow" :key="user._id" class="flex">
-				<span
-					class="board-user flex"
-					@click="toggleUser(user._id)"
-					v-if="isUser(user._id)"
-				>
+			<li
+				v-for="user in usersToShow"
+				:key="user._id"
+				class="flex"
+				@click="toggleUser(user._id)"
+			>
+				<span class="board-user flex" v-if="isUser(user._id)">
 					<custom-avatar
 						:size="35"
 						:username="user.username"
@@ -29,12 +30,13 @@
 			</li>
 		</ul>
 		<ul>
-			<li v-for="user in usersToShow" :key="user._id" class="flex">
-				<span
-					class="board-user flex"
-					@click="toggleUser(user._id)"
-					v-if="!isUser(user._id)"
-				>
+			<li
+				v-for="user in usersToShow"
+				:key="user._id"
+				class="flex"
+				@click="toggleUser(user._id)"
+			>
+				<span class="board-user flex" v-if="!isUser(user._id)">
 					<custom-avatar
 						:size="35"
 						:username="user.username"
