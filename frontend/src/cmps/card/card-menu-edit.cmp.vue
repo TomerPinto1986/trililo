@@ -277,8 +277,8 @@ export default {
 		menuPos() {
 			const xDiff = (this.clickPos.width - this.clickPos.x - this.clickPos.offsetX < 190) ? 165 : 0;
 			const yDiff = (this.clickPos.height - this.clickPos.y < 200) ? 75 : 0;
-			const x = this.clickPos.x - this.clickPos.offsetX + 14 - 280 - xDiff;
-			const y = this.clickPos.y - 18 - this.clickPos.offsetY - yDiff;
+			const x = this.clickPos.x - this.clickPos.offsetX + 8 - 280 - xDiff;
+			const y = this.clickPos.y - 24 - this.clickPos.offsetY - yDiff;
 			return { 'left': x + 'px', 'top': y + 'px' }
 		},
 		menuClass() {
