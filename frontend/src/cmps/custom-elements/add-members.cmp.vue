@@ -8,8 +8,8 @@
 			@keyup="filter"
 			v-model="memberSearch"
 		/>
-		<ul>
 			<h2>board members</h2>
+		<ul>
 			<li v-for="user in membersToShow" class="flex" :key="user._id">
 				<span
 					v-if="isMember(user._id)"

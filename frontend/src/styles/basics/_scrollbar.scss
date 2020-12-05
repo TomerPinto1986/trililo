@@ -1,21 +1,22 @@
-::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-}
+.board-details {
+    ::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+    }
 
-::-webkit-scrollbar-thumb {
-    background: rgba(203, 203, 203, .25);
-    border-radius: 5px;
-}
+    ::-webkit-scrollbar-thumb {
+        background: rgba(203, 203, 203, .25);
+        border-radius: 5px;
+    }
 
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(203, 203, 203, .4);
-}
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(203, 203, 203, .6);
+    }
 
-::-webkit-scrollbar-track {
-    background: rgba(9, 30, 66, .08);
-    border-radius: 5px;
-
+    ::-webkit-scrollbar-track {
+        background: rgba(9, 30, 66, .08);
+        border-radius: 5px;
+    }
 }
 
 .group-container {
