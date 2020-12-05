@@ -393,10 +393,8 @@ export default {
 			return this.$store.getters.loggedinUser;
 		},
 		boardMembers() {
-			if (!this.board.isPrivate) return utilService.deepCopy(this.$store.getters.users);
 			const membersToShow = utilService.deepCopy(this.board.members);
 			membersToShow.push(utilService.deepCopy(this.board.byMember));
-			console.log(membersToShow);
 			return membersToShow
 		},
 		board() {
