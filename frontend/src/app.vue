@@ -29,7 +29,6 @@ export default {
             this.$store.dispatch('logout');
         },
         userMsg(data) {
-            console.log('data:', data)
             if (!data.members.includes(this.$store.getters.loggedinUser._id)) return;
             Swal.fire({
                 position: 'bottom-end',

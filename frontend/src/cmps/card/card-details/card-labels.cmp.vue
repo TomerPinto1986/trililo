@@ -1,7 +1,7 @@
 <template>
     <section class="card-label flex f-col f-center">
         <h3>Labels</h3>
-        <hr>
+        <hr />
         <ul class="label-list flex f-col">
             <li>
                 <label-preview
