@@ -239,7 +239,7 @@ export default {
         deleteGroup(groupId) {
             const board = this.board;
             const groupIdx = board.groups.findIndex(currGroup => currGroup.id === groupId);
-            const loggedinUser = this.$store.getters.loggedinUser;          
+            const loggedinUser = this.$store.getters.loggedinUser;
             socketService.emit('change-board', { msg: `${loggedinUser.username} deleted the '${board.groups[groupIdx].title}' list`, boardId: board._id, members: this.members(loggedinUser) });
             board.groups.splice(groupIdx, 1);
             this.updateBoard(board);
@@ -299,7 +299,7 @@ export default {
         },
         updateboardUsers(userId) {
             const board = this.board;
-            const memberIdx = board.members.findIndex(member => member._id === userId);
+            let memberIdx = board.members.findIndex(member => member._id === userId);
             const user = this.$store.getters.users.find(user => user._id === userId);
             if (memberIdx === -1) {
                 const boardUser = {
@@ -310,6 +310,12 @@ export default {
                 board.members.push(boardUser);
             } else {
                 board.members.splice(memberIdx, 1);
+                board.groups.forEach(group => {
+                    group.cards.forEach(card => {
+                        memberIdx = card.members.findIndex(member => member._id === userId)
+                        if (memberIdx !== -1) card.members.splice(memberIdx, 1);
+                    })
+                })
             }
             this.updateBoard(board);
             const action = (memberIdx === -1) ? `added ${user.username} to the board` : `removed ${user.username} from the board`;
