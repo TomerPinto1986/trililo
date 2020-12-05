@@ -48,11 +48,11 @@
                 margin-block-start: 180px;
             }
             div {
-                &.img {
+                &:first-child {
                     padding-inline-end: 20px;
                     max-width: 420px;
                 }
-                &.art {
+                &:last-child {
                     padding-inline-start: 20px;
                 }
             }
