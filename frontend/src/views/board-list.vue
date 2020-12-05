@@ -52,7 +52,7 @@ export default {
                 title: 'Are you sure you want to delete this board?',
                 showCancelButton: true,
                 showConfirmButton: true,
-                confirmButtonColor: '#455a64',
+                confirmButtonColor: '#4E7592',
                 cancelButtonColor: '#ff505b',
                 confirmButtonText: 'Delete'
             });

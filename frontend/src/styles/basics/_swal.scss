@@ -9,14 +9,14 @@
 }
 
 .swal2-title {
-    padding: 12px 14px;
-    font-size: 17px;
+    padding: 7px 10px;
+    font-size: 14px;
     line-height: 20px;
     font-weight: 400;
     font-family: 'Segoe UI';
     color: #172b4d;
     border-radius: 3px;
-    margin: 10px;
+    margin: 0;
 }
 
 .swal2-container.swal2-bottom-end.swal2-backdrop-show>.swal2-title.swal2-popup {
@@ -29,7 +29,6 @@
     // width: fit-content;
     height: min-content;
     margin: 0;
-    // padding: 0;
     background-color: transparent;
 }
 
@@ -39,18 +38,20 @@
 }
 
 .swal2-actions {
-    margin: 0 0 24px;
+    margin: 0 0 10px;
 }
 
-.swal2-styled.swal2-confirm {
-    font-size: 17px;
-    line-height: 20px;
+.swal2-styled.swal2-confirm,
+.swal2-styled.swal2-cancel {
+    font-size: 14px;
+    line-height: 14px;
     font-weight: 400;
     font-family: 'Segoe UI';
+    padding: 6px 10px;
 }
 
 .swal2-styled.swal2-confirm:focus {
-    box-shadow: 0 0 0 3px rgba(69, 90, 100, .5);
+    box-shadow: 0 0 0 3px rgba(78, 117, 146, .5);
 }
 
 .swal2-styled.swal2-cancel:focus {
