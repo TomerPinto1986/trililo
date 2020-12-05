@@ -35,7 +35,7 @@
                         @keyup.enter="updateCardTitle"
                     />
                     <h4 class="in-list">
-                        in list <span>{{ getCurrGroup.title }}</span>
+                        In list <span>{{ getCurrGroup.title }}</span>
                     </h4>
                 </div>
                 <section class="add-to-card flex wrap">
@@ -57,12 +57,12 @@
                                     :style="{ fontSize: '12px' }"
                                 />
                             </span>
-                            <span>
+                            <span @click.stop="onAddMembers">
                                 <custom-avatar
                                     class="card-details-btn plus-btn member"
                                     :size="40"
                                     :isAdd="true"
-                                    @click.stop="onAddMembers"
+                                    
                                 />
                             </span>
                             <!-- <button

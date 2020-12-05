@@ -83,13 +83,6 @@ export default {
         }
     },
     computed: {
-        miniUser() {
-            return {
-                _id: this.user._id,
-                username: this.user.username,
-                url: this.user.url
-            }
-        },
         activitiesToShow() {
             if (!this.isAllActivities) {
                 return this.activities.filter(activity => activity.comment && activity.comment.length)
@@ -136,7 +129,7 @@ export default {
         }
     },
     created() {
-        this.msg.from = this.miniUser;
+        this.msg.from = this.user;
         socketService.on('user-commenting', this.setUserTyping);
     },
     components: {

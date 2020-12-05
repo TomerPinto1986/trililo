@@ -1,5 +1,5 @@
 <template>
-	<section class="add-users">
+	<section class="add-users" ref="member">
 		<header class="add-users-header flex">
 			<h3>Invite to board</h3>
 			<button class="el-icon-close" @click="onClose"></button>
@@ -13,36 +13,52 @@
 		/>
 		<ul>
 			<li
+				data-name="member-li"
 				v-for="user in usersToShow"
 				:key="user._id"
 				class="flex"
 				@click="toggleUser(user._id)"
 			>
-				<span class="board-user flex" v-if="isUser(user._id)">
+				<span
+					data-name="member"
+					class="board-user flex"
+					v-if="isUser(user._id)"
+				>
 					<custom-avatar
+						data-name="member"
 						:size="35"
 						:username="user.username"
 						:src="user.imgUrl"
 					/>
-					<span class="username"> {{ user.username }}</span></span
+					<span class="username" data-name="member">
+						{{ user.username }}</span
+					></span
 				>
 				<i class="fas fa-check" v-if="isUser(user._id)"></i>
 			</li>
 		</ul>
 		<ul>
 			<li
+				data-name="member"
 				v-for="user in usersToShow"
 				:key="user._id"
 				class="flex"
 				@click="toggleUser(user._id)"
 			>
-				<span class="board-user flex" v-if="!isUser(user._id)">
+				<span
+					class="board-user flex"
+					v-if="!isUser(user._id)"
+					data-name="member"
+				>
 					<custom-avatar
+						data-name="member"
 						:size="35"
 						:username="user.username"
 						:src="user.imgUrl"
 					/>
-					<span class="username"> {{ user.username }}</span></span
+					<span data-name="member" class="username">
+						{{ user.username }}</span
+					></span
 				>
 				<!-- <i class="fas fa-check" v-if="isUser(user._id)"></i> -->
 			</li>
