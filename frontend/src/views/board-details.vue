@@ -378,6 +378,7 @@ export default {
 			this.clickPos = pos;
 		},
 		setIsEditing(val) {
+			console.log(this.isCardEdit, val)
 			this.isCardEdit = val;
 		},
 		closeDashboard(){
