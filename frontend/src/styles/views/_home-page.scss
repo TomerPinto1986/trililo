@@ -37,6 +37,7 @@
             align-self: flex-start;
             color: #455a64;
             font-weight: 700;
+            width: 450px;
         }
         p {
             font-size: em(18px);
@@ -44,6 +45,10 @@
         }
         .home-page-card {
             margin-block-start: 80px;
+
+            .art{
+                align-self: center;
+            }
             &:nth-child(2) {
                 margin-block-start: 70px;
             }

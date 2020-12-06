@@ -6,8 +6,8 @@
     >
         <div class="flex f-s-between">
             <h2>{{ boardDetails.title }}</h2>
-            <i class="fas fa-star favorite" v-if="boardDetails.isMarked"></i>
-            <i class="far fa-star favorite" v-else></i>
+            <i class="far fa-star favorite" v-if="boardDetails.isMarked"></i>
+            <!-- <i class="far fa-star favorite" v-else></i> -->
         </div>
         <button class="delete-btn" @click.stop="emitDelete">
             <i class="fas fa-trash-alt"></i>

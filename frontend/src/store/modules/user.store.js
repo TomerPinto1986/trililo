@@ -36,9 +36,10 @@ export default {
         }
     },
     actions: {
-        async login({ commit }, { userCred }) {
+        async login({ dispatch, commit }, { userCred }) {
             const user = await userService.login(userCred);
             commit({ type: 'setUser', user });
+            dispatch('loadBoards')
             return user;
         },
         async signup({ commit }, { userCred }) {
@@ -46,10 +47,11 @@ export default {
             commit({ type: 'setUser', user });
             return user;
         },
-        async logout({ commit }) {
+        async logout({ dispatch, commit }) {
             await userService.logout()
             // commit({ type: 'setUsers', users: [] })
             commit({ type: 'setUser', user: userService.getGuest() })
+            dispatch('loadBoards')
             return;
         },
         async loadUsers({ commit }) {

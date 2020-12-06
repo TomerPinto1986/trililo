@@ -8,14 +8,15 @@
 			@keyup="filter"
 			v-model="memberSearch"
 		/>
-			<h2>board members</h2>
+		<h2>board members</h2>
 		<ul>
-			<li v-for="user in membersToShow" class="flex" :key="user._id" @click="toggleMember(user._id)">
-				<span
-					v-if="isMember(user._id)"
-					class="card-member flex"
-					
-				>
+			<li
+				v-for="user in membersToShow"
+				class="flex"
+				:key="user._id"
+				@click="toggleMember(user._id)"
+			>
+				<span v-if="isMember(user._id)" class="card-member flex">
 					<custom-avatar
 						:size="35"
 						:username="user.username"
@@ -27,12 +28,13 @@
 				</span>
 				<i class="fas fa-check" v-if="isMember(user._id)"></i>
 			</li>
-			<li v-for="user in membersToShow" class="flex" :key="user._id + 1" @click="toggleMember(user._id)">
-				<span
-					v-if="!isMember(user._id)"
-					class="card-member flex"
-					
-				>
+			<li
+				v-for="user in membersToShow"
+				class="flex"
+				:key="user._id + 1"
+				@click="toggleMember(user._id)"
+			>
+				<span v-if="!isMember(user._id)" class="card-member flex">
 					<custom-avatar
 						:size="35"
 						:username="user.username"
@@ -84,7 +86,10 @@ export default {
 		}
 	},
 	mounted() {
-		this.$emit('setHeight', this.$el.clientHeight)
+		const popupWidth = this.$el.clientWidth
+		const popupHeight = this.$el.clientHeight
+		const dimensions = {popupWidth, popupHeight}
+		this.$emit('setDimensions', dimensions)
 	},
 	components: {
 		customAvatar
