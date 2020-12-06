@@ -48,7 +48,7 @@ export default {
     methods: {
         async deleteBoard(boardId) {
             const userAnc = await Swal.fire({
-                position: 'top-end',
+                position: 'bottom-end',
                 title: 'Are you sure you want to delete this board?',
                 showCancelButton: true,
                 showConfirmButton: true,

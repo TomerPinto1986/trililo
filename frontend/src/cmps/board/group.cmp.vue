@@ -212,7 +212,7 @@ export default {
 		},
 		async emitDelete(groupId) {
 			const userAnc = await Swal.fire({
-				position: 'top-end',
+				position: 'bottom-end',
 				title: 'Are you sure you want to delete this list?',
 				showCancelButton: true,
 				showConfirmButton: true,
@@ -279,7 +279,7 @@ export default {
 		},
 		setListHeight() {
 			this.listHeight = this.$refs['card-area'].$el.clientHeight;
-			console.log(this.listHeight)
+			// console.log(this.listHeight)
 		}
 
 	},
