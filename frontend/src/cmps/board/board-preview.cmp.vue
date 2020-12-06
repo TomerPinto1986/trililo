@@ -35,7 +35,6 @@ export default {
             this.$emit('deleted', this.boardDetails._id);
         },
         toggleMarkBoard() {
-            console.log(this.boardDetails);
         }
     }
 }

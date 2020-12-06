@@ -122,7 +122,6 @@ export default {
 	},
 	methods: {
 		toggleMarkBoard() {
-			console.log('marking board',this.board.isMarked);
 			this.$emit('markBoard');
 		},
 		emitOpenMenu() {

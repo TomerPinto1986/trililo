@@ -66,7 +66,6 @@ export default {
             isBg: false,
             isSearch: false,
             isSub: false,
-
         }
     },
     computed: {

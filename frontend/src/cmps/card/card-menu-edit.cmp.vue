@@ -332,7 +332,6 @@ export default {
 			return { 'top': top, 'bottom': bottom, 'left': left, 'right': right }
 		},
 		inputWidth(){
-			console.log(this.clickPos.isScroll)
 			return {'width' : (this.clickPos.isScroll)? '270px' : '280px'}
 		}
 	},
@@ -395,7 +394,6 @@ export default {
 		moveCard(stat) {
 			const status = stat;
 			status.cardId = this.card.id
-			console.log(status);
 			this.$emit('moveCard', status, this.card);
 			this.closePopup();
 		},
