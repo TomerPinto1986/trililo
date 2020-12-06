@@ -2,13 +2,16 @@
     button.label-edit {
         background-color: transparent;
         border-radius: 3px;
+
         img {
             margin: 0;
         }
+
         &:hover {
             background-color: rgba(9, 30, 66, .08);
         }
     }
+
     .label {
         height: 32px;
         width: 240px;
@@ -19,18 +22,22 @@
         color: white;
         align-items: center;
         transition: 75ms;
+
         &.bgc {
             @each $bgc in $labelbgcs {
                 $i: index($labelbgcs, $bgc);
+
                 &-#{$i}:hover {
                     box-shadow: -8px 0 #{$bgc};
                 }
             }
         }
+
         span {
             align-self: center;
             font-size: 1.25em;
         }
+
         input {
             align-self: center;
             width: fit-content;
