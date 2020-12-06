@@ -170,7 +170,7 @@ export default {
 		},
 		menuPosition() {
 			const x = this.clickPos.width - this.clickPos.x
-			const padding = 24;
+			const padding = 40;
 			const itemWidth = 290;
 			const ogPosition = 255;
 			return { 'left': (x < itemWidth) ? x - padding + this.clickPos.offsetX + 'px' : ogPosition + 'px' };
