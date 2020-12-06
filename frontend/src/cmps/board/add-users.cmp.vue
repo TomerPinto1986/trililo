@@ -13,7 +13,7 @@
 		/>
 		<ul>
 			<li
-				data-name="member-li"
+				data-name="member"
 				v-for="user in usersToShow"
 				:key="user._id"
 				class="flex"

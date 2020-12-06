@@ -1,9 +1,8 @@
 .group {
     position: relative;
-    width: 310px;
-    min-width: 310px;
+    width: 295px;
     height: fit-content;
-    max-height: 750px;
+    max-height: 800px;
     align-items: center;
     cursor: pointer;
     background-color: #EBECF0;
@@ -11,6 +10,12 @@
     white-space: normal;
     margin-inline-end: 8px;
     padding: 0 4px;
+    transition: 90ms;
+    &.scroll {
+        width: 305px;
+        padding-inline-end: 4px;
+        // margin-inline-end: 4px;
+    }
     // display: block;
     // overflow: hidden;
     &:first-child {
@@ -91,7 +96,8 @@
     .add-card-container {
         padding: 4px 11px;
         width: 100%;
-        margin: 2px 6px 6px 6px;
+        margin: 2px 16px 6px 6px;
+        ;
         textarea {
             overflow: hidden;
             overflow-wrap: break-word;
