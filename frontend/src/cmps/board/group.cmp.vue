@@ -279,7 +279,7 @@ export default {
 		},
 		setListHeight() {
 			this.listHeight = this.$refs['card-area'].$el.clientHeight;
-			console.log(this.listHeight)
+			// console.log(this.listHeight)
 		}
 
 	},
