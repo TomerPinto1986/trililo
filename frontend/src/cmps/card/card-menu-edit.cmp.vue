@@ -125,7 +125,7 @@
                         :boardLabels="board.labels"
                         @updateCard="updateCardLabel"
                         @updateLabelTitle="updateLabelTitle"
-                        @setHeight="setPopupHeight"
+                        @setDimensions="setPopupDimensions"
                     />
                 </pop-up>
             </button>
@@ -151,7 +151,7 @@
                         :cardMembers="cardMembers()"
                         :boardMembers="boardMembers"
                         @updateMembers="updateMembers"
-                        @setHeight="setPopupHeight"
+                        @setDimensions="setPopupDimensions"
                     />
                 </pop-up>
             </button>
@@ -176,7 +176,7 @@
                         :group="currGroup"
                         :currPosition="currPosition"
                         @moveCard="moveCard"
-                        @setHeight="setPopupHeight"
+                        @setDimensions="setPopupDimensions"
                 /></pop-up>
             </button>
             <button class="action-btn" @click="copy" :class="btnsClass">
@@ -253,7 +253,13 @@ export default {
             currPopUp: null,
             activities: this.board.activities,
             popupHeight: null,
-            newClickPos: {}
+            popupWidth: null,
+            newClickPos: {},
+            dimensions: {
+                txtWidth: null,
+                btnsWidth: null,
+                height: null
+            }
         }
     },
     computed: {
@@ -312,27 +318,40 @@ export default {
             return membersToShow
         },
         menuPos() {
-            const scrollDiff = (this.clickPos.isScroll) ? 10.5 : 0;
-            const xDiff = (this.clickPos.width - this.clickPos.x + this.clickPos.offsetX < 190) ? 165 : 0;
-            const yDiff = (this.clickPos.height - this.clickPos.y + this.clickPos.offsetY < 200) ? 75 : 0;
-            const x = this.clickPos.x - this.clickPos.offsetX - xDiff + scrollDiff + 16 - 280;
-            const y = this.clickPos.y - this.clickPos.offsetY - yDiff - 16;
-            return { 'left': x + 'px', 'top': y + 'px' }
+            const { txtWidth, btnsWidth, height } = this.dimensions;
+            const xClick = this.clickPos.x - this.clickPos.offsetX;
+            const yClick = this.clickPos.y - this.clickPos.offsetY;
+            const marginX = 16; // click offset from right of card
+            const marginY = 15.5; // click offset from top of card
+
+            const clickFromRight = this.clickPos.width - xClick;
+            const clickFromBottom = this.clickPos.height - yClick;
+
+            const scrollMargin = (this.clickPos.isScroll) ? 10 : 0;
+            const isRtl = clickFromRight < btnsWidth + marginX;
+            const btnsOffset = (isRtl) ? btnsWidth : 0;
+
+            const left = xClick + marginX - txtWidth - btnsOffset + scrollMargin;
+            const top = (clickFromBottom < height) ? 'unset' : yClick - marginY + 'px';
+            const bottom = (clickFromBottom < height) ? '35px' : 'unset';
+            return { 'left': left + 'px', 'top': top, 'bottom': bottom }
         },
         menuClass() {
-            return { 'rtl': (this.clickPos.width - this.clickPos.x + this.clickPos.offsetX < 190) }
+            const clickFromRight = this.dimensions.btnsWidth + 16;
+            return { 'rtl': (this.clickPos.width - this.clickPos.x + this.clickPos.offsetX < clickFromRight) }
         },
         btnsClass() {
             return { 'no-popup': !this.isPopUp }
         },
         popupPos() {
-            const yPos = (this.newClickPos.height - this.newClickPos.y - this.popupHeight < 85);
-            const xPos = (this.newClickPos.width - this.newClickPos.x + this.newClickPos.offsetX < 330);
-            const isRtl = (this.clickPos.width - this.clickPos.x - this.clickPos.offsetX < 190);
-            const left = (isRtl) ? 'unset' : (xPos) ? xPos - 330 + 'px' : 0;
+            const distFromBottom = this.newClickPos.height - this.newClickPos.y + this.newClickPos.offsetY;
+            const distFromRight = this.newClickPos.width - this.newClickPos.x + this.newClickPos.offsetX;
+            const padding = 30;
+            const isRtl = (this.clickPos.width - this.clickPos.x + this.clickPos.offsetX < 181);
             const right = (isRtl) ? 0 : 'unset';
-            const top = (yPos) ? 'unset' : '35px';
-            const bottom = (yPos) ? '35px' : 'unset';
+            const left = (isRtl) ? 'unset' : (distFromRight < this.popupWidth) ? distFromRight - this.popupWidth - padding + 'px' : 0;
+            const top = (distFromBottom < this.popupHeight) ? 'unset' : '35px';
+            const bottom = (distFromBottom < this.popupHeight) ? '35px' : 'unset';
             return { 'top': top, 'bottom': bottom, 'left': left, 'right': right }
         },
         inputWidth() {
@@ -398,7 +417,7 @@ export default {
         moveCard(stat) {
             const status = stat;
             status.cardId = this.card.id
-			this.$emit('moveCard', status, this.card);
+            this.$emit('moveCard', status, this.card);
             this.closePopup();
         },
         cardMembers() {
@@ -431,13 +450,20 @@ export default {
             this.$emit('updateActivities', `${txt} due date to `, updateCard)
             this.card = updateCard;
         },
-        setPopupHeight(height) {
-            this.popupHeight = height;
+        setPopupDimensions({ popupWidth, popupHeight }) {
+            this.popupHeight = popupHeight;
+            this.popupWidth = popupWidth;
         },
         setClickPos({ x, y, offsetX, offsetY }) {
             if (this.isPopUp) return
             const pos = { x, y, width: window.innerWidth, height: window.innerHeight, offsetX, offsetY }
             this.newClickPos = pos;
+        },
+        setMenuDim() {
+            const txtWidth = this.$el.children[0].offsetWidth;
+            const btnsWidth = this.$el.children[1].offsetWidth;
+            const height = this.$el.offsetHeight;
+            this.dimensions = { txtWidth, btnsWidth, height };
         },
         members(loggedinUser) {
             let members = this.board.members.map(member => member._id);
@@ -455,6 +481,7 @@ export default {
         }
     },
     mounted() {
+        this.setMenuDim()
         this.$nextTick(() => this.$refs['card-title'].focus());
     },
     created() {
