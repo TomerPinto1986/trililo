@@ -62,7 +62,6 @@
                                     class="card-details-btn plus-btn member"
                                     :size="40"
                                     :isAdd="true"
-                                    
                                 />
                             </span>
                             <!-- <button
@@ -180,197 +179,197 @@
                         <img src="@/assets/svg/activities.svg" />
                     </span>
 
-					<card-activity
-						v-if="card"
-						:user="loggedinUser"
-						:activities="cardActivities"
-						:isShowDetails="false"
-						:card="card"
-						ref="activity"
-						@addComment="addActivity"
-					/>
-				</div>
-			</div>
-			<!-- ACTIONS -->
-			<div class="actions flex f-col">
-				<h3 class="add-to-card-title">Add to card</h3>
-				<button
-					@click.stop="onAddMembers"
-					class="flex f-a-center content-after action-btn"
-					title="Members"
-					data-txt="Members"
+                    <card-activity
+                        v-if="card"
+                        :user="loggedinUser"
+                        :activities="cardActivities"
+                        :isShowDetails="false"
+                        :card="card"
+                        ref="activity"
+                        @addComment="addActivity"
+                    />
+                </div>
+            </div>
+            <!-- ACTIONS -->
+            <div class="actions flex f-col">
+                <h3 class="add-to-card-title">Add to card</h3>
+                <button
+                    @click.stop="onAddMembers"
+                    class="flex f-a-center content-after action-btn"
+                    title="Members"
+                    data-txt="Members"
                     aria-label="Members"
-				>
-					<img
-						class="icon-btn"
-						src="@/assets/svg/member.svg"
-						alt=""
-					/>
-					<pop-up v-if="isCmpOpen('member')" @closePopup="closePopup"
-						><add-members
-							:cardMembers="cardMembers()"
-							:boardMembers="boardMembers"
-							@updateMembers="updateMembers"
-						/>
-					</pop-up>
-				</button>
-				<button
-					@click.stop="openLabels"
-					class="flex f-a-center content-after action-btn"
-					title="Labels"
-					data-txt="Labels"
+                >
+                    <img
+                        class="icon-btn"
+                        src="@/assets/svg/member.svg"
+                        alt=""
+                    />
+                    <pop-up v-if="isCmpOpen('member')" @closePopup="closePopup"
+                        ><add-members
+                            :cardMembers="cardMembers()"
+                            :boardMembers="boardMembers"
+                            @updateMembers="updateMembers"
+                        />
+                    </pop-up>
+                </button>
+                <button
+                    @click.stop="openLabels"
+                    class="flex f-a-center content-after action-btn"
+                    title="Labels"
+                    data-txt="Labels"
                     aria-label="Labels"
-				>
-					<img class="icon-btn" src="@/assets/svg/label.svg" />
-					<pop-up
-						v-if="board && isCmpOpen('labels')"
-						@closePopup="closePopup"
-					>
-						<card-labels
-							:card="card"
-							:boardLabels="board.labels"
-							@updateCard="updateCard"
-							@updateLabelTitle="updateLabelTitle"
-						/>
-					</pop-up>
-				</button>
-				<button
-					@click.stop="addChecklist"
-					class="flex f-a-center content-after action-btn"
-					title="Checklist"
-					data-txt="Checklist"
+                >
+                    <img class="icon-btn" src="@/assets/svg/label.svg" />
+                    <pop-up
+                        v-if="board && isCmpOpen('labels')"
+                        @closePopup="closePopup"
+                    >
+                        <card-labels
+                            :card="card"
+                            :boardLabels="board.labels"
+                            @updateCard="updateCard"
+                            @updateLabelTitle="updateLabelTitle"
+                        />
+                    </pop-up>
+                </button>
+                <button
+                    @click.stop="addChecklist"
+                    class="flex f-a-center content-after action-btn"
+                    title="Checklist"
+                    data-txt="Checklist"
                     aria-label="Checklist"
-				>
-					<img
-						class="icon-btn"
-						src="@/assets/svg/checklist.svg"
-						alt=""
-					/>
-					<pop-up
-						v-if="isCmpOpen('checklist')"
-						@closePopup="closePopup"
-					>
-						<add-checklist
-							:card="card"
-							@updateCard="updateCard"
-							@close="closePopup"
-						/>
-					</pop-up>
-				</button>
-				<button
-					@click="startUpload"
-					class="upload-btn flex f-a-center content-after action-btn"
-					data-txt="Attachments"
+                >
+                    <img
+                        class="icon-btn"
+                        src="@/assets/svg/checklist.svg"
+                        alt=""
+                    />
+                    <pop-up
+                        v-if="isCmpOpen('checklist')"
+                        @closePopup="closePopup"
+                    >
+                        <add-checklist
+                            :card="card"
+                            @updateCard="updateCard"
+                            @close="closePopup"
+                        />
+                    </pop-up>
+                </button>
+                <button
+                    @click="startUpload"
+                    class="upload-btn flex f-a-center content-after action-btn"
+                    data-txt="Attachments"
                     aria-label="Attachments"
-				>
-					<img class="icon-btn" src="@/assets/svg/attach.svg" />
-				</button>
-				<input
-					ref="upload"
-					class="upload"
-					type="file"
-					name="uploader"
-					id="uploader"
-					@change="onUpload"
-				/>
-				<button
-					class="cover-btn flex f-a-center content-after action-btn"
-					title="Cover"
-					data-txt="Cover"
+                >
+                    <img class="icon-btn" src="@/assets/svg/attach.svg" />
+                </button>
+                <input
+                    ref="upload"
+                    class="upload"
+                    type="file"
+                    name="uploader"
+                    id="uploader"
+                    @change="onUpload"
+                />
+                <button
+                    class="cover-btn flex f-a-center content-after action-btn"
+                    title="Cover"
+                    data-txt="Cover"
                     aria-label="Cover"
-					@click.stop="openCoverPicker"
-				>
-					<img class="icon-btn" src="@/assets/svg/cover.svg" />
-					<pop-up v-if="isCmpOpen('cover')" @closePopup="closePopup">
-						<card-cover
-							:color="card.style.headerColor"
-							:showFull="card.style.isFull"
-							@colorChange="updateCover"
-					/></pop-up>
-				</button>
-				<button
-					@click.stop="setDate"
-					class="flex f-a-center content-after action-btn"
-					title="Set Date"
-					data-txt="Set Date"
+                    @click.stop="openCoverPicker"
+                >
+                    <img class="icon-btn" src="@/assets/svg/cover.svg" />
+                    <pop-up v-if="isCmpOpen('cover')" @closePopup="closePopup">
+                        <card-cover
+                            :color="card.style.headerColor"
+                            :showFull="card.style.isFull"
+                            @colorChange="updateCover"
+                    /></pop-up>
+                </button>
+                <button
+                    @click.stop="setDate"
+                    class="flex f-a-center content-after action-btn"
+                    title="Set Date"
+                    data-txt="Set Date"
                     aria-label="Set Date"
-				>
-					<img class="icon-btn" src="@/assets/svg/clock.svg" />
-				</button>
-				<button
-					@click.stop="removeDate"
-					v-if="card.dueDate"
-					class="remove-date flex f-a-center content-after action-btn"
-					title="Remove Date"
-					data-txt="Remove Date"
+                >
+                    <img class="icon-btn" src="@/assets/svg/clock.svg" />
+                </button>
+                <button
+                    @click.stop="removeDate"
+                    v-if="card.dueDate"
+                    class="remove-date flex f-a-center content-after action-btn"
+                    title="Remove Date"
+                    data-txt="Remove Date"
                     aria-label="Remove Date"
-				>
-					<i class="fal fa-history"></i>
-				</button>
-				<h3 class="actions-title">Actions</h3>
-				<button
-					@click.stop="cloneCard"
-					class="flex f-a-center content-after action-btn"
-					title="Copy"
-					data-txt="Copy"
+                >
+                    <i class="fal fa-history"></i>
+                </button>
+                <h3 class="actions-title">Actions</h3>
+                <button
+                    @click.stop="cloneCard"
+                    class="flex f-a-center content-after action-btn"
+                    title="Copy"
+                    data-txt="Copy"
                     aria-label="Copy"
-				>
-					<img
-						class="icon-btn clone-img"
-						src="@/assets/svg/clone.svg"
-					/>
-					<!-- <i class="fal fa-clone"></i> -->
-					<pop-up v-if="isCmpOpen('clone')" @closePopup="closePopup">
-						<card-move
-							:isClone="true"
-							:groups="board.groups"
-							:group="getCurrGroup"
-							:currPosition="getCurrPosition"
-							@moveCard="moveCard"
-					/></pop-up>
-				</button>
-				<button
-					class="dlt-btn flex f-a-center content-after action-btn"
-					title="Delete"
-					data-txt="Delete Card"
+                >
+                    <img
+                        class="icon-btn clone-img"
+                        src="@/assets/svg/clone.svg"
+                    />
+                    <!-- <i class="fal fa-clone"></i> -->
+                    <pop-up v-if="isCmpOpen('clone')" @closePopup="closePopup">
+                        <card-move
+                            :isClone="true"
+                            :groups="board.groups"
+                            :group="getCurrGroup"
+                            :currPosition="getCurrPosition"
+                            @moveCard="moveCard"
+                    /></pop-up>
+                </button>
+                <button
+                    class="dlt-btn flex f-a-center content-after action-btn"
+                    title="Delete"
+                    data-txt="Delete Card"
                     aria-label="Delete Card"
-					@click.stop="deleteCard"
-				>
-					<i class="fal fa-trash-alt"></i>
-				</button>
-				<button
-					class="move-btn flex f-a-center content-after action-btn"
-					title="Move"
-					data-txt="Move"
+                    @click.stop="deleteCard"
+                >
+                    <i class="fal fa-trash-alt"></i>
+                </button>
+                <button
+                    class="move-btn flex f-a-center content-after action-btn"
+                    title="Move"
+                    data-txt="Move"
                     aria-label="Move"
-					@click.stop="emitMove"
-				>
-					<img class="icon-btn" src="@/assets/svg/move.svg" />
-					<pop-up v-if="isCmpOpen('move')" @closePopup="closePopup">
-						<card-move
-							:isClone="false"
-							:groups="board.groups"
-							:group="getCurrGroup"
-							:currPosition="getCurrPosition"
-							@moveCard="moveCard"
-					/></pop-up>
-				</button>
-			</div>
-		</div>
-		<div v-if="isLoading" class="window">
-			<div class="sk-cube-grid">
-				<div class="sk-cube sk-cube1"></div>
-				<div class="sk-cube sk-cube2"></div>
-				<div class="sk-cube sk-cube3"></div>
-				<div class="sk-cube sk-cube4"></div>
-				<div class="sk-cube sk-cube5"></div>
-				<div class="sk-cube sk-cube6"></div>
-				<div class="sk-cube sk-cube7"></div>
-				<div class="sk-cube sk-cube8"></div>
-				<div class="sk-cube sk-cube9"></div>
-			</div>
-		</div>
-	</section>
+                    @click.stop="emitMove"
+                >
+                    <img class="icon-btn" src="@/assets/svg/move.svg" />
+                    <pop-up v-if="isCmpOpen('move')" @closePopup="closePopup">
+                        <card-move
+                            :isClone="false"
+                            :groups="board.groups"
+                            :group="getCurrGroup"
+                            :currPosition="getCurrPosition"
+                            @moveCard="moveCard"
+                    /></pop-up>
+                </button>
+            </div>
+        </div>
+        <div v-if="isLoading" class="window">
+            <div class="sk-cube-grid">
+                <div class="sk-cube sk-cube1"></div>
+                <div class="sk-cube sk-cube2"></div>
+                <div class="sk-cube sk-cube3"></div>
+                <div class="sk-cube sk-cube4"></div>
+                <div class="sk-cube sk-cube5"></div>
+                <div class="sk-cube sk-cube6"></div>
+                <div class="sk-cube sk-cube7"></div>
+                <div class="sk-cube sk-cube8"></div>
+                <div class="sk-cube sk-cube9"></div>
+            </div>
+        </div>
+    </section>
 </template>
 
 <script>
@@ -514,32 +513,30 @@ export default {
         },
         async deleteCard() {
             const userAnc = await Swal.fire({
-                position: 'bottom-end',
+                position: 'top-end',
                 title: 'Are you sure you want to delete this card?',
                 showCancelButton: true,
                 showConfirmButton: true,
-                confirmButtonColor: '#4E7592',
+                confirmButtonColor: '#455a64',
                 cancelButtonColor: '#ff505b',
                 confirmButtonText: 'Delete'
             });
             if (!userAnc.isConfirmed) return;
             const board = this.board;
             let cardTitle;
-            let members = board.members.map(member => member._id);
-            const loggedinUser = this.$store.getters.loggedinUser;
-            members.push(board.byMember._id);
-            members = members.filter(memberId => memberId !== loggedinUser._id);
             board.groups.forEach(group => {
-				const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
+                const cardIdx = group.cards.findIndex(currCard => currCard.id === this.card.id);
                 if (cardIdx !== -1) {
-					cardTitle = group.cards[cardIdx].title;
+                    cardTitle = group.cards[cardIdx].title;
                     group.cards.splice(cardIdx, 1);
                 }
             })
             this.updateBoard(board);
             this.emitClose();
-            socketService.emit('change-board', { msg: `${loggedinUser.username} deleted the '${cardTitle}' card`, boardId: board._id, members });
-            // this.myAlert('Card successfully deleted');
+            const loggedinUser = this.$store.getters.loggedinUser;
+            socketService.emit('change-board', { msg: `${loggedinUser.username} deleted the '${cardTitle}' card`, boardId: board._id, members: this.members(loggedinUser) });
+            // ========
+            this.myAlert('Card successfully deleted');
             this.addActivity(`deleted the card '${cardTitle}'`);
         },
         moveCard(status) {
@@ -549,6 +546,10 @@ export default {
             this.isPopUp = false;
             if (status.startGroup !== status.endGroup) {
                 const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
+                const loggedinUser = this.$store.getters.loggedinUser;
+                socketService.emit('change-board', { msg: `${loggedinUser.username} moved the '${this.card.title}' card to the '${groupTitle}' list`, boardId: board._id, members: this.members(loggedinUser) });
+                // ========
+                this.myAlert('Card successfully moved');
                 this.addActivity(`moved card '${this.card.title}' to '${groupTitle}'`, this.card);
             }
         },
@@ -603,6 +604,10 @@ export default {
             card.dueDate = null;
             this.updateCard(card);
             this.card = card;
+            const loggedinUser = this.$store.getters.loggedinUser;
+            socketService.emit('change-board', { msg: `${loggedinUser.username} removed the due date from '${card.title}' card`, members: this.members(loggedinUser) });
+            // ========
+            this.myAlert('Due date successfully removed');
             this.addActivity(`removed the due date from `, card);
         },
         setNewDate(dueDate) {
@@ -619,6 +624,12 @@ export default {
             this.updateCard(updatedCard);
             this.card = updatedCard;
             this.closePopup();
+            const loggedinUser = this.$store.getters.loggedinUser;
+            const msg = txt === 'changed' ? `${loggedinUser.username} changed the due date to the '${updatedCard.title}' card` : `${loggedinUser.username} added a due date to the '${updatedCard.title}' card`;
+            const alertMsg = txt === 'changed' ? 'Due date successfully changed' : 'Due date successfully added';
+            socketService.emit('change-board', { msg, members: this.members(loggedinUser) });
+            // ========
+            this.myAlert(alertMsg);
             this.addActivity(`${txt} due date to `, updatedCard);
         },
         openLabels() {
@@ -664,6 +675,12 @@ export default {
                 card.members.splice(memberIdx, 1);
             }
             this.updateCard(card);
+            const loggedinUser = this.$store.getters.loggedinUser;
+            const msg = memberIdx === -1 ? `${newUser.username} was added to '${card.title}' card` : `${newUser.username} was removed from '${card.title}' card`;
+            const alertMsg = memberIdx === -1 ? `Member successfully added` : `Member successfully removed`;
+            socketService.emit('change-board', { msg, members: this.members(loggedinUser) });
+            // ========
+            this.myAlert(alertMsg);
             const action = (memberIdx === -1) ? `added ${newUser.username} to ` : `removed ${newUser.username} from`;
             this.addActivity(action, card, null, this.loggedinUser)
         },
@@ -689,7 +706,13 @@ export default {
             const card = this.card;
             card.isDone = !card.isDone;
             this.updateCard(card);
-		},
+        },
+        members(loggedinUser) {
+            let members = this.board.members.map(member => member._id);
+            members.push(this.board.byMember._id);
+            members = members.filter(memberId => memberId !== loggedinUser._id);
+            return members;
+        },
         myAlert(title) {
             Swal.fire({
                 position: 'bottom-end',

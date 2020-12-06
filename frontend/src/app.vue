@@ -34,7 +34,7 @@ export default {
                 position: 'bottom-end',
                 title: data.msg,
                 showConfirmButton: false,
-                timer: 2500
+                // timer: 2500
             });
         }
     },

@@ -216,11 +216,11 @@ export default {
 		},
 		async emitDelete(groupId) {
 			const userAnc = await Swal.fire({
-				position: 'bottom-end',
+				position: 'top-end',
 				title: 'Are you sure you want to delete this list?',
 				showCancelButton: true,
 				showConfirmButton: true,
-				confirmButtonColor: '#4E7592',
+				confirmButtonColor: '#455a64',
 				cancelButtonColor: '#ff505b',
 				confirmButtonText: 'Delete'
 			});

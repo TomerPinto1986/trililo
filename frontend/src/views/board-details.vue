@@ -27,6 +27,7 @@
                 :clickPos="clickPos"
                 :board="board"
                 :card="cardToEdit"
+                :loggedinUser="user"
             />
         </div>
         <div
@@ -170,6 +171,10 @@ export default {
             this.cardToEdit = false;
             if (status.startGroup !== status.endGroup) {
                 const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
+                const loggedinUser = this.$store.getters.loggedinUser;
+                socketService.emit('change-board', { msg: `${loggedinUser.username} moved the '${card.title}' card to the '${groupTitle}' list`, boardId: board._id, members: this.members(loggedinUser) });
+                // ========
+                this.myAlert('Card successfully moved');
                 this.addActivity(`moved card '${card.title}' to '${groupTitle}'`, card, null, card);
             }
 
@@ -207,10 +212,12 @@ export default {
             this.updateBoard(board);
             const loggedinUser = this.$store.getters.loggedinUser;
             socketService.emit('change-board', { msg: `${loggedinUser.username} added a new '${title}' card`, boardId: board._id, members: this.members(loggedinUser) });
-            // this.myAlert('The card was successfully added');
+            // ========
+            this.myAlert('The card was successfully added');
             this.addActivity(` added `, newCard)
         },
         updateCard(card) {
+            console.log('card:', card)
             const board = this.board;
             board.groups.forEach(group => {
                 const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
@@ -244,7 +251,8 @@ export default {
             socketService.emit('change-board', { msg: `${loggedinUser.username} deleted the '${board.groups[groupIdx].title}' list`, boardId: board._id, members: this.members(loggedinUser) });
             board.groups.splice(groupIdx, 1);
             this.updateBoard(board);
-            // this.myAlert('The list has been successfully deleted');
+            // ========
+            this.myAlert('The list has been successfully deleted');
             this.addActivity('deleted a list')
         },
         newGroup() {
@@ -261,7 +269,8 @@ export default {
             }, 10);
             const loggedinUser = this.$store.getters.loggedinUser;
             socketService.emit('change-board', { msg: `${loggedinUser.username} added a new '${newGroup.title}' list`, boardId: board._id, members: this.members(loggedinUser) });
-            // this.myAlert('The list was successfully added');
+            // ========            
+            this.myAlert('The list was successfully added');
             this.addActivity('added a list')
 
         },
@@ -300,7 +309,7 @@ export default {
         },
         updateboardUsers(userId) {
             const board = this.board;
-            let memberIdx = board.members.findIndex(member => member._id === userId);
+            const memberIdx = board.members.findIndex(member => member._id === userId);
             const user = this.$store.getters.users.find(user => user._id === userId);
             if (memberIdx === -1) {
                 const boardUser = {
@@ -313,12 +322,18 @@ export default {
                 board.members.splice(memberIdx, 1);
                 board.groups.forEach(group => {
                     group.cards.forEach(card => {
-                        memberIdx = card.members.findIndex(member => member._id === userId)
-                        if (memberIdx !== -1) card.members.splice(memberIdx, 1);
+                        const currMemberIdx = card.members.findIndex(member => member._id === userId)
+                        if (currMemberIdx !== -1) card.members.splice(currMemberIdx, 1);
                     })
                 })
             }
             this.updateBoard(board);
+            const loggedinUser = this.$store.getters.loggedinUser;
+            const msg = memberIdx === -1 ? `${user.username} was added to this board` : `${user.username} was removed from  this board`;
+            const alertMsg = memberIdx === -1 ? `Member successfully added` : `Member successfully removed`;
+            socketService.emit('change-board', { msg, members: this.members(loggedinUser) });
+            // ========
+            this.myAlert(alertMsg);
             const action = (memberIdx === -1) ? `added ${user.username} to the board` : `removed ${user.username} from the board`;
             this.addActivity(action);
 
@@ -337,6 +352,12 @@ export default {
                 card.members.splice(memberIdx, 1);
             }
             this.updateCard(card);
+            const loggedinUser = this.$store.getters.loggedinUser;
+            const msg = memberIdx === -1 ? `${newUser.username} was added to '${card.title}' card` : `${newUser.username} was removed from '${card.title}' card`;
+            const alertMsg = memberIdx === -1 ? `Member successfully added` : `Member successfully removed`;
+            socketService.emit('change-board', { msg, members: this.members(loggedinUser) });
+            // ========
+            this.myAlert(alertMsg);
             const action = (memberIdx === -1) ? `added ${newUser.username} to ` : `removed ${newUser.username} from`;
             this.addActivity(action, card, null, this.loggedinUser)
         },
@@ -355,8 +376,11 @@ export default {
             const board = utilService.deepCopy(this.board);
             board.isPrivate = (privacy === 'private');
             this.updateBoard(board)
+            const loggedinUser = this.$store.getters.loggedinUser;
+            socketService.emit('change-board', { msg: `${loggedinUser.username} changed the board privacy to ${privacy}`, boardId: board._id, members: this.members(loggedinUser) });
+            // ========
+            this.myAlert('Privacy successfully changed');
             this.addActivity(`changed the board privacy to ${privacy}`)
-
         },
         deleteBoard(boardId) {
             this.$store.dispatch('deleteBoard', boardId);
@@ -392,7 +416,7 @@ export default {
             console.dir(target)
             const imgOffsetX = (target.name === 'edit') ? 8 : 0;
             const imgOffsetY = (target.name === 'edit') ? 8 : 0;
-            const isScroll =  (target.dataset.scroll)? true : null;
+            const isScroll = (target.dataset.scroll) ? true : null;
             const pos = { x, y, width: window.innerWidth, height: window.innerHeight, offsetX: offsetX + imgOffsetX, offsetY: offsetY + imgOffsetY, isScroll }
             this.clickPos = pos;
         },
@@ -416,9 +440,9 @@ export default {
                 timer: 2500
             });
         },
-        markBoard(){
+        markBoard() {
             const board = this.board
-            board.isMarked = (board.isMarked) ?  false : true ;
+            board.isMarked = (board.isMarked) ? false : true;
             this.updateBoard(board)
         }
     },
