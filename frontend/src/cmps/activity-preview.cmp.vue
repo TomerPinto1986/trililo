@@ -66,9 +66,6 @@ export default {
 	methods: {
 		emitOpenCard() {
 			this.$emit('openCard', this.activity.card.id)
-		},
-		print(a, b) {
-			console.log(a, b)
 		}
 	},
 	created(){

@@ -393,7 +393,6 @@ export default {
             const imgOffsetX = (target.name === 'edit') ? 8 : 0;
             const imgOffsetY = (target.name === 'edit') ? 8 : 0;
             const isScroll =  (target.dataset.scroll)? true : null;
-            console.log(isScroll,'scroll');
             const pos = { x, y, width: window.innerWidth, height: window.innerHeight, offsetX: offsetX + imgOffsetX, offsetY: offsetY + imgOffsetY, isScroll }
             this.clickPos = pos;
         },
@@ -420,7 +419,6 @@ export default {
         markBoard(){
             const board = this.board
             board.isMarked = (board.isMarked) ?  false : true ;
-            console.log(board.isMarked);
             this.updateBoard(board)
         }
     },

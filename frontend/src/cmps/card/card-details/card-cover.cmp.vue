@@ -128,7 +128,6 @@ export default {
 			this.$emit('colorChange', this.newColor, this.isFull);
 		},
 		setColor(color) {
-			console.log(color)
 			this.newColor = color;
 			this.emitColorChange();
 		},

@@ -181,7 +181,6 @@ export default {
 		},
 		isScroll(){
 			const maxHeight = (this.isAdding) ? 625 : 700
-			console.log(this.listHeight > maxHeight )
 			return this.listHeight > maxHeight 
 		}
 	},
@@ -263,7 +262,6 @@ export default {
 					if (a.title.toLowerCase() > b.title.toLowerCase()) return 1 * diff;
 					return 0;
 				} else if (item === 'dueDate') {
-					console.log(a.dueDate, b.dueDate)
 					if (!a.dueDate && !b.dueDate) return 0
 					else if (a.dueDate && !b.dueDate) return -1 * diff
 					else if (!a.dueDate && b.dueDate) return 1 * diff
