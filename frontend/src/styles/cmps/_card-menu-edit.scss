@@ -84,11 +84,19 @@
             .description-icon img {
                 width: 13px;
             }
+            fa-paperclip {
+                padding: 0;
+            }
             .checklist-icon {
                 &.complete {
                     background-color: #5aac44;
                     color: white;
-                    height: 22px;
+                    height: 24px;
+                    padding: 6px;
+                    /* align-self: center; */
+                    display: flex;
+                    align-items: center;
+                    font-size: 12px;
                     .gcheck path {
                         fill: white;
                     }

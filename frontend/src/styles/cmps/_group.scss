@@ -11,13 +11,11 @@
     white-space: normal;
     margin-inline-end: 8px;
     padding: 0 4px;
-
     // display: block;
     // overflow: hidden;
     &:first-child {
         margin-inline-start: 8px;
     }
-
     .menu-btn {
         position: absolute;
         top: 10px;
@@ -26,16 +24,14 @@
         color: #6b778c;
         padding: 4px 8px;
         border-radius: 3px;
-        
-        &:hover{
+        &:hover {
             color: #172b4d;
-            background-color: rgba(9,30,66,.08);
+            background-color: rgba(9, 30, 66, .08);
         }
         &.ghost {
             display: none;
         }
     }
-
     .group-header {
         display: flex;
         justify-content: space-between;
@@ -45,9 +41,6 @@
         margin-block-end: 5px;
         width: 100%;
         font-size: 0.975em;
-
-
-
         input {
             width: 85%;
             outline: none;
@@ -61,24 +54,20 @@
             outline: none;
             background-color: transparent;
             padding: 6px 8px;
-
             &:focus {
                 background-color: #fff;
                 box-shadow: inset 0 0 0 2px #0079bf;
             }
         }
-
         button {
             background-color: #EBECF0;
             font-size: 20px;
             letter-spacing: 1.5px;
         }
-
         i {
             color: #6b778c;
         }
     }
-
     .group-edit {
         box-shadow: 0 0 2px 0 black;
         padding: 10px;
@@ -91,7 +80,6 @@
         height: 200px;
         align-items: center;
     }
-
     .drag-area {
         width: 100%;
         min-height: 40px;
@@ -100,12 +88,10 @@
         margin: 0 4px;
         padding: 0 4px;
     }
-
     .add-card-container {
         padding: 4px 11px;
         width: 100%;
         margin: 2px 6px 6px 6px;
-
         textarea {
             overflow: hidden;
             overflow-wrap: break-word;
@@ -124,10 +110,8 @@
             font-size: em(14px);
             padding: 6px 8px 2px;
         }
-
         .add-card-btns {
             align-items: center;
-
             .add-btn {
                 font-size: 14px;
                 background-color: #5aac44;
@@ -142,7 +126,6 @@
                 padding: 6px 12px;
                 text-align: center;
                 border-radius: 3px;
-
                 &:hover {
                     background-color: #61bd4f;
                     box-shadow: none;
@@ -150,20 +133,17 @@
                     color: #fff;
                 }
             }
-
             .close-btn {
                 color: #6b778c;
                 height: 32px;
                 line-height: 32px;
                 width: 32px;
                 font-size: 24px;
-
                 &:hover {
                     color: #172b4d;
                 }
             }
         }
-
         .open-add-btn {
             font-size: 14px;
             border-radius: 3px;
@@ -172,16 +152,17 @@
             padding: 4px 8px;
             position: relative;
             text-align: start;
-
+            span {
+                margin-inline-start: 5px;
+            }
             &:hover {
                 background-color: rgba(9, 30, 66, .08);
                 color: #172b4d;
             }
         }
     }
-
-    &.chosen{
-        .menu-btn{
+    &.chosen {
+        .menu-btn {
             opacity: 0;
         }
     }
@@ -196,14 +177,13 @@
             left: 0;
             background-color: rgb(41, 41, 41);
         }
-        .card-preview{
+        .card-preview {
             opacity: 0;
         }
         .card-header {
             border-radius: 10px;
             box-shadow: none;
         }
-
         .add-card-container {
             opacity: 0;
         }
