@@ -1,7 +1,17 @@
 <template>
-    <section class="board-preview flex f-col" :style="boardStyle" @click="goToBoard">
-        <h2>{{ boardDetails.title }}</h2>
-        <button class="delete-btn" @click.stop="emitDelete"><i class="fas fa-trash-alt"></i></button>
+    <section
+        class="board-preview flex f-col"
+        :style="boardStyle"
+        @click="goToBoard"
+    >
+        <div class="flex f-s-between">
+            <h2>{{ boardDetails.title }}</h2>
+            <i class="fas fa-star favorite" v-if="boardDetails.isMarked"></i>
+            <i class="far fa-star favorite" v-else></i>
+        </div>
+        <button class="delete-btn" @click.stop="emitDelete">
+            <i class="fas fa-trash-alt"></i>
+        </button>
         <!-- <button class="delete-btn" @click.stop="emitDelete">Delete Board</button> -->
     </section>
 </template>
@@ -23,6 +33,9 @@ export default {
         },
         emitDelete() {
             this.$emit('deleted', this.boardDetails._id);
+        },
+        toggleMarkBoard() {
+            console.log(this.boardDetails);
         }
     }
 }

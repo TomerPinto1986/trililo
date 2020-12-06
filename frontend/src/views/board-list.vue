@@ -2,7 +2,7 @@
     <div class="board-list-container flex f-col">
         <h3 class="">Choose your board</h3>
         <h4>or create one from screcth</h4>
-        <section class="board-list" v-if="boardsForDisplay">
+        <section class="board-list" v-if="this.favoritesBoards || this.otherBoards">
             <div class="create-board board-preview flex f-center">
                 <form class="flex f-col" v-if="isAdding" @submit.prevent="saveBoard">
                     <input
@@ -14,9 +14,16 @@
                 </form>
                 <button v-else @click="addBoard">+ CREATE BOARD</button>
             </div>
+            <board-preview
+                v-for="board in favoritesBoards"
+                :key="board._id"
+                :boardDetails="board"
+                :boardBg="boardBg(board.style.background)"
+                @deleted="deleteBoard"
+            />
 
             <board-preview
-                v-for="board in boardsForDisplay"
+                v-for="board in otherBoards"
                 :key="board._id"
                 :boardDetails="board"
                 :boardBg="boardBg(board.style.background)"
@@ -38,8 +45,14 @@ export default {
         }
     },
     computed: {
-        boardsForDisplay() {
-            return this.$store.getters.boards
+        favoritesBoards() {
+            const boardsToDisplay = this.$store.getters.boards
+            console.log(boardsToDisplay);
+            return boardsToDisplay.filter(board => board.isMarked)
+        },
+        otherBoards() {
+            const boardsToDisplay = this.$store.getters.boards.filter(board => !board.isMarked)
+            return boardsToDisplay
         },
         loggedinUser() {
             return this.$store.getters.loggedinUser;

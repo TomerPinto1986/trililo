@@ -11,6 +11,7 @@
             @changeBgc="changeBgc"
             @privacyChange="changePrivacy"
             @filter="filter"
+            @markBoard="markBoard"
         />
         <div v-if="cardToEdit" class="window" @click="closeCardToEdit">
             <card-menu-edit
@@ -414,6 +415,12 @@ export default {
                 showConfirmButton: false,
                 timer: 2500
             });
+        },
+        markBoard(){
+            const board = this.board
+            board.isMarked = (board.isMarked) ?  false : true ;
+            console.log(board.isMarked);
+            this.updateBoard(board)
         }
     },
     watch: {
