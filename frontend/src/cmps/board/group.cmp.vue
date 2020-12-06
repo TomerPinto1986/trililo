@@ -86,6 +86,7 @@
 				:card="card"
 				:labels="labels"
 				:activities="activities"
+				:isScroll="isScroll"
 				@openEditCard="emitOpenEditCard"
 				@openDetails="openDetails"
 			/>
@@ -176,8 +177,12 @@ export default {
 		},
 		groupClass() {
 			const maxHeight = (this.isAdding) ? 625 : 700
-			console.log(maxHeight)
 			return { 'scroll': this.listHeight > maxHeight }
+		},
+		isScroll(){
+			const maxHeight = (this.isAdding) ? 625 : 700
+			console.log(this.listHeight > maxHeight )
+			return this.listHeight > maxHeight 
 		}
 	},
 	methods: {
@@ -278,19 +283,17 @@ export default {
 			this.closeCardAdd();
 		},
 		setListHeight() {
-			this.listHeight = this.$refs['card-area'].$el.clientHeight;
-			console.log(this.listHeight)
+			this.listHeight = this.$refs['card-area'].$el.scrollHeight;
 		}
 
 	},
 	mounted() {
-		// this.setListHeight();
+		this.setListHeight();
 	},
 	created() {
 		this.pos = this.groupIdx + 1;
 		setTimeout(() => {
 			window.addEventListener('click', this.checkClickPos)
-			this.setListHeight();
 		}, 100)
 		document.addEventListener('mouseenter', this.setListHeight)
 		document.addEventListener('mouseout', this.setListHeight)

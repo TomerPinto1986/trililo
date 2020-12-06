@@ -1,7 +1,8 @@
 <template>
 	<section class="card-menu-edit flex" :style="menuPos" :class="menuClass">
 		<div class="flex f-col">
-			<div class="title-edit mini-preview icons flex wrap">
+			<div class="title-edit mini-preview icons flex wrap"
+			:style="inputWidth">
 				<ul
 					v-if="card.labels && labelsSelected.length"
 					class="label-marks flex wrap"
@@ -307,9 +308,10 @@ export default {
 			return membersToShow
 		},
 		menuPos() {
+			const scrollDiff = (this.clickPos.isScroll) ? 10.5 : 0;
 			const xDiff = (this.clickPos.width - this.clickPos.x + this.clickPos.offsetX < 190) ? 165 : 0;
 			const yDiff = (this.clickPos.height - this.clickPos.y + this.clickPos.offsetY < 200) ? 75 : 0;
-			const x = this.clickPos.x - this.clickPos.offsetX - xDiff + 15 - 280;
+			const x = this.clickPos.x - this.clickPos.offsetX - xDiff + scrollDiff + 16 - 280;
 			const y = this.clickPos.y - this.clickPos.offsetY - yDiff - 16;
 			return { 'left': x + 'px', 'top': y + 'px' }
 		},
@@ -328,6 +330,10 @@ export default {
 			const top = (yPos) ? 'unset' : '35px';
 			const bottom = (yPos) ? '35px' : 'unset';
 			return { 'top': top, 'bottom': bottom, 'left': left, 'right': right }
+		},
+		inputWidth(){
+			console.log(this.clickPos.isScroll)
+			return {'width' : (this.clickPos.isScroll)? '270px' : '280px'}
 		}
 	},
 
