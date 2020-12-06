@@ -2,7 +2,7 @@
     <div class="board-list-container flex f-col">
         <h3 class="">Choose your board</h3>
         <h4>or create one from screcth</h4>
-        <section class="board-list" v-if="this.favoritesBoards || this.otherBoards">
+        <section class="board-list" v-if="boards">
             <div class="create-board board-preview flex f-center">
                 <form class="flex f-col" v-if="isAdding" @submit.prevent="saveBoard">
                     <input
@@ -45,14 +45,15 @@ export default {
         }
     },
     computed: {
+        boards() {
+            return this.$store.getters.boards
+        },
         favoritesBoards() {
-            const boardsToDisplay = this.$store.getters.boards
-            console.log(boardsToDisplay);
-            return boardsToDisplay.filter(board => board.isMarked)
+            return this.boards.filter(board => board.isMarked)
         },
         otherBoards() {
-            const boardsToDisplay = this.$store.getters.boards.filter(board => !board.isMarked)
-            return boardsToDisplay
+            return  this.boards.filter(board => !board.isMarked)
+             
         },
         loggedinUser() {
             return this.$store.getters.loggedinUser;
