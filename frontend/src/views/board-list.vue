@@ -47,7 +47,6 @@ export default {
     computed: {
         favoritesBoards() {
             const boardsToDisplay = this.$store.getters.boards
-            console.log(boardsToDisplay);
             return boardsToDisplay.filter(board => board.isMarked)
         },
         otherBoards() {

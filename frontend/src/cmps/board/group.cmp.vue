@@ -172,7 +172,7 @@ export default {
 			const x = this.clickPos.width - this.clickPos.x
 			const padding = 24;
 			const itemWidth = 290;
-			const ogPosition = 270;
+			const ogPosition = 255;
 			return { 'left': (x < itemWidth) ? x - padding + this.clickPos.offsetX + 'px' : ogPosition + 'px' };
 		},
 		groupClass() {
