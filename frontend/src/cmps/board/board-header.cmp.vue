@@ -161,7 +161,6 @@ export default {
 			return this.filterBy.membersIds.some(id => id === memberId)
 		},
 		closeAddUsers(ev) {
-			console.log(ev.target)
 			if(ev.target.dataset.name === 'member') return
 			this.isAddUsers = false;
 		}

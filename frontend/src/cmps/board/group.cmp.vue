@@ -1,5 +1,5 @@
 <template>
-	<section v-if="group" class="group flex f-col">
+	<section v-if="group" class="group flex f-col" :class="groupClass">
 		<div class="group-header handle">
 			<input
 				type="text"
@@ -66,6 +66,7 @@
 			</template>
 		</group-menu>
 		<draggable
+			ref="card-area"
 			class="drag-area"
 			ghostClass="ghost"
 			chosenClass="chosen"
@@ -91,7 +92,6 @@
 		</draggable>
 		<div class="add-card-container" @click.stop>
 			<template v-if="isAdding">
-				<!-- add closing when pressing outside of textarea -->
 				<textarea
 					@keydown.enter.prevent
 					@keyup.enter="saveCard"
@@ -145,6 +145,7 @@ export default {
 			isMove: false,
 			isSort: false,
 			pos: null,
+			listHeight: null
 
 		}
 	},
@@ -172,8 +173,12 @@ export default {
 			const itemWidth = 290;
 			const ogPosition = 270;
 			return { 'left': (x < itemWidth) ? x - padding + this.clickPos.offsetX + 'px' : ogPosition + 'px' };
+		},
+		groupClass() {
+			const maxHeight = (this.isAdding) ? 625 : 700
+			console.log(maxHeight)
+			return { 'scroll': this.listHeight > maxHeight }
 		}
-
 	},
 	methods: {
 		toggleMenu() {
@@ -194,6 +199,9 @@ export default {
 		closeCardAdd() {
 			this.newCardTxt = '';
 			this.isAdding = false;
+			this.$nextTick(() =>
+				this.setListHeight()
+			)
 		},
 		openDetails(cardId) {
 			const boardId = this.$route.params.boardId
@@ -268,16 +276,28 @@ export default {
 		},
 		checkClickPos() {
 			this.closeCardAdd();
+		},
+		setListHeight() {
+			this.listHeight = this.$refs['card-area'].$el.clientHeight;
+			console.log(this.listHeight)
 		}
 
+	},
+	mounted() {
+		// this.setListHeight();
 	},
 	created() {
 		this.pos = this.groupIdx + 1;
 		setTimeout(() => {
 			window.addEventListener('click', this.checkClickPos)
-		}, 1000)
+			this.setListHeight();
+		}, 100)
+		document.addEventListener('mouseenter', this.setListHeight)
+		document.addEventListener('mouseout', this.setListHeight)
 	},
 	destroyed() {
+		document.removeEventListener('mouseenter', this.setListHeight)
+		document.removeEventListener('mouseout', this.setListHeight)
 		window.removeEventListener('click', this.checkClickPos)
 	},
 	components: {
