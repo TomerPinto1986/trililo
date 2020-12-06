@@ -199,6 +199,7 @@
 					class="flex f-a-center content-after action-btn"
 					title="Members"
 					data-txt="Members"
+                    aria-label="Members"
 				>
 					<img
 						class="icon-btn"
@@ -218,6 +219,7 @@
 					class="flex f-a-center content-after action-btn"
 					title="Labels"
 					data-txt="Labels"
+                    aria-label="Labels"
 				>
 					<img class="icon-btn" src="@/assets/svg/label.svg" />
 					<pop-up
@@ -237,6 +239,7 @@
 					class="flex f-a-center content-after action-btn"
 					title="Checklist"
 					data-txt="Checklist"
+                    aria-label="Checklist"
 				>
 					<img
 						class="icon-btn"
@@ -258,6 +261,7 @@
 					@click="startUpload"
 					class="upload-btn flex f-a-center content-after action-btn"
 					data-txt="Attachments"
+                    aria-label="Attachments"
 				>
 					<img class="icon-btn" src="@/assets/svg/attach.svg" />
 				</button>
@@ -273,6 +277,7 @@
 					class="cover-btn flex f-a-center content-after action-btn"
 					title="Cover"
 					data-txt="Cover"
+                    aria-label="Cover"
 					@click.stop="openCoverPicker"
 				>
 					<img class="icon-btn" src="@/assets/svg/cover.svg" />
@@ -288,6 +293,7 @@
 					class="flex f-a-center content-after action-btn"
 					title="Set Date"
 					data-txt="Set Date"
+                    aria-label="Set Date"
 				>
 					<img class="icon-btn" src="@/assets/svg/clock.svg" />
 				</button>
@@ -297,6 +303,7 @@
 					class="remove-date flex f-a-center content-after action-btn"
 					title="Remove Date"
 					data-txt="Remove Date"
+                    aria-label="Remove Date"
 				>
 					<i class="fal fa-history"></i>
 				</button>
@@ -306,6 +313,7 @@
 					class="flex f-a-center content-after action-btn"
 					title="Copy"
 					data-txt="Copy"
+                    aria-label="Copy"
 				>
 					<img
 						class="icon-btn clone-img"
@@ -325,6 +333,7 @@
 					class="dlt-btn flex f-a-center content-after action-btn"
 					title="Delete"
 					data-txt="Delete Card"
+                    aria-label="Delete Card"
 					@click.stop="deleteCard"
 				>
 					<i class="fal fa-trash-alt"></i>
@@ -333,6 +342,7 @@
 					class="move-btn flex f-a-center content-after action-btn"
 					title="Move"
 					data-txt="Move"
+                    aria-label="Move"
 					@click.stop="emitMove"
 				>
 					<img class="icon-btn" src="@/assets/svg/move.svg" />
