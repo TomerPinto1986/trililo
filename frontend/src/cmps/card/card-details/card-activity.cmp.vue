@@ -90,7 +90,6 @@ export default {
             return (this.activities);
         },
         isWriting() {
-            console.log(this.msg.txt !== '')
             return (this.msg.txt !== '');
         },
         addBtnClass() {

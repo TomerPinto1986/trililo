@@ -5,9 +5,15 @@
 				data-name="card-edit-menu"
 				class="edit-btn f-center"
 				:class="{ 'full-header': card.style.isFull }"
+				:data-scroll="isScroll"
 				@click="editCard()"
 			>
-				<img name="edit" src="@/assets/svg/edit.svg" alt="" />
+				<img
+					:data-scroll="isScroll"
+					name="edit"
+					src="@/assets/svg/edit.svg"
+					alt=""
+				/>
 				<!-- <i class="fas fa-pen edit-btn" @click.stop="editCard"> -->
 			</i>
 		</div>
@@ -127,7 +133,8 @@ export default {
 	props: {
 		card: Object,
 		labels: Array,
-		activities: Array
+		activities: Array,
+		isScroll: Boolean
 	},
 	data() {
 		return {
@@ -184,9 +191,6 @@ export default {
 			if (!this.isEditing) this.$emit('openDetails', this.card.id);
 			this.isEditing = false;
 		}
-	},
-	created() {
-		// this.$emit('setHeight', this.$el.clientHeight);
 	},
 	components: {
 		customAvatar,

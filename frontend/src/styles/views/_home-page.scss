@@ -2,7 +2,7 @@
     background-color: white;
     h1 {
         text-transform: capitalize;
-        font-weight: 300;
+        font-weight: 400;
         color: #362c2c;
     }
     .boards-btn {
@@ -43,7 +43,7 @@
             color: #455a64;
         }
         .home-page-card {
-            margin-block-start: 180px;
+            margin-block-start: 80px;
             &:nth-child(2) {
                 margin-block-start: 70px;
             }

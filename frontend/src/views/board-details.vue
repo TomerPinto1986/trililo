@@ -135,7 +135,6 @@ export default {
         return {
             isDetails: false,
             isAddingGroup: false,
-            isScroll: false,
             isMenu: false,
             isCardEdit: false,
             isDashboard: false,
@@ -160,7 +159,8 @@ export default {
         },
         boardStyle() {
             return { 'background': `${this.board.style.background}` }
-        }
+        },
+
     },
     methods: {
         moveCard(status, card) {
@@ -388,15 +388,15 @@ export default {
             // this.isCardEdit = true;
         },
         setClickPos({ x, y, offsetX, offsetY, target }) {
-            console.dir(target)
             if (this.isCardEdit) return
+            console.dir(target)
             const imgOffsetX = (target.name === 'edit') ? 8 : 0;
             const imgOffsetY = (target.name === 'edit') ? 8 : 0;
-            const pos = { x, y, width: window.innerWidth, height: window.innerHeight, offsetX: offsetX + imgOffsetX, offsetY: offsetY + imgOffsetY }
+            const isScroll =  (target.dataset.scroll)? true : null;
+            const pos = { x, y, width: window.innerWidth, height: window.innerHeight, offsetX: offsetX + imgOffsetX, offsetY: offsetY + imgOffsetY, isScroll }
             this.clickPos = pos;
         },
         setIsEditing(val) {
-            console.log(this.isCardEdit, val)
             this.isCardEdit = val;
         },
         closeDashboard() {
@@ -419,7 +419,6 @@ export default {
         markBoard(){
             const board = this.board
             board.isMarked = (board.isMarked) ?  false : true ;
-            console.log(board.isMarked);
             this.updateBoard(board)
         }
     },

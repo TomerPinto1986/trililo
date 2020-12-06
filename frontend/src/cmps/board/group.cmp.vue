@@ -86,6 +86,7 @@
 				:card="card"
 				:labels="labels"
 				:activities="activities"
+				:isScroll="isScroll"
 				@openEditCard="emitOpenEditCard"
 				@openDetails="openDetails"
 			/>
@@ -160,7 +161,7 @@ export default {
 				if (!card.members) card.members = [];
 				return card.title.toLowerCase().includes(this.filterBy.txt.toLowerCase()) &&
 					(!this.filterBy.labelsIds.length || this.filterBy.labelsIds.every(id => card.labels.some(label => label.id === id))) &&
-					(!this.filterBy.membersIds.length || this.filterBy.membersIds.every(id => card.members.some(member => member._id === id)))
+					(!this.filterBy.membersIds.length || this.filterBy.membersIds.some(id => card.members.some(member => member._id === id)))
 			})
 			return cards
 		},
@@ -171,13 +172,16 @@ export default {
 			const x = this.clickPos.width - this.clickPos.x
 			const padding = 24;
 			const itemWidth = 290;
-			const ogPosition = 270;
+			const ogPosition = 255;
 			return { 'left': (x < itemWidth) ? x - padding + this.clickPos.offsetX + 'px' : ogPosition + 'px' };
 		},
 		groupClass() {
 			const maxHeight = (this.isAdding) ? 625 : 700
-			console.log(maxHeight)
 			return { 'scroll': this.listHeight > maxHeight }
+		},
+		isScroll(){
+			const maxHeight = (this.isAdding) ? 625 : 700
+			return this.listHeight > maxHeight 
 		}
 	},
 	methods: {
@@ -258,7 +262,6 @@ export default {
 					if (a.title.toLowerCase() > b.title.toLowerCase()) return 1 * diff;
 					return 0;
 				} else if (item === 'dueDate') {
-					console.log(a.dueDate, b.dueDate)
 					if (!a.dueDate && !b.dueDate) return 0
 					else if (a.dueDate && !b.dueDate) return -1 * diff
 					else if (!a.dueDate && b.dueDate) return 1 * diff
@@ -278,19 +281,17 @@ export default {
 			this.closeCardAdd();
 		},
 		setListHeight() {
-			this.listHeight = this.$refs['card-area'].$el.clientHeight;
-			// console.log(this.listHeight)
+			this.listHeight = this.$refs['card-area'].$el.scrollHeight;
 		}
 
 	},
 	mounted() {
-		// this.setListHeight();
+		this.setListHeight();
 	},
 	created() {
 		this.pos = this.groupIdx + 1;
 		setTimeout(() => {
 			window.addEventListener('click', this.checkClickPos)
-			this.setListHeight();
 		}, 100)
 		document.addEventListener('mouseenter', this.setListHeight)
 		document.addEventListener('mouseout', this.setListHeight)

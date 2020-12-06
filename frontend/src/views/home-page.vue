@@ -6,15 +6,14 @@
 					src="https://assets7.lottiefiles.com/packages/lf20_atgjqorh.json"
 					background="#FFF1F1"
 					speed="1"
-					style="width: 100%; height: 700px"
+					style="width: 100%; height: 550px"
 					loop
 					autoplay
 				></lottie-player>
 			</div>
 		</header>
 		<main class="main-container flex f-col f-center">
-			<h1>One app to
-manage them all. </h1>
+			<h1>The strongest task manager</h1>
 		<router-link class="boards-btn" to="/board">start here</router-link>
 			<article class="home-page-card flex">
 				<div class="img">
