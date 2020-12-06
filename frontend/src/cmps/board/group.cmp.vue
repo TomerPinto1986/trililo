@@ -161,7 +161,7 @@ export default {
 				if (!card.members) card.members = [];
 				return card.title.toLowerCase().includes(this.filterBy.txt.toLowerCase()) &&
 					(!this.filterBy.labelsIds.length || this.filterBy.labelsIds.every(id => card.labels.some(label => label.id === id))) &&
-					(!this.filterBy.membersIds.length || this.filterBy.membersIds.every(id => card.members.some(member => member._id === id)))
+					(!this.filterBy.membersIds.length || this.filterBy.membersIds.some(id => card.members.some(member => member._id === id)))
 			})
 			return cards
 		},
