@@ -1,7 +1,7 @@
 <template>
     <section class="label-preview">
         <div
-            :class="`label bgc-${idx+1} flex f-s-between `"
+            :class="`label bgc-${idx + 1} flex f-s-between`"
             :style="{ backgroundColor: label.color }"
             @click.stop="toggleLabel"
         >
@@ -17,7 +17,9 @@
             />
             <i :class="isSelect()"></i>
         </div>
-        <button class="label-edit" @click.stop="focusInput"><img  src="@/assets/svg/edit.svg" alt=""></button>
+        <button class="label-edit" @click.stop="focusInput">
+            <img src="@/assets/svg/edit.svg" alt="" />
+        </button>
     </section>
 </template>
 
