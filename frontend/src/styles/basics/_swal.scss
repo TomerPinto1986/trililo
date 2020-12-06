@@ -9,14 +9,20 @@
 }
 
 .swal2-title {
-    padding: 7px 10px;
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
     font-family: 'Segoe UI';
     color: #172b4d;
     border-radius: 3px;
+    padding: 7px 10px;
     margin: 0;
+}
+
+.swal2-container.swal2-bottom-end.swal2-backdrop-show {
+    top: unset;
+    bottom: 0;
+    overflow-y: unset;
 }
 
 .swal2-container.swal2-bottom-end.swal2-backdrop-show>.swal2-title.swal2-popup {

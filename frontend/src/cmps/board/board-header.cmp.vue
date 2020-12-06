@@ -17,7 +17,7 @@
 			/>
 			<button
 				class="favorite flex f-center"
-				v-if="isMarked"
+				v-if="isFavorite"
 				@click="toggleMarkBoard"
 			>
 				<i class="fas fa-star"></i>
@@ -104,7 +104,6 @@ export default {
 	},
 	data() {
 		return {
-			isMarked: false,
 			boardTitle: null,
 			isAddUsers: false,
 			options: (this.user._id !== 'guest') ? [
@@ -123,7 +122,8 @@ export default {
 	},
 	methods: {
 		toggleMarkBoard() {
-			this.isMarked = !this.isMarked;
+			console.log('marking board',this.board.isMarked);
+			this.$emit('markBoard');
 		},
 		emitOpenMenu() {
 			this.$emit('openMenu')
@@ -166,6 +166,9 @@ export default {
 		}
 	},
 	computed: {
+		isFavorite(){
+			return this.board.isMarked;
+		},
 		usersToAdd() {
 			return this.users.filter(user => user._id !== this.board.byMember._id)
 		},

@@ -13,6 +13,8 @@
 			</div>
 		</header>
 		<main class="main-container flex f-col f-center">
+			<h1>One app to
+manage them all. </h1>
 		<router-link class="boards-btn" to="/board">start here</router-link>
 			<article class="home-page-card flex">
 				<div class="img">
@@ -51,6 +53,7 @@ As a team member you can focus on your work and as a team leader, you can easily
 		</main>
 	</section>
 </template>
+
 
 <script>
 

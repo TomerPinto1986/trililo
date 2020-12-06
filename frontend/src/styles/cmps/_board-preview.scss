@@ -8,8 +8,13 @@
     background-size: cover !important;
     color: #fefefe;
     cursor: pointer;
-    h2 {
+    .favorite {
+        padding: 7px;
+    }
+    div:first-child {
         background-color: rgba(0, 0, 0, 0.356);
+    }
+    h2 {
         padding: 5px 15px;
         font-size: 20px;
         border-radius: 3px 3px 0 0;
