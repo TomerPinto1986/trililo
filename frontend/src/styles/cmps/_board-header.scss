@@ -107,11 +107,11 @@
                     z-index: 1;
 
                     &::after {
-                        content: "৽";
-                        // content: "౦";
+                        content: "»";
+                        transform: rotate(-90deg);
                         position: absolute;
                         font-size: 1.2em;
-                        right: 0;
+                        right: 5px;
                         bottom: -8px;
                     }
                 }
