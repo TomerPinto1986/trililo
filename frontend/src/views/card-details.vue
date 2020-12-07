@@ -27,6 +27,11 @@
                         <img src="@/assets/svg/card.svg" />
                     </span>
                     <input
+                    v-autowidth="{
+                    maxWidth: '960px',
+                    minWidth: '20px',
+                    comfortZone: 30,
+                }"
                         ref="card-title"
                         class="title"
                         type="text"

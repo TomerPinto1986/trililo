@@ -1,40 +1,31 @@
 <script>
-import { Bar, Line } from "vue-chartjs";
+import { Doughnut } from 'vue-chartjs'
 
 export default {
-	props: {
-		data: Array,
-		color: String,
-		labels: Array
-	},
+    props: {
+        cardsCount: Array,
+        usernames: Array
+    },
+    extends: Doughnut,
+    mounted() {
+        console.log(this.usernames, this.cardsCount);
+        // Overwriting base render method with actual data.
+        this.renderChart({
+            labels: this.usernames,
+            datasets: [
+                {
+                    label: 'User Cards',
+                      backgroundColor: [
+                        '#ff6384',
+                        '#36a2eb',
+                        '#cc65fe'
+                    ],
+                    data: this.cardsCount,
+                }
+            ]
+        })
+    }
+}
 
-	extends: Bar,
-	mounted() {
-		// Overwriting base render method with actual data.
-		this.renderChart({
-			labels: this.labels,
-			datasets: [
-				{
-					label: 'Avg Price per Type',
-					backgroundColor: this.color,
-					data: this.data,
-				},
-			],
-		});
-	},
-	watch: {
-		color() {
-			this.renderChart({
-				labels: this.labels,
-				datasets: [
-					{
-						label: 'Avg Price per Type',
-						backgroundColor: this.color,
-						data: this.data,
-					},
-				],
-			});
-		},
-	},
-};
+
 </script>
