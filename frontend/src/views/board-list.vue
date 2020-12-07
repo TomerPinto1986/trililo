@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
     <div class="board-list-container flex f-col">
         <h3 class="">Choose your board</h3>
         <h4>or create one from screcth</h4>
@@ -23,44 +22,6 @@
             />
         </section>
     </div>
-=======
-	<div class="board-list-container flex f-col">
-		<h3 class="">Choose your board</h3>
-		<h4>or create one from screcth</h4>
-		<section class="board-list" v-if="boards">
-			<div class="create-board board-preview flex f-center">
-				<!-- <form
-                    class="flex f-col"
-                    v-if="isAdding"
-                    @submit.prevent="saveBoard"
-                >
-                    <input
-						type="text"
-						v-model="newBoardTxt"
-						placeholder="Enter your board name"
-					/>
-                    <button class="create-btn">Create</button>
-                </form>
-                <button v-else @click="addBoard">+ CREATE BOARD</button> -->
-				<button @click="saveBoard"><span>+</span> CREATE BOARD</button>
-			</div>
-			<board-preview
-				v-for="board in favoritesBoards"
-				:key="board._id"
-				:boardDetails="board"
-				:boardBg="boardBg(board.style.background)"
-				@deleted="deleteBoard"
-			/>
-			<board-preview
-				v-for="board in otherBoards"
-				:key="board._id"
-				:boardDetails="board"
-				:boardBg="boardBg(board.style.background)"
-				@deleted="deleteBoard"
-			/>
-		</section>
-	</div>
->>>>>>> e538fbbc58d5713abf10248f5316ef5b9ef64f2c
 </template>
 
 <script>
