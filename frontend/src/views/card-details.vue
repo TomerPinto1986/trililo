@@ -310,9 +310,9 @@
                 <button
                     @click.stop="cloneCard"
                     class="flex f-a-center content-after action-btn"
-                    title="Copy"
-                    data-txt="Copy"
-                    aria-label="Copy"
+                    title="Clone"
+                    data-txt="Clone"
+                    aria-label="Clone"
                 >
                     <img
                         class="icon-btn clone-img"
@@ -517,8 +517,8 @@ export default {
                 title: 'Are you sure you want to delete this card?',
                 showCancelButton: true,
                 showConfirmButton: true,
-                confirmButtonColor: '#455a64',
-                cancelButtonColor: '#ff505b',
+                confirmButtonColor: '#ff505b',
+                cancelButtonColor: '#455a64',
                 confirmButtonText: 'Delete'
             });
             if (!userAnc.isConfirmed) return;
@@ -540,6 +540,7 @@ export default {
             this.addActivity(`deleted the card '${cardTitle}'`);
         },
         moveCard(status) {
+            console.log('status:', status)
             this.$store.commit({ type: 'updateCardStatus', status });
             const board = this.board;
             this.updateBoard(board);
@@ -547,9 +548,11 @@ export default {
             if (status.startGroup !== status.endGroup) {
                 const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
                 const loggedinUser = this.$store.getters.loggedinUser;
-                socketService.emit('change-board', { msg: `${loggedinUser.username} moved the '${this.card.title}' card to the '${groupTitle}' list`, boardId: board._id, members: this.members(loggedinUser) });
+                const msg = status.isClone ? `${loggedinUser.username} cloned the '${this.card.title}' card to the '${groupTitle}' list` : `${loggedinUser.username} moved the '${this.card.title}' card to the '${groupTitle}' list`;
+                const alertMsg = status.isClone ? 'Card successfully cloned' : 'Card successfully moved';
+                socketService.emit('change-board', { msg, boardId: board._id, members: this.members(loggedinUser) });
                 // ========
-                this.myAlert('Card successfully moved');
+                this.myAlert(alertMsg);
                 this.addActivity(`moved card '${this.card.title}' to '${groupTitle}'`, this.card);
             }
         },

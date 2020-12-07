@@ -186,7 +186,7 @@
                         src="@/assets/svg/copy-white.svg"
                         alt=""
                     />
-                    Copy
+                    Clone
                 </div>
                 <pop-up
                     class="edit-card"

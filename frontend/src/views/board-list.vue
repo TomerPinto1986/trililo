@@ -69,8 +69,8 @@ export default {
                 title: 'Are you sure you want to delete this board?',
                 showCancelButton: true,
                 showConfirmButton: true,
-                confirmButtonColor: '#455a64',
-                cancelButtonColor: '#ff505b',
+                confirmButtonColor: '#ff505b',
+                cancelButtonColor: '#455a64',
                 confirmButtonText: 'Delete'
             });
             if (!userAnc.isConfirmed) return;

@@ -172,9 +172,11 @@ export default {
             if (status.startGroup !== status.endGroup) {
                 const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
                 const loggedinUser = this.$store.getters.loggedinUser;
-                socketService.emit('change-board', { msg: `${loggedinUser.username} moved the '${card.title}' card to the '${groupTitle}' list`, boardId: board._id, members: this.members(loggedinUser) });
+                const msg = status.isClone ? `${loggedinUser.username} cloned the '${card.title}' card to the '${groupTitle}' list` : `${loggedinUser.username} moved the '${card.title}' card to the '${groupTitle}' list`;
+                const alertMsg = status.isClone ? 'Card successfully cloned' : 'Card successfully moved';
+                socketService.emit('change-board', { msg, boardId: board._id, members: this.members(loggedinUser) });
                 // ========
-                this.myAlert('Card successfully moved');
+                this.myAlert(alertMsg);
                 this.addActivity(`moved card '${card.title}' to '${groupTitle}'`, card, null, card);
             }
 
