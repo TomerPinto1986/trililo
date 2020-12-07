@@ -178,10 +178,9 @@ export default {
             if (status.startGroup !== status.endGroup) {
                 const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
                 const loggedinUser = this.$store.getters.loggedinUser;
-                const msg = status.isClone ? `${loggedinUser.username} cloned the '${card.title}' card to the '${groupTitle}' list` : `${loggedinUser.username} moved the '${card.title}' card to the '${groupTitle}' list`;
-                const alertMsg = status.isClone ? 'Card successfully cloned' : 'Card successfully moved';
+                const msg = status.isClone ? `${loggedinUser.username} cloned card '${card.title}' to list '${groupTitle}'` : `${loggedinUser.username} moved card '${card.title}' to list '${groupTitle}'`;
+                const alertMsg = status.isClone ? 'Card was successfully cloned' : 'Card was successfully moved';
                 socketService.emit('change-board', { msg, boardId: board._id, members: this.members(loggedinUser) });
-                // ========
                 this.myAlert(alertMsg);
                 this.addActivity(`moved card '${card.title}' to '${groupTitle}'`, card, null, card);
             }
@@ -219,8 +218,7 @@ export default {
             group.cards.push(newCard);
             this.updateBoard(board);
             const loggedinUser = this.$store.getters.loggedinUser;
-            socketService.emit('change-board', { msg: `${loggedinUser.username} added a new '${title}' card`, boardId: board._id, members: this.members(loggedinUser) });
-            // ========
+            socketService.emit('change-board', { msg: `${loggedinUser.username} added card '${title}'`, boardId: board._id, members: this.members(loggedinUser) });
             this.myAlert('The card was successfully added');
             this.addActivity(` added `, newCard)
         },
@@ -255,11 +253,10 @@ export default {
             const board = this.board;
             const groupIdx = board.groups.findIndex(currGroup => currGroup.id === groupId);
             const loggedinUser = this.$store.getters.loggedinUser;
-            socketService.emit('change-board', { msg: `${loggedinUser.username} deleted the '${board.groups[groupIdx].title}' list`, boardId: board._id, members: this.members(loggedinUser) });
+            socketService.emit('change-board', { msg: `${loggedinUser.username} deleted list '${board.groups[groupIdx].title}'`, boardId: board._id, members: this.members(loggedinUser) });
             board.groups.splice(groupIdx, 1);
             this.updateBoard(board);
-            // ========
-            this.myAlert('The list has been successfully deleted');
+            this.myAlert('The list was successfully deleted');
             this.addActivity('deleted a list')
         },
         newGroup() {
@@ -275,8 +272,7 @@ export default {
                 this.$refs['group-title'].scrollIntoView();
             }, 10);
             const loggedinUser = this.$store.getters.loggedinUser;
-            socketService.emit('change-board', { msg: `${loggedinUser.username} added a new '${newGroup.title}' list`, boardId: board._id, members: this.members(loggedinUser) });
-            // ========            
+            socketService.emit('change-board', { msg: `${loggedinUser.username} added list '${newGroup.title}'`, boardId: board._id, members: this.members(loggedinUser) });
             this.myAlert('The list was successfully added');
             this.addActivity('added a list')
 
@@ -339,7 +335,6 @@ export default {
             const msg = memberIdx === -1 ? `${user.username} was added to this board` : `${user.username} was removed from this board`;
             const alertMsg = memberIdx === -1 ? `${user.username} was successfully added` : `${user.username} was successfully removed`;
             socketService.emit('change-board', { msg, members: this.members(loggedinUser) });
-            // ========
             this.myAlert(alertMsg);
             const action = (memberIdx === -1) ? `added ${user.username} to the board` : `removed ${user.username} from the board`;
             this.addActivity(action);
@@ -360,10 +355,9 @@ export default {
             }
             this.updateCard(card);
             const loggedinUser = this.$store.getters.loggedinUser;
-            const msg = memberIdx === -1 ? `${newUser.username} was added to '${card.title}' card` : `${newUser.username} was removed from '${card.title}' card`;
+            const msg = memberIdx === -1 ? `${newUser.username} was added to card '${card.title}'` : `${newUser.username} was removed from card '${card.title}'`;
             const alertMsg = memberIdx === -1 ? `${newUser.username} was successfully added` : `${newUser.username} was successfully removed`;
             socketService.emit('change-board', { msg, members: this.members(loggedinUser) });
-            // ========
             this.myAlert(alertMsg);
             const action = (memberIdx === -1) ? `added ${newUser.username} to ` : `removed ${newUser.username} from`;
             this.addActivity(action, card, null, this.loggedinUser)
@@ -385,7 +379,6 @@ export default {
             this.updateBoard(board)
             const loggedinUser = this.$store.getters.loggedinUser;
             socketService.emit('change-board', { msg: `${loggedinUser.username} changed the board privacy to ${privacy}`, boardId: board._id, members: this.members(loggedinUser) });
-            // ========
             this.myAlert('Privacy was successfully changed');
             this.addActivity(`changed the board privacy to ${privacy}`)
         },
@@ -440,8 +433,7 @@ export default {
         // },
         moveCardOnDrag(groupTitle, card) {
             const loggedinUser = this.$store.getters.loggedinUser;
-            socketService.emit('change-board', { msg: `${loggedinUser.username} has moved the '${card.title}' card to the '${groupTitle}' list`, members: this.members(loggedinUser) });
-            // ========
+            socketService.emit('change-board', { msg: `${loggedinUser.username} moved card '${card.title}' to list '${groupTitle}'`, members: this.members(loggedinUser) });
             this.myAlert('Card was successfully moved');
             this.addActivity(`moved card '${card.title}' to '${groupTitle}'`, card, null, card);
         },
