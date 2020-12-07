@@ -92,7 +92,7 @@
 			/>
 		</draggable>
 		<div class="add-card-container" @click.stop>
-			<template v-if="isAdding">
+			<span v-if="isAdding">
 				<textarea
 					@keydown.enter.prevent
 					@keyup.enter="saveCard"
@@ -109,7 +109,7 @@
 						class="el-icon-close close-btn"
 					></i>
 				</div>
-			</template>
+			</span>
 			<div v-else @click="addCard" class="open-add-btn">
 				<i class="el-icon-plus"></i>
 				<span>{{ addBtnTxt }}</span>
@@ -216,7 +216,7 @@ export default {
 		},
 		async emitDelete(groupId) {
 			const userAnc = await Swal.fire({
-				position: 'center',
+				position: 'top-end',
 				title: 'Are you sure you want to delete this list?',
 				showCancelButton: true,
 				showConfirmButton: true,
