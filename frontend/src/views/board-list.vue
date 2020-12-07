@@ -98,6 +98,9 @@ export default {
 	// 		this.$store.dispatch('loadBoards')
 	// 	}
 	// },
+	mounted(){
+		window.scrollTo(0,0);
+	},
 	created() {
 		this.$store.dispatch('loadBoards')
 		this.$store.dispatch('loadUsers');
