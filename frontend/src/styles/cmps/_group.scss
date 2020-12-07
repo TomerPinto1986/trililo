@@ -235,4 +235,8 @@
             opacity: 0;
         }
     }
+
+    @media (max-width: 585px){
+        height: calc(100vh - 135px);
+    }
 }

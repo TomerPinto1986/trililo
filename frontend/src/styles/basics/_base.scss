@@ -6,6 +6,7 @@ html {
     font-family: 'Segoe UI', mont, Calibri, 'Trebuchet MS', sans-serif;
     letter-spacing: normal;
     line-height: 1.8;
+    overflow-x: hidden;
 }
 
 body {
@@ -58,11 +59,15 @@ button {
     margin: 0;
 }
 
+input {
+    font-family: 'Segoe UI', mont, Calibri, 'Trebuchet MS', sans-serif;
+}
+
 textarea {
+    font-family: 'Segoe UI', mont, Calibri, 'Trebuchet MS', sans-serif;
     resize: none;
 }
 
 .el-input--small .el-input__inner {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
