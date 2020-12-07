@@ -26,7 +26,6 @@ export default {
     },
     mutations: {
         setUser(state, { user }) {
-            console.log(user, 'setting')
             state.loggedinUser = user;
         },
         setUsers(state, { users }) {
@@ -37,21 +36,22 @@ export default {
         }
     },
     actions: {
-        async login({ commit }, { userCred }) {
+        async login({ dispatch, commit }, { userCred }) {
             const user = await userService.login(userCred);
             commit({ type: 'setUser', user });
+            dispatch('loadBoards')
             return user;
         },
         async signup({ commit }, { userCred }) {
-            console.log(userCred)
             const user = await userService.signup(userCred)
             commit({ type: 'setUser', user });
             return user;
         },
-        async logout({ commit }) {
+        async logout({ dispatch, commit }) {
             await userService.logout()
             // commit({ type: 'setUsers', users: [] })
             commit({ type: 'setUser', user: userService.getGuest() })
+            dispatch('loadBoards')
             return;
         },
         async loadUsers({ commit }) {
@@ -68,10 +68,8 @@ export default {
         },
         handleFacebook({ state, dispatch }, { userCred }) {
             const action = (state.users.find(user => {
-                console.log('user.id === userCred.id:', user.id,userCred.id)
                 return user.id === userCred.id
             })) ? 'login' : 'signup';
-            console.log(action)
             dispatch({ type: action, userCred });
         }
     }

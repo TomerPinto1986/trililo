@@ -81,7 +81,10 @@ export default {
 		}
 	},
 	mounted() {
-		this.$emit('setHeight', this.$el.clientHeight)
+		const popupWidth = this.$el.clientWidth
+		const popupHeight = this.$el.clientHeight
+		const dimensions = {popupWidth, popupHeight}
+		this.$emit('setDimensions', dimensions)
 	},
 	components: {
 		selectList,

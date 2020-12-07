@@ -1,22 +1,22 @@
 .home-page {
     background-color: white;
+    h1 {
+        text-transform: capitalize;
+        font-weight: 400;
+        color: #362c2c;
+    }
     .boards-btn {
         font-size: 1.8rem;
         padding: 0.4em 1.6em;
+        margin-top: 40px;
         display: block;
         width: -webkit-fit-content;
         width: 350px;
-        margin: 20px 22px 20px 0;
         box-shadow: 0 0 2px 1px black, inset 0 0 1px 0px black;
         box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.25);
-        position: absolute;
-        z-index: 100;
-        top: 700px;
         text-align: center;
         right: calc(50% - 200px);
-        /* background: #455a64; */
-        background: #4E7592;
-        /* background: #e8505b; */
+        background: #455a64;
         border-radius: 36px;
         text-transform: uppercase;
         font-family: inherit;
@@ -27,7 +27,7 @@
         }
     }
     .main-container {
-        max-width: 900px;
+        max-width: 1200px;
         margin: 0 auto;
         h2 {
             text-transform: uppercase;
@@ -35,26 +35,52 @@
             -webkit-margin-after: 20px;
             margin-block-end: 20px;
             align-self: flex-start;
-            color: #455a64;
+            color:#455a64;
             font-weight: 700;
+            width: 450px;
         }
         p {
             font-size: em(18px);
             color: #455a64;
         }
         .home-page-card {
-            margin-block-start: 100px;
+            margin-block-start: 80px;
+
+            .art{
+                align-self: center;
+            }
             &:nth-child(2) {
-                margin-block-start: 180px;
+                margin-block-start: 70px;
+            }
+            .img {
+                max-width: 500px;
             }
             div {
-                &.img {
-                    padding-inline-end: 20px;
-                    max-width: 420px;
+                &:first-child {
+                    padding-inline-start: 40px;
+                    padding-inline-end: 40px;
                 }
-                &.art {
-                    padding-inline-start: 20px;
+                &:last-child {
+                    padding-inline-start: 40px;
+                    padding-inline-end: 40px;
                 }
+            }
+        }
+    }
+    @media (max-width:850px) {
+        .home-page-card {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            h2 {
+                text-align: center;
+                width: 100%;
+            }
+            p {
+                text-align: center;
+            }
+            .img {
+                order: 1;
             }
         }
     }

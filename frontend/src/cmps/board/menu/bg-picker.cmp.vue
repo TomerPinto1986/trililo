@@ -47,16 +47,18 @@ export default {
 				'rgb(202, 146, 71)'
 			],
 			srcs: [
-				require('../../../assets/bgs/bg1.jpg'),
-				require('../../../assets/bgs/bg2.jpg'),
-				require('../../../assets/bgs/bg3.jpg'),
-				require('../../../assets/bgs/bg4.jpg'),
-				require('../../../assets/bgs/bg5.jpg'),
-				require('../../../assets/bgs/bg6.jpg'),
-				require('../../../assets/bgs/bg7.jpg'),
-				require('../../../assets/bgs/bg8.jpg'),
-				require('../../../assets/bgs/bg9.jpg'),
-				require('../../../assets/bgs/bg10.jpg'),
+				require('../../../assets/bgs/preview/bg1.jpg'),
+				require('../../../assets/bgs/preview/bg2.jpg'),
+				require('../../../assets/bgs/preview/bg3.jpg'),
+				require('../../../assets/bgs/preview/bg4.jpg'),
+				require('../../../assets/bgs/preview/bg5.jpg'),
+				require('../../../assets/bgs/preview/bg6.jpg'),
+				require('../../../assets/bgs/preview/bg7.jpg'),
+				require('../../../assets/bgs/preview/bg8.jpg'),
+				require('../../../assets/bgs/preview/bg9.jpg'),
+				require('../../../assets/bgs/preview/bg10.jpg'),
+				require('../../../assets/bgs/preview/bg11.jpg'),
+				require('../../../assets/bgs/preview/bg12.jpg'),
 			]
 		}
 	},

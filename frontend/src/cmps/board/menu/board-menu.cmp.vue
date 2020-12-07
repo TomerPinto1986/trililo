@@ -1,7 +1,14 @@
 <template>
 	<section class="board-menu">
-		<i class="fas fa-chevron-left btn back-btn flex f-center" v-if="isSub" @click="backToMenu"></i>
-		<i @click="emitClose" class="el-icon-close btn close-btn flex f-center"></i>
+		<i
+			class="fas fa-chevron-left btn back-btn flex f-center"
+			v-if="isSub"
+			@click="backToMenu"
+		></i>
+		<i
+			@click="emitClose"
+			class="el-icon-close btn close-btn flex f-center"
+		></i>
 		<div class="board-menu-header">
 			<h3>{{ menuTitle }}</h3>
 			<hr class="menu-header-divider" />
@@ -33,6 +40,7 @@
 						:key="activity.id"
 						:activity="activity"
 						@openCard="openCard"
+						@deleteComment="emitDeleteComment"
 					/>
 				</div>
 			</div>
@@ -48,6 +56,7 @@
 import activityPreview from '../../activity-preview.cmp.vue'
 import boardSearch from './board-search.cmp'
 import bgPicker from './bg-picker.cmp'
+const Swal = require('sweetalert2');
 
 export default {
 	props: {
@@ -58,7 +67,6 @@ export default {
 			isBg: false,
 			isSearch: false,
 			isSub: false,
-
 		}
 	},
 	computed: {
@@ -76,13 +84,29 @@ export default {
 			this.isSub = true;
 		},
 		emitClose() {
+			const filterBy = {
+				txt: "",
+				membersIds: [],
+				labelsIds: []
+			}
 			this.$emit('close');
+			this.$emit('filter', filterBy);
+			this.backToMenu();
 		},
 		emitChange(bgc) {
 			this.$emit('changeBgc', bgc);
 		},
-		emitDeleteBoard() {
-			if (!confirm('Are you sure?')) return;
+		async emitDeleteBoard() {
+			const userAnc = await Swal.fire({
+				position: 'center',
+				title: 'Are you sure you want to delete this board?',
+				showCancelButton: true,
+				showConfirmButton: true,
+				confirmButtonColor: '#ff505b',
+				cancelButtonColor: '#455a64',
+				confirmButtonText: 'Delete'
+			});
+			if (!userAnc.isConfirmed) return;
 			this.$emit('deleteBoard', this.board._id)
 		},
 		openCard(cardId) {
@@ -101,6 +125,9 @@ export default {
 			this.isSub = false;
 			this.isBg = false;
 			this.isSearch = false;
+		},
+		emitDeleteComment(commentId) {
+			this.$emit('deleteComment', commentId);
 		}
 	},
 	created() {

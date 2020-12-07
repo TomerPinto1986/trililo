@@ -22,6 +22,7 @@
         overflow-y: auto;
     }
     .add-group-container {
+        min-width: 295px;
         background-color: transparent;
         margin-inline-end: 0;
         height: fit-content;
@@ -44,6 +45,7 @@
             line-height: 20px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             border: none;
+            outline: none;
         }
         .add-group-btns {
             align-items: center;
@@ -52,7 +54,7 @@
             border-radius: 3px;
             height: auto;
             min-height: 32px;
-            padding: 4px;
+            padding: 4px 4px 4px 0;
             .add-btn {
                 font-size: 14px;
                 background-color: #5aac44;
@@ -105,4 +107,5 @@
         height: 10px;
         opacity: 0;
     }
+
 }

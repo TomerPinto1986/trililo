@@ -11,7 +11,7 @@
 					role="button"
 					class="button _1a8LrtkAQTAK-j UC8-8jzxy9UkT0 _26XWB5josseeRo"
 				>
-					<div :class="bgcName" class="_2n6YBcAzfBM_0a"></div>
+					<div :style="bgc" class="_2n6YBcAzfBM_0a"></div>
 					<div class="_2F9ioHU3xVEem_">
 						<div class="iNrcwkjGRZWeLW"></div>
 						<div class="_3oRL16p-W0XVVs"></div>
@@ -25,7 +25,8 @@
 				<div
 					role="button"
 					class="button _1a8LrtkAQTAK-j _4FN7X40rw25a6Q _26XWB5josseeRo"
-					:class="[selectedFull, canSelect, bgcName]"
+					:class="[selectedFull, canSelect]"
+					:style="bgc"
 					@click="selectCover(true)"
 				>
 					<div class="_2F9ioHU3xVEem_">
@@ -40,7 +41,7 @@
 				</div>
 			</div>
 			<button
-			v-if="bgcName"
+				v-if="newColor"
 				@click="removeCover"
 				class="button _3-CjziCGL9o1aO _1fcxnzs4VXcgEM"
 			>
@@ -52,43 +53,43 @@
 		<div class="colors">
 			<div class="_3zYZrEHtMpYE6i">
 				<button
-					@click="setColor('7bc86c', 'green')"
+					@click="setColor('#7bc86c')"
 					class="_9HlyjDStZT9Tkt _VjutK-Uakd6Op"
 				></button>
 				<button
-					@click="setColor('f5dd29', 'yellow')"
+					@click="setColor('#f5dd29')"
 					class="_9HlyjDStZT9Tkt _3wmQ8lVe3zahD9"
 				></button>
 				<button
-					@click="setColor('ffaf3f', 'orange')"
+					@click="setColor('#ffaf3f')"
 					class="_9HlyjDStZT9Tkt _3IxJVmJ52SXvxO"
 				></button>
 				<button
-					@click="setColor('ef7564')"
+					@click="setColor('#ef7564')"
 					class="_9HlyjDStZT9Tkt _2hOM7AmVdl8C7W"
 				></button>
 				<button
-					@click="setColor('cd8de5')"
+					@click="setColor('#cd8de5')"
 					class="_9HlyjDStZT9Tkt Ds0H9CqAfcVFSh"
 				></button>
 				<button
-					@click="setColor('5ba4cf')"
+					@click="setColor('#5ba4cf')"
 					class="_9HlyjDStZT9Tkt _3qziXoVq3vOoB-"
 				></button>
 				<button
-					@click="setColor('29cce5')"
+					@click="setColor('#29cce5')"
 					class="_9HlyjDStZT9Tkt _2sAsAnMyJDuTix"
 				></button>
 				<button
-					@click="setColor('6deca9')"
+					@click="setColor('#6deca9')"
 					class="_9HlyjDStZT9Tkt _2zEv5Z_t8hhaSh"
 				></button>
 				<button
-					@click="setColor('ff8ed4')"
+					@click="setColor('#ff8ed4')"
 					class="_9HlyjDStZT9Tkt _3wVGI--mpmR634"
 				></button>
 				<button
-					@click="setColor('2D928D')"
+					@click="setColor('#2D928D')"
 					class="_9HlyjDStZT9Tkt _36HiOr-q2SnKP7"
 				></button>
 			</div>
@@ -104,20 +105,22 @@ export default {
 	},
 	data() {
 		return {
-			bgcName: '',
 			newColor: '',
 			isFull: false
 		}
 	},
 	computed: {
 		selectedTop() {
-			return { 'selected': this.bgcName && !this.isFull }
+			return { 'selected': this.newColor && !this.isFull }
 		},
 		selectedFull() {
-			return { 'selected': this.bgcName && this.isFull }
+			return { 'selected': this.newColor && this.isFull }
 		},
 		canSelect() {
-			return { 'can-select': this.bgcName }
+			return { 'can-select': this.newColor }
+		},
+		bgc() {
+			return { background: this.newColor, opacity: 1 }
 		}
 	},
 	methods: {
@@ -125,8 +128,7 @@ export default {
 			this.$emit('colorChange', this.newColor, this.isFull);
 		},
 		setColor(color) {
-			this.newColor = '#' + color;
-			this.bgcName = color;
+			this.newColor = color;
 			this.emitColorChange();
 		},
 		selectCover(isFull) {
@@ -142,9 +144,7 @@ export default {
 	},
 	created() {
 		this.newColor = this.color;
-		this.bgcName = this.color.substring(1);
 		this.isFull = this.showFull;
-		console.log(this.isFull)
 	}
 }
 </script>

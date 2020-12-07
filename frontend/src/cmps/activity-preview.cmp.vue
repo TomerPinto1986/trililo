@@ -33,7 +33,7 @@
 					</span>
 					<div class="comment-container">
 						<span class="comment">{{ activity.comment }}</span>
-						<span class="delete-btn">Delete</span>
+						<span class="delete-btn" @click="emitDeleteComment(activity.id)">Delete</span>
 					</div>
 				</template>
 			</div>
@@ -67,8 +67,8 @@ export default {
 		emitOpenCard() {
 			this.$emit('openCard', this.activity.card.id)
 		},
-		print(a, b) {
-			console.log(a, b)
+		emitDeleteComment(commentId){
+			this.$emit('deleteComment', commentId);
 		}
 	},
 	created(){

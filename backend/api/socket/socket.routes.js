@@ -25,7 +25,6 @@ function connectSockets(io) {
             socket.to(socket.myTopic).broadcast.emit('user-commenting', username);
         });
         socket.on('change-board', data => {
-            console.log('data:', data)
             io.emit('user-msg', data);
         });
     });

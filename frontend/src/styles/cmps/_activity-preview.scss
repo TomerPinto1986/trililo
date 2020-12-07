@@ -16,7 +16,6 @@
             text-decoration: underline;
             cursor: pointer;
         }
-
     }
 
     .avatar {
@@ -32,6 +31,13 @@
         .delete-btn{
             font-size: 0.8em;
             margin-inline-start: 5px;
+            background-color: rgba(161, 156, 156, 0.2);
+            padding: 1px 2px;
+            border-radius: 3px;
+            cursor: pointer;
+            &:hover{
+                background-color: rgba(161, 156, 156, 0.3);
+            }
         }
 
     }
@@ -53,4 +59,6 @@
         font-size: em(12, 14);
         color: #55637d;
     }
+
+
 }

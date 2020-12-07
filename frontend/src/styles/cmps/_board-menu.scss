@@ -11,6 +11,11 @@
     font-size: 1rem;
     color: #172b4dc7;
     text-align: start;
+    transition: .35s ease-in-out;
+    transform: translateX(0);
+    &.isOut{
+        transform: translateX(100%);
+    }
 
     .board-menu-header {
         text-align: center;

@@ -36,7 +36,7 @@ function save(board) {
 
 function emptyBoard() {
     return {
-        "title": "",
+        "title": "Board",
         "byMember": {},
         "isPrivate": true,
         "style": {

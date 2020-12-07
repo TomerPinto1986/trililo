@@ -19,7 +19,6 @@
         color: white;
         align-items: center;
         transition: 75ms;
-        ;
         &.bgc {
             @each $bgc in $labelbgcs {
                 $i: index($labelbgcs, $bgc);
@@ -30,7 +29,8 @@
         }
         span {
             align-self: center;
-            font-size: 1.25em;
+            font-size: 1em;
+            font-weight: 600;
         }
         input {
             align-self: center;
@@ -41,6 +41,7 @@
             color: white;
             outline: none;
             font-weight: inherit;
+            border: none;
         }
     }
 }
