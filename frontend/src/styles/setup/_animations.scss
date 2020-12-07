@@ -43,3 +43,27 @@
         transform: scale3D(0, 0, 1);
     }
 }
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.slide-enter-active {
+    transition: all .3s ease;
+}
+
+.slide-leave-active {
+    transition: all 0s
+}
+
+.slide-enter,
+.slide-leave-to {
+    transform: translateY(0px);
+    opacity: 0;
+}

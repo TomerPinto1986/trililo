@@ -25,7 +25,7 @@
         }
 
         &-gif {
-            margin: -1px -6px 0 -6px;
+            margin: -1px -5px 0 -6px;
             width: 50px;
             height: 50px;
         }
@@ -54,7 +54,7 @@
 
         .logo {
             transition: 0.25s;
-            margin-block-start: 90px;
+            margin-block-start: 75px;
             margin-inline-end: 33px;
             grid-column: 2/3;
 
@@ -106,7 +106,7 @@
             }
 
             &-title {
-                height: 55px;
+                height: 50px;
                 width: 125px;
             }
         }

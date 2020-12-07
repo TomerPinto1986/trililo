@@ -210,7 +210,7 @@ export default {
 			this.isHome = (page === 'home' || page === 'login' || page === 'signup');
 			if(page !== 'home'){
 				this.isLoading = true;
-				setTimeout(()=>this.isLoading = false, 900)
+				setTimeout(()=>this.isLoading = false, 1700)
 			}
 		}
 	},
