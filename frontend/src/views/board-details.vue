@@ -72,55 +72,54 @@
                 />
             </draggable>
 
-			<div class="add-group-container group" @click.stop>
-				<div class="title-area" v-if="isAddingGroup">
-					<input
-						@keydown.enter.prevent
-						@keyup.enter="newGroup"
-						ref="group-title"
-						placeholder="Enter list title..."
-						type="text"
-						v-model="newGroupTitle"
-						maxlength="80"
-					/>
-					<div class="add-group-btns flex">
-						<button @click="newGroup" class="add-btn">
-							Add List
-						</button>
-						<i
-							class="el-icon-close close-btn"
-							@click="closeAddGroup"
-						></i>
-					</div>
-				</div>
-				<div v-else class="open-add-btn" @click.stop="addGroup">
-					<i class="el-icon-plus"></i> <span> Add another list</span>
-				</div>
-			</div>
-			<div class="spacer">x</div>
-		</div>
-		<div class="window" v-if="isDetails" @click="closeDetails">
-			<card-details
-				@close="closeDetails"
-				@addCard="updateCard"
-				@deleteCard="deleteCard"
-			/>
-		</div>
-		<!-- <div class="window" @click="closeDashboard">
+            <div class="add-group-container group" @click.stop>
+                <div class="title-area" v-if="isAddingGroup">
+                    <input
+                        @keydown.enter.prevent
+                        @keyup.enter="newGroup"
+                        ref="group-title"
+                        placeholder="Enter list title..."
+                        type="text"
+                        v-model="newGroupTitle"
+                        maxlength="80"
+                    />
+                    <div class="add-group-btns flex">
+                        <button @click="newGroup" class="add-btn">
+                            Add List
+                        </button>
+                        <i
+                            class="el-icon-close close-btn"
+                            @click="closeAddGroup"
+                        ></i>
+                    </div>
+                </div>
+                <div v-else class="open-add-btn" @click.stop="addGroup">
+                    <i class="el-icon-plus"></i> <span> Add another list</span>
+                </div>
+            </div>
+            <div class="spacer">x</div>
+        </div>
+        <div class="window" v-if="isDetails" @click="closeDetails">
+            <card-details
+                @close="closeDetails"
+                @addCard="updateCard"
+                @deleteCard="deleteCard"
+            />
+        </div>
+        <!-- <div class="window" @click="closeDashboard">
             <dashboard :board="this.board" :colors="colors"/>
         </div> -->
-
-		<transition name="slide" mode="in-out">
-			<board-menu
-				v-show="isMenu"
-				:board="board"
-				@changeBgc="changeBgc"
-				@close="toggleMenu"
-				@deleteBoard="deleteBoard"
-				@filter="filter"
-			/>
-		</transition>
-	</section>
+        <!-- v-show="isMenu" -->
+        <board-menu
+            :board="board"
+            :class="{ isOut: !isMenu }"
+            @changeBgc="changeBgc"
+            @close="toggleMenu"
+            @deleteBoard="deleteBoard"
+            @filter="filter"
+            @deleteComment="deleteComment"
+        />
+    </section>
 </template>
 
 <script>
@@ -136,214 +135,214 @@ import { socketService } from '@/services/socket.service';
 const Swal = require('sweetalert2');
 
 export default {
-	data() {
-		return {
-			isDetails: false,
-			isAddingGroup: false,
-			isMenu: false,
-			isCardEdit: false,
-			// isDashboard: false,
-			newGroupTitle: '',
-			filterBy: null,
-			cardToEdit: null,
-			clickPos: {},
-		}
-	},
-	computed: {
-		// colors(){
-		//     return this.$store.getters.colors;
-		// },
-		board() {
-			// if (this.$store.getters.currBoard) {
-			// 	socketService.emit('set-board', this.$store.getters.currBoard._id)
-			// }
-			return utilService.deepCopy(this.$store.getters.currBoard);
-		},
-		users() {
-			return this.$store.getters.users;
-		},
-		user() {
-			return this.$store.getters.loggedinUser;
-		},
-		boardStyle() {
-			return { 'background': `${this.board.style.background}` }
-		},
+    data() {
+        return {
+            isDetails: false,
+            isAddingGroup: false,
+            isMenu: false,
+            isCardEdit: false,
+            // isDashboard: false,
+            newGroupTitle: '',
+            filterBy: null,
+            cardToEdit: null,
+            clickPos: {},
+        }
+    },
+    computed: {
+        // colors(){
+        //     return this.$store.getters.colors;
+        // },
+        board() {
+            // if (this.$store.getters.currBoard) {
+            // 	socketService.emit('set-board', this.$store.getters.currBoard._id)
+            // }
+            return utilService.deepCopy(this.$store.getters.currBoard);
+        },
+        users() {
+            return this.$store.getters.users;
+        },
+        user() {
+            return this.$store.getters.loggedinUser;
+        },
+        boardStyle() {
+            return { 'background': `${this.board.style.background}` }
+        },
 
-	},
-	methods: {
-		moveCard(status, card) {
-			this.$store.commit({ type: 'updateCardStatus', status });
-			const board = this.board;
-			this.updateBoard(board);
-			this.cardToEdit = false;
-			if (status.startGroup !== status.endGroup) {
-				const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
-				const loggedinUser = this.$store.getters.loggedinUser;
-				const msg = status.isClone ? `${loggedinUser.username} cloned the '${card.title}' card to the '${groupTitle}' list` : `${loggedinUser.username} moved the '${card.title}' card to the '${groupTitle}' list`;
-				const alertMsg = status.isClone ? 'Card successfully cloned' : 'Card successfully moved';
-				socketService.emit('change-board', { msg, boardId: board._id, members: this.members(loggedinUser) });
-				// ========
-				this.myAlert(alertMsg);
-				this.addActivity(`moved card '${card.title}' to '${groupTitle}'`, card, null, card);
-			}
+    },
+    methods: {
+        moveCard(status, card) {
+            this.$store.commit({ type: 'updateCardStatus', status });
+            const board = this.board;
+            this.updateBoard(board);
+            this.cardToEdit = false;
+            if (status.startGroup !== status.endGroup) {
+                const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
+                const loggedinUser = this.$store.getters.loggedinUser;
+                const msg = status.isClone ? `${loggedinUser.username} cloned the '${card.title}' card to the '${groupTitle}' list` : `${loggedinUser.username} moved the '${card.title}' card to the '${groupTitle}' list`;
+                const alertMsg = status.isClone ? 'Card successfully cloned' : 'Card successfully moved';
+                socketService.emit('change-board', { msg, boardId: board._id, members: this.members(loggedinUser) });
+                // ========
+                this.myAlert(alertMsg);
+                this.addActivity(`moved card '${card.title}' to '${groupTitle}'`, card, null, card);
+            }
 
-		},
-		updateLabelTitle(labelId, title) {
-			const board = this.board;
-			const idx = board.labels.findIndex(label => label.id === labelId);
-			if (idx !== -1) board.labels[idx].title = title;
-			this.updateBoard(board);
-		},
-		updateCardTitle(title, card) {
-			let updateCard = utilService.deepCopy(card)
-			updateCard.title = title;
-			this.updateCard(updateCard);
-			this.cardToEdit = null;
-		},
-		toggleMenu() {
-			this.isMenu = !this.isMenu;
-		},
-		closeDetails() {
-			this.isDetails = false;
-			this.$router.push(`/board/${this.board._id}`)
-		},
-		closeCardToEdit() {
-			this.cardToEdit = null;
-		},
-		addCard(title, groupId) {
-			const newCard = this.getEmptyCard();
-			newCard.title = title;
-			newCard.byMember = this.$store.getters.loggedinUser;
-			newCard.createdAt = Date.now();
-			const board = this.board;
-			const group = this.board.groups.find(group => group.id === groupId);
-			group.cards.push(newCard);
-			this.updateBoard(board);
-			const loggedinUser = this.$store.getters.loggedinUser;
-			socketService.emit('change-board', { msg: `${loggedinUser.username} added a new '${title}' card`, boardId: board._id, members: this.members(loggedinUser) });
-			// ========
-			this.myAlert('The card was successfully added');
-			this.addActivity(` added `, newCard)
-		},
-		updateCard(card) {
-			const board = this.board;
-			board.groups.forEach(group => {
-				const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
-				if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
-			})
-			this.updateBoard(board);
-		},
-		deleteCard(cardId) {
-			const board = this.board;
-			let cardTitle;
-			board.groups.forEach(group => {
-				const cardIdx = group.cards.findIndex(currCard => currCard.id === cardId);
-				if (cardIdx !== -1) {
-					cardTitle = group.cards[cardIdx].title;
-					group.cards.splice(cardIdx, 1);
-				}
-			})
-			this.updateBoard(board);
-			this.addActivity(`deleted the card '${cardTitle}'`)
-		},
-		updateGroup(group) {
-			const board = this.board;
-			const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id);
-			board.groups.splice(groupIdx, 1, group);
-			this.updateBoard(board);
-		},
-		deleteGroup(groupId) {
-			const board = this.board;
-			const groupIdx = board.groups.findIndex(currGroup => currGroup.id === groupId);
-			const loggedinUser = this.$store.getters.loggedinUser;
-			socketService.emit('change-board', { msg: `${loggedinUser.username} deleted the '${board.groups[groupIdx].title}' list`, boardId: board._id, members: this.members(loggedinUser) });
-			board.groups.splice(groupIdx, 1);
-			this.updateBoard(board);
-			// ========
-			this.myAlert('The list has been successfully deleted');
-			this.addActivity('deleted a list')
-		},
-		newGroup() {
-			if (!this.newGroupTitle) return;
-			const newGroup = this.getEmptyGroup();
-			newGroup.title = this.newGroupTitle;
-			const board = this.board;
-			board.groups.push(newGroup);
-			this.updateBoard(board);
-			this.newGroupTitle = '';
-			setTimeout(() => {
-				this.$refs['group-title'].focus();
-				this.$refs['group-title'].scrollIntoView();
-			}, 10);
-			const loggedinUser = this.$store.getters.loggedinUser;
-			socketService.emit('change-board', { msg: `${loggedinUser.username} added a new '${newGroup.title}' list`, boardId: board._id, members: this.members(loggedinUser) });
-			// ========            
-			this.myAlert('The list was successfully added');
-			this.addActivity('added a list')
+        },
+        updateLabelTitle(labelId, title) {
+            const board = this.board;
+            const idx = board.labels.findIndex(label => label.id === labelId);
+            if (idx !== -1) board.labels[idx].title = title;
+            this.updateBoard(board);
+        },
+        updateCardTitle(title, card) {
+            let updateCard = utilService.deepCopy(card)
+            updateCard.title = title;
+            this.updateCard(updateCard);
+            this.cardToEdit = null;
+        },
+        toggleMenu() {
+            this.isMenu = !this.isMenu;
+        },
+        closeDetails() {
+            this.isDetails = false;
+            this.$router.push(`/board/${this.board._id}`)
+        },
+        closeCardToEdit() {
+            this.cardToEdit = null;
+        },
+        addCard(title, groupId) {
+            const newCard = this.getEmptyCard();
+            newCard.title = title;
+            newCard.byMember = this.$store.getters.loggedinUser;
+            newCard.createdAt = Date.now();
+            const board = this.board;
+            const group = this.board.groups.find(group => group.id === groupId);
+            group.cards.push(newCard);
+            this.updateBoard(board);
+            const loggedinUser = this.$store.getters.loggedinUser;
+            socketService.emit('change-board', { msg: `${loggedinUser.username} added a new '${title}' card`, boardId: board._id, members: this.members(loggedinUser) });
+            // ========
+            this.myAlert('The card was successfully added');
+            this.addActivity(` added `, newCard)
+        },
+        updateCard(card) {
+            const board = this.board;
+            board.groups.forEach(group => {
+                const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
+                if (cardIdx !== -1) group.cards.splice(cardIdx, 1, card);
+            })
+            this.updateBoard(board);
+        },
+        deleteCard(cardId) {
+            const board = this.board;
+            let cardTitle;
+            board.groups.forEach(group => {
+                const cardIdx = group.cards.findIndex(currCard => currCard.id === cardId);
+                if (cardIdx !== -1) {
+                    cardTitle = group.cards[cardIdx].title;
+                    group.cards.splice(cardIdx, 1);
+                }
+            })
+            this.updateBoard(board);
+            this.addActivity(`deleted the card '${cardTitle}'`)
+        },
+        updateGroup(group) {
+            const board = this.board;
+            const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id);
+            board.groups.splice(groupIdx, 1, group);
+            this.updateBoard(board);
+        },
+        deleteGroup(groupId) {
+            const board = this.board;
+            const groupIdx = board.groups.findIndex(currGroup => currGroup.id === groupId);
+            const loggedinUser = this.$store.getters.loggedinUser;
+            socketService.emit('change-board', { msg: `${loggedinUser.username} deleted the '${board.groups[groupIdx].title}' list`, boardId: board._id, members: this.members(loggedinUser) });
+            board.groups.splice(groupIdx, 1);
+            this.updateBoard(board);
+            // ========
+            this.myAlert('The list has been successfully deleted');
+            this.addActivity('deleted a list')
+        },
+        newGroup() {
+            if (!this.newGroupTitle) return;
+            const newGroup = this.getEmptyGroup();
+            newGroup.title = this.newGroupTitle;
+            const board = this.board;
+            board.groups.push(newGroup);
+            this.updateBoard(board);
+            this.newGroupTitle = '';
+            setTimeout(() => {
+                this.$refs['group-title'].focus();
+                this.$refs['group-title'].scrollIntoView();
+            }, 10);
+            const loggedinUser = this.$store.getters.loggedinUser;
+            socketService.emit('change-board', { msg: `${loggedinUser.username} added a new '${newGroup.title}' list`, boardId: board._id, members: this.members(loggedinUser) });
+            // ========            
+            this.myAlert('The list was successfully added');
+            this.addActivity('added a list')
 
-		},
-		addGroup() {
-			this.isAddingGroup = true;
-			setTimeout(() => { this.$refs['group-title'].focus() }, 10);
-		},
-		moveGroup(from, to) {
-			const board = utilService.deepCopy(this.board);
-			const group = board.groups.splice(from, 1)
-			board.groups.splice(to - 1, 0, group[0])
-			this.updateBoard(board)
-		},
-		addGroupClone(group) {
-			const board = this.board;
-			board.groups.push(group);
-			this.updateBoard(board)
-			this.addActivity(`added a clone of the list ${group.title}`)
+        },
+        addGroup() {
+            this.isAddingGroup = true;
+            setTimeout(() => { this.$refs['group-title'].focus() }, 10);
+        },
+        moveGroup(from, to) {
+            const board = utilService.deepCopy(this.board);
+            const group = board.groups.splice(from, 1)
+            board.groups.splice(to - 1, 0, group[0])
+            this.updateBoard(board)
+        },
+        addGroupClone(group) {
+            const board = this.board;
+            board.groups.push(group);
+            this.updateBoard(board)
+            this.addActivity(`added a clone of the list ${group.title}`)
 
-		},
-		getEmptyCard() { //maybe get from service direct
-			this.$store.commit('setEmptyCard');
-			return this.$store.getters.emptyCard;
-		},
-		getEmptyGroup() {
-			this.$store.commit('setEmptyGroup');
-			return this.$store.getters.emptyGroup;
-		},
-		closeAddGroup() {
-			this.isAddingGroup = false;
-			this.newGroupTitle = '';
-		},
-		updateBoard(board) {
-			this.$store.dispatch({ type: 'updateBoard', board });
-			socketService.emit('update-board', board);
-		},
-		updateboardUsers(userId) {
-			const board = this.board;
-			const memberIdx = board.members.findIndex(member => member._id === userId);
-			const user = this.$store.getters.users.find(user => user._id === userId);
-			if (memberIdx === -1) {
-				const boardUser = {
-					_id: user._id,
-					username: user.username,
-					imgUrl: user.imgUrl
-				};
-				board.members.push(boardUser);
-			} else {
-				board.members.splice(memberIdx, 1);
-				board.groups.forEach(group => {
-					group.cards.forEach(card => {
-						const currMemberIdx = card.members.findIndex(member => member._id === userId)
-						if (currMemberIdx !== -1) card.members.splice(currMemberIdx, 1);
-					})
-				})
-			}
-			this.updateBoard(board);
-			const loggedinUser = this.$store.getters.loggedinUser;
-			const msg = memberIdx === -1 ? `${user.username} was added to this board` : `${user.username} was removed from this board`;
-			const alertMsg = memberIdx === -1 ? `${user.username} was successfully added` : `${user.username} was successfully removed`;
-			socketService.emit('change-board', { msg, members: this.members(loggedinUser) });
-			// ========
-			this.myAlert(alertMsg);
-			const action = (memberIdx === -1) ? `added ${user.username} to the board` : `removed ${user.username} from the board`;
-			this.addActivity(action);
+        },
+        getEmptyCard() { //maybe get from service direct
+            this.$store.commit('setEmptyCard');
+            return this.$store.getters.emptyCard;
+        },
+        getEmptyGroup() {
+            this.$store.commit('setEmptyGroup');
+            return this.$store.getters.emptyGroup;
+        },
+        closeAddGroup() {
+            this.isAddingGroup = false;
+            this.newGroupTitle = '';
+        },
+        updateBoard(board) {
+            this.$store.dispatch({ type: 'updateBoard', board });
+            socketService.emit('update-board', board);
+        },
+        updateboardUsers(userId) {
+            const board = this.board;
+            const memberIdx = board.members.findIndex(member => member._id === userId);
+            const user = this.$store.getters.users.find(user => user._id === userId);
+            if (memberIdx === -1) {
+                const boardUser = {
+                    _id: user._id,
+                    username: user.username,
+                    imgUrl: user.imgUrl
+                };
+                board.members.push(boardUser);
+            } else {
+                board.members.splice(memberIdx, 1);
+                board.groups.forEach(group => {
+                    group.cards.forEach(card => {
+                        const currMemberIdx = card.members.findIndex(member => member._id === userId)
+                        if (currMemberIdx !== -1) card.members.splice(currMemberIdx, 1);
+                    })
+                })
+            }
+            this.updateBoard(board);
+            const loggedinUser = this.$store.getters.loggedinUser;
+            const msg = memberIdx === -1 ? `${user.username} was added to this board` : `${user.username} was removed from this board`;
+            const alertMsg = memberIdx === -1 ? `${user.username} was successfully added` : `${user.username} was successfully removed`;
+            socketService.emit('change-board', { msg, members: this.members(loggedinUser) });
+            // ========
+            this.myAlert(alertMsg);
+            const action = (memberIdx === -1) ? `added ${user.username} to the board` : `removed ${user.username} from the board`;
+            this.addActivity(action);
 
         },
         updateMembers(userId, card) {
@@ -409,6 +408,12 @@ export default {
             board.activities.unshift(activity);
             this.updateBoard(board);
         },
+        deleteComment(commentId) {
+            const board = this.board;
+            const commIdx = board.activities.findIndex(activity => activity.id === commentId)
+            board.activities.splice(commIdx, 1);
+            this.updateBoard(board);
+        },
         filter(filterBy) {
             this.filterBy = filterBy
         },
@@ -421,7 +426,6 @@ export default {
         },
         setClickPos({ x, y, offsetX, offsetY, target }) {
             if (this.isCardEdit) return
-            console.dir(target)
             const imgOffsetX = (target.name === 'edit') ? 8 : 0;
             const imgOffsetY = (target.name === 'edit') ? 8 : 0;
             const isScroll = (target.dataset.scroll) ? true : null;

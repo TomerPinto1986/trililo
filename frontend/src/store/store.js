@@ -46,7 +46,7 @@ export default new Vuex.Store({
             return state.bgSrcs;
         },
         sBgSrcs(state) {
-            return state.bgSrcs;
+            return state.sBgSrcs;
         }
     },
     mutations: {   

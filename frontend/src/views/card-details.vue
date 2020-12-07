@@ -192,6 +192,7 @@
                         :card="card"
                         ref="activity"
                         @addComment="addActivity"
+                        @deleteComment="deleteComment"
                     />
                 </div>
             </div>
@@ -496,6 +497,12 @@ export default {
             board.activities.unshift(activity);
             this.updateBoard(board);
         },
+        deleteComment(commentId){
+            const board = this.board;
+            const commIdx = board.activities.findIndex(activity => activity.id === commentId)
+            board.activities.splice(commIdx , 1);
+            this.updateBoard(board);
+        },
         closePopup(ev) {
             this.isPopUp = false;
             this.currPopUp = '';
@@ -545,7 +552,6 @@ export default {
             this.addActivity(`deleted the card '${cardTitle}'`);
         },
         moveCard(status) {
-            console.log('status:', status)
             this.$store.commit({ type: 'updateCardStatus', status });
             const board = this.board;
             this.updateBoard(board);

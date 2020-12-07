@@ -1,27 +1,36 @@
 .board-preview {
     position: relative;
     max-width: 360px;
-    height: 180px;
+    height: 200px;
     margin: 20px;
     box-shadow: 0 0 2px 0 black, inset 0 0 1px 0 black;
-    border-radius: 3px;
+    border-radius: 8px;
     background-size: cover !important;
     color: #fefefe;
     cursor: pointer;
+
     .favorite {
         padding: 7px;
     }
-    div:first-child {
-        background-color: rgba(0, 0, 0, 0.356);
+
+    div {
+        border-radius: 8px 8px 0 0;
+
+        &:first-child {
+            background-color: rgba(0, 0, 0, 0.356);
+        }
+
     }
+
     h2 {
         padding: 5px 15px;
         font-size: 20px;
-        border-radius: 3px 3px 0 0;
     }
+
     &:hover .delete-btn {
         display: block;
     }
+
     .delete-btn {
         display: none;
         position: absolute;
@@ -30,6 +39,7 @@
         color: #fefefe;
         background-color: rgba(0, 0, 0, 0.1);
         border-radius: 5px;
+
         &:hover {
             background-color: rgba(0, 0, 0, 0.2);
         }
