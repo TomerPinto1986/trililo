@@ -125,7 +125,7 @@
 				</svg>
 			</span>
 		</div>
-		<div class="user-area flex" v-if="!isHome">
+		<div class="user-area flex" >
 			<template v-if="isGuest">
 				<router-link to="/login">Login</router-link>
 				<router-link to="/signup">Signup</router-link>
@@ -208,10 +208,10 @@ export default {
 		'$route.path'() {
 			const page = this.$route.name;
 			this.isHome = (page === 'home' || page === 'login' || page === 'signup');
-			// if(page !== 'home'){
-			// 	this.isLoading = true;
-			// 	setTimeout(()=>this.isLoading = false, 900)
-			// }
+			if(page !== 'home'){
+				this.isLoading = true;
+				setTimeout(()=>this.isLoading = false, 900)
+			}
 		}
 	},
 	created() {
