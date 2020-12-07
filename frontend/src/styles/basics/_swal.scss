@@ -25,19 +25,20 @@
     overflow-y: unset;
 }
 
-// .swal2-container.swal2-top-end.swal2-backdrop-show {
-    // top: 0;
-// }
+.swal2-container.swal2-bottom-end.swal2-backdrop-show {
+    margin: unset;
+    right: 0;
+}
 
-.swal2-container.swal2-top-end.swal2-backdrop-show {
+.swal2-container.swal2-center.swal2-backdrop-show {
     margin: auto;
     top: calc(100vh / 2);
     transform: translateY(-50%);
 }
 
-.swal2-popup.swal2-modal.swal2-show {
-    margin: auto;
-}
+// .swal2-popup.swal2-modal.swal2-show {
+    // margin: auto;
+// }
 
 .swal2-container.swal2-bottom-end.swal2-backdrop-show>.swal2-title.swal2-popup {
     visibility: visible;
