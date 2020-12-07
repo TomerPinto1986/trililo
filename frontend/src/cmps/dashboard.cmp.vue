@@ -21,11 +21,9 @@
         },
         methods: {
             usersCards(){
-                // console.log(this.board);
                 const cardsByUserMap = {};
                 this.board.groups.forEach( group => {
                     group.cards.forEach( card => {
-                        // console.log(card);
                         if (!card.members) card.members = [];
                         card.members.forEach( (member,idx) => {
                             if (!cardsByUserMap[member._id]) {
@@ -37,14 +35,12 @@
                         })
                     })
                 })
-                console.log(cardsByUserMap);
                 const usernames = [];
                 const cardsCount = [];
                 for (const userId in cardsByUserMap) {
                     cardsCount.push(cardsByUserMap[userId].cardsCount + '');
                     usernames.push(cardsByUserMap[userId].username);
                 }
-                console.log(usernames,cardsCount);
                 this.usernames = usernames;
                 this.cardsCount = cardsCount;
             }

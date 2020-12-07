@@ -8,7 +8,6 @@ export default {
     },
     extends: Doughnut,
     mounted() {
-        console.log(this.usernames, this.cardsCount);
         // Overwriting base render method with actual data.
         this.renderChart({
             labels: this.usernames,

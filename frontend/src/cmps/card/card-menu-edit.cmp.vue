@@ -388,7 +388,6 @@ export default {
             this.$emit('updateLabelTitle', labelId, title);
         },
         saveTitle() {
-            console.log(this.card.dueDate);
             this.$emit('updateCardTitle', this.cardTxt, this.card);
             this.closePopup();
         },
