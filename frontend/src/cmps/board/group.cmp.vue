@@ -220,8 +220,8 @@ export default {
                 title: 'Are you sure you want to delete this list?',
                 showCancelButton: true,
                 showConfirmButton: true,
-                confirmButtonColor: '#ff505b',
-                cancelButtonColor: '#455a64',
+                confirmButtonColor: ' #ff505b80',
+                cancelButtonColor: 'transparent',
                 confirmButtonText: 'Delete'
             });
             if (!userAnc.isConfirmed) return;

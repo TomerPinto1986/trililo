@@ -40,14 +40,14 @@
 				</div>
 			</div>
 		</div>
-		<span v-if="userTyping"
+		<!-- <span v-if="userTyping"
 			><custom-avatar
 				:size="35"
 				:username="userTyping"
 				:src="user.imgUrl"
 			/>
 			Adding a comment</span
-		>
+		> -->
 		<template v-if="activitiesToShow && activitiesToShow.length">
 			<activity-preview
 				v-for="activity in activitiesToShow"

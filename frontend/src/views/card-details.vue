@@ -530,7 +530,7 @@ export default {
                 showCancelButton: true,
                 showConfirmButton: true,
                 confirmButtonColor: '#ff505b',
-                cancelButtonColor: '#455a64',
+                cancelButtonColor: 'transparent',
                 confirmButtonText: 'Delete'
             });
             if (!userAnc.isConfirmed) return;
@@ -546,13 +546,11 @@ export default {
             this.updateBoard(board);
             this.emitClose();
             const loggedinUser = this.$store.getters.loggedinUser;
-            socketService.emit('change-board', { msg: `${loggedinUser.username} deleted the '${cardTitle}' card`, boardId: board._id, members: this.members(loggedinUser) });
-            // ========
-            this.myAlert('Card successfully deleted');
+            socketService.emit('change-board', { msg: `${loggedinUser.username} deleted card '${cardTitle}'`, boardId: board._id, members: this.members(loggedinUser) });
+            this.myAlert('Card was successfully deleted');
             this.addActivity(`deleted the card '${cardTitle}'`);
         },
         moveCard(status) {
-            console.log('status:', status)
             this.$store.commit({ type: 'updateCardStatus', status });
             const board = this.board;
             this.updateBoard(board);
@@ -560,10 +558,9 @@ export default {
             if (status.startGroup !== status.endGroup) {
                 const groupTitle = board.groups.find(group => group.id === status.endGroup).title;
                 const loggedinUser = this.$store.getters.loggedinUser;
-                const msg = status.isClone ? `${loggedinUser.username} cloned the '${this.card.title}' card to the '${groupTitle}' list` : `${loggedinUser.username} moved the '${this.card.title}' card to the '${groupTitle}' list`;
-                const alertMsg = status.isClone ? 'Card successfully cloned' : 'Card successfully moved';
+                const msg = status.isClone ? `${loggedinUser.username} cloned card '${this.card.title}' to list '${groupTitle}'` : `${loggedinUser.username} moved card '${this.card.title}' to list '${groupTitle}'`;
+                const alertMsg = status.isClone ? 'Card was successfully cloned' : 'Card was successfully moved';
                 socketService.emit('change-board', { msg, boardId: board._id, members: this.members(loggedinUser) });
-                // ========
                 this.myAlert(alertMsg);
                 this.addActivity(`moved card '${this.card.title}' to '${groupTitle}'`, this.card);
             }
@@ -620,9 +617,8 @@ export default {
             this.updateCard(card);
             this.card = card;
             const loggedinUser = this.$store.getters.loggedinUser;
-            socketService.emit('change-board', { msg: `${loggedinUser.username} removed the due date from '${card.title}' card`, members: this.members(loggedinUser) });
-            // ========
-            this.myAlert('Due date successfully removed');
+            socketService.emit('change-board', { msg: `${loggedinUser.username} removed the due date from card '${card.title}'`, members: this.members(loggedinUser) });
+            this.myAlert('Due date was successfully removed');
             this.addActivity(`removed the due date from `, card);
         },
         setNewDate(dueDate) {
@@ -640,10 +636,9 @@ export default {
             this.card = updatedCard;
             this.closePopup();
             const loggedinUser = this.$store.getters.loggedinUser;
-            const msg = txt === 'changed' ? `${loggedinUser.username} changed the due date to the '${updatedCard.title}' card` : `${loggedinUser.username} added a due date to the '${updatedCard.title}' card`;
-            const alertMsg = txt === 'changed' ? 'Due date successfully changed' : 'Due date successfully added';
+            const msg = txt === 'changed' ? `${loggedinUser.username} changed the due date to card '${updatedCard.title}'` : `${loggedinUser.username} added a due date to card '${updatedCard.title}'`;
+            const alertMsg = txt === 'changed' ? 'Due date was successfully changed' : 'Due date was successfully added';
             socketService.emit('change-board', { msg, members: this.members(loggedinUser) });
-            // ========
             this.myAlert(alertMsg);
             this.addActivity(`${txt} due date to `, updatedCard);
         },
@@ -692,9 +687,8 @@ export default {
             this.updateCard(card);
             const loggedinUser = this.$store.getters.loggedinUser;
             const msg = memberIdx === -1 ? `${newUser.username} was added to '${card.title}' card` : `${newUser.username} was removed from '${card.title}' card`;
-            const alertMsg = memberIdx === -1 ? `Member successfully added` : `Member successfully removed`;
+            const alertMsg = memberIdx === -1 ? `${newUser.username} was successfully added` : `${newUser.username} was successfully removed`;
             socketService.emit('change-board', { msg, members: this.members(loggedinUser) });
-            // ========
             this.myAlert(alertMsg);
             const action = (memberIdx === -1) ? `added ${newUser.username} to ` : `removed ${newUser.username} from`;
             this.addActivity(action, card, null, this.loggedinUser)
