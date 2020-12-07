@@ -337,8 +337,8 @@ export default {
 			}
 			this.updateBoard(board);
 			const loggedinUser = this.$store.getters.loggedinUser;
-			const msg = memberIdx === -1 ? `${user.username} was added to this board` : `${user.username} was removed from  this board`;
-			const alertMsg = memberIdx === -1 ? `Member successfully added` : `Member successfully removed`;
+			const msg = memberIdx === -1 ? `${user.username} was added to this board` : `${user.username} was removed from this board`;
+			const alertMsg = memberIdx === -1 ? `${user.username} was successfully added` : `${user.username} was successfully removed`;
 			socketService.emit('change-board', { msg, members: this.members(loggedinUser) });
 			// ========
 			this.myAlert(alertMsg);
@@ -362,7 +362,7 @@ export default {
             this.updateCard(card);
             const loggedinUser = this.$store.getters.loggedinUser;
             const msg = memberIdx === -1 ? `${newUser.username} was added to '${card.title}' card` : `${newUser.username} was removed from '${card.title}' card`;
-            const alertMsg = memberIdx === -1 ? `Member successfully added` : `Member successfully removed`;
+            const alertMsg = memberIdx === -1 ? `${newUser.username} was successfully added` : `${newUser.username} was successfully removed`;
             socketService.emit('change-board', { msg, members: this.members(loggedinUser) });
             // ========
             this.myAlert(alertMsg);
@@ -387,7 +387,7 @@ export default {
             const loggedinUser = this.$store.getters.loggedinUser;
             socketService.emit('change-board', { msg: `${loggedinUser.username} changed the board privacy to ${privacy}`, boardId: board._id, members: this.members(loggedinUser) });
             // ========
-            this.myAlert('Privacy successfully changed');
+            this.myAlert('Privacy was successfully changed');
             this.addActivity(`changed the board privacy to ${privacy}`)
         },
         deleteBoard(boardId) {
@@ -436,9 +436,9 @@ export default {
         // },
         moveCardOnDrag(groupTitle, card) {
             const loggedinUser = this.$store.getters.loggedinUser;
-            socketService.emit('change-board', { msg: `${loggedinUser.username} moved the '${card.title}' card to the '${groupTitle}' list`, members: this.members(loggedinUser) });
+            socketService.emit('change-board', { msg: `${loggedinUser.username} has moved the '${card.title}' card to the '${groupTitle}' list`, members: this.members(loggedinUser) });
             // ========
-            this.myAlert('Card successfully moved');
+            this.myAlert('Card was successfully moved');
             this.addActivity(`moved card '${card.title}' to '${groupTitle}'`, card, null, card);
         },
         members(loggedinUser) {
