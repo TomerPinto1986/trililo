@@ -59,76 +59,6 @@ import bgPicker from './bg-picker.cmp'
 const Swal = require('sweetalert2');
 
 export default {
-<<<<<<< HEAD
-    props: {
-        board: Object
-    },
-    data() {
-        return {
-            isBg: false,
-            isSearch: false,
-            isSub: false,
-        }
-    },
-    computed: {
-        menuTitle() {
-            return (!this.isSub) ? 'Menu' : (this.isBg) ? 'Change Background' : 'Search Cards';
-        }
-    },
-    methods: {
-        toggleBg() {
-            this.isBg = true;
-            this.isSub = true;
-        },
-        toggleSearch() {
-            this.isSearch = true;
-            this.isSub = true;
-        },
-        emitClose() {
-            this.$emit('close');
-        },
-        emitChange(bgc) {
-            this.$emit('changeBgc', bgc);
-        },
-        async emitDeleteBoard() {
-            const userAnc = await Swal.fire({
-                position: 'center',
-                title: 'Are you sure you want to delete this board?',
-                showCancelButton: true,
-                showConfirmButton: true,
-                confirmButtonColor: '#ff505b',
-                cancelButtonColor: 'transparent',
-                confirmButtonText: 'Delete'
-            });
-            if (!userAnc.isConfirmed) return;
-            this.$emit('deleteBoard', this.board._id)
-        },
-        openCard(cardId) {
-            var cardIdx;
-            this.board.groups.forEach(group => {
-                cardIdx = group.cards.findIndex(currCard => currCard.id === cardId);
-                if (cardIdx !== -1) {
-                    this.$router.push(`/board/${this.board._id}/card/${cardId}`)
-                }
-            })
-        },
-        emitFilter(filterBy) {
-            this.$emit('filter', filterBy)
-        },
-        backToMenu() {
-            this.isSub = false;
-            this.isBg = false;
-            this.isSearch = false;
-        }
-    },
-    created() {
-    },
-    components: {
-        activityPreview,
-        boardSearch,
-        bgPicker
-    }
-=======
 	props: {
 		board: Object
 	},
@@ -207,7 +137,6 @@ export default {
 		boardSearch,
 		bgPicker
 	}
->>>>>>> e538fbbc58d5713abf10248f5316ef5b9ef64f2c
 }
 </script>
 
