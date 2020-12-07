@@ -15,9 +15,14 @@
             transition: 0.25s;
         }
         &-title {
-            height: 120px;
+            height: 135px;
             width: 190px;
             transition: 0.25s;
+        }
+        &-gif{
+            margin: -1px -6px 0 -6px;
+            width: 50px;
+            height: 50px;
         }
     }
     a,
@@ -42,12 +47,13 @@
         justify-content: center;
         .logo {
             transition: 0.25s;
-            margin-block-start: 100px;
+            margin-block-start: 90px;
             margin-inline-end: 33px;
+            
         }
         &.scrolled {
             background-color: rgba(255, 241, 241, 1);
-            box-shadow: 0 4px 9px 0 #998a8a80;
+            box-shadow: 0 1px 3px 0 #998a8a80;
             .logo {
                 margin-block-start: unset;
                 &-img {
@@ -55,9 +61,10 @@
                     height: 40px;
                 }
                 &-title {
-                    height: 46px;
-                    width: 123px;
+                    height: 55px;
+                    width: 125px;
                 }
+                
             }
         }
     }
@@ -67,12 +74,12 @@
         .logo {
             margin-block-start: unset;
             &-img {
-                width: 39px;
-                height: 40px;
+                width: 40px;
+                height: 43px;
             }
             &-title {
-                height: 40px;
-                width: 123px;
+                height: 55px;
+                width: 125px;
             }
         }
         >* {
