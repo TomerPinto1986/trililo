@@ -518,7 +518,7 @@ export default {
         },
         async deleteCard() {
             const userAnc = await Swal.fire({
-                position: 'top-end',
+                position: 'center',
                 title: 'Are you sure you want to delete this card?',
                 showCancelButton: true,
                 showConfirmButton: true,
