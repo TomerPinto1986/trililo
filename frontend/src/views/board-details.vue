@@ -26,7 +26,7 @@
                 @isEditing="setIsEditing"
                 :clickPos="clickPos"
                 :board="board"
-                :card="cardToEdit"
+                :currCard="cardToEdit"
                 :loggedinUser="user"
             />
         </div>
@@ -220,7 +220,6 @@ export default {
             this.addActivity(` added `, newCard)
         },
         updateCard(card) {
-            console.log('card:', card)
             const board = this.board;
             board.groups.forEach(group => {
                 const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);

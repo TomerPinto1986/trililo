@@ -56,7 +56,8 @@ export default {
 				this.$emit('removeDate');
 			}
 			this.$refs.date._data.pickerVisible = false;
-			this.$emit('setDate', this.value1)
+			const dueDate = this.value1
+			this.$emit('setDate', dueDate)
 		},
 	},
 	mounted() {
