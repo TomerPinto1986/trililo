@@ -95,7 +95,7 @@ export default {
                 showCancelButton: true,
                 showConfirmButton: true,
                 confirmButtonColor: '#ff505b',
-                cancelButtonColor: '#455a64',
+                cancelButtonColor: 'transparent',
                 confirmButtonText: 'Delete'
             });
             if (!userAnc.isConfirmed) return;

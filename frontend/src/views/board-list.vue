@@ -4,19 +4,6 @@
         <h4>or create one from screcth</h4>
         <section class="board-list" v-if="boards">
             <div class="create-board board-preview flex f-center">
-                <!-- <form
-                    class="flex f-col"
-                    v-if="isAdding"
-                    @submit.prevent="saveBoard"
-                >
-                    <input
-						type="text"
-						v-model="newBoardTxt"
-						placeholder="Enter your board name"
-					/>
-                    <button class="create-btn">Create</button>
-                </form>
-                <button v-else @click="addBoard">+ CREATE BOARD</button> -->
                 <button @click="saveBoard"><span>+</span> CREATE BOARD</button>
             </div>
             <board-preview
@@ -44,7 +31,6 @@ const Swal = require('sweetalert2');
 export default {
     data() {
         return {
-            isAdding: false,
             newBoardTxt: '',
         }
     },
@@ -71,7 +57,7 @@ export default {
                 showCancelButton: true,
                 showConfirmButton: true,
                 confirmButtonColor: '#ff505b',
-                cancelButtonColor: '#455a64',
+                cancelButtonColor: 'transparent',
                 confirmButtonText: 'Delete'
             });
             if (!userAnc.isConfirmed) return;
@@ -84,14 +70,6 @@ export default {
             const savedBoard = await this.$store.dispatch('createNewBoard');
             this.$router.push(`/board/${savedBoard._id}`);
         },
-        // async saveBoard() {
-        // 	if (this.newBoardTxt) {
-        // 		const savedBoard = await this.$store.dispatch('createNewBoard', this.newBoardTxt);
-        // 		this.$router.push(`/board/${savedBoard._id}`);
-        // 	}
-        // 	this.newBoardTxt = '';
-        // 	this.isAdding = false;
-        // },
         boardBg(bgc) {
             const bgSrcs = this.$store.getters.sBgSrcs;
             const style = (bgc.includes('rgb')) ? bgc : `url(${bgSrcs[+bgc]})`;
