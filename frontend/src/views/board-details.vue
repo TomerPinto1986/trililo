@@ -26,7 +26,7 @@
                 @isEditing="setIsEditing"
                 :clickPos="clickPos"
                 :board="board"
-                :card="cardToEdit"
+                :currCard="cardToEdit"
                 :loggedinUser="user"
             />
         </div>
@@ -105,9 +105,9 @@
                 @deleteCard="deleteCard"
             />
         </div>
-        <div class="window" v-if="isDashboard" @click="closeDashboard">
-            <dashboard />
-        </div>
+        <!-- <div class="window" @click="closeDashboard">
+            <dashboard :board="this.board" :colors="colors"/>
+        </div> -->
         <board-menu
             v-if="isMenu"
             :board="board"
@@ -126,7 +126,7 @@ import boardHeader from '../cmps/board/board-header.cmp';
 import cardDetails from '@/views/card-details';
 import boardMenu from '../cmps/board/menu/board-menu.cmp';
 import cardMenuEdit from '@/cmps/card/card-menu-edit.cmp';
-import dashboard from '@/cmps/dashboard.cmp'
+// import dashboard from '@/cmps/dashboard.cmp'
 import { utilService } from '@/services/util.service';
 import { socketService } from '@/services/socket.service';
 const Swal = require('sweetalert2');
@@ -138,7 +138,7 @@ export default {
             isAddingGroup: false,
             isMenu: false,
             isCardEdit: false,
-            isDashboard: false,
+            // isDashboard: false,
             newGroupTitle: '',
             filterBy: null,
             cardToEdit: null,
@@ -146,6 +146,9 @@ export default {
         }
     },
     computed: {
+        // colors(){
+        //     return this.$store.getters.colors;
+        // },
         board() {
             // if (this.$store.getters.currBoard) {
             // 	socketService.emit('set-board', this.$store.getters.currBoard._id)
@@ -217,7 +220,6 @@ export default {
             this.addActivity(` added `, newCard)
         },
         updateCard(card) {
-            console.log('card:', card)
             const board = this.board;
             board.groups.forEach(group => {
                 const cardIdx = group.cards.findIndex(currCard => currCard.id === card.id);
@@ -423,9 +425,9 @@ export default {
         setIsEditing(val) {
             this.isCardEdit = val;
         },
-        closeDashboard() {
-            this.isDashboard = false;
-        },
+        // closeDashboard() {
+        //     this.isDashboard = false;
+        // },
         members(loggedinUser) {
             let members = this.board.members.map(member => member._id);
             members.push(this.board.byMember._id);
@@ -487,7 +489,7 @@ export default {
         draggable,
         boardMenu,
         cardMenuEdit,
-        dashboard
+        // dashboard
     }
 }
 </script>

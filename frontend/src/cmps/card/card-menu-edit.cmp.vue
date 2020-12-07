@@ -1,5 +1,5 @@
 <template>
-    <section class="card-menu-edit flex" :style="menuPos" :class="menuClass">
+    <section v-if="card" class="card-menu-edit flex" :style="menuPos" :class="menuClass">
         <div class="flex f-col">
             <div
                 class="title-edit mini-preview icons flex wrap"
@@ -241,14 +241,15 @@ const Swal = require('sweetalert2');
 
 export default {
     props: {
-        card: Object,
+        currCard: Object,
         board: Object,
         clickPos: Object,
         loggedinUser: Object
     },
     data() {
         return {
-            cardTxt: this.card.title,
+            card: null,
+            cardTxt: null,
             isPopUp: false,
             currPopUp: null,
             activities: this.board.activities,
@@ -387,6 +388,7 @@ export default {
             this.$emit('updateLabelTitle', labelId, title);
         },
         saveTitle() {
+            console.log(this.card.dueDate);
             this.$emit('updateCardTitle', this.cardTxt, this.card);
             this.closePopup();
         },
@@ -441,6 +443,7 @@ export default {
             }
             updateCard.dueDate = dueDate;
             this.$emit('updateCard', updateCard);
+            this.card = updateCard; 
             this.closePopup();
             const msg = txt === 'changed' ? `${this.loggedinUser.username} changed the due date to the '${this.card.title}' card` : `${this.loggedinUser.username} added a due date to the '${this.card.title}' card`;
             const alertMsg = txt === 'changed' ? 'Due date successfully changed' : 'Due date successfully added';
@@ -448,7 +451,6 @@ export default {
             // ========
             this.myAlert(alertMsg);
             this.$emit('updateActivities', `${txt} due date to `, updateCard)
-            this.card = updateCard;
         },
         setPopupDimensions({ popupWidth, popupHeight }) {
             this.popupHeight = popupHeight;
@@ -485,6 +487,8 @@ export default {
         this.$nextTick(() => this.$refs['card-title'].focus());
     },
     created() {
+        this.card = utilService.deepCopy(this.currCard);
+        this.cardTxt = this.card.title;
         this.newClickPos = utilService.deepCopy(this.clickPos);
     },
     destroyed() {
