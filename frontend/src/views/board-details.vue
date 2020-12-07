@@ -435,7 +435,7 @@ export default {
             const loggedinUser = this.$store.getters.loggedinUser;
             socketService.emit('change-board', { msg: `${loggedinUser.username} moved card '${card.title}' to list '${groupTitle}'`, members: this.members(loggedinUser) });
             this.myAlert('Card was successfully moved');
-            this.addActivity(`moved card '${card.title}' to '${groupTitle}'`, card, null, card);
+            this.addActivity(`moved card '${card.title}' to '${groupTitle}'`, card, null, loggedinUser);
         },
         members(loggedinUser) {
             let members = this.board.members.map(member => member._id);
