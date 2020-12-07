@@ -444,10 +444,9 @@ export default {
             this.$emit('updateCard', updateCard);
             this.card = updateCard; 
             this.closePopup();
-            const msg = txt === 'changed' ? `${this.loggedinUser.username} changed the due date to the '${this.card.title}' card` : `${this.loggedinUser.username} added a due date to the '${this.card.title}' card`;
-            const alertMsg = txt === 'changed' ? 'Due date successfully changed' : 'Due date successfully added';
+            const msg = txt === 'changed' ? `${this.loggedinUser.username} changed card '${this.card.title}' due date` : `${this.loggedinUser.username} added a due date to card '${this.card.title}'`;
+            const alertMsg = txt === 'changed' ? 'Due date was successfully changed' : 'Due date was successfully added';
             socketService.emit('change-board', { msg, members: this.members(this.loggedinUser) });
-            // ========
             this.myAlert(alertMsg);
             this.$emit('updateActivities', `${txt} due date to `, updateCard)
         },
