@@ -208,10 +208,10 @@ export default {
 		'$route.path'() {
 			const page = this.$route.name;
 			this.isHome = (page === 'home' || page === 'login' || page === 'signup');
-			if(page !== 'home'){
-				this.isLoading = true;
-				setTimeout(()=>this.isLoading = false, 900)
-			}
+			// if(page !== 'home'){
+			// 	this.isLoading = true;
+			// 	setTimeout(()=>this.isLoading = false, 900)
+			// }
 		}
 	},
 	created() {
