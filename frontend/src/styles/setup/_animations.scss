@@ -1,37 +1,30 @@
 @keyframes wave {
-
     0%,
     60%,
     100% {
         transform: initial;
     }
-
     30% {
         transform: translateY(-15px);
     }
 }
 
-
 @keyframes spin {
     0% {
         transform: rotate(0deg);
     }
-
     100% {
         transform: rotate(360deg);
     }
 }
 
-
 @-webkit-keyframes sk-cubeGridScaleDelay {
-
     0%,
     70%,
     100% {
         -webkit-transform: scale3D(1, 1, 1);
         transform: scale3D(1, 1, 1);
     }
-
     35% {
         -webkit-transform: scale3D(0, 0, 1);
         transform: scale3D(0, 0, 1);
@@ -39,14 +32,12 @@
 }
 
 @keyframes sk-cubeGridScaleDelay {
-
     0%,
     70%,
     100% {
         -webkit-transform: scale3D(1, 1, 1);
         transform: scale3D(1, 1, 1);
     }
-
     35% {
         -webkit-transform: scale3D(0, 0, 1);
         transform: scale3D(0, 0, 1);
@@ -72,8 +63,7 @@
 }
 
 .slide-enter,
-.slide-leave-to
-    {
+.slide-leave-to {
     transform: translateY(0px);
     opacity: 0;
 }
