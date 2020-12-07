@@ -108,7 +108,6 @@
 		<!-- <div class="window" @click="closeDashboard">
             <dashboard :board="this.board" :colors="colors"/>
         </div> -->
-
 		<transition name="slide" mode="in-out">
 			<board-menu
 				v-show="isMenu"
@@ -117,6 +116,7 @@
 				@close="toggleMenu"
 				@deleteBoard="deleteBoard"
 				@filter="filter"
+				@deleteComment="deleteComment"
 			/>
 		</transition>
 	</section>
@@ -406,6 +406,12 @@ export default {
 			}
 			const board = this.board;
 			board.activities.unshift(activity);
+			this.updateBoard(board);
+		},
+		deleteComment(commentId) {
+			const board = this.board;
+			const commIdx = board.activities.findIndex(activity => activity.id === commentId)
+			board.activities.splice(commIdx, 1);
 			this.updateBoard(board);
 		},
 		filter(filterBy) {

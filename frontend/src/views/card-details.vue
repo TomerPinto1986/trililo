@@ -192,6 +192,7 @@
                         :card="card"
                         ref="activity"
                         @addComment="addActivity"
+                        @deleteComment="deleteComment"
                     />
                 </div>
             </div>
@@ -494,6 +495,12 @@ export default {
             }
             const board = this.board;
             board.activities.unshift(activity);
+            this.updateBoard(board);
+        },
+        deleteComment(commentId){
+            const board = this.board;
+            const commIdx = board.activities.findIndex(activity => activity.id === commentId)
+            board.activities.splice(commIdx , 1);
             this.updateBoard(board);
         },
         closePopup(ev) {
