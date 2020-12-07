@@ -84,7 +84,14 @@ export default {
 			this.isSub = true;
 		},
 		emitClose() {
+			const filterBy = {
+				txt: "",
+				membersIds: [],
+				labelsIds: []
+			}
 			this.$emit('close');
+			this.$emit('filter', filterBy);
+			this.backToMenu();
 		},
 		emitChange(bgc) {
 			this.$emit('changeBgc', bgc);
