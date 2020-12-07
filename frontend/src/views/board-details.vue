@@ -68,6 +68,7 @@
 					@addClone="addGroupClone"
 					@updateGroup="updateGroup"
 					@openEditCard="openEditCard"
+					@moveCardOnDrag="moveCardOnDrag"
 				/>
 			</draggable>
 
@@ -108,17 +109,16 @@
 		<!-- <div class="window" @click="closeDashboard">
             <dashboard :board="this.board" :colors="colors"/>
         </div> -->
-		<transition name="slide" mode="in-out">
-			<board-menu
-				v-show="isMenu"
-				:board="board"
-				@changeBgc="changeBgc"
-				@close="toggleMenu"
-				@deleteBoard="deleteBoard"
-				@filter="filter"
-				@deleteComment="deleteComment"
-			/>
-		</transition>
+			<!-- v-show="isMenu" -->
+		<board-menu
+			:board="board"
+			:class="{ isOut: !isMenu }"
+			@changeBgc="changeBgc"
+			@close="toggleMenu"
+			@deleteBoard="deleteBoard"
+			@filter="filter"
+			@deleteComment="deleteComment"
+		/>
 	</section>
 </template>
 
@@ -439,6 +439,13 @@ export default {
 		// closeDashboard() {
 		//     this.isDashboard = false;
 		// },
+		moveCardOnDrag(groupTitle, card) {
+			const loggedinUser = this.$store.getters.loggedinUser;
+			socketService.emit('change-board', { msg: `${loggedinUser.username} moved the '${card.title}' card to the '${groupTitle}' list`, members: this.members(loggedinUser) });
+			// ========
+			this.myAlert('Card successfully moved');
+			this.addActivity(`moved card '${card.title}' to '${groupTitle}'`, card, null, card);
+		},
 		members(loggedinUser) {
 			let members = this.board.members.map(member => member._id);
 			members.push(this.board.byMember._id);

@@ -785,6 +785,12 @@
     }
 }
 
+@media (max-width: 330px) {
+    .card-details .card-main-container .card-info .add-to-card .due-date {
+        padding-inline-end: 50px;
+    }
+}
+
 .el-picker-panel.el-date-picker.el-popper.has-sidebar.has-time {
     top: 340px !important;
 }

@@ -26,8 +26,7 @@
             border: none;
             outline: none;
             cursor: pointer;
-            border-radius: 8px;
-            margin: 0 10px;
+            margin-inline-start: 10px;
             border: 0.5px solid #ffffff1c;
             &:hover,
             &:focus {
@@ -41,6 +40,7 @@
             background-color: rgba(255, 255, 255, 0.24);
             border-radius: 5px;
             height: 35px;
+            margin-inline-start: 10px;
             &:hover {
                 background-color: rgba(255, 255, 255, 0.32);
             }
@@ -171,7 +171,7 @@
             .add-btn {
                 cursor: pointer;
                 background-color: hsla(0, 0%, 100%, .24);
-                margin-inline-start: 17px;
+                margin-inline-start: 10px;
                 padding: 3px 13px;
                 border-radius: 5px;
                 align-self: center;

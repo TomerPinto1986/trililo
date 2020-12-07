@@ -25,11 +25,6 @@
     overflow-y: unset;
 }
 
-// .swal2-container.swal2-bottom-end.swal2-backdrop-show {
-//     margin: unset;
-//     right: 0;
-// }
-
 .swal2-container.swal2-center.swal2-backdrop-show {
     margin: auto;
     top: calc(100vh / 2);
@@ -43,10 +38,7 @@
 
 .swal2-container.swal2-bottom-end.swal2-backdrop-show,
 .swal2-container.swal2-top-end.swal2-backdrop-show {
-    // visibility: hidden;
-    // width: fit-content;
     height: min-content;
-    // margin: 0;
     background-color: transparent;
 }
 
