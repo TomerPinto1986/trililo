@@ -26,7 +26,6 @@
             border: none;
             outline: none;
             cursor: pointer;
-            border-radius: 8px;
             margin: 0 10px;
             border: 0.5px solid #ffffff1c;
             &:hover,
@@ -171,7 +170,7 @@
             .add-btn {
                 cursor: pointer;
                 background-color: hsla(0, 0%, 100%, .24);
-                margin-inline-start: 17px;
+                margin-inline-start: 10px;
                 padding: 3px 13px;
                 border-radius: 5px;
                 align-self: center;
