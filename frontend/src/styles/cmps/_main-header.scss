@@ -1,7 +1,7 @@
 .main-header {
     width: 100vw;
     display: grid;
-    padding: 0 5px;
+    padding: 0 10px;
     grid-template-columns: repeat(3, 1fr);
     .sm-header,
     .sm-header-btn {
@@ -12,12 +12,12 @@
         &-img {
             width: 70px;
             height: 110px;
-            transition: 0.4s;
+            transition: 0.25s;
         }
         &-title {
             height: 120px;
             width: 190px;
-            transition: 0.4s;
+            transition: 0.25s;
         }
     }
     a,
@@ -36,12 +36,12 @@
         background-color: transparent;
         position: fixed;
         z-index: 110;
-        transition: 0.4s;
+        transition: 0.25s;
         display: flex;
         align-items: center;
         justify-content: center;
         .logo {
-            transition: 0.3s;
+            transition: 0.25s;
             margin-block-start: 100px;
             margin-inline-end: 33px;
         }

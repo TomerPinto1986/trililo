@@ -25,6 +25,10 @@
     overflow-y: unset;
 }
 
+.swal2-container.swal2-top-end.swal2-backdrop-show {
+    top: 0;
+}
+
 .swal2-container.swal2-bottom-end.swal2-backdrop-show>.swal2-title.swal2-popup {
     visibility: visible;
 }
@@ -56,8 +60,8 @@
     padding: 6px 10px;
 }
 
-.swal2-styled.swal2-confirm:focus {
-    box-shadow: 0 0 0 3px rgba(78, 117, 146, .5);
+.swal2-styled.swal2-confirm:focus {    
+    box-shadow: 0 0 0 3px rgba(69, 90, 100, .5);
 }
 
 .swal2-styled.swal2-cancel:focus {

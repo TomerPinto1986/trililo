@@ -170,7 +170,7 @@ export default {
 		},
 		menuPosition() {
 			const x = this.clickPos.width - this.clickPos.x
-			const padding = 24;
+			const padding = 40;
 			const itemWidth = 290;
 			const ogPosition = 255;
 			return { 'left': (x < itemWidth) ? x - padding + this.clickPos.offsetX + 'px' : ogPosition + 'px' };
@@ -216,11 +216,11 @@ export default {
 		},
 		async emitDelete(groupId) {
 			const userAnc = await Swal.fire({
-				position: 'bottom-end',
+				position: 'top-end',
 				title: 'Are you sure you want to delete this list?',
 				showCancelButton: true,
 				showConfirmButton: true,
-				confirmButtonColor: '#4E7592',
+				confirmButtonColor: '#455a64',
 				cancelButtonColor: '#ff505b',
 				confirmButtonText: 'Delete'
 			});
