@@ -120,10 +120,9 @@ export default {
             await boardService.remove(boardId);
             commit({ type: 'deleteBoard', boardId });
         },
-        async createNewBoard(context, newBoardTxt) {
+        async createNewBoard(context) {
             const newBoard = boardService.emptyBoard();
             const user = context.getters.loggedinUser;
-            newBoard.title = newBoardTxt;
             if (user._id === 'guest') newBoard.isPrivate = false;
             newBoard.byMember = user;
             const activity = boardService.emptyActivity();
@@ -136,6 +135,22 @@ export default {
             context.commit('addNewBoard', savedBoard);
             return savedBoard;
         },
+        // async createNewBoard(context, newBoardTxt) {
+        //     const newBoard = boardService.emptyBoard();
+        //     const user = context.getters.loggedinUser;
+        //     newBoard.title = newBoardTxt;
+        //     if (user._id === 'guest') newBoard.isPrivate = false;
+        //     newBoard.byMember = user;
+        //     const activity = boardService.emptyActivity();
+        //     activity.byMember = user;
+        //     activity.createdAt = Date.now();
+        //     activity.txt = 'created the board';
+        //     delete activity.card;
+        //     newBoard.activities.push(activity);
+        //     const savedBoard = await boardService.save(newBoard);
+        //     context.commit('addNewBoard', savedBoard);
+        //     return savedBoard;
+        // },
 
     }
 }
