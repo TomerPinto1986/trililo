@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
     <section v-if="board" class="board-details flex f-col">
         <!-- <div class="screen" @click="goBack"></div> -->
         <board-header
@@ -72,79 +71,6 @@
                     @moveCardOnDrag="moveCardOnDrag"
                 />
             </draggable>
-=======
-	<section v-if="board" class="board-details flex f-col">
-		<!-- <div class="screen" @click="goBack"></div> -->
-		<board-header
-			:board="board"
-			:users="users"
-			:user="user"
-			@openMenu="toggleMenu"
-			@updateTitle="updateBoardTitle"
-			@updateboardUsers="updateboardUsers"
-			@changeBgc="changeBgc"
-			@privacyChange="changePrivacy"
-			@filter="filter"
-			@markBoard="markBoard"
-		/>
-		<div v-if="cardToEdit" class="window" @click="closeCardToEdit">
-			<card-menu-edit
-				@click.stop.native
-				@updateMembers="updateMembers"
-				@updateCardTitle="updateCardTitle"
-				@updateCardLabel="updateCard"
-				@updateLabelTitle="updateLabelTitle"
-				@moveCard="moveCard"
-				@updateCard="updateCard"
-				@updateActivities="addActivity"
-				@isEditing="setIsEditing"
-				:clickPos="clickPos"
-				:board="board"
-				:currCard="cardToEdit"
-				:loggedinUser="user"
-			/>
-		</div>
-		<div
-			class="flex group-container"
-			v-if="board"
-			v-dragscroll:firstchilddrag
-		>
-			<draggable
-				handle=".handle"
-				v-dragscroll:nochilddrag
-				class="drag-area flex"
-				ghostClass="ghost"
-				chosenClass="chosen"
-				dragClass="drag"
-				draggableSelector="div"
-				:list="board.groups"
-				:animation="200"
-				:group="'board'"
-				:forceFallback="true"
-				@change="updateBoard(board)"
-			>
-				<group
-					data-no-dragscroll
-					v-for="(group, idx) in board.groups"
-					:key="group.id"
-					:group="group"
-					:board="board"
-					:groupIdx="idx"
-					:labels="board.labels"
-					:activities="board.activities"
-					:filterBy="filterBy"
-					:clickPos="clickPos"
-					@close="closeDetails"
-					@newCard="addCard"
-					@change="updateGroup"
-					@delete="deleteGroup"
-					@moveGroup="moveGroup"
-					@addClone="addGroupClone"
-					@updateGroup="updateGroup"
-					@openEditCard="openEditCard"
-				/>
-			</draggable>
->>>>>>> 03c5612872b2c380d898abeac50f1ea6e3a44310
 
 			<div class="add-group-container group" @click.stop>
 				<div class="title-area" v-if="isAddingGroup">
@@ -419,7 +345,6 @@ export default {
 			const action = (memberIdx === -1) ? `added ${user.username} to the board` : `removed ${user.username} from the board`;
 			this.addActivity(action);
 
-<<<<<<< HEAD
         },
         updateMembers(userId, card) {
             const memberIdx = card.members.findIndex(member => member._id === userId);
@@ -579,160 +504,6 @@ export default {
         cardMenuEdit,
         // dashboard
     }
-=======
-		},
-		updateMembers(userId, card) {
-			const memberIdx = card.members.findIndex(member => member._id === userId);
-			const newUser = this.$store.getters.users.find(user => user._id === userId);
-			if (memberIdx === -1) {
-				const newMember = {
-					_id: newUser._id,
-					username: newUser.username,
-					imgUrl: newUser.imgUrl
-				};
-				card.members.push(newMember);
-			} else {
-				card.members.splice(memberIdx, 1);
-			}
-			this.updateCard(card);
-			const loggedinUser = this.$store.getters.loggedinUser;
-			const msg = memberIdx === -1 ? `${newUser.username} was added to '${card.title}' card` : `${newUser.username} was removed from '${card.title}' card`;
-			const alertMsg = memberIdx === -1 ? `Member successfully added` : `Member successfully removed`;
-			socketService.emit('change-board', { msg, members: this.members(loggedinUser) });
-			// ========
-			this.myAlert(alertMsg);
-			const action = (memberIdx === -1) ? `added ${newUser.username} to ` : `removed ${newUser.username} from`;
-			this.addActivity(action, card, null, this.loggedinUser)
-		},
-		updateBoardTitle(boardTitle) {
-			const board = this.board;
-			board.title = boardTitle;
-			this.updateBoard(board);
-		},
-		changeBgc(bgc) {
-			this.$store.commit({ type: 'bgChange', bgc })
-			const board = utilService.deepCopy(this.board);
-			board.style.background = bgc;
-			this.updateBoard(board);
-		},
-		changePrivacy(privacy) {
-			const board = utilService.deepCopy(this.board);
-			board.isPrivate = (privacy === 'private');
-			this.updateBoard(board)
-			const loggedinUser = this.$store.getters.loggedinUser;
-			socketService.emit('change-board', { msg: `${loggedinUser.username} changed the board privacy to ${privacy}`, boardId: board._id, members: this.members(loggedinUser) });
-			// ========
-			this.myAlert('Privacy successfully changed');
-			this.addActivity(`changed the board privacy to ${privacy}`)
-		},
-		deleteBoard(boardId) {
-			this.$store.dispatch('deleteBoard', boardId);
-			setTimeout(() => { this.$router.push('/board'); }, 200)
-		},
-		addActivity(txt, card, comment = null, user = this.user) {
-			this.$store.commit('setEmptyActivity');
-			const activity = utilService.deepCopy(this.$store.getters.emptyActivity);
-			activity.txt = txt;
-			activity.comment = comment;
-			activity.byMember = utilService.deepCopy(user);
-			activity.createdAt = Date.now();
-			if (card) activity.card = {
-				id: card.id,
-				title: card.title,
-			}
-			const board = this.board;
-			board.activities.unshift(activity);
-			this.updateBoard(board);
-		},
-		filter(filterBy) {
-			this.filterBy = filterBy
-		},
-		updateBoardSocket(board) {
-			this.$store.dispatch({ type: 'updateBoard', board });
-		},
-		openEditCard(currCard) {
-			this.cardToEdit = currCard;
-			// this.isCardEdit = true;
-		},
-		setClickPos({ x, y, offsetX, offsetY, target }) {
-			if (this.isCardEdit) return
-			console.dir(target)
-			const imgOffsetX = (target.name === 'edit') ? 8 : 0;
-			const imgOffsetY = (target.name === 'edit') ? 8 : 0;
-			const isScroll = (target.dataset.scroll) ? true : null;
-			const pos = { x, y, width: window.innerWidth, height: window.innerHeight, offsetX: offsetX + imgOffsetX, offsetY: offsetY + imgOffsetY, isScroll }
-			this.clickPos = pos;
-		},
-		setIsEditing(val) {
-			this.isCardEdit = val;
-		},
-		// closeDashboard() {
-		//     this.isDashboard = false;
-		// },
-		members(loggedinUser) {
-			let members = this.board.members.map(member => member._id);
-			members.push(this.board.byMember._id);
-			members = members.filter(memberId => memberId !== loggedinUser._id);
-			return members;
-		},
-		myAlert(title) {
-			Swal.fire({
-				position: 'bottom-end',
-				title,
-				showConfirmButton: false,
-				timer: 2500
-			});
-		},
-		markBoard() {
-			const board = this.board
-			board.isMarked = (board.isMarked) ? false : true;
-			this.updateBoard(board)
-		}
-	},
-	watch: {
-		'$route.params'() {
-			if (this.$route.params.cardId) {
-				this.isDetails = true;
-			}
-			else this.isDetails = false
-		},
-		'$store.getters.loggedinUser'() {
-			if (this.$store.getters.loggedinUser._id === 'guest' && this.board.isPrivate) this.$router.push('/board')
-		}
-	},
-	created() {
-		this.$store.dispatch('loadUsers');
-		if (this.$route.params.cardId) this.isDetails = true;
-		const boardId = this.$route.params.boardId;
-		this.$store.dispatch({ type: 'loadBoard', boardId });
-		setTimeout(() => {
-			if (this.$store.getters.loggedinUser._id === 'guest' && this.board.isPrivate) this.$router.push('/board')
-		}, 500)
-		socketService.emit('set-board', boardId);
-		socketService.on('board-update', this.updateBoardSocket);
-		document.addEventListener('click', (ev) => {
-			this.setClickPos(ev);
-			this.closeAddGroup();
-		})
-	},
-	destroyed() {
-		document.removeEventListener('click', (ev) => {
-			this.setClickPos(ev);
-			this.closeAddGroup();
-		})
-		socketService.off('board-update', this.updateBoardSocket);
-		this.$store.dispatch({ type: 'loadBoard', boardId: null });
-	},
-	components: {
-		group,
-		boardHeader,
-		cardDetails,
-		draggable,
-		boardMenu,
-		cardMenuEdit,
-		// dashboard
-	}
->>>>>>> 03c5612872b2c380d898abeac50f1ea6e3a44310
 }
 </script>
 
