@@ -426,7 +426,6 @@ export default {
 		},
 		setClickPos({ x, y, offsetX, offsetY, target }) {
 			if (this.isCardEdit) return
-			console.dir(target)
 			const imgOffsetX = (target.name === 'edit') ? 8 : 0;
 			const imgOffsetY = (target.name === 'edit') ? 8 : 0;
 			const isScroll = (target.dataset.scroll) ? true : null;

@@ -552,7 +552,6 @@ export default {
             this.addActivity(`deleted the card '${cardTitle}'`);
         },
         moveCard(status) {
-            console.log('status:', status)
             this.$store.commit({ type: 'updateCardStatus', status });
             const board = this.board;
             this.updateBoard(board);
