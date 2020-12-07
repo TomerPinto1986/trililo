@@ -652,6 +652,13 @@
                 right: 10px;
                 top: 10px;
                 padding: 5px 10px;
+                &:hover {
+                    background-color: rgba(9, 30, 66, .15);
+                }
+            }
+
+            &:hover {
+                background-color: unset;
             }
         }
 
