@@ -3,7 +3,7 @@
 }
 
 html {
-    font-family: halvetica, 'Segoe UI', mont, Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Segoe UI', Helvetica, mont, Calibri, sans-serif;
     letter-spacing: normal;
     line-height: 1.8;
     overflow-x: hidden;
@@ -12,7 +12,6 @@ html {
 body {
     margin: 0;
 }
-
 
 h1,
 h2,
@@ -50,7 +49,7 @@ ul {
 }
 
 button {
-    font-family: 'Segoe UI';
+    font-family: 'Segoe UI', Helvetica, mont, Calibri, sans-serif;
     letter-spacing: normal;
     padding: 5px 10px;
     border: none;
@@ -60,14 +59,14 @@ button {
 }
 
 input {
-    font-family: 'Segoe UI', mont, Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Segoe UI', Helvetica, mont, Calibri, sans-serif;
 }
 
 textarea {
-    font-family: 'Segoe UI', mont, Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Segoe UI', Helvetica, mont, Calibri, sans-serif;
     resize: none;
 }
 
 .el-input--small .el-input__inner {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Helvetica, mont, Calibri, sans-serif;
 }
