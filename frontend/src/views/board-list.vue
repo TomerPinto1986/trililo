@@ -26,7 +26,8 @@
 
 <script>
 import boardPreview from '../cmps/board/board-preview.cmp';
-const Swal = require('sweetalert2');
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+// const Swal = require('sweetalert2');
 
 export default {
     data() {

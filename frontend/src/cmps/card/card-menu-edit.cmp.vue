@@ -235,9 +235,10 @@ import addMembers from '@/cmps/custom-elements/add-members.cmp';
 import datePicker from '@/cmps/custom-elements/date-picker.cmp';
 import cardLabels from '@/cmps/card/card-details/card-labels.cmp';
 import cardMove from '@/cmps/card/card-details/card-move.cmp';
-import { utilService } from '@/services/util.service.js'
+import { utilService } from '@/services/util.service.js';
 import { socketService } from '@/services/socket.service';
-const Swal = require('sweetalert2');
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+// const Swal = require('sweetalert2');
 
 export default {
     props: {

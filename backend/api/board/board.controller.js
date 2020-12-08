@@ -6,7 +6,7 @@ async function getBoards(req, res) {
     logger.debug(boards);
     res.send(boards);
 }
-
+ 
 async function getBoard(req, res) {
     const board = await boardService.getById(req.params.id);
     res.send(board);

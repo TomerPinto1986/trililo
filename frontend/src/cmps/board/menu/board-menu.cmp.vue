@@ -53,10 +53,11 @@
 </template>
 
 <script>
-import activityPreview from '../../activity-preview.cmp.vue'
-import boardSearch from './board-search.cmp'
-import bgPicker from './bg-picker.cmp'
-const Swal = require('sweetalert2');
+import activityPreview from '../../activity-preview.cmp.vue';
+import boardSearch from './board-search.cmp';
+import bgPicker from './bg-picker.cmp';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+// const Swal = require('sweetalert2');
 
 export default {
 	props: {
