@@ -1,0 +1,267 @@
+Date : 2020-12-09 09:17:25
+Directory : c:\Users\Eden\Desktop\קורס WEB\trililo
+Total : 190 files,  48447 codes, 440 comments, 564 blanks, all 49451 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          9 |     37,224 |          0 |          7 |     37,231 |
+| Vue        |         39 |      4,892 |         49 |        134 |      5,075 |
+| SCSS       |         32 |      3,465 |         59 |        254 |      3,778 |
+| JavaScript |         44 |      1,642 |        330 |        154 |      2,126 |
+| Log        |          1 |      1,089 |          0 |          1 |      1,090 |
+| XML        |         60 |         64 |          0 |          2 |         66 |
+| HTML       |          2 |         42 |          2 |          4 |         48 |
+| Markdown   |          1 |         27 |          0 |          8 |         35 |
+| CSS        |          2 |          2 |          0 |          0 |          2 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                        | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                           |        190 |     48,447 |        440 |        564 |     49,451 |
+| backend                                                                                                     |         49 |      6,076 |        253 |         77 |      6,406 |
+| backend\api                                                                                                 |         10 |        329 |         11 |         47 |        387 |
+| backend\api\auth                                                                                            |          3 |         77 |          1 |         13 |         91 |
+| backend\api\board                                                                                           |          3 |        108 |          1 |         16 |        125 |
+| backend\api\socket                                                                                          |          1 |         32 |          0 |          1 |         33 |
+| backend\api\user                                                                                            |          3 |        112 |          9 |         17 |        138 |
+| backend\config                                                                                              |          3 |         13 |          6 |          3 |         22 |
+| backend\data                                                                                                |          1 |      1,106 |          0 |          1 |      1,107 |
+| backend\logs                                                                                                |          1 |      1,089 |          0 |          1 |      1,090 |
+| backend\middlewares                                                                                         |          1 |         20 |          0 |          3 |         23 |
+| backend\public                                                                                              |         28 |        412 |        228 |          7 |        647 |
+| backend\public\css                                                                                          |          2 |          2 |          0 |          0 |          2 |
+| backend\public\img                                                                                          |         20 |         22 |          0 |          1 |         23 |
+| backend\public\img\icons                                                                                    |          1 |          3 |          0 |          1 |          4 |
+| backend\public\js                                                                                           |          2 |        125 |        211 |          0 |        336 |
+| backend\services                                                                                            |          2 |         50 |          4 |          7 |         61 |
+| frontend                                                                                                    |        140 |     38,634 |        187 |        486 |     39,307 |
+| frontend\public                                                                                             |          2 |         37 |          2 |          5 |         44 |
+| frontend\public\img                                                                                         |          1 |          3 |          0 |          1 |          4 |
+| frontend\public\img\icons                                                                                   |          1 |          3 |          0 |          1 |          4 |
+| frontend\src                                                                                                |        125 |     21,770 |        130 |        453 |     22,353 |
+| frontend\src\assets                                                                                         |         40 |     12,678 |          0 |          0 |     12,678 |
+| frontend\src\assets\svg                                                                                     |         39 |         39 |          0 |          0 |         39 |
+| frontend\src\cmps                                                                                           |         33 |      3,355 |         15 |        102 |      3,472 |
+| frontend\src\cmps\board                                                                                     |          8 |      1,066 |          5 |         40 |      1,111 |
+| frontend\src\cmps\board\menu                                                                                |          3 |        332 |          1 |         14 |        347 |
+| frontend\src\cmps\card                                                                                      |         14 |      1,545 |          8 |         39 |      1,592 |
+| frontend\src\cmps\card\card-details                                                                         |          9 |        716 |          0 |         21 |        737 |
+| frontend\src\cmps\custom-elements                                                                           |          7 |        338 |          2 |         12 |        352 |
+| frontend\src\router                                                                                         |          1 |         44 |          0 |          4 |         48 |
+| frontend\src\services                                                                                       |          7 |        318 |          1 |         43 |        362 |
+| frontend\src\store                                                                                          |          4 |        321 |         20 |          9 |        350 |
+| frontend\src\store\modules                                                                                  |          3 |        256 |         20 |          6 |        282 |
+| frontend\src\styles                                                                                         |         32 |      3,465 |         59 |        254 |      3,778 |
+| frontend\src\styles\basics                                                                                  |          5 |        318 |         17 |         70 |        405 |
+| frontend\src\styles\cmps                                                                                    |         16 |      2,042 |         12 |        150 |      2,204 |
+| frontend\src\styles\setup                                                                                   |          5 |        154 |          8 |         24 |        186 |
+| frontend\src\styles\views                                                                                   |          5 |        920 |         18 |          8 |        946 |
+| frontend\src\views                                                                                          |          5 |      1,481 |         33 |         28 |      1,542 |
+| frontend\tests                                                                                              |          6 |         39 |         55 |         14 |        108 |
+| frontend\tests\e2e                                                                                          |          5 |         28 |         55 |         12 |         95 |
+| frontend\tests\e2e\plugins                                                                                  |          1 |          9 |         12 |          5 |         26 |
+| frontend\tests\e2e\specs                                                                                    |          1 |          6 |          1 |          2 |          9 |
+| frontend\tests\e2e\support                                                                                  |          2 |          1 |         42 |          4 |         47 |
+| frontend\tests\unit                                                                                         |          1 |         11 |          0 |          2 |         13 |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                    | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\api\auth\auth.controller.js                                  | JavaScript |         39 |          1 |          4 |         44 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\api\auth\auth.routes.js                                      | JavaScript |          8 |          0 |          3 |         11 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\api\auth\auth.service.js                                     | JavaScript |         30 |          0 |          6 |         36 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\api\board\board.controller.js                                | JavaScript |         32 |          0 |          6 |         38 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\api\board\board.routes.js                                    | JavaScript |          9 |          0 |          2 |         11 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\api\board\board.service.js                                   | JavaScript |         67 |          1 |          8 |         76 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\api\socket\socket.routes.js                                  | JavaScript |         32 |          0 |          1 |         33 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\api\user\user.controller.js                                  | JavaScript |         26 |          0 |          5 |         31 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\api\user\user.routes.js                                      | JavaScript |          9 |          2 |          3 |         14 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\api\user\user.service.js                                     | JavaScript |         77 |          7 |          9 |         93 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\config\dev.js                                                | JavaScript |          3 |          3 |          1 |          7 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\config\index.js                                              | JavaScript |          7 |          3 |          2 |         12 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\config\prod.js                                               | JavaScript |          3 |          0 |          0 |          3 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\data\trello.json                                             | JSON       |      1,106 |          0 |          1 |      1,107 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\logs\backend.log                                             | Log        |      1,089 |          0 |          1 |      1,090 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\middlewares\requireAuth.middleware.js                        | JavaScript |         20 |          0 |          3 |         23 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\package-lock.json                                            | JSON       |      2,991 |          0 |          1 |      2,992 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\package.json                                                 | JSON       |         25 |          0 |          1 |         26 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\css\app.ccbcc9ed.css                                  | CSS        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\css\chunk-vendors.17bda910.css                        | CSS        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\activities.a3fe9e3c.svg                           | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\attach.16a6b7ed.svg                               | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\card.f034202f.svg                                 | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\checklist.82ce918e.svg                            | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\clock-white.cf2a4539.svg                          | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\clock.8e82f21f.svg                                | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\clone.23174148.svg                                | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\copy-white.a3c634a5.svg                           | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\cover.a690a1cc.svg                                | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\desc.aa3c6dd7.svg                                 | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\edit.9e2728dd.svg                                 | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\home.2cc23b48.svg                                 | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\icons\safari-pinned-tab.svg                       | XML        |          3 |          0 |          1 |          4 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\label-white.0726ce42.svg                          | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\label.4081ddbf.svg                                | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\member-white.de24630c.svg                         | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\member.01f2d317.svg                               | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\move-white.38303095.svg                           | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\move.336961a7.svg                                 | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\img\txtbox.82448c21.svg                               | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\index.html                                            | HTML       |          8 |          0 |          0 |          8 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\js\app.c4794839.js                                    | JavaScript |          1 |          1 |          0 |          2 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\js\chunk-vendors.07f81064.js                          | JavaScript |        124 |        210 |          0 |        334 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\manifest.json                                         | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\precache-manifest.7c251376d14978f03bedb2ab69be8aeb.js | JavaScript |        242 |          0 |          0 |        242 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\public\service-worker.js                                     | JavaScript |         12 |         17 |          6 |         35 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\server.js                                                    | JavaScript |         41 |          4 |          6 |         51 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\services\db.service.js                                       | JavaScript |         23 |          1 |          4 |         28 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\backend\services\logger.service.js                                   | JavaScript |         27 |          3 |          3 |         33 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\.eslintrc.js                                                | JavaScript |         28 |          0 |          1 |         29 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\README.md                                                   | Markdown   |         27 |          0 |          8 |         35 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\babel.config.js                                             | JavaScript |          5 |          0 |          1 |          6 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\cypress.json                                                | JSON       |          3 |          0 |          1 |          4 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\jest.config.js                                              | JavaScript |          3 |          0 |          1 |          4 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\package-lock.json                                           | JSON       |     16,675 |          0 |          1 |     16,676 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\package.json                                                | JSON       |         47 |          0 |          1 |         48 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\public\img\icons\safari-pinned-tab.svg                      | XML        |          3 |          0 |          1 |          4 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\public\index.html                                           | HTML       |         34 |          2 |          4 |         40 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\app.vue                                                 | Vue        |         56 |          1 |          4 |         61 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\backup.json                                      | JSON       |     12,639 |          0 |          0 |     12,639 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\1stPos.svg                                   | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\2ndPos.svg                                   | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\Logo.svg                                     | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\Muscle.svg                                   | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\activities.svg                               | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\attach.svg                                   | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\card.svg                                     | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\checklist.svg                                | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\clock-white.svg                              | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\clock.svg                                    | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\clone.svg                                    | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\copy-white.svg                               | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\copy.svg                                     | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\cover.svg                                    | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\desc.svg                                     | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\edit.svg                                     | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\eye.svg                                      | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\home.svg                                     | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\label-white.svg                              | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\label.svg                                    | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\logo-title.svg                               | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\logo-title1.1.svg                            | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\logo-title1.2.svg                            | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\logo1.1.svg                                  | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\logo1.2.svg                                  | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\logo1.svg                                    | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\logo2.1.svg                                  | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\logo2.2@2x.svg                               | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\logo2.svg                                    | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\member-white.svg                             | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\member.svg                                   | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\move-white.svg                               | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\move.svg                                     | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\notification.svg                             | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\pen.svg                                      | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\template.svg                                 | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\textbox.svg                                  | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\txtbox.svg                                   | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\assets\svg\‏‏descsmall.svg                              | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\activity-preview.cmp.vue                           | Vue        |         78 |          0 |          3 |         81 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\board\add-users.cmp.vue                            | Vue        |        113 |          3 |          5 |        121 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\board\board-header.cmp.vue                         | Vue        |        200 |          0 |          6 |        206 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\board\board-preview.cmp.vue                        | Vue        |         40 |          0 |          3 |         43 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\board\group-menu.cmp.vue                           | Vue        |         62 |          0 |          3 |         65 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\board\group.cmp.vue                                | Vue        |        319 |          1 |          9 |        329 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\board\menu\bg-picker.cmp.vue                       | Vue        |         83 |          0 |          2 |         85 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\board\menu\board-menu.cmp.vue                      | Vue        |        141 |          1 |          3 |        145 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\board\menu\board-search.cmp.vue                    | Vue        |        108 |          0 |          9 |        117 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\card\card-details\add-checklist.cmp.vue            | Vue        |         38 |          0 |          2 |         40 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\card\card-details\card-activity.cmp.vue            | Vue        |        139 |          0 |          4 |        143 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\card\card-details\card-attachments.cmp.vue         | Vue        |         52 |          0 |          3 |         55 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\card\card-details\card-checklist.cmp.vue           | Vue        |        118 |          0 |          2 |        120 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\card\card-details\card-cover.cmp.vue               | Vue        |        149 |          0 |          2 |        151 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\card\card-details\card-description.cmp.vue         | Vue        |         57 |          0 |          1 |         58 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\card\card-details\card-labels.cmp.vue              | Vue        |         46 |          0 |          2 |         48 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\card\card-details\card-move.cmp.vue                | Vue        |         94 |          0 |          3 |         97 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\card\card-details\pop-up.cmp.vue                   | Vue        |         23 |          0 |          2 |         25 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\card\card-edit.cmp.vue                             | Vue        |          7 |          0 |          4 |         11 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\card\card-menu-edit.cmp.vue                        | Vue        |        496 |          8 |          8 |        512 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\card\card-preview.cmp.vue                          | Vue        |        196 |          0 |          3 |        199 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\card\item-preview.cmp.vue                          | Vue        |         61 |          0 |          1 |         62 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\card\label-preview.cmp.vue                         | Vue        |         69 |          0 |          2 |         71 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\custom-elements\add-members.cmp.vue                | Vue        |         99 |          0 |          2 |        101 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\custom-elements\chart.cmp.vue                      | Vue        |         26 |          1 |          4 |         31 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\custom-elements\check-box.cmp.vue                  | Vue        |         21 |          0 |          0 |         21 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\custom-elements\custom-avatar.cmp.vue              | Vue        |         67 |          0 |          3 |         70 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\custom-elements\date-picker.cmp.vue                | Vue        |         65 |          1 |          1 |         67 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\custom-elements\select-list.cmp.vue                | Vue        |         30 |          0 |          1 |         31 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\custom-elements\select-position.cmp.vue            | Vue        |         30 |          0 |          1 |         31 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\dashboard.cmp.vue                                  | Vue        |         56 |          0 |          2 |         58 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\facebook-login.cmp.vue                             | Vue        |         47 |          0 |          2 |         49 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\cmps\main-header.cmp.vue                                | Vue        |        225 |          0 |          4 |        229 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\main.js                                                 | JavaScript |         23 |          0 |          6 |         29 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\registerServiceWorker.js                                | JavaScript |         29 |          1 |          3 |         33 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\router\routes.js                                        | JavaScript |         44 |          0 |          4 |         48 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\services\activity.service.js                            | JavaScript |         23 |          0 |          5 |         28 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\services\board.service.js                               | JavaScript |        138 |          0 |         10 |        148 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\services\http.service.js                                | JavaScript |         38 |          0 |          5 |         43 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\services\img-upload.service.js                          | JavaScript |         15 |          0 |          1 |         16 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\services\socket.service.js                              | JavaScript |         27 |          0 |          5 |         32 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\services\user.service.js                                | JavaScript |         49 |          1 |         11 |         61 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\services\util.service.js                                | JavaScript |         28 |          0 |          6 |         34 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\store\modules\board.store.js                            | JavaScript |        135 |         19 |          2 |        156 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\store\modules\card.store.js                             | JavaScript |         48 |          0 |          2 |         50 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\store\modules\user.store.js                             | JavaScript |         73 |          1 |          2 |         76 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\store\store.js                                          | JavaScript |         65 |          0 |          3 |         68 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\basics\_base.scss                                | SCSS       |         60 |          0 |         12 |         72 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\basics\_helpers.scss                             | SCSS       |        133 |         17 |         33 |        183 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\basics\_layout.scss                              | SCSS       |         12 |          0 |          0 |         12 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\basics\_scrollbar.scss                           | SCSS       |         35 |          0 |          9 |         44 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\basics\_swal.scss                                | SCSS       |         78 |          0 |         16 |         94 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_activity-preview.scss                      | SCSS       |         54 |          1 |          9 |         64 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_board-header.scss                          | SCSS       |        259 |          0 |          0 |        259 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_board-menu.scss                            | SCSS       |        220 |          1 |         40 |        261 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_board-preview.scss                         | SCSS       |         39 |          0 |          8 |         47 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_card-checklist.scss                        | SCSS       |        105 |          0 |          0 |        105 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_card-cover.scss                            | SCSS       |        320 |          2 |         72 |        394 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_card-description.scss                      | SCSS       |         42 |          0 |          0 |         42 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_card-labels.scss                           | SCSS       |         47 |          0 |          0 |         47 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_card-menu-edit.scss                        | SCSS       |        154 |          1 |          0 |        155 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_card-preview.scss                          | SCSS       |        156 |          1 |          0 |        157 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_dashboard.scss                             | SCSS       |         15 |          0 |          0 |         15 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_group-menu.scss                            | SCSS       |         94 |          0 |          0 |         94 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_group.scss                                 | SCSS       |        206 |          5 |          0 |        211 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_login.scss                                 | SCSS       |         62 |          0 |          0 |         62 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_main-header.scss                           | SCSS       |        164 |          0 |          0 |        164 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\cmps\_pop-up.scss                                | SCSS       |        105 |          1 |         21 |        127 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\setup\_animations.scss                           | SCSS       |         61 |          0 |          8 |         69 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\setup\_functions.scss                            | SCSS       |          7 |          0 |          2 |          9 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\setup\_mixins.scss                               | SCSS       |         48 |          4 |          8 |         60 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\setup\_typography.scss                           | SCSS       |         16 |          0 |          3 |         19 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\setup\_variables.scss                            | SCSS       |         22 |          4 |          3 |         29 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\styles.scss                                      | SCSS       |         31 |          4 |          2 |         37 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\views\_app.scss                                  | SCSS       |          0 |          0 |          1 |          1 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\views\_board-details.scss                        | SCSS       |        109 |          1 |          0 |        110 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\views\_board-list.scss                           | SCSS       |         59 |         11 |          0 |         70 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\views\_card-details.scss                         | SCSS       |        665 |          6 |          7 |        678 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\styles\views\_home-page.scss                            | SCSS       |         87 |          0 |          0 |         87 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\views\board-details.vue                                 | Vue        |        483 |         14 |         10 |        507 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\views\board-list.vue                                    | Vue        |         88 |          6 |          4 |         98 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\views\card-details.vue                                  | Vue        |        749 |         10 |          6 |        765 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\views\home-page.vue                                     | Vue        |         56 |          0 |          6 |         62 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\src\views\login.vue                                         | Vue        |        105 |          3 |          2 |        110 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\tests\e2e\.eslintrc.js                                      | JavaScript |         12 |          0 |          1 |         13 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\tests\e2e\plugins\index.js                                  | JavaScript |          9 |         12 |          5 |         26 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\tests\e2e\specs\test.js                                     | JavaScript |          6 |          1 |          2 |          9 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\tests\e2e\support\commands.js                               | JavaScript |          0 |         25 |          1 |         26 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\tests\e2e\support\index.js                                  | JavaScript |          1 |         17 |          3 |         21 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\frontend\tests\unit\example.spec.js                                  | JavaScript |         11 |          0 |          2 |         13 |
+| c:\Users\Eden\Desktop\קורס WEB\trililo\package-lock.json                                                    | JSON       |      3,737 |          0 |          1 |      3,738 |
+| Total                                                                                                       |            |     48,447 |        440 |        564 |     49,451 |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
