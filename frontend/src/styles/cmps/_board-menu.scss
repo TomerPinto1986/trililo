@@ -252,7 +252,10 @@
 
     @media (max-width: 585px) {
         width: 100%;
-
+        display: block;
+        &.isOut{
+            display: none;
+        }
         
     }
 }

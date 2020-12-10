@@ -9,7 +9,6 @@
 @import 'basics/base';
 @import 'basics/layout';
 @import 'basics/scrollbar';
-@import 'basics/swal';
 // VIEWS
 @import 'views/card-details';
 @import 'views/board-list';
@@ -33,3 +32,6 @@
 @import './cmps/group-menu';
 @import './cmps/dashboard';
 @import './cmps/card-cover';
+
+
+@import 'basics/swal';

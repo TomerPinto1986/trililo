@@ -395,7 +395,8 @@ import cardLabels from '@/cmps/card/card-details/card-labels.cmp';
 import addChecklist from '../cmps/card/card-details/add-checklist.cmp';
 import cardChecklist from '../cmps/card/card-details/card-checklist.cmp';
 import cardDescription from '../cmps/card/card-details/card-description.cmp';
-const Swal = require('sweetalert2');
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+// const Swal = require('sweetalert2');
 
 export default {
     data() {

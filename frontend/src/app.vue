@@ -10,7 +10,8 @@
 <script>
 import mainHeader from './cmps/main-header.cmp';
 import { socketService } from './services/socket.service';
-const Swal = require('sweetalert2');
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+// const Swal = require('sweetalert2');
 
 export default {
     computed: {

@@ -122,8 +122,10 @@
 import draggable from 'vuedraggable'
 import cardPreview from '../card/card-preview.cmp';
 import groupMenu from './group-menu.cmp'
-import { utilService } from '@/services/util.service'
-const Swal = require('sweetalert2');
+import { utilService } from '@/services/util.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
+// const Swal = require('sweetalert2');
 
 export default {
     props: {
