@@ -12,6 +12,7 @@ import VueInputAutowidth from 'vue-input-autowidth';
 import 'sweetalert2/src/sweetalert2.scss'
 import Vue2TouchEvents from 'vue2-touch-events'
 import '@/styles/styles.scss';
+import Vue2TouchEvents from 'vue2-touch-events'
 
 
 

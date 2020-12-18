@@ -68,3 +68,14 @@
         color: #606266;
     }
 }
+
+@media (max-width: 400px) {
+    .board-list-container {
+        h3 {
+            margin-block-start: 20px;
+        }
+        .board-list {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+    }
+}
