@@ -1,5 +1,5 @@
 <template>
-	<section class="card-preview flex f-col" @click="emitOpenDetails">
+	<section class="card-preview flex f-col" @click="emitOpenDetails" @touch:tap="emitOpenDetails">
 		<div>
 			<i
 				data-name="card-edit-menu"

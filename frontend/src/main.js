@@ -10,12 +10,14 @@ import VueDragscroll from 'vue-dragscroll'
 import moment from 'moment';
 import VueInputAutowidth from 'vue-input-autowidth';
 import 'sweetalert2/src/sweetalert2.scss'
+import Vue2TouchEvents from 'vue2-touch-events'
 import '@/styles/styles.scss';
 
 
 
 
 
+Vue.use(Vue2TouchEvents)
 Vue.use(VueInputAutowidth);
 Vue.use(VueDragscroll);
 Vue.use(ElementUI, { locale });
