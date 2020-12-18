@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.7c251376d14978f03bedb2ab69be8aeb.js"
+  "/precache-manifest.0b1f0a92148bf58cc9a1d3bb6e74abd5.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "taskules"});
