@@ -1,5 +1,5 @@
 <template>
-	<section class="card-preview flex f-col" @click="emitOpenDetails">
+	<section class="card-preview flex f-col" @click="emitOpenDetails" v-touch="handleTouch">
 		<div>
 			<i
 				data-name="card-edit-menu"
@@ -139,6 +139,7 @@ export default {
 	data() {
 		return {
 			isEditing: false,
+			isTouch: false
 		}
 	},
 	computed: {
@@ -187,10 +188,17 @@ export default {
 			this.$emit('openEditCard', this.card);
 			this.isEditing = true;
 		},
-		emitOpenDetails() {
+		handleTouch() {
+			this.isTouch = true;
 			if (!this.isEditing) this.$emit('openDetails', this.card.id);
 			this.isEditing = false;
-		}
+		},
+		emitOpenDetails() {
+			if (this.isTouch) return
+			if (!this.isEditing) this.$emit('openDetails', this.card.id);
+			this.isEditing = false;
+		},
+		
 	},
 	components: {
 		customAvatar,
