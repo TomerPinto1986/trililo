@@ -2,7 +2,7 @@
     position: relative;
     width: 295px;
     height: fit-content;
-    max-height: 800px;
+    max-height: calc(100vh - 135px);
     align-items: center;
     cursor: pointer;
     background-color: #EBECF0;
@@ -206,6 +206,6 @@
         }
     }
     @media (max-width: 585px) {
-        max-height: calc(100vh - 135px);
+        // max-height: calc(100vh - 135px);
     }
 }

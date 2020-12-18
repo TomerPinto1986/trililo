@@ -34,6 +34,25 @@
 			<ul>
 				<li
 					class="filter-li"
+					@click="setFilter('member', member._id)"
+				>
+					<custom-avatar
+						class="item"
+						:size="30"
+						:username="board.byMember.username"
+						:src="board.byMember.imgUrl"
+					></custom-avatar>
+
+					<div class="member">
+						{{ board.byMember.username }}
+					</div>
+					<i
+						v-if="isChecked('member', board.byMember._id)"
+						class="item-check fas fa-check"
+					></i>
+				</li>
+				<li
+					class="filter-li"
 					v-for="member in board.members"
 					:key="member._id"
 					@click="setFilter('member', member._id)"
