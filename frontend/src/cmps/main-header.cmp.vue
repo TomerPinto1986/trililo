@@ -148,7 +148,7 @@
 			<div class="sm-header flex f-col" v-if="isShowNav">
 				<div @click="goTo('/')" class="nav-link">Home Page</div>
 
-				<div @click="goTo('board')" class="nav-link">Boards</div>
+				<div @click="goTo('/board')" class="nav-link">Boards</div>
 
 				<div @click="goTo('/login')" class="nav-link">Login</div>
 
