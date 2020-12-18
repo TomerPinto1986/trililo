@@ -1,4 +1,4 @@
-# trililo
+# taskules
 
 ## Project setup
 ```

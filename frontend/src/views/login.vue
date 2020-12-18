@@ -42,7 +42,7 @@ export default {
 			return this.isSignup ? 'Sign up' : 'Continue';
 		},
 		linkTxt() {
-			return this.isSignup ? 'Already have a Trililo account? Log in' : 'Sign up for an account';
+			return this.isSignup ? 'Already have a Taskules account? Log in' : 'Sign up for an account';
 		},
 		to() {
 			return this.isSignup ? '/login' : '/signup';

@@ -17,7 +17,7 @@ importScripts(
   "/precache-manifest.7c251376d14978f03bedb2ab69be8aeb.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "trililo"});
+workbox.core.setCacheNameDetails({prefix: "taskules"});
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
