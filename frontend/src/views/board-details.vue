@@ -132,7 +132,8 @@ import cardMenuEdit from '@/cmps/card/card-menu-edit.cmp';
 // import dashboard from '@/cmps/dashboard.cmp'
 import { utilService } from '@/services/util.service';
 import { socketService } from '@/services/socket.service';
-const Swal = require('sweetalert2');
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+// const Swal = require('sweetalert2');
 
 export default {
     data() {

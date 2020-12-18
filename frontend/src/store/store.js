@@ -36,7 +36,6 @@ export default new Vuex.Store({
         bgSrcs: [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12],
         sBgSrcs: [sBg1, sBg2, sBg3, sBg4, sBg5, sBg6, sBg7, sBg8, sBg9, sBg10, sBg11, sBg12],
         clickPos: ''
-
     },
     getters: {
         bgc(state) {
